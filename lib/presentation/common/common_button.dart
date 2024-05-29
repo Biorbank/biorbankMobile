@@ -1,5 +1,6 @@
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommonButton extends StatelessWidget {
   final String? name;
@@ -12,12 +13,12 @@ class CommonButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       onTap: onTap,
       child: Container(
-        height: 50,
+        height: 50.h,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.r),
           color: buttonColor ?? Theme.of(context).colorScheme.onPrimary,
           boxShadow: buttonColor == null ? [
             BoxShadow(
@@ -33,9 +34,9 @@ class CommonButton extends StatelessWidget {
           children: [
             image != null ? Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: Image.asset(image!,height: 20,width: 20,fit: BoxFit.cover,),
+              child: Image.asset(image!,height: 20.h,width: 20.w,fit: BoxFit.cover,),
             ) : const SizedBox.shrink(),
-            AppConstant.commonText(name ?? "",fontSize: 16,fontWeight: FontWeight.w500,color: textColor)
+            AppConstant.commonText(name ?? "",fontSize: 16.sp,fontWeight: FontWeight.w500,color: textColor)
           ],
         ),
       ),
