@@ -95,10 +95,10 @@ class _LoginViewState extends State<LoginView> with Validation {
               height(25.h),
               CommonButton(
                 name: AppStrings.unlock,
-                textColor: AppColors.white,
+                textColor:Theme.of(context).colorScheme.onSurface,
                 onTap: () {
                   if (cubit.formKey.currentState?.validate() ?? false) {
-                    Navigator.pushNamed(context, Routes.homeRoute);
+                    Navigator.pushReplacementNamed(context, Routes.homeRoute);
                   }
                 },
               ),
@@ -113,7 +113,7 @@ class _LoginViewState extends State<LoginView> with Validation {
                 name: AppStrings.resetWallet,
                 onTap: () {},
                 fontWeight: FontWeight.w500,
-                textColor: AppColors.blue,
+                textColor: Theme.of(context).colorScheme.onPrimary,
               )
             ],
           ),

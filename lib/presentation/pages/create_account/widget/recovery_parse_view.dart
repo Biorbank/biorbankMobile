@@ -27,62 +27,73 @@ class RecoveryParseView extends StatelessWidget {
             fontWeight: FontWeight.w600,
             color: AppColors.black),
         height(20.h),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10.0,
-            childAspectRatio: 3.5,
-            mainAxisSpacing: 15.0,
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(6), color: const Color(0xFFF6F5FA)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.0,
+                  childAspectRatio: 3.5,
+                  mainAxisSpacing: 15.0,
+                ),
+                itemCount: Global.recoveryPhraseList.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.grey100),
+                        borderRadius: BorderRadius.circular(100.r),
+                        color: const Color.fromRGBO(255, 255, 255, 1)),
+                    child: Center(
+                      child: AppConstant.commonText(
+                          '${index + 1}. ${Global.recoveryPhraseList[index]}',
+                          color: AppColors.black,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  );
+                },
+              ),
+              height(25.h),
+              BlocBuilder<CreateAccountCubit, CreateAccountState>(
+                builder: (context, state) {
+                  if (state is RecoveryPhraseSelectedState) {
+                    FlutterClipboard.copy(state.phraseData).then((_) {
+                      AppConstant.showToast(msg: 'Copied');
+                    });
+                    cubit.refreshState();
+                  }
+                  return GestureDetector(
+                    onTap: () {
+                      cubit.copyToClipboard();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AppConstant.commonText('Copy to clipboard',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.onPrimary),
+                        width(8.w),
+                        Image.asset(
+                          Assets.imagesCopy,
+                          height: 20.h,
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
+              height(5.h),
+            ],
           ),
-          itemCount: Global.recoveryPhraseList.length,
-          itemBuilder: (context, index) {
-            return Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.grey100),
-                  borderRadius: BorderRadius.circular(100.r),
-                  color: const Color.fromRGBO(255, 255, 255, 1)),
-              child: Center(
-                child: AppConstant.commonText(
-                    '${index + 1}. ${Global.recoveryPhraseList[index]}',
-                    color: AppColors.black,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500),
-              ),
-            );
-          },
-        ),
-        height(25.h),
-        BlocBuilder<CreateAccountCubit, CreateAccountState>(
-          builder: (context, state) {
-            if (state is RecoveryPhraseSelectedState) {
-              FlutterClipboard.copy(state.phraseData).then((_) {
-                AppConstant.showToast(msg: 'Copied');
-              });
-              cubit.refreshState();
-            }
-            return GestureDetector(
-              onTap: () {
-                cubit.copyToClipboard();
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppConstant.commonText('Copy to clipboard',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.blue),
-                  width(8.w),
-                  Image.asset(
-                    Assets.imagesCopy,
-                    height: 20.h,
-                  )
-                ],
-              ),
-            );
-          },
         ),
         height(25.h),
         const InstructionWidget(),

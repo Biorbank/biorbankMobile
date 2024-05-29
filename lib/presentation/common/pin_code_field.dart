@@ -39,20 +39,20 @@ class CommonPinCodeTextField extends StatelessWidget {
         child: Container(
           // width: 8,
           // height: 8,
-          decoration:    BoxDecoration(color: AppColors.blue, shape: BoxShape.circle),
+          decoration:    BoxDecoration(color:Theme.of(context).colorScheme.onPrimary, shape: BoxShape.circle),
         ),
       ),
       autoDisposeControllers: false,
       pinTheme: PinTheme(
         shape: PinCodeFieldShape.circle,
         fieldHeight: 26,
-        activeColor: AppColors.blue,
+        activeColor: Theme.of(context).colorScheme.onPrimary,
         fieldWidth: 26,
-        activeFillColor: AppColors.blue ,
+        activeFillColor: Theme.of(context).colorScheme.onPrimary ,
         fieldOuterPadding: const EdgeInsets.symmetric(horizontal: 12),
         borderRadius: BorderRadius.circular(30),
         inactiveColor: AppColors.black,
-        selectedColor: AppColors.blue,
+        selectedColor: Theme.of(context).colorScheme.onPrimary,
       ),
     );
   }

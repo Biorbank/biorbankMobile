@@ -11,4 +11,8 @@ class AppStrings {
   static String forgetPassword="Forget password?";
   static String createNewAccount="Create New Account";
   static String recoveryPhrase="Recovery Phrase";
+  static String importExsitingAccount="Import an Exsiting Account";
+  static String pharseOrKey="Phrase / Key";
+  static String jsonFile="Json file";
+  static String connectHardwareWallet="Connect Hardware Wallet";
 }

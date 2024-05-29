@@ -87,7 +87,7 @@ class _UnlockPinViewState extends State<UnlockPinView> {
                         height(20.h),
                         CommonTextButton(
                           name: AppStrings.forgetPassword,
-                          textColor: AppColors.blue,
+                          textColor: Theme.of(context).colorScheme.onPrimary,
                           fontWeight: FontWeight.w500,
                           onTap: () {},
                         )

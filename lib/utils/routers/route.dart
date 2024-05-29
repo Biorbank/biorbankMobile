@@ -3,6 +3,8 @@ class Routes {
   static const String welcomeScreenRoute = '/welcome';
   static const String loginScreenRoute = '/login';
   static const String pinScreenRoute = '/pin';
-  static const String createAccountRoute = '/create_account';
+  static const String createAccountRoute = '/createAccount';
   static const String homeRoute = '/home';
+  static const String importExistingAccountRoute = '/importExistingAccount';
+  static const String connectHardwareWalletRoute = '/connectHardwareRoute';
 }

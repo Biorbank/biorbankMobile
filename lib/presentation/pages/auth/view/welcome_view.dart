@@ -39,7 +39,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ],
                 ),
                 height(15),
-                CommonButton(name: "Import an Existing Account",buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,),
+                CommonButton(name: "Import an Existing Account",buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,onTap: (){
+                  Navigator.pushNamed(context, Routes.importExistingAccountRoute);
+                },),
                 height(15),
                 CommonButton(name: "Cold Storage",buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,),
                 height(10),

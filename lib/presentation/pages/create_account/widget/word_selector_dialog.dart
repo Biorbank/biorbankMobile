@@ -14,7 +14,7 @@ class WordSelectorDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       alignment: Alignment.center,
-      backgroundColor: AppColors.white,
+      backgroundColor:Theme.of(context).colorScheme.onSurface,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(

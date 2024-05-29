@@ -12,5 +12,9 @@ class Assets {
   static const String imagesBackArrow = 'assets/images/back_arrow.png';
   static const String imagesCopy = 'assets/images/copy.png';
   static const String imagesDanger = 'assets/images/danger.png';
+  static const String imagesScan = 'assets/images/scan.png';
+  static const String imagesUploadCloud = 'assets/images/upload_cloud.png';
+  static const String imagesConnect = 'assets/images/connect.png';
+  static const String imagesPhone = 'assets/images/phone.png';
 
 }

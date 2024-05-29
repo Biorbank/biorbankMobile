@@ -59,13 +59,13 @@ class CommonTextfield extends StatelessWidget {
       this.onTapSuffixWidget,
       this.enabled = true});
 
-  Widget _getTitle() {
+  Widget _getTitle(BuildContext context) {
     if (title.isNotEmpty) {
       return Text(
         title,
         style: TextStyle(
           fontWeight: FontWeight.w500,
-            color: isShowTitle ?? true ? Colors.black : Colors.transparent),
+            color: isShowTitle ?? true ? Theme.of(context).colorScheme.shadow : Colors.transparent),
       );
     }
 
@@ -79,7 +79,7 @@ class CommonTextfield extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _getTitle(),
+          _getTitle(context),
           (isShowSpaceAfterTitle ?? true)
               ? const SizedBox(
                   height: 8.0,
@@ -106,20 +106,20 @@ class CommonTextfield extends StatelessWidget {
                 onTap: onTapSuffixWidget,
                 child: suffixWidget):null,
               prefixIcon: prefixWidget,
-              errorStyle: TextStyle(color: AppColors.red),
+              errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
               hintText: hintText,
               fillColor: fillColor ??
                   ((isFilled ?? false)
-                      ? AppColors.white
-                      : AppColors.transparent),
-              filled: isFilled ?? false,
+                      ? Theme.of(context).colorScheme.onSurface
+                      : const Color(0xFFF6F8FC)),
+              filled: isFilled ?? true,
               hintStyle: hintStyle ??
                   TextStyle(
                       color: AppColors.grey, fontWeight: FontWeight.normal,fontSize: 15),
               counterText: '',
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color:AppColors.red),
+                borderSide: BorderSide(color:Theme.of(context).colorScheme.error),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -128,11 +128,11 @@ class CommonTextfield extends StatelessWidget {
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color:  AppColors.blue),
+                borderSide: BorderSide(color:  Theme.of(context).colorScheme.onPrimary),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(color: AppColors.blue),
+                borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
               ),
               contentPadding: EdgeInsets.symmetric(
                 vertical: maxLines == 1 ? 0.0 : 8.0,
@@ -141,7 +141,7 @@ class CommonTextfield extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide: BorderSide(
-                    color: AppColors.grey.withOpacity(0.1)),
+                    color: AppColors.transparent),
               ),
             ),
             keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
@@ -155,7 +155,7 @@ class CommonTextfield extends StatelessWidget {
                   padding:
                       const EdgeInsets.only(left: 5.0, top: 4.0, bottom: 4),
                   child: AppConstant.commonText(errorMsg ?? "",
-                      fontSize: 11, color: AppColors.red)),
+                      fontSize: 11, color: Theme.of(context).colorScheme.error)),
         ],
       ),
     );

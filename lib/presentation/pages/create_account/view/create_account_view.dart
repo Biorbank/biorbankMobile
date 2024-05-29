@@ -101,7 +101,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                             Routes.homeRoute,
                             (route) => false,
                           );
-                        } else {}
+                        }
                       }
                     },
                   ),
