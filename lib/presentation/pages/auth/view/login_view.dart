@@ -5,7 +5,6 @@ import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/preferences.dart';
 import 'package:biorbank/utils/routers/route.dart';
 import 'package:biorbank/utils/validation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,7 +98,7 @@ class _LoginViewState extends State<LoginView> with Validation {
                 textColor: AppColors.white,
                 onTap: () {
                   if (cubit.formKey.currentState?.validate() ?? false) {
-                    Navigator.pushNamed(context, Routes.pinScreenRoute);
+                    Navigator.pushNamed(context, Routes.homeRoute);
                   }
                 },
               ),

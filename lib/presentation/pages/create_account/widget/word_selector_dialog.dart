@@ -32,74 +32,88 @@ class WordSelectorDialog extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    const Spacer(),
-                    AppConstant.commonText('Write the following to continue',
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.shadow),
-                    const Spacer(),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          alignment: Alignment.centerRight,
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.close,
-                            color: AppColors.grey,
-                          )),
-                    )
-                  ],
-                ),
-                height(14.h),
-                AppConstant.commonText(" ''${cubit.word}'' ",
-                    textAlign: TextAlign.center,
-                    color: Theme.of(context).colorScheme.shadow,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-                height(30.h),
-                AppConstant.commonText(cubit.selectedWords.join(''),
-                    color: Theme.of(context).colorScheme.shadow, fontSize: 16),
-                height(5.h),
-                AppConstant.commonDivider(color: AppColors.grey100),
-                height(25.h),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10.0,
-                    childAspectRatio: 3.5,
-                    mainAxisSpacing: 15.0,
-                  ),
-                  itemCount: cubit.wordData.length,
-                  itemBuilder: (context, index) {
-                    var data = cubit.wordData[index];
-                    return GestureDetector(
-                      onTap: () {
-                        cubit.onSelectWord(word: data);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.grey100),
-                            borderRadius: BorderRadius.circular(100.r),
-                            color: AppColors.blue20),
-                        child: Center(
-                          child: AppConstant.commonText(data,
-                              color: AppColors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        height(6.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            const Spacer(),
+                            AppConstant.commonText(
+                                'Write the following to continue',
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.shadow),
+                            const Spacer(),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                  alignment: Alignment.centerRight,
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: AppColors.grey,
+                                  )),
+                            )
+                          ],
                         ),
-                      ),
-                    );
-                  },
+                        height(14.h),
+                        AppConstant.commonText(" ''${cubit.word}'' ",
+                            textAlign: TextAlign.center,
+                            color: Theme.of(context).colorScheme.shadow,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                        height(30.h),
+                        AppConstant.commonText(cubit.selectedWords.join(''),
+                            color: Theme.of(context).colorScheme.shadow,
+                            fontSize: 16),
+                        height(5.h),
+                        AppConstant.commonDivider(color: AppColors.grey100),
+                        height(25.h),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10.0,
+                            childAspectRatio: 3.5,
+                            mainAxisSpacing: 15.0,
+                          ),
+                          itemCount: cubit.wordData.length,
+                          itemBuilder: (context, index) {
+                            var data = cubit.wordData[index];
+                            return GestureDetector(
+                              onTap: () {
+                                cubit.onSelectWord(word: data);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: AppColors.grey100),
+                                    borderRadius: BorderRadius.circular(100.r),
+                                    color: AppColors.blue20),
+                                child: Center(
+                                  child: AppConstant.commonText(data,
+                                      color: AppColors.black,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        height(25.h),
+                      ],
+                    ),
+                  ),
                 ),
-                const Spacer(),
                 CommonButton(
                   name: 'Next',
                   onTap: () {
