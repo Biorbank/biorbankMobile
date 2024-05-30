@@ -7,6 +7,7 @@ import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -99,7 +100,9 @@ class ConnectHardwareWalletView extends StatelessWidget {
                             color: AppColors.grey,textAlign: TextAlign.center),
                       ),
                       height(18.h),
-                      CommonOutlinedButton(onTap: () {}, title: 'Connect'),
+                      CommonOutlinedButton(onTap: () {
+                        Navigator.pushNamed(context, Routes.newAccountCreateRoute);
+                      }, title: 'Connect'),
                     ],
                   ),
                 ),

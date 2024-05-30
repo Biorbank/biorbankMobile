@@ -3,7 +3,6 @@ import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import
 import 'package:biorbank/presentation/pages/import_exsiting_account/widget/json_file_widget_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/widget/phrase_key_widget.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
-import 'package:biorbank/utils/routers/app_router.dart';
 import 'package:biorbank/utils/routers/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +28,9 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
+    tabController.addListener((){
+      context.read<ImportExsitingAccountCubit>().changeTabIndex(index: tabController.index);
+    });
     super.initState();
   }
 
@@ -63,7 +65,6 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                     child: TabBar(
                       indicatorColor: AppColors.transparent,
                       onTap: (value) {
-                        cubit.changeTabIndex(index: value);
                       },
                       tabs: [
                         Container(
@@ -84,12 +85,12 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 2),
                           child: AppConstant.commonText(AppStrings.pharseOrKey,
-                              fontWeight: tabController.index == 0
+                              fontWeight:  cubit.tabIndex== 0
                                   ? FontWeight.w600
                                   : FontWeight.w500),
                         ),
                         Container(
-                          decoration: tabController.index == 1
+                          decoration: cubit.tabIndex == 1
                               ? BoxDecoration(
                                   color: AppColors.blue50,
                                   borderRadius: BorderRadius.circular(6),
@@ -106,7 +107,7 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 2),
                           child: AppConstant.commonText(AppStrings.jsonFile,
-                              fontWeight: tabController.index == 1
+                              fontWeight:  cubit.tabIndex == 1
                                   ? FontWeight.w600
                                   : FontWeight.w500),
                         ),
@@ -132,11 +133,11 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                 CommonButton(
                   name: 'Next',
                   onTap: () {
-                    if (tabController.index == 0 &&
+                    if ( cubit.tabIndex == 0 &&
                         (cubit.formKey.currentState?.validate() ?? false)) {
                       tabController.animateTo(1);
                     } else {
-                      if (tabController.index == 1) {
+                      if ( cubit.tabIndex== 1) {
                         Navigator.pushNamed(
                             context, Routes.connectHardwareWalletRoute);
                       }

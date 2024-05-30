@@ -10,3 +10,7 @@ final class TabIndexChangeState extends ImportExsitingAccountState {
   final int index;
   TabIndexChangeState({required this.index});
 }
+final class ChainChangeState extends ImportExsitingAccountState {
+  final int index;
+  ChainChangeState({required this.index});
+}

@@ -92,6 +92,7 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
                       : Icon(Icons.visibility_off_outlined,
                           color: AppColors.black),
                 ),
+                height(15.h)
               ],
             ),
           ),

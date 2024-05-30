@@ -4,6 +4,7 @@ import 'package:biorbank/presentation/pages/create_account/view/create_account_v
 import 'package:biorbank/presentation/pages/home/view/home_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_exsiting_account_view.dart';
+import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
 import 'package:biorbank/presentation/pages/splash/splash_view.dart';
 import 'package:biorbank/utils/routers/route.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,10 @@ class AppRouter {
       case Routes.connectHardwareWalletRoute:
         return MaterialPageRoute(
           builder: (_) => const ConnectHardwareWalletView(),
+        );
+      case Routes.newAccountCreateRoute:
+        return MaterialPageRoute(
+          builder: (_) => const NewAccountCreateView(),
         );
 
       default:

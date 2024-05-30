@@ -7,4 +7,5 @@ class Routes {
   static const String homeRoute = '/home';
   static const String importExistingAccountRoute = '/importExistingAccount';
   static const String connectHardwareWalletRoute = '/connectHardwareRoute';
+  static const String newAccountCreateRoute = '/newAccountRoute';
 }

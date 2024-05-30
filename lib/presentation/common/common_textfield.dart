@@ -115,7 +115,7 @@ class CommonTextfield extends StatelessWidget {
               filled: isFilled ?? true,
               hintStyle: hintStyle ??
                   TextStyle(
-                      color: AppColors.grey, fontWeight: FontWeight.normal,fontSize: 15),
+                      color:  Theme.of(context).colorScheme.onSecondaryContainer, fontWeight: FontWeight.normal,fontSize: 15),
               counterText: '',
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
