@@ -98,7 +98,7 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               value: cubit.createPasswordController.text);
                           Navigator.pushNamedAndRemoveUntil(
                             context,
-                            Routes.homeRoute,
+                            Routes.dashboardRoute,
                             (route) => false,
                           );
                         }

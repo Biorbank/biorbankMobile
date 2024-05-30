@@ -21,6 +21,7 @@ const blueColorScheme = ColorScheme(
     onSurface: Color(0xFFFFFFFF),
     inversePrimary:  Color(0xFFF7F8FA),
     shadow: Colors.black,
+    onTertiary: Color(0xFF2BD56F),
     onSecondaryContainer: Color(0xFFA5A5A5),
     onSecondaryFixed: Color(0xFFE9E9E9),
     errorContainer: Color(0xFFF6F8FC));

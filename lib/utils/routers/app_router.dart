@@ -1,7 +1,7 @@
 import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/login_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
-import 'package:biorbank/presentation/pages/home/view/home_view.dart';
+import 'package:biorbank/presentation/pages/dashboard/view/dashboard_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_exsiting_account_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
@@ -36,9 +36,9 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const CreateAccountView(),
         );
-      case Routes.homeRoute:
+      case Routes.dashboardRoute:
         return MaterialPageRoute(
-          builder: (_) => const HomeView(),
+          builder: (_) => const DashboardView(),
         );
       case Routes.importExistingAccountRoute:
         return MaterialPageRoute(

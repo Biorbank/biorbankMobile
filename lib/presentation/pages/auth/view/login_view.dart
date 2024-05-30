@@ -98,7 +98,7 @@ class _LoginViewState extends State<LoginView> with Validation {
                 textColor:Theme.of(context).colorScheme.onSurface,
                 onTap: () {
                   if (cubit.formKey.currentState?.validate() ?? false) {
-                    Navigator.pushReplacementNamed(context, Routes.homeRoute);
+                    Navigator.pushReplacementNamed(context, Routes.dashboardRoute);
                   }
                 },
               ),

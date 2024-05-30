@@ -1,4 +1,6 @@
 
+import 'package:flutter/material.dart';
+
 class Global {
   static  List<String> recoveryPhraseList = [
     'sample',
@@ -14,5 +16,5 @@ class Global {
     'answer',
     'lazy'
   ];
-
+ static GlobalKey<ScaffoldState> scaffoldKey=GlobalKey<ScaffoldState>();
 }

@@ -22,6 +22,7 @@ class CommonTextfield extends StatelessWidget {
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatter;
   final double? titleFontSize;
+  final double? borderRadius;
   final String? Function(String?)? validator;
   final bool? isShowSpaceAfterTitle;
   final GestureTapCallback? textFieldOnTap;
@@ -30,13 +31,16 @@ class CommonTextfield extends StatelessWidget {
   final bool enabled;
   final Color? fillColor;
   final VoidCallback? onTapSuffixWidget;
-
+final Color? cursorColor;
+final Color? textColor;
   const CommonTextfield(
       {super.key,
       required this.title,
       this.onChanged,
+      this.borderRadius,
       this.isRequired = false,
       this.hintText = '',
+      this.textColor,
       this.inputFormatter,
       this.inputType,
       this.validator,
@@ -48,6 +52,7 @@ class CommonTextfield extends StatelessWidget {
       this.initialVal,
       this.isReadOnly,
       this.hintStyle,
+      this.cursorColor,
       this.maxLength,
       this.isShowTitle,
       this.controller,
@@ -99,7 +104,7 @@ class CommonTextfield extends StatelessWidget {
                 maxLines == 1 ? TextInputAction.done : TextInputAction.newline,
             obscureText: obscureText,
             readOnly: isReadOnly ?? false,
-            maxLength: maxLength,
+            maxLength: maxLength,cursorColor:cursorColor ,
             decoration: InputDecoration(
               errorMaxLines: 3,
               suffixIcon:suffixWidget!=null? GestureDetector(
@@ -118,20 +123,20 @@ class CommonTextfield extends StatelessWidget {
                       color:  Theme.of(context).colorScheme.onSecondaryContainer, fontWeight: FontWeight.normal,fontSize: 15),
               counterText: '',
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
                 borderSide: BorderSide(color:Theme.of(context).colorScheme.error),
               ),
               disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
                 borderSide: BorderSide(
                     color: AppColors.grey.withOpacity(0.1)),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
                 borderSide: BorderSide(color:  Theme.of(context).colorScheme.onPrimary),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
                 borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
               ),
               contentPadding: EdgeInsets.symmetric(
@@ -139,13 +144,13 @@ class CommonTextfield extends StatelessWidget {
                 horizontal: 14.0,
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
                 borderSide: BorderSide(
                     color: AppColors.transparent),
               ),
             ),
             keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
-            style: TextStyle(fontSize: 15,color: AppColors.black),
+            style: TextStyle(fontSize: 15,color:textColor?? Theme.of(context).colorScheme.shadow),
             onChanged: onChanged,
             initialValue: initialVal,
           ),

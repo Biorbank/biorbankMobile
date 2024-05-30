@@ -1,4 +1,6 @@
 import 'package:biorbank/presentation/pages/auth/cubit/auth_cubit.dart';
+import 'package:biorbank/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
 import 'package:biorbank/utils/Theme/primary_theme.dart';
 import 'package:biorbank/utils/preferences.dart';
@@ -38,6 +40,12 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<ImportExsitingAccountCubit>(
               create: (BuildContext context) => ImportExsitingAccountCubit(),
+            ),
+            BlocProvider<DashboardCubit>(
+              create: (BuildContext context) => DashboardCubit(),
+            ),
+            BlocProvider<HomeCubit>(
+              create: (BuildContext context) => HomeCubit(),
             ),
           ],
           child: MaterialApp(
