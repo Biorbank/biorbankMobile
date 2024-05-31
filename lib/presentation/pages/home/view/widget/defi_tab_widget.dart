@@ -5,23 +5,22 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HoldingTabWidget extends StatelessWidget {
-  const HoldingTabWidget({super.key,required this.scrollController});
-final ScrollController scrollController;
+class DeFiTabWidget extends StatelessWidget {
+  const DeFiTabWidget({super.key, required this.scrollController});
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: scrollController,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           height(15.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               children: [
-                AppConstant.commonText('My Accounts',
+                AppConstant.commonText('Defi',
                     color: Theme.of(context).colorScheme.shadow,
                     fontSize: 16,
                     fontWeight: FontWeight.w600),
@@ -37,22 +36,23 @@ final ScrollController scrollController;
           ListView.separated(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => height(10.h),
             itemCount: 2,
-            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => PriceDetailWidget(
-              title: 'Account ${index + 1}',
+              title: index == 0 ? 'Staking' : 'Liquidity Providing (LP)',
               currentAmt: '\$74,200.00',
-              differentAmt: '+643.67',
-              isProfit: true,
-              totalDifferentInPercentage: '+1.23%',
+              differentAmt: index == 0 ? '+643.67' : '-643.67',
+              isProfit: index == 0,
+              totalDifferentInPercentage: index == 0 ? '+1.23%' : '-1.23%',
             ),
           ),
           height(15.h),
-          AddAccountWidget(onTap: (){},)
+          AddAccountWidget(
+            onTap: () {},
+          )
         ],
       ),
     );
   }
 }
-

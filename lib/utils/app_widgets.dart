@@ -6,9 +6,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class AppConstant{
 
-  static Widget commonText(String text,{double? fontSize, Color? color, FontWeight? fontWeight,TextAlign? textAlign}){
+  static Widget commonText(String text,{double? fontSize, Color? color, FontWeight? fontWeight,TextAlign? textAlign,int? maxLines,TextOverflow? textOverflow}){
     return Text(text,
     textAlign: textAlign,
+    maxLines: maxLines,
+    overflow: textOverflow,
     style: TextStyle(
       color: color,
       fontSize: fontSize  ,

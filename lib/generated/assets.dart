@@ -35,5 +35,8 @@ class Assets {
   static const String imagesArrowUp = 'assets/images/arrow_up.png';
   static const String imagesBitcoinRefresh = 'assets/images/bitcoin_refresh.png';
   static const String imagesWallet = 'assets/images/wallet.png';
+  static const String imagesFilter = 'assets/images/filter.png';
+  static const String imagesEmptyWallet = 'assets/images/empty_wallet.png';
+  static const String imagesGift = 'assets/images/gift.png';
 
 }
