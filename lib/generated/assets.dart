@@ -38,5 +38,7 @@ class Assets {
   static const String imagesFilter = 'assets/images/filter.png';
   static const String imagesEmptyWallet = 'assets/images/empty_wallet.png';
   static const String imagesGift = 'assets/images/gift.png';
+  static const String imagesExplore = 'assets/images/explore.png';
+  static const String imagesShare = 'assets/images/share.png';
 
 }

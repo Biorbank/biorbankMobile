@@ -9,17 +9,19 @@ class CommonOutlinedButton extends StatelessWidget {
       required this.onTap,
       required this.title,
       this.textColor,
+      this.height,
       this.borderColor});
   final String title;
   final VoidCallback onTap;
   final Color? textColor;
   final Color? borderColor;
+  final double? height;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 40,
+        height:height?? 40,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),

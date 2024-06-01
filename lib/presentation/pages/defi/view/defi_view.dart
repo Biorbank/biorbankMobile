@@ -1,8 +1,11 @@
+import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/common/common_balance_widget.dart';
+import 'package:biorbank/presentation/pages/defi/cubit/defi_cubit.dart';
 import 'package:biorbank/presentation/pages/defi/view/widget/defi_details_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DefiView extends StatelessWidget {
@@ -13,21 +16,8 @@ class DefiView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        CommonBlueContainer(
           height: 244.h,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                  transform: const GradientRotation(6),
-                  stops: const [
-                0.3,
-                1
-              ],
-                  colors: [
-                const Color(0xFF2E31B7),
-                Theme.of(context).colorScheme.primary,
-              ])),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -35,7 +25,8 @@ class DefiView extends StatelessWidget {
                 height(40.h),
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
-                  textController: TextEditingController(),
+                  textController:
+                      context.read<DefiCubit>().searchTextController,
                 ),
                 height(10.h),
                 const CommonBalanceWidget(

@@ -2,6 +2,7 @@ import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/login_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
 import 'package:biorbank/presentation/pages/dashboard/view/dashboard_view.dart';
+import 'package:biorbank/presentation/pages/nft_holding/view/nft_holding_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_exsiting_account_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
@@ -51,6 +52,17 @@ class AppRouter {
       case Routes.newAccountCreateRoute:
         return MaterialPageRoute(
           builder: (_) => const NewAccountCreateView(),
+        );
+      case Routes.nftHoldingRoute:
+        return MaterialPageRoute(
+          builder: (_) {
+            String imageUrl = (settings.arguments as Map)['image_url'] ?? '';
+            String title = (settings.arguments as Map)['title'] ?? '';
+            return NftHoldingView(
+              imageUrl: imageUrl,
+              title: title,
+            );
+          },
         );
 
       default:

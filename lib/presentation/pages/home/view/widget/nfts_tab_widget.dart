@@ -1,18 +1,19 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class NFTsTabWidget extends StatelessWidget {
-  const NFTsTabWidget({super.key,required this.scrollController});
-final ScrollController scrollController;
+  const NFTsTabWidget({super.key, required this.scrollController});
+  final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
- controller: scrollController,
+      controller: scrollController,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
@@ -67,8 +68,8 @@ final ScrollController scrollController;
                 GestureDetector(
                   onTap: () {},
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: const Color(0xFFF6F7F9)),
@@ -100,15 +101,24 @@ final ScrollController scrollController;
                   mainAxisSpacing: 15,
                   crossAxisSpacing: 15),
               itemBuilder: (context, index) {
-                return nftCardWidget(
-                    context: context,
-                    imageUrl:
-                        'https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg',
-                    title: 'Hooligan #7459');
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.nftHoldingRoute,
+                        arguments: {
+                          "title": "Hooligan #7459",
+                          "image_url":
+                              "https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg"
+                        });
+                  },
+                  child: nftCardWidget(
+                      context: context,
+                      imageUrl:
+                          'https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg',
+                      title: 'Hooligan #7459'),
+                );
               },
             ),
-                        height(20.h),
-
+            height(20.h),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/common/common_balance_widget.dart';
 import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
@@ -18,20 +19,7 @@ class HomeView extends StatelessWidget {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                  transform: const GradientRotation(6),
-                  stops: const [
-                0.3,
-                1
-              ],
-                  colors: [
-                const Color(0xFF2E31B7),
-                Theme.of(context).colorScheme.primary,
-              ])),
+        CommonBlueContainer(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
