@@ -1,4 +1,3 @@
-
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/common_spacer.dart';
@@ -39,9 +38,19 @@ class CommonSearchAppbar extends StatelessWidget {
           borderRadius: 100,
           textColor: Theme.of(context).colorScheme.onSurface,
           cursorColor: Theme.of(context).colorScheme.onSurface,
-          fillColor: const Color(0xFFF6F5FA).withOpacity(0.12),
+          fillColor: Theme.of(context)
+              .colorScheme
+              .onPrimaryContainer
+              .withOpacity(0.12),
           hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-          prefixWidget: const Icon(Icons.search),
+          prefixWidget: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Image.asset(
+              Assets.imagesSearch,
+              height: 20.h,
+              width: 20.w,
+            ),
+          ),
           hintText: hintText,
         )),
         width(10.w),

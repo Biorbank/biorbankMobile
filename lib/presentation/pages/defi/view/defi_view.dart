@@ -33,7 +33,7 @@ class DefiView extends StatelessWidget {
                   amount: '\$75,630.90',
                   currentRate: 'CA \$0.00 (0.00%)',
                   isShowBalanceWidget: true,
-                )
+                ),
               ],
             ),
           ),
@@ -46,7 +46,7 @@ class DefiView extends StatelessWidget {
             itemCount: 3,
             itemBuilder: (context, index) => const DeFiDetailsWidget(),
           ),
-        )
+        ),
       ],
     );
   }

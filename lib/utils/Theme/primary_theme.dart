@@ -25,4 +25,5 @@ const blueColorScheme = ColorScheme(
     onInverseSurface: Color(0xFF00CD52),
     onSecondaryContainer: Color(0xFFA5A5A5),
     onSecondaryFixed: Color(0xFFE9E9E9),
+    onPrimaryContainer: Color(0xFFF6F5FA),
     errorContainer: Color(0xFFF6F8FC));

@@ -129,7 +129,7 @@ final Color? textColor;
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius?? 8.0),
                 borderSide: BorderSide(
-                    color: AppColors.grey.withOpacity(0.1)),
+                    color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.1)),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius?? 8.0),

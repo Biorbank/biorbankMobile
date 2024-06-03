@@ -48,7 +48,7 @@ class _CreateAccountFieldViewState extends State<CreateAccountFieldView>
                 AppConstant.commonText('Fill out the words',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
-                    color: AppColors.grey),
+                    color: Theme.of(context).colorScheme.onSecondaryContainer),
                 height(6.h),
                 CommonTextfield(
                   title: 'Word #8',

@@ -56,7 +56,7 @@ class ConnectHardwareWalletView extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                       height(10.h),
                       AppConstant.commonText('Connect and unlock your ledger',
-                          color: AppColors.grey),
+                          color: Theme.of(context).colorScheme.onSecondaryContainer),
                       height(18.h),
                       CommonButton(onTap: () {
                         showModalBottomSheet(
@@ -97,7 +97,7 @@ class ConnectHardwareWalletView extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: AppConstant.commonText('Open the Cosmos app on your Ledger device',
-                            color: AppColors.grey,textAlign: TextAlign.center),
+                            color: Theme.of(context).colorScheme.onSecondaryContainer,textAlign: TextAlign.center),
                       ),
                       height(18.h),
                       CommonOutlinedButton(onTap: () {

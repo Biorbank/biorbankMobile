@@ -67,28 +67,69 @@ class PriceHistoryChart extends StatelessWidget {
                   color: Theme.of(context).colorScheme.shadow),
             ],
           ),
+          height(15.h),
           SizedBox(
             height: 200.h,
             child: LineChart(
               LineChartData(
-                minX: 0,
-                maxX: 5,
+                minX: 0.8,
                 minY: 0,
-                maxY: 2,
-                titlesData: const FlTitlesData(
-                  leftTitles:
-                      AxisTitles(sideTitles: SideTitles(showTitles: true)),
-                  bottomTitles:
-                      AxisTitles(sideTitles: SideTitles(showTitles: true)),
-                  topTitles:
-                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                  rightTitles:
-                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                maxX: 6,
+                maxY: 20,
+                titlesData: FlTitlesData(
+                  leftTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                    showTitles: true,
+                    interval: 4,
+                    getTitlesWidget: (value, meta) {
+                      return AppConstant.commonText(value.toInt().toString(),
+                          fontSize: 12.sp,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer);
+                    },
+                  )),
+                  bottomTitles: AxisTitles(
+                      sideTitles: SideTitles(
+                    showTitles: true,
+                    getTitlesWidget: (value, meta) {
+                      String text = '';
+                      switch (value.toInt()) {
+                        case 1:
+                          text = '12/14';
+
+                          break;
+                        case 2:
+                          text = '05/08';
+                          break;
+                        case 3:
+                          text = '09/30';
+                          break;
+
+                        case 4:
+                          text = '02/22';
+                          break;
+                        case 5:
+                          text = '07/24';
+                        case 6:
+                          text = '03/23';
+                          break;
+                      }
+                      return AppConstant.commonText(text,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
+                          fontSize: 12.sp);
+                    },
+                  )),
+                  topTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: const AxisTitles(
+                      sideTitles: SideTitles(showTitles: false)),
                 ),
                 gridData: const FlGridData(
                   show: true,
                   drawVerticalLine: false,
-                  horizontalInterval: 0.5,
                 ),
                 borderData: FlBorderData(
                   show: false,
@@ -96,12 +137,12 @@ class PriceHistoryChart extends StatelessWidget {
                 lineBarsData: [
                   LineChartBarData(
                     spots: [
-                      const FlSpot(0, 0.5),
-                      const FlSpot(1, 0.8),
-                      const FlSpot(2, 1.6),
-                      const FlSpot(3, 1.2),
-                      const FlSpot(4, 0.9),
-                      const FlSpot(5, 0.8),
+                      const FlSpot(1, 8),
+                      const FlSpot(2, 12.4),
+                      const FlSpot(3, 10.8),
+                      const FlSpot(4, 9),
+                      const FlSpot(5, 8),
+                      const FlSpot(6, 8.6),
                     ],
                     isCurved: true,
                     color: Theme.of(context).colorScheme.onPrimary,
@@ -127,13 +168,64 @@ class PriceHistoryChart extends StatelessWidget {
                 ],
                 lineTouchData: LineTouchData(
                   touchTooltipData: LineTouchTooltipData(
-                    //  tooltipBgColor: Colors.black,
+                    getTooltipColor: (touchedSpot) {
+                      return Theme.of(context).colorScheme.shadow;
+                    },
+                    fitInsideHorizontally: true,
+                    tooltipRoundedRadius: 6.0,
                     getTooltipItems: (List<LineBarSpot> touchedSpots) {
                       return touchedSpots.map((LineBarSpot touchedSpot) {
                         return LineTooltipItem(
-                          '${touchedSpot.x}, ${touchedSpot.y}',
-                          const TextStyle(color: Colors.white),
-                        );
+                            '${touchedSpot.x}, ${touchedSpot.y}',
+                            textAlign: TextAlign.left,
+                             TextStyle(color: Theme.of(context).colorScheme.onSurface),
+                            children: [
+                              TextSpan(
+                                  text: '\nAvg. price',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)),
+                              TextSpan(
+                                  text: '  0.049',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
+                              TextSpan(
+                                  text: '\nVolume',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)),
+                              TextSpan(
+                                  text: '  0.049',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
+                              TextSpan(
+                                  text: '\nNum of sale',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer)),
+                              TextSpan(
+                                  text: '  1',
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
+                            ]);
                       }).toList();
                     },
                   ),

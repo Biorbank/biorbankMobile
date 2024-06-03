@@ -1,4 +1,3 @@
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,10 +24,10 @@ class CommonOutlinedButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: borderColor ?? AppColors.grey)),
+            border: Border.all(color: borderColor ?? Theme.of(context).colorScheme.onSecondaryContainer)),
         child: Center(
           child: AppConstant.commonText(title,
-              color: textColor ??  AppColors.grey,
+              color: textColor ??  Theme.of(context).colorScheme.onSecondaryContainer,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500),
         ),

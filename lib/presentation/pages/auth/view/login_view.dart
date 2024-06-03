@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> with Validation {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   AppConstant.commonText(AppStrings.unlockWithFaceId,
-                      color: AppColors.grey, fontSize: 12.sp),
+                      color: Theme.of(context).colorScheme.onSecondaryContainer, fontSize: 12.sp),
                       width(8.w),
                   BlocBuilder<AuthCubit, AuthState>(
                     builder: (context, state) {
@@ -106,7 +106,7 @@ class _LoginViewState extends State<LoginView> with Validation {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: AppConstant.commonText(AppStrings.walletDesc,
-                    color: AppColors.grey, textAlign: TextAlign.center),
+                    color: Theme.of(context).colorScheme.onSecondaryContainer, textAlign: TextAlign.center),
               ),
               height(4.h),
               CommonTextButton(

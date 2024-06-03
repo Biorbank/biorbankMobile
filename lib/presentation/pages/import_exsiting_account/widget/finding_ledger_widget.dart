@@ -1,5 +1,4 @@
 import 'package:biorbank/presentation/common/common_button.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,7 @@ class _FindingLedgerWidgetState extends State<FindingLedgerWidget>
                     },
                     child: Icon(
                       Icons.cancel_outlined,
-                      color: AppColors.grey,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
                     ))
               ],
             ),
@@ -87,7 +86,7 @@ class _FindingLedgerWidgetState extends State<FindingLedgerWidget>
                         child: AppConstant.commonText(
                             'BiorBank doesn’t have permission to use bluetooth',
                             textAlign: TextAlign.center,
-                            color: AppColors.grey),
+                            color: Theme.of(context).colorScheme.onSecondaryContainer),
                       ),
                     ],
                   );

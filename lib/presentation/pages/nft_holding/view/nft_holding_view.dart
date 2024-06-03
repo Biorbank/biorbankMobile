@@ -2,6 +2,7 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
+import 'package:biorbank/presentation/pages/nft_holding/view/widget/add_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_control.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_widget.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
@@ -28,6 +29,12 @@ class NftHoldingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
+        child: DrawerHeader(
+            child: AppConstant.commonText('Drawer page',
+                color: Theme.of(context).colorScheme.shadow)),
+      ),
       resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,9 +74,9 @@ class NftHoldingView extends StatelessWidget {
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
-                                  color: const Color(0xFFF6F5FA),
+                                  color: Theme.of(context).colorScheme.onPrimaryContainer,
                                   border: Border.all(
-                                      color: const Color(0xFFE9E9E9))),
+                                      color:  Theme.of(context).colorScheme.onSecondaryFixed)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -83,7 +90,7 @@ class NftHoldingView extends StatelessWidget {
                                   height(20.h),
 
                                   /// price history chart
-                                 const  PriceHistoryChart(),
+                                  const PriceHistoryChart(),
                                   height(20.h)
                                 ],
                               ),
@@ -122,7 +129,7 @@ class NftHoldingView extends StatelessWidget {
                             ),
                           ],
                         ),
-                         height(20.h)
+                        height(20.h)
                       ],
                     ),
                   ),
@@ -142,7 +149,7 @@ class NftHoldingView extends StatelessWidget {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: (){},
+                          onTap: () {},
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -153,7 +160,8 @@ class NftHoldingView extends StatelessWidget {
                               ),
                               height(6.h),
                               AppConstant.commonText('Transfer',
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500)
                             ],
@@ -162,14 +170,18 @@ class NftHoldingView extends StatelessWidget {
                         width(20.w),
                         Expanded(
                             child: CommonButton(
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AddAddressDialog(),
+                            );
+                          },
                           name: 'Sell',
                         ))
                       ],
                     ),
                   ),
                 ),
-               
               ],
             ),
           )

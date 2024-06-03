@@ -57,7 +57,7 @@ class WordSelectorDialog extends StatelessWidget {
                                   },
                                   icon: Icon(
                                     Icons.close,
-                                    color: AppColors.grey,
+                                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                                   )),
                             )
                           ],

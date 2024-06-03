@@ -30,7 +30,7 @@ class RecoveryParseView extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6), color: const Color(0xFFF6F5FA)),
+              borderRadius: BorderRadius.circular(6), color: Theme.of(context).colorScheme.onPrimaryContainer),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

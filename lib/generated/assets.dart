@@ -40,5 +40,7 @@ class Assets {
   static const String imagesGift = 'assets/images/gift.png';
   static const String imagesExplore = 'assets/images/explore.png';
   static const String imagesShare = 'assets/images/share.png';
+  static const String imagesInfo = 'assets/images/info.png';
+  static const String imagesEdit = 'assets/images/edit.png';
 
 }

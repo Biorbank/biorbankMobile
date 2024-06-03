@@ -2,7 +2,6 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +35,7 @@ class JsonFileWidgetView extends StatelessWidget {
                   ),
                   height(20.h),
                   AppConstant.commonText('Import your .Json File',
-                      color: AppColors.grey),
+                      color:Theme.of(context).colorScheme.onSecondaryContainer),
                   height(20.h),
                   CommonOutlinedButton(onTap: () {}, title: 'Browse'),
                 ],

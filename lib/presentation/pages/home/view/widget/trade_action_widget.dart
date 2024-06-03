@@ -38,7 +38,7 @@ class TradeActionWidget extends StatelessWidget {
                             color: cubit.selectedOption ==
                                     cubit.tradeOptions[index]['title']
                                 ? Theme.of(context).colorScheme.onSurface
-                                : const Color(0xFFF6F5FA).withOpacity(0.2)),
+                                : Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.2)),
                         child: Image.asset(cubit.tradeOptions[index]['icon'],
                             color: cubit.selectedOption ==
                                     cubit.tradeOptions[index]['title']

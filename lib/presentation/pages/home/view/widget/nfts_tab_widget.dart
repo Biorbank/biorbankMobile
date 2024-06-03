@@ -133,8 +133,8 @@ class NFTsTabWidget extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color(0xFFF6F5FA),
-          border: Border.all(color: const Color(0xFFE9E9E9))),
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          border: Border.all(color: Theme.of(context).colorScheme.onSecondaryFixed)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

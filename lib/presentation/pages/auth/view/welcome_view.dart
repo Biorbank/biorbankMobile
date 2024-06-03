@@ -1,7 +1,6 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/auth/widgets/common_topview.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/route.dart';
@@ -33,25 +32,54 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   alignment: Alignment.bottomCenter,
                   children: [
                     Image.asset(Assets.imagesWelcomeImage),
-                     CommonButton(name: "Create New Account",onTap: (){
-                       Navigator.pushNamed(context, Routes.createAccountRoute);
-                    },)
+                    CommonButton(
+                      name: "Create New Account",
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.createAccountRoute);
+                      },
+                    )
                   ],
                 ),
                 height(15),
-                CommonButton(name: "Import an Existing Account",buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,onTap: (){
-                  Navigator.pushNamed(context, Routes.importExistingAccountRoute);
-                },),
+                CommonButton(
+                  name: "Import an Existing Account",
+                  buttonColor: Theme.of(context).colorScheme.errorContainer,
+                  textColor: Theme.of(context).colorScheme.shadow,
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, Routes.importExistingAccountRoute);
+                  },
+                ),
                 height(15),
-                CommonButton(name: "Cold Storage",buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,),
+                CommonButton(
+                  name: "Cold Storage",
+                  buttonColor: Theme.of(context).colorScheme.errorContainer,
+                  textColor: Theme.of(context).colorScheme.shadow,
+                ),
                 height(10),
                 bottomOrWidget(),
                 height(10),
                 Row(
                   children: [
-                    Expanded(child: CommonButton(name: "Google",image: Assets.imagesGoogle,buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,),),
+                    Expanded(
+                      child: CommonButton(
+                        name: "Google",
+                        image: Assets.imagesGoogle,
+                        buttonColor:
+                            Theme.of(context).colorScheme.errorContainer,
+                        textColor: Theme.of(context).colorScheme.shadow,
+                      ),
+                    ),
                     width(15),
-                    Expanded(child: CommonButton(name: "Twitter",image: Assets.imagesTwitter,buttonColor: Theme.of(context).colorScheme.errorContainer,textColor: Theme.of(context).colorScheme.shadow,),),
+                    Expanded(
+                      child: CommonButton(
+                        name: "Twitter",
+                        image: Assets.imagesTwitter,
+                        buttonColor:
+                            Theme.of(context).colorScheme.errorContainer,
+                        textColor: Theme.of(context).colorScheme.shadow,
+                      ),
+                    ),
                   ],
                 ),
                 height(10),
@@ -65,39 +93,54 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 
-
-  bottomOrWidget(){
+  bottomOrWidget() {
     return IntrinsicHeight(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: AppConstant.commonDivider(),),
-          Padding(padding: const EdgeInsets.symmetric(horizontal: 15),child: AppConstant.commonText("or continue",color: AppColors.grey,fontSize: 14.sp,fontWeight: FontWeight.w400),),
-          Expanded(child: AppConstant.commonDivider(),),
+          Expanded(
+            child: AppConstant.commonDivider(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: AppConstant.commonText("or continue",
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w400),
+          ),
+          Expanded(
+            child: AppConstant.commonDivider(),
+          ),
         ],
       ),
     );
   }
 
-  bottomSignInWidget(){
+  bottomSignInWidget() {
     return Text.rich(
       TextSpan(
         children: [
           TextSpan(
             text: 'Already Have an Account? ',
-            style: TextStyle(fontWeight: FontWeight.w400,color: AppColors.grey,fontSize: 14.sp),
+            style: TextStyle(
+                fontWeight: FontWeight.w400,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                fontSize: 14.sp),
           ),
           TextSpan(
-            recognizer: TapGestureRecognizer()..onTap=(){
-              Navigator.pushNamed(context, Routes.loginScreenRoute);
-            },
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Navigator.pushNamed(context, Routes.loginScreenRoute);
+              },
             text: 'Login',
-            style: TextStyle(fontWeight: FontWeight.w700,color: Theme.of(context).colorScheme.primary,fontSize: 14.sp),
+            style: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 14.sp),
           ),
         ],
       ),
     );
   }
-
 }
