@@ -14,7 +14,7 @@ class AppConstant{
     style: TextStyle(
       color: color,
       fontSize: fontSize  ,
-      fontWeight: fontWeight
+      fontWeight: fontWeight??FontWeight.w400
     ),);
   }
 

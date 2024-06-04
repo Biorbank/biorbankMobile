@@ -6,18 +6,22 @@ class CirclePainter extends CustomPainter {
   final double value;
   final double maxValue;
   final Color color;
+  final double strokeWidth;
+  final double thumbRadius;
   final List<Color> gradientColors;
 
   CirclePainter({
     required this.value,
+    required this.strokeWidth,
     required this.maxValue,
     required this.color,
+    required this.thumbRadius,
     required this.gradientColors,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    double strokeWidth = 5;
+    //double strokeWidth = 5;
     Rect rect = Offset.zero & size;
     double startAngle = -3.14 * 5 / 4;
     double sweepAngle = 2 * 3.14 * (value / maxValue) * 3 / 4;
@@ -42,8 +46,8 @@ class CirclePainter extends CustomPainter {
     canvas.drawArc(rect, startAngle, sweepAngle, false, foregroundPaint);
 
     // Draw thumb
-    double thumbRadius = 3;
-    double thumbCenterRadius = (size.width - strokeWidth) / 2;
+   // double thumbRadius = 3;
+    double thumbCenterRadius = (size.width - strokeWidth) / 1.86;
     double thumbX =
         size.width / 2 + thumbCenterRadius * cos(startAngle + sweepAngle);
     double thumbY =
@@ -59,7 +63,7 @@ class CirclePainter extends CustomPainter {
 
     // Draw white border
     canvas.drawCircle(
-        Offset(thumbX, thumbY), thumbRadius + 3, thumbBorderPaint);
+        Offset(thumbX, thumbY), thumbRadius + 2.5, thumbBorderPaint);
     // Draw colored thumb
     canvas.drawCircle(Offset(thumbX, thumbY), thumbRadius, thumbPaint);
   }

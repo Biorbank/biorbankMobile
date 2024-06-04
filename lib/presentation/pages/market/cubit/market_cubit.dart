@@ -7,4 +7,11 @@ class MarketCubit extends Cubit<MarketState> {
   MarketCubit() : super(MarketInitialState());
 
   TextEditingController searchTextController =TextEditingController();
+
+  int selectedTabIndex=0;
+
+
+  void onChangeTabIndex({required int index}){
+    emit(ChangeTabBarIndexState(index: index));
+  }
 }

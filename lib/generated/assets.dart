@@ -42,5 +42,6 @@ class Assets {
   static const String imagesShare = 'assets/images/share.png';
   static const String imagesInfo = 'assets/images/info.png';
   static const String imagesEdit = 'assets/images/edit.png';
+  static const String imagesArrowRight = 'assets/images/arrow_right.png';
 
 }

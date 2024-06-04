@@ -33,30 +33,31 @@ class MarketDetailsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AppConstant.commonText('Market Cap',
-                      fontSize: 12.sp, maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
+                      fontSize: 12.sp,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
                   height(6.h),
                   AppConstant.commonText('\$1.00T',
-                  maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.shadow),
                   height(6.h),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 1),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
                     decoration: BoxDecoration(
                       color: const Color(0xFFE5FAEE),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: AppConstant.commonText(
                       '+1.23%',
-                      fontSize: 10.sp, maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
+                      fontSize: 10.sp,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
                       color: Theme.of(context).colorScheme.onInverseSurface,
                     ),
                   ),
@@ -72,29 +73,29 @@ class MarketDetailsWidget extends StatelessWidget {
                 children: [
                   AppConstant.commonText('Volume',
                       fontSize: 12.sp,
-                       maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
                   height(6.h),
                   AppConstant.commonText('\$1.00B',
                       fontSize: 16.sp,
-                       maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).colorScheme.shadow),
                   height(6.h),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 1),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
                     decoration: BoxDecoration(
                       color: const Color(0xFFE5FAEE),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: AppConstant.commonText(
-                      '+1.23%', maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
+                      '+1.23%',
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
                       fontSize: 10.sp,
                       color: Theme.of(context).colorScheme.onInverseSurface,
                     ),
@@ -110,11 +111,11 @@ class MarketDetailsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AppConstant.commonText('Dominance',
-                      fontSize: 12.sp, maxLines: 1,
-                    textOverflow: TextOverflow.ellipsis,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
+                      fontSize: 12.sp,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
                   height(6.h),
                   AppConstant.commonText('10.00%',
                       fontSize: 16.sp,
@@ -151,36 +152,38 @@ class MarketDetailsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AppConstant.commonText('Dominance',
-                      fontSize: 12.sp, maxLines: 1,
-                  textOverflow: TextOverflow.ellipsis,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
+                      fontSize: 12.sp,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
                   height(6.h),
                   Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    SizedBox(
-                      width: 43.w,
-                      height: 43.h,
-                      child: CustomPaint(
-                        painter: CirclePainter(
-              value: 65,
-              maxValue: 100,
-              color: Theme.of(context).colorScheme.onPrimary,
-              gradientColors: [
-                const Color(0xFF2E31B7),
-                const Color(0xFF1C1460)
-              ],
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 43.w,
+                        height: 43.h,
+                        child: CustomPaint(
+                          painter: CirclePainter(
+                            value: 65,
+                            thumbRadius: 3,
+                            strokeWidth: 5,
+                            maxValue: 100,
+                            color: Theme.of(context).colorScheme.onPrimary,
+                            gradientColors: [
+                              const Color(0xFF2E31B7),
+                              const Color(0xFF1C1460)
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    AppConstant.commonText('65',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 18.sp,
-                        color: Theme.of(context).colorScheme.shadow)
-                  ],
-              ),
+                      AppConstant.commonText('65',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18.sp,
+                          color: Theme.of(context).colorScheme.shadow)
+                    ],
+                  ),
                 ],
               ),
             )
@@ -190,5 +193,3 @@ class MarketDetailsWidget extends StatelessWidget {
     );
   }
 }
-
-
