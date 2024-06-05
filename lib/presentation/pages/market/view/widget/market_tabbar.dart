@@ -1,7 +1,9 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
+import 'package:biorbank/presentation/pages/market/view/widget/coins_tab_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/overview_tab_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/widget/filter_widget.dart';
+import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/swap_tab_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +78,17 @@ class _MarketTabbarState extends State<MarketTabbar>
                 ),
                 GestureDetector(
                   onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      shape: const OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              topRight: Radius.circular(12))),
+                      backgroundColor: Theme.of(context).colorScheme.onSurface,
+                      context: context,
+                      builder: (context) => const OverviewFilters(),
+                    );
                   },
                   child: Image.asset(
                     Assets.imagesFilter,
@@ -89,14 +102,8 @@ class _MarketTabbarState extends State<MarketTabbar>
             Expanded(
               child: TabBarView(controller: tabController, children: const [
                 OverviewWidget(),
-                Text(
-                  'Coins',
-                  style: TextStyle(color: Colors.red),
-                ),
-                Text(
-                  'Swap',
-                  style: TextStyle(color: Colors.red),
-                ),
+                CoinsTabWidget(),
+                SwapTabWidget()
               ]),
             )
           ],

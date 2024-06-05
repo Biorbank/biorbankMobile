@@ -13,15 +13,13 @@ class ETHgasWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonShadowContainer(
-    
       child: Column(
         children: [
           Row(
             children: [
               AppConstant.commonText('ETH Gas',
                   fontSize: 12.sp,
-                  color:
-                      Theme.of(context).colorScheme.onSecondaryContainer),
+                  color: Theme.of(context).colorScheme.onSecondaryContainer),
               width(8.w),
               Image.asset(
                 Assets.imagesInfo,
@@ -34,50 +32,59 @@ class ETHgasWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppConstant.commonText('Slow',
-                      fontSize: 12.sp,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
-                  height(4.h),
-                  AppConstant.commonText('130 Gwei',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.shadow),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppConstant.commonText('Slow',
+                        fontSize: 12.sp,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer),
+                    height(4.h),
+                    AppConstant.commonText('130 Gwei',
+                        fontSize: 18.sp,
+                        maxLines: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.shadow),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppConstant.commonText('Standard',
-                      fontSize: 12.sp,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
-                  height(4.h),
-                  AppConstant.commonText('130 Gwei',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.shadow),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppConstant.commonText('Standard',
+                        fontSize: 12.sp,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer),
+                    height(4.h),
+                    AppConstant.commonText('130 Gwei',
+                        maxLines: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.shadow),
+                  ],
+                ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppConstant.commonText('Fast',
-                      fontSize: 12.sp,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer),
-                  height(4.h),
-                  AppConstant.commonText('130 Gwei',
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.shadow),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppConstant.commonText('Fast',
+                        fontSize: 12.sp,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer),
+                    height(4.h),
+                    AppConstant.commonText('130 Gwei',
+                        fontSize: 18.sp,
+                        maxLines: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).colorScheme.shadow),
+                  ],
+                ),
               ),
             ],
           )
@@ -86,4 +93,3 @@ class ETHgasWidget extends StatelessWidget {
     );
   }
 }
-

@@ -151,21 +151,27 @@ class OverviewWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    commonRowWidget(
-                        context: context,
-                        imageUrl:
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
-                        title: '50.00%'),
-                    commonRowWidget(
-                        context: context,
-                        imageUrl:
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
-                        title: '25.00%'),
-                    commonRowWidget(
-                        context: context,
-                        imageUrl:
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
-                        title: '25.00%'),
+                    Expanded(
+                      child: commonRowWidget(
+                          context: context,
+                          imageUrl:
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
+                          title: '50.00%'),
+                    ),
+                    Expanded(
+                      child: commonRowWidget(
+                          context: context,
+                          imageUrl:
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
+                          title: '25.00%'),
+                    ),
+                    Expanded(
+                      child: commonRowWidget(
+                          context: context,
+                          imageUrl:
+                              'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
+                          title: '25.00%'),
+                    ),
                   ],
                 )
               ],
@@ -184,7 +190,10 @@ class OverviewWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.12),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .shadow
+                          .withOpacity(0.12),
                       blurRadius: 20,
                       spreadRadius: 0,
                       offset: const Offset(0, 4))
@@ -267,9 +276,13 @@ class OverviewWidget extends StatelessWidget {
             width: 16.w,
             placeholder: (context, url) => const SizedBox.shrink()),
         width(8.w),
-        AppConstant.commonText(title,
-            fontWeight: FontWeight.w500,
-            color: Theme.of(context).colorScheme.shadow)
+        Expanded(
+          child: AppConstant.commonText(title,
+              fontWeight: FontWeight.w500,
+              maxLines: 1,
+              textOverflow: TextOverflow.ellipsis,
+              color: Theme.of(context).colorScheme.shadow),
+        )
       ],
     );
   }

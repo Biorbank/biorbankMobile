@@ -43,5 +43,10 @@ class Assets {
   static const String imagesInfo = 'assets/images/info.png';
   static const String imagesEdit = 'assets/images/edit.png';
   static const String imagesArrowRight = 'assets/images/arrow_right.png';
+  static const String imagesSetting = 'assets/images/setting.png';
+  static const String imagesGasStation = 'assets/images/gas_station.png';
+  static const String imagesTimer = 'assets/images/timer.png';
+  static const String imagesCopyRounded = 'assets/images/copy_rounded.png';
+  static const String imagesExploreRounded = 'assets/images/explore_rounded.png';
 
 }

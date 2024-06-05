@@ -31,8 +31,11 @@ class CommonTextfield extends StatelessWidget {
   final bool enabled;
   final Color? fillColor;
   final VoidCallback? onTapSuffixWidget;
-final Color? cursorColor;
-final Color? textColor;
+  final Color? cursorColor;
+  final Color? textColor;
+  final double? verticalPading;
+    final Color? focusBorderColor;
+
   const CommonTextfield(
       {super.key,
       required this.title,
@@ -62,6 +65,8 @@ final Color? textColor;
       this.prefixWidget,
       this.fillColor,
       this.onTapSuffixWidget,
+      this.verticalPading,
+      this.focusBorderColor,
       this.enabled = true});
 
   Widget _getTitle(BuildContext context) {
@@ -69,8 +74,10 @@ final Color? textColor;
       return Text(
         title,
         style: TextStyle(
-          fontWeight: FontWeight.w500,
-            color: isShowTitle ?? true ? Theme.of(context).colorScheme.shadow : Colors.transparent),
+            fontWeight: FontWeight.w500,
+            color: isShowTitle ?? true
+                ? Theme.of(context).colorScheme.shadow
+                : Colors.transparent),
       );
     }
 
@@ -80,7 +87,7 @@ final Color? textColor;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding:  EdgeInsets.symmetric(vertical:verticalPading ??8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -96,20 +103,24 @@ final Color? textColor;
             maxLines: maxLines,
             onTap: textFieldOnTap ?? () {},
             inputFormatters: inputFormatter,
-            obscuringCharacter: '*',onTapOutside: (v){
-             FocusManager.instance.primaryFocus?.unfocus();
+            obscuringCharacter: '*',
+            onTapOutside: (v) {
+              FocusManager.instance.primaryFocus?.unfocus();
             },
-            validator: validator,autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: validator,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             textInputAction:
                 maxLines == 1 ? TextInputAction.done : TextInputAction.newline,
             obscureText: obscureText,
             readOnly: isReadOnly ?? false,
-            maxLength: maxLength,cursorColor:cursorColor ,
+            maxLength: maxLength,
+            cursorColor: cursorColor,
             decoration: InputDecoration(
               errorMaxLines: 3,
-              suffixIcon:suffixWidget!=null? GestureDetector(
-                onTap: onTapSuffixWidget,
-                child: suffixWidget):null,
+              suffixIcon: suffixWidget != null
+                  ? GestureDetector(
+                      onTap: onTapSuffixWidget, child: suffixWidget)
+                  : null,
               prefixIcon: prefixWidget,
               errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
               hintText: hintText,
@@ -120,37 +131,46 @@ final Color? textColor;
               filled: isFilled ?? true,
               hintStyle: hintStyle ??
                   TextStyle(
-                      color:  Theme.of(context).colorScheme.onSecondaryContainer, fontWeight: FontWeight.normal,fontSize: 15),
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 15),
               counterText: '',
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
-                borderSide: BorderSide(color:Theme.of(context).colorScheme.error),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.error),
               ),
               disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
                 borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.1)),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSecondaryContainer
+                        .withOpacity(0.1)),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
-                borderSide: BorderSide(color:  Theme.of(context).colorScheme.onPrimary),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.onPrimary),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
-                borderSide: BorderSide(color: Theme.of(context).colorScheme.onPrimary),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                borderSide:
+                    BorderSide(color:focusBorderColor?? Theme.of(context).colorScheme.onPrimary),
               ),
               contentPadding: EdgeInsets.symmetric(
                 vertical: maxLines == 1 ? 0.0 : 8.0,
                 horizontal: 14.0,
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius?? 8.0),
-                borderSide: BorderSide(
-                    color: AppColors.transparent),
+                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                borderSide: BorderSide(color: AppColors.transparent),
               ),
             ),
             keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
-            style: TextStyle(fontSize: 15,color:textColor?? Theme.of(context).colorScheme.shadow),
+            style: TextStyle(
+                fontSize: 15,
+                color: textColor ?? Theme.of(context).colorScheme.shadow),
             onChanged: onChanged,
             initialValue: initialVal,
           ),
@@ -160,7 +180,8 @@ final Color? textColor;
                   padding:
                       const EdgeInsets.only(left: 5.0, top: 4.0, bottom: 4),
                   child: AppConstant.commonText(errorMsg ?? "",
-                      fontSize: 11, color: Theme.of(context).colorScheme.error)),
+                      fontSize: 11,
+                      color: Theme.of(context).colorScheme.error)),
         ],
       ),
     );

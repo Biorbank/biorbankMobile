@@ -16,7 +16,8 @@ class CommonDropdownWidget<T> extends StatefulWidget {
   final Border? border;
   final String? errorMsg;
   final TextStyle? textStyle;
-
+  final bool? isExpanded;
+  final double? height;
   const CommonDropdownWidget({
     super.key,
     required this.labelText,
@@ -29,6 +30,8 @@ class CommonDropdownWidget<T> extends StatefulWidget {
     required this.onChanged,
     this.fontColor,
     this.border,
+    this.height,
+    this.isExpanded=false,
     this.textStyle
   });
 
@@ -46,7 +49,7 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 45.h,
+          height:widget.height?? 45.h,
           alignment: Alignment.center,
           // margin: const EdgeInsets.only(top: 6, bottom: 6),
           //padding: const EdgeInsets.only(right: 15),
@@ -71,7 +74,7 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
                     color: widget.arrowColor ??Theme.of(context).colorScheme.shadow),
               ),
               items: widget.items,
-             // isExpanded: true,
+             isExpanded: widget.isExpanded??false,
               onMenuStateChange: (open) {
                 setState(() {
                   isOpen = open;

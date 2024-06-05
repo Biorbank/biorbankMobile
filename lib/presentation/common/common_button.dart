@@ -9,11 +9,13 @@ class CommonButton extends StatelessWidget {
   final Color? buttonColor;
   final String? image;
   final double? borderRadius;
+  final EdgeInsets? margin;
   const CommonButton(
       {super.key,
       this.name,
       this.onTap,
       this.textColor,
+      this.margin,
       this.buttonColor,
       this.image,
       this.borderRadius});
@@ -25,6 +27,7 @@ class CommonButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 50.h,
+        margin:margin ,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
           color: buttonColor ?? Theme.of(context).colorScheme.onPrimary,
