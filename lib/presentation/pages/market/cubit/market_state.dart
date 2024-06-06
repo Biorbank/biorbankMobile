@@ -43,3 +43,17 @@ class CurrencyModel {
   final String name;
   CurrencyModel({required this.name, required this.url});
 }
+final class ChangeSelectedCryptoTabState extends MarketState {
+  final int index;
+  ChangeSelectedCryptoTabState({required this.index});
+}
+
+final class TransactionStatusState extends MarketState {
+  final int id;
+  TransactionStatusState({required this.id});
+}
+final class SwapApprovalState extends MarketState {
+  final bool isApproval;
+  SwapApprovalState({required this.isApproval});
+}
+

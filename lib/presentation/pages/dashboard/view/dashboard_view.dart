@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:biorbank/presentation/pages/dashboard/view/widget/drawer_view.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/global.dart';
 import 'package:flutter/material.dart';
@@ -20,11 +21,7 @@ class DashboardView extends StatelessWidget {
         }
         return Scaffold(
           key: Global.scaffoldKey,
-          drawer: Drawer(
-            backgroundColor: Theme.of(context).colorScheme.onSurface,
-            child: DrawerHeader(child: AppConstant.commonText('Drawer page',
-                color: Theme.of(context).colorScheme.shadow)),
-          ),
+          drawer:const DrawerView(),
           body: cubit.bottomTabViews[cubit.selectedBottomTabIndex],
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,

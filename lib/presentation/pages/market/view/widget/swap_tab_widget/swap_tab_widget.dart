@@ -1,12 +1,17 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
+import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/currency_convert_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/range_slider_widget.dart';
+import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/select_crypto_widget.dart';
+import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/swap_setting_dialog.dart';
+import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/unlock_token_dialog.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SwapTabWidget extends StatefulWidget {
@@ -27,7 +32,7 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
             children: [
               height(10.h),
               Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -38,37 +43,63 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
                                 .colorScheme
                                 .onSecondaryContainer),
                         width(10.w),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer),
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                Assets.imagesSwapArrow,
-                                height: 12.h,
-                                width: 12.w,
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                              width(8.w),
-                              AppConstant.commonText('Crypto',
-                                  color: Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .read<MarketCubit>()
+                                .onChangeSelectedCryptoTabIndex(index: 0);
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12),
+                                      topRight: Radius.circular(12))),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.onSurface,
+                              context: context,
+                              builder: (context) => const SelectCryptoWidget(),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer),
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  Assets.imagesSwapArrow,
+                                  height: 12.h,
+                                  width: 12.w,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                                width(8.w),
+                                AppConstant.commonText('Crypto',
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w500),
+                              ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                     GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const SwapSettingDialog(),
+                          );
+                        },
                         child: Image.asset(
                           Assets.imagesSetting,
                           height: 20.h,
@@ -79,7 +110,7 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
               ),
               height(14.h),
               Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -131,15 +162,21 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
               height(20.h),
               CommonButton(
                 margin: const EdgeInsets.symmetric(horizontal: 16),
-
                 name: 'Unlock Token',
-                onTap: () {},
+                onTap: () {
+                  context
+                      .read<MarketCubit>()
+                      .onChangeTransactionStatus(index: 0);
+                  showDialog(
+                    context: context,
+                    builder: (context) => const UnlockTokenDialog(),
+                  );
+                },
                 textColor: Theme.of(context).colorScheme.onSurface,
               ),
               height(20.h),
               Container(
-                margin:         const EdgeInsets.symmetric(horizontal: 16),
-
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onSurface,
                       boxShadow: [
@@ -150,7 +187,8 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
                             color: const Color(0xFFAAAAAA).withOpacity(0.15))
                       ]),
                   child: ExpansionTile(
-                    childrenPadding:const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                    childrenPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     shape: OutlineInputBorder(
                         borderSide: BorderSide(color: AppColors.transparent)),
                     collapsedIconColor:
@@ -197,13 +235,13 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
                                         .onSecondaryContainer),
                               ],
                             ),
-                            width(10.w),
+                            width(13.w),
                             Image.asset(
                               Assets.imagesTimer,
                               height: 20.h,
                               width: 20.w,
                             ),
-                            width(8.w),
+                            width(6.w),
                             AppConstant.commonText('82:36',
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,

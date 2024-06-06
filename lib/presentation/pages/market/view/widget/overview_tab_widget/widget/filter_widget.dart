@@ -1,6 +1,7 @@
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
+import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class OverviewFilters extends StatelessWidget {
                           )
                         ],
                       ),
-                      height(12.h),
+                      height(14.h),
                       AppConstant.commonText('Network',
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.shadow),
@@ -74,6 +75,7 @@ class OverviewFilters extends StatelessWidget {
                                     .colorScheme
                                     .onPrimaryContainer,
                                 shape: RoundedRectangleBorder(
+                                  side:  BorderSide(color: AppColors.transparent),
                                     borderRadius: BorderRadius.circular(25)),
                                 backgroundColor: cubit.selectedFilter == e
                                     ? Theme.of(context).colorScheme.onPrimary
@@ -91,7 +93,7 @@ class OverviewFilters extends StatelessWidget {
                                     fontWeight: FontWeight.w500)))
                             .toList(),
                       ),
-                      height(6.h),
+                      height(8.h),
                       AppConstant.commonText('Time',
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.shadow),
@@ -112,7 +114,7 @@ class OverviewFilters extends StatelessWidget {
                                 disabledColor: Theme.of(context)
                                     .colorScheme
                                     .onPrimaryContainer,
-                                shape: RoundedRectangleBorder(
+                                shape: RoundedRectangleBorder(side:  BorderSide(color: AppColors.transparent),
                                     borderRadius: BorderRadius.circular(25)),
                                 backgroundColor: cubit.selectedTime == e
                                     ? Theme.of(context).colorScheme.onPrimary

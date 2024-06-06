@@ -53,6 +53,8 @@ dependencies:
   slide_countdown: ^1.6.1
   syncfusion_flutter_sliders: ^25.2.7
   syncfusion_flutter_core: ^25.2.7
+  circular_countdown_timer: ^0.2.3
+  day_night_switch: ^1.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

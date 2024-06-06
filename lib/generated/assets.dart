@@ -24,7 +24,6 @@ class Assets {
   static const String imagesChartSelected = 'assets/images/chart_selected.png';
   static const String imagesBrowserSelected = 'assets/images/browser_selected.png';
   static const String imagesMessageSelected = 'assets/images/message_selected.png';
-  static const String imagesHome = 'assets/images/home.png';
   static const String imagesStar = 'assets/images/star.png';
   static const String imagesHomeIconWhite = 'assets/images/home_icon_white.png';
   static const String imagesSearch = 'assets/images/search.png';
@@ -48,5 +47,27 @@ class Assets {
   static const String imagesTimer = 'assets/images/timer.png';
   static const String imagesCopyRounded = 'assets/images/copy_rounded.png';
   static const String imagesExploreRounded = 'assets/images/explore_rounded.png';
+  static const String imagesClose = 'assets/images/close.png';
+  static const String imagesCheckCircle = 'assets/images/check_circle.png';
+  static const String imagesFolderCloud = 'assets/images/folder_cloud.png';
+  static const String imagesDay = 'assets/images/day.png';
+  static const String imagesMoon = 'assets/images/moon.png';
+  static const String imagesMessageEdit = 'assets/images/message_edit.png';
+  static const String imagesContact = 'assets/images/contact.png';
+  static const String imagesHome = 'assets/images/home.png';
+  static const String imagesMessageFavorite = 'assets/images/message_favorite.png';
+  static const String imagesHolding = 'assets/images/holding.png';
+  static const String imagesCards = 'assets/images/cards.png';
+  static const String imagesDollarPrice = 'assets/images/dollar_price.png';
+  static const String imagesSwap = 'assets/images/swap.png';
+  static const String imagesStaking = 'assets/images/staking.png';
+  static const String imagesBitCoin = 'assets/images/bitcoin.png';
+  static const String imagesShop = 'assets/images/shop.png';
+  static const String imagesSettingFilled = 'assets/images/setting_filled.png';
+  static const String imagesInfoFilled = 'assets/images/info_filled.png';
+  static const String imagesSupport = 'assets/images/support.png';
+  static const String imagesLogOut = 'assets/images/logout.png';
+  static const String imagesDiscord = 'assets/images/discord.png';
+  static const String imagesTelegram = 'assets/images/telegram.png';
 
 }

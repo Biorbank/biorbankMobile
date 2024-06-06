@@ -1,5 +1,5 @@
+import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -41,57 +41,18 @@ class _CoinsTabWidgetState extends State<CoinsTabWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             height(12.h),
-            DefaultTabController(
+            CommonTabbar(
+                onTap: (index) {},
+                selectedIndex: cubit.selectedCoinsTabIndex,
                 length: 4,
-                child: TabBar(
-                    indicatorColor: AppColors.transparent,
-                    unselectedLabelColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                    isScrollable: true,
-                    labelPadding: const EdgeInsets.only(
-                      bottom: 10,
-                      top: 6,
-                    ),
-                    indicatorPadding: EdgeInsets.zero,
-                    splashFactory: NoSplash.splashFactory,
-                    tabAlignment: TabAlignment.start,
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    indicatorSize: TabBarIndicatorSize.label,
-                    controller: tabController,
-                    tabs: cubit.coinsTabList.map((e) {
-                      int index = cubit.coinsTabList.indexOf(e);
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: cubit.selectedCoinsTabIndex == index
-                                    ? Theme.of(context).colorScheme.onPrimary
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer,
-                                gradient: cubit.selectedCoinsTabIndex == index
-                                    ? LinearGradient(colors: [
-                                        Theme.of(context).colorScheme.primary,
-                                        Theme.of(context).colorScheme.onPrimary,
-                                      ])
-                                    : null),
-                            child: AppConstant.commonText(e,
-                                fontWeight: FontWeight.w500,
-                                color: cubit.selectedCoinsTabIndex == index
-                                    ? Theme.of(context).colorScheme.onSurface
-                                    : Theme.of(context)
-                                        .colorScheme
-                                        .onSecondaryContainer)),
-                      );
-                    }).toList())),
-           // height(15.h),
+                tabController: tabController,
+                tabList: cubit.coinsTabList),
+           
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 14),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 separatorBuilder: (context, index) => height(20.h),
                 itemCount: 14,
                 itemBuilder: (context, index) => coinCard(
@@ -100,13 +61,10 @@ class _CoinsTabWidgetState extends State<CoinsTabWidget>
                     differentPercentage: '+1.23%',
                     imageUrl:
                         'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png',
-                    isProfit: (index %2)==0,
-                    price: '\$12,584'
-                    ),
+                    isProfit: (index % 2) == 0,
+                    price: '\$12,584'),
               ),
             ),
-                        
-
           ],
         );
       },
@@ -119,8 +77,7 @@ class _CoinsTabWidgetState extends State<CoinsTabWidget>
       required String imageUrl,
       required String coinName,
       required String coinShortName,
-      required String price
-      }) {
+      required String price}) {
     return Row(
       children: [
         CachedNetworkImage(

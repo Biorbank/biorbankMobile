@@ -10,13 +10,17 @@ class MarketCubit extends Cubit<MarketState> {
 
   int selectedTabIndex = 0;
   int selectedCoinsTabIndex = 0;
+  int selectedCryptoTabIndex = 0;
   String selectedFilter = 'All networks';
   String selectedTime = '1h';
   CurrencyModel? selectedCurrency;
   CurrencyModel? selectedReceiveCurrency;
+  int transactionStatusID = 0;
+  bool isSwapInfiniteApproval=true;
   void onChangeTabIndex({required int index}) {
     emit(ChangeTabBarIndexState(index: index));
   }
+
   SfRangeValues sliderValues = const SfRangeValues(0.0, 25.0);
 
   List<String> filterDataList = [
@@ -73,10 +77,24 @@ class MarketCubit extends Cubit<MarketState> {
   void onSelectCurrency({required CurrencyModel? currency}) {
     emit(CurrncySelectedState(currency: currency));
   }
+
   void onSelectReceiveCurrency({required CurrencyModel? currency}) {
     emit(ReceiveCurrncySelectedState(currency: currency));
   }
+
   void onChangeRangeSliderValue({required SfRangeValues value}) {
     emit(RangeSliderState(value: value));
+  }
+
+  void onChangeSelectedCryptoTabIndex({required int index}) {
+    emit(ChangeSelectedCryptoTabState(index: index));
+  }
+
+  void onChangeTransactionStatus({required int index}) {
+    emit(TransactionStatusState(id: index));
+  }
+
+  void onChangeSwapInfiniteApprvoval({required bool value}) {
+    emit(SwapApprovalState(isApproval: value));
   }
 }

@@ -20,6 +20,8 @@ class RangeSliderWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SfRangeSliderTheme(
             data: SfRangeSliderThemeData(
+                activeTrackHeight: 3,
+                inactiveTrackHeight: 3,
                 tooltipBackgroundColor: Theme.of(context).colorScheme.shadow,
                 tooltipTextStyle: TextStyle(
                   color: Theme.of(context).colorScheme.onSurface,
@@ -34,8 +36,8 @@ class RangeSliderWidget extends StatelessWidget {
               enableTooltip: true,
               showLabels: true,
               startThumbIcon: Container(
-                height: 8.h,
-                width: 8.w,
+                height: 5.h,
+                width: 5.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).colorScheme.onPrimary,
@@ -56,8 +58,8 @@ class RangeSliderWidget extends StatelessWidget {
                 return '$formattedText%';
               },
               endThumbIcon: Container(
-                height: 8.h,
-                width: 8.w,
+                height: 5.h,
+                width: 5.w,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).colorScheme.onPrimary,
