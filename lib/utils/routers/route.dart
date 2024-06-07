@@ -10,4 +10,5 @@ class Routes {
   static const String connectHardwareWalletRoute = '/connectHardwareRoute';
   static const String newAccountCreateRoute = '/newAccountRoute';
   static const String nftHoldingRoute = '/nftHoldingRoute';
+  static const String serachViewRoute = '/searchRoute';
 }

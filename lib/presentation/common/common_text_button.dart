@@ -7,18 +7,20 @@ class CommonTextButton extends StatelessWidget {
       this.onTap,
       required this.name,
       this.textColor,
+      this.fontSize,
       this.fontWeight});
   final VoidCallback? onTap;
   final Color? textColor;
   final String name;
   final FontWeight? fontWeight;
+  final double? fontSize;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: AppConstant.commonText(name,
-          color: textColor, fontWeight: fontWeight),
+          fontSize: fontSize, color: textColor, fontWeight: fontWeight),
     );
   }
 }

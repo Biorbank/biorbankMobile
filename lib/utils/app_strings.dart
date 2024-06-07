@@ -33,4 +33,6 @@ class AppStrings {
   static String seeDetails='See Details';    
   static String transactionCompleted='Transaction Completed';    
   static String backUp='Back Up';    
+  static String bookMarks='Bookmarks';    
+  static String address='Address, ens, name..';    
 }

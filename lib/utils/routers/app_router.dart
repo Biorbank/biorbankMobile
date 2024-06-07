@@ -1,3 +1,4 @@
+import 'package:biorbank/presentation/common/common_search_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/login_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
@@ -64,7 +65,10 @@ class AppRouter {
             );
           },
         );
-
+      case Routes.serachViewRoute:
+        return MaterialPageRoute(
+          builder: (_) => const CommonSearchView(),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

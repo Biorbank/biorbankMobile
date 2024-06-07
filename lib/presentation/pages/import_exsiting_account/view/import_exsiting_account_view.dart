@@ -1,15 +1,13 @@
 import 'package:biorbank/presentation/common/common_button.dart';
+import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/widget/json_file_widget_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/widget/phrase_key_widget.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/routers/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../utils/app_strings.dart';
-import '../../../../utils/app_widgets.dart';
 import '../../../../utils/common_spacer.dart';
 import '../../../common/common_appbar.dart';
 
@@ -28,8 +26,10 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
-    tabController.addListener((){
-      context.read<ImportExsitingAccountCubit>().changeTabIndex(index: tabController.index);
+    tabController.addListener(() {
+      context
+          .read<ImportExsitingAccountCubit>()
+          .changeTabIndex(index: tabController.index);
     });
     super.initState();
   }
@@ -55,74 +55,24 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                   title: AppStrings.importExsitingAccount,
                 ),
                 height(20.h),
-                DefaultTabController(
+                CommonTabbar(
+                  selectedIndex: cubit.tabIndex,
                   length: 2,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: TabBar(
-                      indicatorColor: AppColors.transparent,
-                      onTap: (value) {
-                      },
-                      tabs: [
-                        Container(
-                          decoration: cubit.tabIndex == 0
-                              ? BoxDecoration(
-                                  color: AppColors.blue50,
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0xFFAAAAAA)
-                                            .withOpacity(0.15),
-                                        spreadRadius: 0,
-                                        blurRadius: 40,
-                                        offset: const Offset(2, 4),
-                                      ),
-                                    ])
-                              : null,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 2),
-                          child: AppConstant.commonText(AppStrings.pharseOrKey,
-                              fontWeight:  cubit.tabIndex== 0
-                                  ? FontWeight.w600
-                                  : FontWeight.w500),
-                        ),
-                        Container(
-                          decoration: cubit.tabIndex == 1
-                              ? BoxDecoration(
-                                  color: AppColors.blue50,
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                      BoxShadow(
-                                        color: const Color(0xFFAAAAAA)
-                                            .withOpacity(0.15),
-                                        spreadRadius: 0,
-                                        blurRadius: 40,
-                                        offset: const Offset(2, 4),
-                                      ),
-                                    ])
-                              : null,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 2),
-                          child: AppConstant.commonText(AppStrings.jsonFile,
-                              fontWeight:  cubit.tabIndex == 1
-                                  ? FontWeight.w600
-                                  : FontWeight.w500),
-                        ),
-                      ],
-                      unselectedLabelColor: const Color(0XFF757575),
-                      padding: EdgeInsets.zero,
-                      controller: tabController,
-                      isScrollable: true,
-                      tabAlignment: TabAlignment.center,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      labelPadding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                      ),
-                    ),
+                  labelTextBackgroundPadding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+                  onTap: (index) {},
+                  backgroundContainerMargin: 0,
+                  tabController: tabController,
+                  tabList: [AppStrings.pharseOrKey, AppStrings.jsonFile],
+                  labelColor: Theme.of(context).colorScheme.shadow,
+                  padding: EdgeInsets.zero,
+                  labelContainerRadius: 6,
+                  labelPadding: const EdgeInsets.symmetric(
+                    vertical: 8,
                   ),
+                  tabAlignment: TabAlignment.center,
+                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                  isShowBackgroundShadow: true,
                 ),
                 Expanded(
                   child: TabBarView(controller: tabController, children: const [
@@ -133,11 +83,11 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                 CommonButton(
                   name: 'Next',
                   onTap: () {
-                    if ( cubit.tabIndex == 0 &&
+                    if (cubit.tabIndex == 0 &&
                         (cubit.formKey.currentState?.validate() ?? false)) {
                       tabController.animateTo(1);
                     } else {
-                      if ( cubit.tabIndex== 1) {
+                      if (cubit.tabIndex == 1) {
                         Navigator.pushNamed(
                             context, Routes.connectHardwareWalletRoute);
                       }

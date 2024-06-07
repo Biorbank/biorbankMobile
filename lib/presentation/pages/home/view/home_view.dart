@@ -7,6 +7,7 @@ import 'package:biorbank/presentation/pages/home/view/widget/chart_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/share_detail_tab_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/trade_action_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,6 +34,9 @@ class HomeView extends StatelessWidget {
                       hintText: 'ID/USDT',
                       textController:
                           context.read<HomeCubit>().searchController,
+                      onTapTextField: () {
+                        Navigator.pushNamed(context, Routes.serachViewRoute);
+                      },
                     ),
                     height(10.h),
                     const CommonBalanceWidget(
@@ -43,7 +47,7 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              height(20.h),
+              height(28.h),
               const ChartWidget(),
               height(14.h),
               const ChartTimePeriodWidget(),

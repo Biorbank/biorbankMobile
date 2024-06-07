@@ -27,4 +27,7 @@ const blueColorScheme = ColorScheme(
     onSecondaryFixed: Color(0xFFE9E9E9),
     onPrimaryContainer: Color(0xFFF6F5FA),
     outline: Color(0xFF5D5D5B),
-    errorContainer: Color(0xFFF6F8FC));
+    errorContainer: Color(0xFFF6F8FC),
+    tertiary: Color(0xFFAAAAAA)
+    
+    );

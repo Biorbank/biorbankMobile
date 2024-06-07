@@ -38,7 +38,7 @@ class PriceHistoryChart extends StatelessWidget {
                 items: [
                   DropdownMenuItem(
                     value: 'All time',
-                    child: AppConstant.commonText('All time',
+                    child: AppConstant.commonText('All time', fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.shadow),
                   )
                 ],

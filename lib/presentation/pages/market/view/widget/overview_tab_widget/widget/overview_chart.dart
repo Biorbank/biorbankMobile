@@ -17,9 +17,29 @@ class OverViewLineChart extends StatelessWidget {
     return LineChart(
       LineChartData(
         baselineX: 0,
+
         gridData:  FlGridData(show: true, drawVerticalLine: false,drawHorizontalLine: isShowDot),
         borderData: FlBorderData(
           show: false,
+        ),
+        lineTouchData: LineTouchData(
+          touchTooltipData: LineTouchTooltipData(
+            getTooltipColor :(a){
+              return Theme.of(context).colorScheme.shadow;
+            },
+            getTooltipItems: (List<LineBarSpot> touchedSpots) {
+              return touchedSpots.map((spot) {
+                return LineTooltipItem(
+                  '${spot.y}',
+                  TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
+              }).toList();
+            },
+          ),
+          handleBuiltInTouches: true,
         ),
         titlesData: FlTitlesData(
           bottomTitles: AxisTitles( 

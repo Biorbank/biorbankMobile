@@ -1,12 +1,12 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
+import 'package:biorbank/presentation/common/common_crypto_detail_tile.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,7 +110,7 @@ class _SelectCryptoWidgetState extends State<SelectCryptoWidget>
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         separatorBuilder: (context, index) => height(6.h),
                         itemCount: 10,
-                        itemBuilder: (context, index) => cryptoDetailsWidget(
+                        itemBuilder: (context, index) => CommonCryptoDetailTile(
                             context: context,
                             secondCoinUrl: index == 0
                                 ? 'https://thumbs.dreamstime.com/b/ethereum-coin-isolated-one-shiny-golden-eth-physical-over-white-background-digital-blockchain-cryptocurrency-118284096.jpg'
@@ -152,60 +152,5 @@ class _SelectCryptoWidgetState extends State<SelectCryptoWidget>
     );
   }
 
-  Widget cryptoDetailsWidget({
-    required BuildContext context,
-    required String coinImageUrl,
-    required String coinShortName,
-    required String coinName,
-    String? secondCoinUrl,
-  }) {
-    return ListTile(
-      horizontalTitleGap: 10,
-      minTileHeight: 25,
-      leading: SizedBox(
-        width: 53.w,
-        height: 50.h,
-        child: Stack(
-          children: [
-            CachedNetworkImage(
-              imageUrl: coinImageUrl,
-              height: 44.h,
-              width: 44.h,
-              placeholder: (context, url) => const SizedBox.shrink(),
-            ),
-            Visibility(
-              visible: secondCoinUrl != null,
-              child: Positioned(
-                bottom: -1,
-                right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  padding: const EdgeInsets.all(2),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: CachedNetworkImage(
-                      imageUrl: secondCoinUrl ?? '',
-                      height: 28.h,
-                      width: 28.h,
-                      placeholder: (context, url) => const SizedBox.shrink(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      title: AppConstant.commonText(coinShortName,
-          fontWeight: FontWeight.w500,
-          fontSize: 14.sp,
-          color: Theme.of(context).colorScheme.shadow),
-      subtitle: AppConstant.commonText(coinName,
-          fontSize: 14.sp,
-          color: Theme.of(context).colorScheme.onSecondaryContainer),
-    );
-  }
+ 
 }

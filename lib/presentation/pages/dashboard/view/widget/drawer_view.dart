@@ -2,6 +2,8 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/preferences.dart';
+import 'package:biorbank/utils/routers/route.dart';
 import 'package:day_night_switch/day_night_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +19,7 @@ class DrawerView extends StatelessWidget {
               topRight: Radius.circular(6), bottomRight: Radius.circular(6))),
       backgroundColor: Theme.of(context).colorScheme.onSurface,
       child: DrawerHeader(
+        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -169,28 +172,47 @@ class DrawerView extends StatelessWidget {
                     height(18.h),
                     Row(
                       children: [
-                        Image.asset(
-                          Assets.imagesLogOut,
-                          height: 30.h,
-                          width: 30.w,
+                        GestureDetector(
+                          onTap: () {
+                            UserPreferences.eraseData();
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Routes.welcomeScreenRoute,
+                              (route) => false,
+                            );
+                          },
+                          child: Image.asset(
+                            Assets.imagesLogOut,
+                            height: 30.h,
+                            width: 30.w,
+                          ),
                         ),
                         const Spacer(),
-                        Image.asset(
-                          Assets.imagesDiscord,
-                          height: 30.h,
-                          width: 30.w,
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(
+                            Assets.imagesDiscord,
+                            height: 30.h,
+                            width: 30.w,
+                          ),
                         ),
                         width(16.w),
-                        Image.asset(
-                          Assets.imagesTelegram,
-                          height: 30.h,
-                          width: 30.w,
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(
+                            Assets.imagesTelegram,
+                            height: 30.h,
+                            width: 30.w,
+                          ),
                         ),
                         width(16.w),
-                        Image.asset(
-                          Assets.imagesTwitter,
-                          height: 30.h,
-                          width: 30.w,
+                        GestureDetector(
+                          onTap: () {},
+                          child: Image.asset(
+                            Assets.imagesTwitter,
+                            height: 30.h,
+                            width: 30.w,
+                          ),
                         ),
                       ],
                     ),

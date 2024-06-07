@@ -34,8 +34,8 @@ class CommonTextfield extends StatelessWidget {
   final Color? cursorColor;
   final Color? textColor;
   final double? verticalPading;
-    final Color? focusBorderColor;
-
+  final Color? focusBorderColor;
+  final bool autoFocus;
   const CommonTextfield(
       {super.key,
       required this.title,
@@ -54,6 +54,7 @@ class CommonTextfield extends StatelessWidget {
       this.obscureText = false,
       this.initialVal,
       this.isReadOnly,
+      this.autoFocus = false,
       this.hintStyle,
       this.cursorColor,
       this.maxLength,
@@ -87,7 +88,7 @@ class CommonTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(vertical:verticalPading ??8.0),
+      padding: EdgeInsets.symmetric(vertical: verticalPading ?? 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -101,6 +102,7 @@ class CommonTextfield extends StatelessWidget {
             enabled: enabled,
             controller: controller,
             maxLines: maxLines,
+            autofocus: autoFocus,
             onTap: textFieldOnTap ?? () {},
             inputFormatters: inputFormatter,
             obscuringCharacter: '*',
@@ -133,7 +135,7 @@ class CommonTextfield extends StatelessWidget {
                   TextStyle(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                       fontWeight: FontWeight.normal,
-                      fontSize: 15),
+                      fontSize: 13),
               counterText: '',
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
@@ -155,8 +157,9 @@ class CommonTextfield extends StatelessWidget {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                borderSide:
-                    BorderSide(color:focusBorderColor?? Theme.of(context).colorScheme.onPrimary),
+                borderSide: BorderSide(
+                    color: focusBorderColor ??
+                        Theme.of(context).colorScheme.onPrimary),
               ),
               contentPadding: EdgeInsets.symmetric(
                 vertical: maxLines == 1 ? 0.0 : 8.0,
