@@ -1,10 +1,12 @@
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/chat_cout_widget.dart';
+import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/chat_info_tile.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -115,14 +117,21 @@ class _ChatViewState extends State<ChatView>
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               itemCount: 10,
-              itemBuilder: (context, index) => chatInfoTile(
-                  profileImage:
-                      'https://assets.entrepreneur.com/content/3x2/2000/20191204184811-IMG-5910.jpeg?format=pjeg&auto=webp&crop=1:1',
-                  context: context,
-                  chatCount: index == 0 ? 30 : null,
-                  date: '20:7',
-                  lastMsg: 'Thank you!',
-                  name: 'Wade Warren')),
+              itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context,
+                          Routes.chatDetailRoute);
+                    },
+                    child: chatInfoTile(
+                        profileImage:
+                            'https://assets.entrepreneur.com/content/3x2/2000/20191204184811-IMG-5910.jpeg?format=pjeg&auto=webp&crop=1:1',
+                        context: context,
+                        chatCount: index == 0 ? 30 : null,
+                        date: '20:7',
+                        lastMsg: 'Thank you!',
+                        name: 'Wade Warren'),
+                  )),
         ),
       ],
     );

@@ -36,6 +36,8 @@ class CommonTextfield extends StatelessWidget {
   final double? verticalPading;
   final Color? focusBorderColor;
   final bool autoFocus;
+  final TextStyle? textStyle;
+  final double? cursorHeight;
   const CommonTextfield(
       {super.key,
       required this.title,
@@ -67,6 +69,8 @@ class CommonTextfield extends StatelessWidget {
       this.fillColor,
       this.onTapSuffixWidget,
       this.verticalPading,
+      this.textStyle,
+      this.cursorHeight,
       this.focusBorderColor,
       this.enabled = true});
 
@@ -104,6 +108,11 @@ class CommonTextfield extends StatelessWidget {
             maxLines: maxLines,
             autofocus: autoFocus,
             onTap: textFieldOnTap ?? () {},
+            onEditingComplete: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+
+            },
+            
             inputFormatters: inputFormatter,
             obscuringCharacter: '*',
             onTapOutside: (v) {
@@ -117,6 +126,7 @@ class CommonTextfield extends StatelessWidget {
             readOnly: isReadOnly ?? false,
             maxLength: maxLength,
             cursorColor: cursorColor,
+            cursorHeight:cursorHeight ,
             decoration: InputDecoration(
               errorMaxLines: 3,
               suffixIcon: suffixWidget != null
@@ -171,7 +181,7 @@ class CommonTextfield extends StatelessWidget {
               ),
             ),
             keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
-            style: TextStyle(
+            style:textStyle?? TextStyle(
                 fontSize: 15,
                 color: textColor ?? Theme.of(context).colorScheme.shadow),
             onChanged: onChanged,

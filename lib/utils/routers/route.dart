@@ -11,4 +11,6 @@ class Routes {
   static const String newAccountCreateRoute = '/newAccountRoute';
   static const String nftHoldingRoute = '/nftHoldingRoute';
   static const String serachViewRoute = '/searchRoute';
+  static const String chatDetailRoute = '/chatDetailRoute';
+  static const String sendMoneyRoute = '/sendMoneyRoute';
 }

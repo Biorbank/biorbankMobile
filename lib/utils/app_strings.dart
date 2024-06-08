@@ -35,4 +35,5 @@ class AppStrings {
   static String backUp='Back Up';    
   static String bookMarks='Bookmarks';    
   static String address='Address, ens, name..';    
+  static String sendMoney='Send Money';    
 }

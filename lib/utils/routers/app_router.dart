@@ -1,6 +1,8 @@
 import 'package:biorbank/presentation/common/common_search_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/login_view.dart';
+import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
+import 'package:biorbank/presentation/pages/chat/view/send_money_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
 import 'package:biorbank/presentation/pages/dashboard/view/dashboard_view.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/nft_holding_view.dart';
@@ -68,6 +70,14 @@ class AppRouter {
       case Routes.serachViewRoute:
         return MaterialPageRoute(
           builder: (_) => const CommonSearchView(),
+        );
+      case Routes.chatDetailRoute:
+        return MaterialPageRoute(
+          builder: (_) => const ChatDetailScreen(),
+        );
+      case Routes.sendMoneyRoute:
+        return MaterialPageRoute(
+          builder: (_) => const SendMoneyView(),
         );
       default:
         return MaterialPageRoute(
