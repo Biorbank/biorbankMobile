@@ -15,7 +15,7 @@ final VoidCallback onTap;
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 15),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.onSurface,
             borderRadius: BorderRadius.circular(12),

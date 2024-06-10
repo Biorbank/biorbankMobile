@@ -1,25 +1,27 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/widget/json_file_widget_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/widget/phrase_key_widget.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../../utils/common_spacer.dart';
 import '../../../common/common_appbar.dart';
+@RoutePage()
 
-class ImportExistingAccountView extends StatefulWidget {
-  const ImportExistingAccountView({super.key});
+class ImportExistingAccountScreen extends StatefulWidget {
+  const ImportExistingAccountScreen({super.key});
 
   @override
-  State<ImportExistingAccountView> createState() =>
+  State<ImportExistingAccountScreen> createState() =>
       _ImportExistingAccountViewState();
 }
 
-class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
+class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
 
@@ -88,8 +90,9 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountView>
                       tabController.animateTo(1);
                     } else {
                       if (cubit.tabIndex == 1) {
-                        Navigator.pushNamed(
-                            context, Routes.connectHardwareWalletRoute);
+                      context.router.push(const ConnectHardwareWalletRoute());
+                        // Navigator.pushNamed(
+                        //     context, Routes.connectHardwareWalletRoute);
                       }
                     }
                   },

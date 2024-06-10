@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_crypto_detail_tile.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
@@ -5,15 +6,16 @@ import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+@RoutePage()
 
-class CommonSearchView extends StatefulWidget {
-  const CommonSearchView({super.key});
+class CommonSearchScreen extends StatefulWidget {
+  const CommonSearchScreen({super.key});
 
   @override
-  State<CommonSearchView> createState() => _CommonSearchViewState();
+  State<CommonSearchScreen> createState() => _CommonSearchViewState();
 }
 
-class _CommonSearchViewState extends State<CommonSearchView>
+class _CommonSearchViewState extends State<CommonSearchScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   @override

@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/preferences.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:day_night_switch/day_night_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +21,6 @@ class DrawerView extends StatelessWidget {
               topRight: Radius.circular(6), bottomRight: Radius.circular(6))),
       backgroundColor: Theme.of(context).colorScheme.onSurface,
       child: DrawerHeader(
-        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,13 +59,10 @@ class DrawerView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 60.h,
-                      width: 60.w,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer),
+                    CircleAvatar(
+                      radius: 31,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.onPrimaryContainer,
                     ),
                     height(10.h),
                     Row(
@@ -90,12 +88,18 @@ class DrawerView extends StatelessWidget {
                             context: context,
                             icon: Assets.imagesContact,
                             title: 'Contacts',
-                            onTap: () {}),
+                            onTap: () {
+                              Global.scaffoldKey.currentState?.closeDrawer();
+                              AutoTabsRouter.of(context).setActiveIndex(5);
+                            }),
                         drawerTile(
                             context: context,
                             icon: Assets.imagesHome,
                             title: 'Home',
-                            onTap: () {}),
+                            onTap: () {
+                              Global.scaffoldKey.currentState?.closeDrawer();
+                              AutoTabsRouter.of(context).setActiveIndex(4);
+                            }),
                         drawerTile(
                             context: context,
                             icon: Assets.imagesMessageFavorite,
@@ -175,11 +179,13 @@ class DrawerView extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             UserPreferences.eraseData();
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              Routes.welcomeScreenRoute,
-                              (route) => false,
-                            );
+
+                            context.router.replaceAll([const WelcomeRoute()]);
+                            // Navigator.pushNamedAndRemoveUntil(
+                            //   context,
+                            //   Routes.welcomeScreenRoute,
+                            //   (route) => false,
+                            // );
                           },
                           child: Image.asset(
                             Assets.imagesLogOut,

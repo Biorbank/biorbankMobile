@@ -1,13 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/auth/widgets/common_topview.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage()
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -35,7 +37,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     CommonButton(
                       name: "Create New Account",
                       onTap: () {
-                        Navigator.pushNamed(context, Routes.createAccountRoute);
+                        context.router.push(const CreateAccountRoute());
+                        // Navigator.pushNamed(context, Routes.createAccountRoute);
                       },
                     )
                   ],
@@ -46,8 +49,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   buttonColor: Theme.of(context).colorScheme.errorContainer,
                   textColor: Theme.of(context).colorScheme.shadow,
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, Routes.importExistingAccountRoute);
+                    context.router.push(const ImportExistingAccountRoute ());
+
+                    // Navigator.pushNamed(
+                    //     context, Routes.importExistingAccountRoute);
                   },
                 ),
                 height(15),
@@ -131,7 +136,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           TextSpan(
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Navigator.pushNamed(context, Routes.loginScreenRoute);
+                context.router.push(const LoginRoute());
+               // Navigator.pushNamed(context, Routes.loginScreenRoute);
               },
             text: 'Login',
             style: TextStyle(

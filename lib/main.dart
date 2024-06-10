@@ -1,8 +1,7 @@
 import 'package:biorbank/utils/Theme/primary_theme.dart';
 import 'package:biorbank/utils/bloc_provider_binding.dart';
 import 'package:biorbank/utils/preferences.dart';
-import 'package:biorbank/utils/routers/app_router.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,11 +10,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupPreferences();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   MyApp({super.key});
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +26,15 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MultiBlocProviderList(
-          child: MaterialApp(
+          child: MaterialApp.router(
+        routerConfig: _appRouter.config(),
         title: 'Biorbank',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         theme: theme,
-        initialRoute: Routes.initialRoute,
-        onGenerateRoute: AppRouter.generateRoute,
+        
+        // initialRoute: Routes.initialRoute,
+        // onGenerateRoute: AppAllRouter.generateRoute,
       )),
     );
   }

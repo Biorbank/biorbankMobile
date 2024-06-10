@@ -34,6 +34,11 @@ class AppStrings {
   static String transactionCompleted='Transaction Completed';    
   static String backUp='Back Up';    
   static String bookMarks='Bookmarks';    
-  static String address='Address, ens, name..';    
+  static String addressName='Address, ens, name..';    
   static String sendMoney='Send Money';    
+  static String createNewContact='Create new contact';    
+  static String giveThemAusername='Give them a username';    
+  static String searchForUser='Search for user';    
+  static String address='Address';    
+  static String userName='Username';    
 }

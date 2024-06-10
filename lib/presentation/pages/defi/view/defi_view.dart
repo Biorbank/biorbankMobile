@@ -1,16 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/common/common_balance_widget.dart';
 import 'package:biorbank/presentation/pages/defi/cubit/defi_cubit.dart';
 import 'package:biorbank/presentation/pages/defi/view/widget/defi_details_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DefiView extends StatelessWidget {
-  const DefiView({super.key});
+@RoutePage()
+class DefiScreen extends StatelessWidget {
+  const DefiScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,9 @@ class DefiView extends StatelessWidget {
                   textController:
                       context.read<DefiCubit>().searchTextController,
                   onTapTextField: () {
-                    Navigator.pushNamed(context, Routes.serachViewRoute);
+                    context.router.push(const CommonSearchRoute());
+
+                    //Navigator.pushNamed(context, Routes.serachViewRoute);
                   },
                 ),
                 height(10.h),

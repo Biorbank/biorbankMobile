@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
@@ -6,12 +7,13 @@ import 'package:biorbank/presentation/pages/chat/view/widget/message_bubble_widg
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+@RoutePage()
 class ChatDetailScreen extends StatelessWidget {
   const ChatDetailScreen({super.key});
 
@@ -75,7 +77,7 @@ class ChatDetailScreen extends StatelessWidget {
                   );
                 }),
           ),
-          Container(  
+          Container(
             padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
             color: Colors.white,
             child: Column(
@@ -102,9 +104,11 @@ class ChatDetailScreen extends StatelessWidget {
                     Expanded(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(
-                          context,
-                          Routes.sendMoneyRoute);
+                          context.router.push(const SendMoneyRoute());
+
+                          // Navigator.pushNamed(
+                          // context,
+                          // Routes.sendMoneyRoute);
                         },
                         child: Container(
                           height: 50.h,
@@ -130,7 +134,6 @@ class ChatDetailScreen extends StatelessWidget {
                                 Assets.imagesArrowUp,
                                 height: 18.h,
                                 width: 18.w,
-                               
                               ),
                             ],
                           ),

@@ -64,7 +64,7 @@ class OverviewWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppConstant.commonText('2, 508.98 USDT',
+                    AppConstant.commonText('2,508.98 USDT',
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.shadow),

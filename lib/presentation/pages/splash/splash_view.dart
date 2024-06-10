@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/preferences.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+@RoutePage()
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -18,9 +20,15 @@ class _SplashScreenState extends State<SplashScreen> {
       (value) {
         String userData = UserPreferences.getUserData();
         if (userData.isNotEmpty) {
-       Navigator.pushReplacementNamed(context, Routes.loginScreenRoute);
+          context.router.pushAndPopUntil(
+            const LoginRoute(),
+            predicate: (route) => false,
+          );
         } else {
-          Navigator.pushReplacementNamed(context, Routes.welcomeScreenRoute);
+          context.router.pushAndPopUntil(
+            const WelcomeRoute(),
+            predicate: (route) => false,
+          );
         }
       },
     );

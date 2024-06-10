@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_appbar.dart';
 import 'package:biorbank/presentation/common/common_text_button.dart';
@@ -14,15 +15,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../common/pin_code_field.dart';
+@RoutePage()
 
-class UnlockPinView extends StatefulWidget {
-  const UnlockPinView({super.key});
+class UnlockPinScreen extends StatefulWidget {
+  const UnlockPinScreen({super.key});
 
   @override
-  State<UnlockPinView> createState() => _UnlockPinViewState();
+  State<UnlockPinScreen> createState() => _UnlockPinViewState();
 }
 
-class _UnlockPinViewState extends State<UnlockPinView> {
+class _UnlockPinViewState extends State<UnlockPinScreen> {
   StreamController<ErrorAnimationType>? errorController1;
 
   @override

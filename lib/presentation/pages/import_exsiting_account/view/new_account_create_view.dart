@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_appbar.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
@@ -9,9 +10,10 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+@RoutePage()
 
-class NewAccountCreateView extends StatelessWidget {
-  const NewAccountCreateView({super.key});
+class NewAccountCreateScreen extends StatelessWidget {
+  const NewAccountCreateScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

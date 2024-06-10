@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/auth/cubit/auth_cubit.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/preferences.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:biorbank/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,15 +15,16 @@ import '../../../../utils/Theme/app_colors.dart';
 import '../../../../utils/common_spacer.dart';
 import '../../../common/common_text_button.dart';
 import '../../../common/common_textfield.dart';
+@RoutePage()
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<LoginScreen> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> with Validation {
+class _LoginViewState extends State<LoginScreen> with Validation {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<AuthCubit>();
@@ -98,7 +100,7 @@ class _LoginViewState extends State<LoginView> with Validation {
                 textColor:Theme.of(context).colorScheme.onSurface,
                 onTap: () {
                   if (cubit.formKey.currentState?.validate() ?? false) {
-                    Navigator.pushReplacementNamed(context, Routes.dashboardRoute);
+                   context.router.pushAndPopUntil(const DashboardRoute(), predicate: (route) => false,);
                   }
                 },
               ),

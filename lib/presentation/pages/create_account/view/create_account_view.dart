@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
 import 'package:biorbank/presentation/pages/create_account/widget/word_selector_dialog.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/preferences.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,14 +13,15 @@ import '../../../common/common_appbar.dart';
 import '../widget/create_account_field_view.dart';
 import '../widget/recovery_parse_view.dart';
 
-class CreateAccountView extends StatefulWidget {
-  const CreateAccountView({super.key});
+@RoutePage()
+class CreateAccountScreen extends StatefulWidget {
+  const CreateAccountScreen({super.key});
 
   @override
-  State<CreateAccountView> createState() => _CreateAccountViewState();
+  State<CreateAccountScreen> createState() => _CreateAccountViewState();
 }
 
-class _CreateAccountViewState extends State<CreateAccountView> {
+class _CreateAccountViewState extends State<CreateAccountScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
@@ -76,9 +78,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           cubit.isShowRecoveryPharseView
-                                  ? const RecoveryParseView()
-                                  : const CreateAccountFieldView(),
-                          
+                              ? const RecoveryParseView()
+                              : const CreateAccountFieldView(),
                           height(25.h),
                         ],
                       ),
@@ -96,11 +97,15 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                         if (cubit.formKey.currentState?.validate() ?? false) {
                           UserPreferences.setUserData(
                               value: cubit.createPasswordController.text);
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            Routes.dashboardRoute,
-                            (route) => false,
+                          context.router.pushAndPopUntil(
+                            const DashboardRoute(),
+                            predicate: (route) => false,
                           );
+                          // Navigator.pushNamedAndRemoveUntil(
+                          //   context,
+                          //   Routes.dashboardRoute,
+                          //   (route) => false,
+                          // );
                         }
                       }
                     },

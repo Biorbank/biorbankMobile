@@ -8,11 +8,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CommonSearchAppbar extends StatelessWidget {
   const CommonSearchAppbar(
       {super.key,
-       this.hintText,
-       this.textController,
+      this.hintText,
+      this.textController,
       this.onTapBellIcon,
       this.onTapTextField,
-      this.isVisibleTextField=true,
+      this.isVisibleTextField = true,
       this.onTapScan});
   final String? hintText;
   final TextEditingController? textController;
@@ -57,7 +57,9 @@ class CommonSearchAppbar extends StatelessWidget {
                             .onPrimaryContainer
                             .withOpacity(0.12),
                         hintStyle: TextStyle(
-                            color: Theme.of(context).colorScheme.onSurface),
+                            color: Theme.of(context).colorScheme.onSurface,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500),
                         prefixWidget: Padding(
                           padding: const EdgeInsets.all(14.0),
                           child: Image.asset(
@@ -66,7 +68,7 @@ class CommonSearchAppbar extends StatelessWidget {
                             width: 20.w,
                           ),
                         ),
-                        hintText: hintText??'',
+                        hintText: hintText ?? '',
                       ),
                     ),
                   ),

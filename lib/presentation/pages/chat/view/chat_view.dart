@@ -1,23 +1,24 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/chat_cout_widget.dart';
-import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/chat_info_tile.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+@RoutePage()
 
-class ChatView extends StatefulWidget {
-  const ChatView({super.key});
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
 
   @override
-  State<ChatView> createState() => _ChatViewState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatViewState extends State<ChatView>
+class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   @override
@@ -38,7 +39,7 @@ class _ChatViewState extends State<ChatView>
             children: [
               height(40.h),
               CommonSearchAppbar(
-                hintText: AppStrings.address,
+                hintText: AppStrings.addressName,
               ),
               height(10.h),
             ],
@@ -119,9 +120,11 @@ class _ChatViewState extends State<ChatView>
               itemCount: 10,
               itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(
-                          context,
-                          Routes.chatDetailRoute);
+                                            context.router.push(const ChatDetailRoute());
+
+                      // Navigator.pushNamed(
+                      //     context,
+                      //     Routes.chatDetailRoute);
                     },
                     child: chatInfoTile(
                         profileImage:

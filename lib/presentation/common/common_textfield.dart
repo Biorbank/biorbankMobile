@@ -1,6 +1,7 @@
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../utils/Theme/app_colors.dart';
 
@@ -139,13 +140,13 @@ class CommonTextfield extends StatelessWidget {
               fillColor: fillColor ??
                   ((isFilled ?? false)
                       ? Theme.of(context).colorScheme.onSurface
-                      : const Color(0xFFF6F8FC)),
+                      : Theme.of(context).colorScheme.errorContainer),
               filled: isFilled ?? true,
               hintStyle: hintStyle ??
                   TextStyle(
                       color: Theme.of(context).colorScheme.onSecondaryContainer,
                       fontWeight: FontWeight.normal,
-                      fontSize: 13),
+                      fontSize: 13.sp),
               counterText: '',
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius ?? 8.0),

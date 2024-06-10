@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_appbar.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
@@ -7,12 +8,13 @@ import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ConnectHardwareWalletView extends StatelessWidget {
-  const ConnectHardwareWalletView({super.key});
+@RoutePage()
+class ConnectHardwareWalletScreen extends StatelessWidget {
+  const ConnectHardwareWalletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,8 @@ class ConnectHardwareWalletView extends StatelessWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.all(10),
-                        decoration:  BoxDecoration(
-                            shape: BoxShape.circle, color:AppColors.blue50),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: AppColors.blue50),
                         child: Image.asset(
                           Assets.imagesConnect,
                           height: 28.h,
@@ -56,19 +58,26 @@ class ConnectHardwareWalletView extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                       height(10.h),
                       AppConstant.commonText('Connect and unlock your ledger',
-                          color: Theme.of(context).colorScheme.onSecondaryContainer),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer),
                       height(18.h),
-                      CommonButton(onTap: () {
-                        showModalBottomSheet(
-                          backgroundColor: Theme.of(context).colorScheme.onSurface,
-                          context: context, builder: (context) => const FindingLedgerWidget(),);
-                      }, name: 'Connect'),
+                      CommonButton(
+                          onTap: () {
+                            showModalBottomSheet(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.onSurface,
+                              context: context,
+                              builder: (context) => const FindingLedgerWidget(),
+                            );
+                          },
+                          name: 'Connect'),
                     ],
                   ),
                 ),
               ),
               height(20.h),
-               Container(
+              Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     color: Theme.of(context).colorScheme.inversePrimary),
@@ -79,8 +88,8 @@ class ConnectHardwareWalletView extends StatelessWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.all(10),
-                        decoration:  BoxDecoration(
-                            shape: BoxShape.circle,  color:AppColors.blue50),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: AppColors.blue50),
                         child: Image.asset(
                           Assets.imagesPhone,
                           height: 28.h,
@@ -96,13 +105,21 @@ class ConnectHardwareWalletView extends StatelessWidget {
                       height(10.h),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: AppConstant.commonText('Open the Cosmos app on your Ledger device',
-                            color: Theme.of(context).colorScheme.onSecondaryContainer,textAlign: TextAlign.center),
+                        child: AppConstant.commonText(
+                            'Open the Cosmos app on your Ledger device',
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                            textAlign: TextAlign.center),
                       ),
                       height(18.h),
-                      CommonOutlinedButton(onTap: () {
-                        Navigator.pushNamed(context, Routes.newAccountCreateRoute);
-                      }, title: 'Connect'),
+                      CommonOutlinedButton(
+                          onTap: () {
+                            context.router.push(const NewAccountCreateRoute());
+
+                            // Navigator.pushNamed(context, Routes.newAccountCreateRoute);
+                          },
+                          title: 'Connect'),
                     ],
                   ),
                 ),

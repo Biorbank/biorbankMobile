@@ -18,6 +18,7 @@ class CommonTabbar extends StatelessWidget {
       this.tabBarIndicatorSize,
       this.backgroundContainerMargin,
       this.labelTextBackgroundPadding,
+      this.isScrollable=true,
       this.isShowBackgroundShadow = false,
       required this.tabList});
   final TabController tabController;
@@ -35,6 +36,7 @@ class CommonTabbar extends StatelessWidget {
   final Color? indicatorColor;
   final double? labelContainerRadius;
   final double? backgroundContainerMargin;
+  final bool? isScrollable;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -56,12 +58,13 @@ class CommonTabbar extends StatelessWidget {
               labelColor: labelColor,
               unselectedLabelColor:
                   Theme.of(context).colorScheme.onSecondaryContainer,
-              isScrollable: true,
+              isScrollable: isScrollable??true,
               labelPadding:labelPadding?? const EdgeInsets.only(
                 bottom: 10,
                 top: 6,
               ),
               dividerHeight: 0,
+              
               indicatorPadding: EdgeInsets.zero,
               splashFactory: NoSplash.splashFactory,
               tabAlignment: tabAlignment ?? TabAlignment.start,
@@ -104,7 +107,7 @@ class CommonTabbar extends StatelessWidget {
                                     ? Theme.of(context).colorScheme.onPrimary
                                     : Theme.of(context)
                                         .colorScheme
-                                        .onPrimaryContainer,
+                                        .inversePrimary,
                                 gradient: selectedIndex == index
                                     ? LinearGradient(colors: [
                                         Theme.of(context).colorScheme.primary,

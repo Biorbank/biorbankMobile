@@ -15,11 +15,11 @@ class DashboardCubit extends Cubit<DashboardState> {
   int selectedBottomTabIndex = 4;
 
   List<Widget> bottomTabViews = [
-    const DefiView(),
-    const MarketView(),
-    const BrowserView(),
-    const ChatView(),
-    const HomeView(),
+    const DefiScreen(),
+    const MarketScreen(),
+    const BrowserScreen(),
+    const ChatScreen(),
+    const HomeScreen(),
   ];
 
   List<Map<String, dynamic>> navigationItems = [

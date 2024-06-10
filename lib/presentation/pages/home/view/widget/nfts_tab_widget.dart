@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/route.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -103,12 +104,16 @@ class NFTsTabWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.nftHoldingRoute,
-                        arguments: {
-                          "title": "Hooligan #7459",
-                          "image_url":
-                              "https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg"
-                        });
+                    context.pushRoute(NftHoldingRoute(
+                        imageUrl:
+                            'https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg',
+                        title: 'Hooligan #7459'));
+                    // Navigator.pushNamed(context, Routes.nftHoldingRoute,
+                    //     arguments: {
+                    //       "title": "Hooligan #7459",
+                    //       "image_url":
+                    //           "https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg"
+                    //     });
                   },
                   child: nftCardWidget(
                       context: context,
@@ -134,7 +139,8 @@ class NFTsTabWidget extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).colorScheme.onPrimaryContainer,
-          border: Border.all(color: Theme.of(context).colorScheme.onSecondaryFixed)),
+          border: Border.all(
+              color: Theme.of(context).colorScheme.onSecondaryFixed)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

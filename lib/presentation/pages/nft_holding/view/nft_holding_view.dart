@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
@@ -13,9 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widget/carousel_images.dart';
+@RoutePage()
 
-class NftHoldingView extends StatelessWidget {
-  const NftHoldingView(
+class NftHoldingScreen extends StatelessWidget {
+  const NftHoldingScreen(
       {super.key, required this.imageUrl, required this.title});
   final String title;
   final String imageUrl;

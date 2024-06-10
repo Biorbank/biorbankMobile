@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
@@ -11,8 +12,9 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BrowserView extends StatelessWidget {
-  const BrowserView({super.key});
+@RoutePage()
+class BrowserScreen extends StatelessWidget {
+  const BrowserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
