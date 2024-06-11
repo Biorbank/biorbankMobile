@@ -1,3 +1,4 @@
+import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -63,18 +64,25 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
               value: widget.value,            
               onChanged: widget.onChanged,
               dropdownStyleData: DropdownStyleData(
+                
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: widget.backGroundColor ?? Theme.of(context).colorScheme.onSurface)),
               iconStyleData: IconStyleData(
-                icon: Icon(
-                    isOpen
-                        ? Icons.keyboard_arrow_up_rounded
-                        : Icons.keyboard_arrow_down_rounded,
-                    color: widget.arrowColor ??Theme.of(context).colorScheme.shadow),
+                icon: Padding(
+                  padding: const EdgeInsets.only(right: 6),
+                  child: Transform.rotate(
+                    angle:  isOpen? 1.55 :-1.52,
+                    child: Image.asset(Assets.imagesBackArrow,height: 18,)),
+                )
+                // Icon(
+                //     isOpen
+                //         ? Icons.keyboard_arrow_up_rounded
+                //         : Icons.keyboard_arrow_down_rounded,
+                //     color: widget.arrowColor ??Theme.of(context).colorScheme.shadow),
               ),
               items: widget.items,
-             isExpanded: widget.isExpanded??false,
+              isExpanded: widget.isExpanded??false,
               onMenuStateChange: (open) {
                 setState(() {
                   isOpen = open;

@@ -3,6 +3,7 @@ import 'package:biorbank/presentation/pages/home/view/widget/common_add_account_
 import 'package:biorbank/presentation/pages/home/view/widget/price_detail_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,7 +43,8 @@ class DeFiTabWidget extends StatelessWidget {
             itemCount: 2,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
-                AutoTabsRouter.of(context).setActiveIndex(6);
+                context.router.push(DefiDetailRoute(index: index+1));
+               // AutoTabsRouter.of(context).setActiveIndex(6);
               },
               child: PriceDetailWidget(
                 title: index == 0 ? 'Staking' : 'Liquidity Providing (LP)',

@@ -60,7 +60,7 @@ class CommonTabbar extends StatelessWidget {
                   Theme.of(context).colorScheme.onSecondaryContainer,
               isScrollable: isScrollable??true,
               labelPadding:labelPadding?? const EdgeInsets.only(
-                bottom: 10,
+                bottom: 6,
                 top: 6,
               ),
               dividerHeight: 0,
@@ -91,10 +91,12 @@ class CommonTabbar extends StatelessWidget {
                             : null,
                         padding:labelTextBackgroundPadding?? const EdgeInsets.symmetric(
                             horizontal: 33, vertical: 10),
-                        child: AppConstant.commonText(e,
-                            fontWeight: selectedIndex == index
-                                ? FontWeight.w600
-                                : FontWeight.w500),
+                        child: Center(
+                          child: AppConstant.commonText(e,
+                              fontWeight: selectedIndex == index
+                                  ? FontWeight.w600
+                                  : FontWeight.w500),
+                        ),
                       )
                     : Padding(
                         padding: const EdgeInsets.only(right: 15),

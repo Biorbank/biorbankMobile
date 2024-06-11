@@ -4,6 +4,7 @@ import 'package:biorbank/presentation/pages/auth/view/login_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/unlock_pin_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/defi_detail_screen.dart';
+import 'package:biorbank/presentation/pages/browser/defi_details_page/view/defi_navigation_screen.dart';
 import 'package:biorbank/presentation/pages/browser/view/browser_view.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_view.dart';
@@ -38,11 +39,19 @@ class AppRouter extends _$AppRouter {
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
           AutoRoute(page: DefiRoute.page),
           AutoRoute(page: MarketRoute.page),
-          AutoRoute(page: HomeRoute.page),
+          AutoRoute(page: DefiNavigationRoute.page, children: [
+            AutoRoute(
+              page: HomeRoute.page,
+              initial: true,
+            ),
+            AutoRoute(
+              page: DefiDetailRoute.page,
+              maintainState: false,
+            ),
+          ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),
-          AutoRoute(page: ContactRoute.page),
-          AutoRoute(page: DefiDetailRoute.page),
+          AutoRoute(page: ContactRoute.page, maintainState: false),
         ]),
         AutoRoute(page: ImportExistingAccountRoute.page),
         AutoRoute(page: ConnectHardwareWalletRoute.page),

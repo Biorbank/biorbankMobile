@@ -71,10 +71,11 @@ class _ContactViewState extends State<ContactScreen>
             CommonTabbar(
                 selectedIndex: cubit.tabIndex,
                 length: 2,
+                 padding:const EdgeInsets.symmetric(horizontal: 8),
                 tabAlignment: TabAlignment.fill,
                 isScrollable: false,
-                labelTextBackgroundPadding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  labelTextBackgroundPadding:
+                const EdgeInsets.symmetric( vertical: 10),
                 labelColor: Theme.of(context).colorScheme.shadow,
                 isShowBackgroundShadow: true,
                 onTap: (index) {},

@@ -23,14 +23,13 @@ class DashboardScreen extends StatelessWidget {
           cubit.selectedBottomTabIndex = state.index;
         }
         return AutoTabsRouter(
-          routes: const [
+          routes:  const [
             DefiRoute(),
             MarketRoute(),
             BrowserRoute(),
             ChatRoute(),
             HomeRoute(),
             ContactRoute(),
-            DefiDetailRoute()
           ],
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);

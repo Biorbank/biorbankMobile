@@ -10,6 +10,7 @@ class CommonButton extends StatelessWidget {
   final String? image;
   final double? borderRadius;
   final EdgeInsets? margin;
+  final double? height;
   const CommonButton(
       {super.key,
       this.name,
@@ -18,6 +19,7 @@ class CommonButton extends StatelessWidget {
       this.margin,
       this.buttonColor,
       this.image,
+      this.height,
       this.borderRadius});
 
   @override
@@ -26,7 +28,7 @@ class CommonButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(16.r),
       onTap: onTap,
       child: Container(
-        height: 50.h,
+        height:height?? 50.h,
         margin:margin ,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? 16.r),

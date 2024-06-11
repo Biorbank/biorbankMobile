@@ -8,10 +8,15 @@ class DefiDetailCubit extends Cubit<DefiDetailState> {
   DefiDetailCubit() : super(DefiDetailInitialState());
 
   int selectedTabIndex=0;
+  int selectedLoanTabIndex=0;
 
 
   void onChangeTabIndex({required int index}){
 
     emit(DefiDetailTabIndexChange(index: index));
+  }
+  void onChangeLoanTabIndex({required int index}){
+
+    emit(DefiDetailLoanTabIndexChange(index: index));
   }
 }
