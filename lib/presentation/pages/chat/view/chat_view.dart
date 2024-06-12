@@ -9,8 +9,8 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-@RoutePage()
 
+@RoutePage()
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
@@ -50,9 +50,12 @@ class _ChatScreenState extends State<ChatScreen>
           padding: const EdgeInsets.only(left: 16),
           child: DefaultTabController(
               length: 3,
+              initialIndex: 0,
               child: TabBar(
+                  dividerHeight: 0,
                   onTap: (value) {},
                   isScrollable: true,
+                  indicatorColor: Theme.of(context).colorScheme.onPrimary,
                   unselectedLabelColor:
                       Theme.of(context).colorScheme.onSecondaryContainer,
                   labelPadding: const EdgeInsets.only(
@@ -120,7 +123,7 @@ class _ChatScreenState extends State<ChatScreen>
               itemCount: 10,
               itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
-                                            context.router.push(const ChatDetailRoute());
+                      context.router.push(const ChatDetailRoute());
 
                       // Navigator.pushNamed(
                       //     context,

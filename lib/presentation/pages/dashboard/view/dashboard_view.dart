@@ -30,6 +30,7 @@ class DashboardScreen extends StatelessWidget {
             ChatRoute(),
             HomeRoute(),
             ContactRoute(),
+            FeedbackRoute(),
           ],
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);

@@ -30,6 +30,7 @@ const blueColorScheme = ColorScheme(
     errorContainer: Color(0xFFF6F8FC),
     tertiary: Color(0xFFAAAAAA),
     primaryFixed: Color(0xFF2E30B2),
-    outlineVariant: Color(0xFFF7931A)
+   
+    surfaceTint:  Color(0xFFF7931A)
     
     );

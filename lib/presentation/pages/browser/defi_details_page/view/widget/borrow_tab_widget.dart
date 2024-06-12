@@ -228,6 +228,7 @@ class BorrowTabWidget extends StatelessWidget {
                       image: Assets.imagesDollarPrice,
                       price: '2110.43 USDC',
                       isSelected: true,
+                      imageColor: Theme.of(context).colorScheme.surfaceTint,
                       profit: '(+\$-0.0111)',
                       time: ''),
                 )),
@@ -237,7 +238,7 @@ class BorrowTabWidget extends StatelessWidget {
                   onTap: () {},
                   child: priceOptimizationWidget(
                       context: context,
-                      image: Assets.imagesDollarPrice,
+                      image: Assets.imagesWatch,
                       price: '2110.43 USDC',
                       profit: '',
                       time: '01m 48s'),
@@ -310,6 +311,7 @@ class BorrowTabWidget extends StatelessWidget {
       required String time,
       required String price,
       required String profit,
+      Color? imageColor,
       bool isSelected = false}) {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -330,10 +332,10 @@ class BorrowTabWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(Assets.imagesDollarPrice,
+              Image.asset(image,
                   height: 18.h,
                   width: 18.w,
-                  color: Theme.of(context).colorScheme.outlineVariant),
+                  color:imageColor ),
               width(8.w),
               AppConstant.commonText('Price Optimized',
                   color: Theme.of(context).colorScheme.shadow,

@@ -32,9 +32,14 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
       context
           .read<DefiDetailCubit>()
           .onChangeTabIndex(index: tabController.index);
+        
+      if (tabController.index == 2&& context.read<DefiDetailCubit>().selectedLoanTabIndex==1) {
+        context.read<DefiDetailCubit>().onChangeLoanTabIndex(index: 0);
+      }
     });
     WidgetsBinding.instance.addPostFrameCallback((t) {
       context.read<DefiDetailCubit>().onChangeTabIndex(index: widget.index);
+      context.read<DefiDetailCubit>().onChangeLoanTabIndex(index: 0);
     });
     super.initState();
   }

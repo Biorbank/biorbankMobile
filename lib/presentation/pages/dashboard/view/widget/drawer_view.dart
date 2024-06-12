@@ -89,8 +89,11 @@ class DrawerView extends StatelessWidget {
                             icon: Assets.imagesContact,
                             title: 'Contacts',
                             onTap: () {
-                              Global.scaffoldKey.currentState?.closeDrawer();
                               AutoTabsRouter.of(context).setActiveIndex(5);
+                              Global.scaffoldKey.currentState?.closeDrawer();
+                              // if (context.router.canPop()) {
+                              //   context.router.back();
+                              // }
                             }),
                         drawerTile(
                             context: context,
@@ -98,13 +101,18 @@ class DrawerView extends StatelessWidget {
                             title: 'Home',
                             onTap: () {
                               Global.scaffoldKey.currentState?.closeDrawer();
+
                               AutoTabsRouter.of(context).setActiveIndex(4);
                             }),
                         drawerTile(
                             context: context,
                             icon: Assets.imagesMessageFavorite,
                             title: 'Feedback',
-                            onTap: () {}),
+                            onTap: () {
+                               Global.scaffoldKey.currentState?.closeDrawer();
+
+                              AutoTabsRouter.of(context).setActiveIndex(6);
+                            }),
                       ],
                     ),
                     height(25.h),

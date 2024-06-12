@@ -29,6 +29,10 @@ class _ContactViewState extends State<ContactScreen>
     tabController.addListener(() {
       context.read<ContactCubit>().changeTabIndex(index: tabController.index);
     });
+    WidgetsBinding.instance.addPostFrameCallback((t){
+     context.read<ContactCubit>().changeTabIndex(index: 0);
+
+    });
     super.initState();
   }
 

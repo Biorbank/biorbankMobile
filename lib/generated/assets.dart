@@ -69,5 +69,9 @@ class Assets {
   static const String imagesLogOut = 'assets/images/logout.png';
   static const String imagesDiscord = 'assets/images/discord.png';
   static const String imagesTelegram = 'assets/images/telegram.png';
+  static const String imagesWatch = 'assets/images/watch.png';
+  static const String imagesLamp = 'assets/images/lamp.png';
+  static const String imagesBug = 'assets/images/bug.png';
+  static const String imagesSmilySad = 'assets/images/smily_sad.png';
 
 }

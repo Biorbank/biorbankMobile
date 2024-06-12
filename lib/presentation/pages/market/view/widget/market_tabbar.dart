@@ -46,7 +46,9 @@ class _MarketTabbarState extends State<MarketTabbar>
                   child: DefaultTabController(
                       length: 3,
                       child: TabBar(
-                        dividerHeight: 0,
+                          indicatorColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                          dividerHeight: 0,
                           onTap: (value) {},
                           unselectedLabelColor: Theme.of(context)
                               .colorScheme

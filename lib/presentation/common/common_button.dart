@@ -11,10 +11,12 @@ class CommonButton extends StatelessWidget {
   final double? borderRadius;
   final EdgeInsets? margin;
   final double? height;
+  final double? fontSize;
   const CommonButton(
       {super.key,
       this.name,
       this.onTap,
+      this.fontSize,
       this.textColor,
       this.margin,
       this.buttonColor,
@@ -59,7 +61,7 @@ class CommonButton extends StatelessWidget {
                   )
                 : const SizedBox.shrink(),
             AppConstant.commonText(name ?? "",
-                fontSize: 16.sp, fontWeight: FontWeight.w500, color: textColor)
+                fontSize:fontSize?? 16.sp, fontWeight: FontWeight.w500, color: textColor)
           ],
         ),
       ),

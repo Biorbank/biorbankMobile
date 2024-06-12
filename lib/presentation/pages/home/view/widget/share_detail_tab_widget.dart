@@ -24,6 +24,10 @@ class _ShareDetailsTabWidgetState extends State<ShareDetailsTabWidget>
     tabController.addListener(() {
       context.read<HomeCubit>().changeTabIndex(value: tabController.index);
     });
+    WidgetsBinding.instance.addPostFrameCallback((t){
+      context.read<HomeCubit>().changeTabIndex(value: 0);
+
+    });
     super.initState();
   }
 

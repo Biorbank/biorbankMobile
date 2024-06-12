@@ -39,6 +39,7 @@ class CommonTextfield extends StatelessWidget {
   final bool autoFocus;
   final TextStyle? textStyle;
   final double? cursorHeight;
+  final double? height;
   const CommonTextfield(
       {super.key,
       required this.title,
@@ -59,6 +60,7 @@ class CommonTextfield extends StatelessWidget {
       this.isReadOnly,
       this.autoFocus = false,
       this.hintStyle,
+      this.height,
       this.cursorColor,
       this.maxLength,
       this.isShowTitle,
@@ -103,90 +105,93 @@ class CommonTextfield extends StatelessWidget {
                   height: 8.0,
                 )
               : const SizedBox.shrink(),
-          TextFormField(
-            enabled: enabled,
-            controller: controller,
-            maxLines: maxLines,
-            autofocus: autoFocus,
-            onTap: textFieldOnTap ?? () {},
-            onEditingComplete: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-
-            },
+          SizedBox(
+            height: height,
+            child: TextFormField(
+              enabled: enabled,
+              controller: controller,
+              maxLines: maxLines,
+              autofocus: autoFocus,
+              onTap: textFieldOnTap ?? () {},
+              onEditingComplete: () {
+                FocusManager.instance.primaryFocus?.unfocus();
             
-            inputFormatters: inputFormatter,
-            obscuringCharacter: '*',
-            onTapOutside: (v) {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            validator: validator,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            textInputAction:
-                maxLines == 1 ? TextInputAction.done : TextInputAction.newline,
-            obscureText: obscureText,
-            readOnly: isReadOnly ?? false,
-            maxLength: maxLength,
-            cursorColor: cursorColor,
-            cursorHeight:cursorHeight ,
-            decoration: InputDecoration(
-              errorMaxLines: 3,
-              suffixIcon: suffixWidget != null
-                  ? GestureDetector(
-                      onTap: onTapSuffixWidget, child: suffixWidget)
-                  : null,
-              prefixIcon: prefixWidget,
-              errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
-              hintText: hintText,
-              fillColor: fillColor ??
-                  ((isFilled ?? false)
-                      ? Theme.of(context).colorScheme.onSurface
-                      : Theme.of(context).colorScheme.errorContainer),
-              filled: isFilled ?? true,
-              hintStyle: hintStyle ??
-                  TextStyle(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 13.sp),
-              counterText: '',
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.error),
+              },
+              
+              inputFormatters: inputFormatter,
+              obscuringCharacter: '*',
+              onTapOutside: (v) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              validator: validator,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              textInputAction:
+                  maxLines == 1 ? TextInputAction.done : TextInputAction.newline,
+              obscureText: obscureText,
+              readOnly: isReadOnly ?? false,
+              maxLength: maxLength,
+              cursorColor: cursorColor,
+              cursorHeight:cursorHeight ,
+              decoration: InputDecoration(
+                errorMaxLines: 3,
+                suffixIcon: suffixWidget != null
+                    ? GestureDetector(
+                        onTap: onTapSuffixWidget, child: suffixWidget)
+                    : null,
+                prefixIcon: prefixWidget,
+                errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
+                hintText: hintText,
+                fillColor: fillColor ??
+                    ((isFilled ?? false)
+                        ? Theme.of(context).colorScheme.onSurface
+                        : Theme.of(context).colorScheme.errorContainer),
+                filled: isFilled ?? true,
+                hintStyle: hintStyle ??
+                    TextStyle(
+                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 13.sp),
+                counterText: '',
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.error),
+                ),
+                disabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                  borderSide: BorderSide(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSecondaryContainer
+                          .withOpacity(0.1)),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                  borderSide:
+                      BorderSide(color: Theme.of(context).colorScheme.onPrimary),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                  borderSide: BorderSide(
+                      color: focusBorderColor ??
+                          Theme.of(context).colorScheme.onPrimary),
+                ),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: maxLines == 1 ? 0.0 : 8.0,
+                  horizontal: 14.0,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
+                  borderSide: BorderSide(color: AppColors.transparent),
+                ),
               ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                borderSide: BorderSide(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .onSecondaryContainer
-                        .withOpacity(0.1)),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.onPrimary),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                borderSide: BorderSide(
-                    color: focusBorderColor ??
-                        Theme.of(context).colorScheme.onPrimary),
-              ),
-              contentPadding: EdgeInsets.symmetric(
-                vertical: maxLines == 1 ? 0.0 : 8.0,
-                horizontal: 14.0,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                borderSide: BorderSide(color: AppColors.transparent),
-              ),
+              keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
+              style:textStyle?? TextStyle(
+                  fontSize: 15,
+                  color: textColor ?? Theme.of(context).colorScheme.shadow),
+              onChanged: onChanged,
+              initialValue: initialVal,
             ),
-            keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
-            style:textStyle?? TextStyle(
-                fontSize: 15,
-                color: textColor ?? Theme.of(context).colorScheme.shadow),
-            onChanged: onChanged,
-            initialValue: initialVal,
           ),
           errorMsg == null || errorMsg == ""
               ? const SizedBox()
