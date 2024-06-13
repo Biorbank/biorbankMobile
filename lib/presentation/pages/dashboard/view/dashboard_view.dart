@@ -31,6 +31,7 @@ class DashboardScreen extends StatelessWidget {
             HomeRoute(),
             ContactRoute(),
             FeedbackRoute(),
+            DebitCardRoute()
           ],
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);

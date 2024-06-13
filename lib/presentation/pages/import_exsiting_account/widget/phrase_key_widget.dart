@@ -25,75 +25,78 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
         return SingleChildScrollView(
           child: Form(
             key: cubit.formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                height(20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppConstant.commonText('Recovery Pharse or Private Key',
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.shadow),
-                    Image.asset(
-                      Assets.imagesScan,
-                      height: 24.h,
-                      width: 24.w,
-                    ),
-                  ],
-                ),
-                CommonTextfield(
-                  title: '',
-                  validator: (value) {
-                    return null;
-                  },
-                  hintText: 'Type your recovery phrase or private key',
-                  maxLines: 5,
-                ),
-                CommonTextfield(
-                  title: 'Wallet Name',
-                  controller: cubit.walletNameController,
-                  validator: (value) {
-                    return null;
-                  },
-                  hintText: 'e.g. Trading, NFT Vault, Investment',
-                ),
-                CommonTextfield(
-                  title: 'Create Password',
-                  validator: (value) =>
-                      slugValidation(value: value, slug: 'Password', length: 8),
-                  obscureText: cubit.isObscurePassword,
-                  controller: cubit.createPasswordController,
-                  hintText: 'At least 8 character in length',
-                  onTapSuffixWidget: () {
-                    cubit.togglePasswordVisibility();
-                  },
-                  onChanged: (value) {},
-                  suffixWidget: cubit.isObscurePassword
-                      ? Icon(Icons.visibility_outlined, color: AppColors.black)
-                      : Icon(Icons.visibility_off_outlined,
-                          color: AppColors.black),
-                ),
-                CommonTextfield(
-                  title: 'Confirm Password',
-                  controller: cubit.confirmPasswordController,
-                  validator: (value) => confirmValidate(
-                      value: cubit.createPasswordController.text,
-                      confirm: cubit.confirmPasswordController.text,
-                      slug: 'confirm password'),
-                  obscureText: cubit.isObscureConfirmPassword,
-                  hintText: 'At least 8 character in length',
-                  onTapSuffixWidget: () {
-                    cubit.toggleConfirmPasswordVisibility();
-                  },
-                  onChanged: (value) {},
-                  suffixWidget: cubit.isObscureConfirmPassword
-                      ? Icon(Icons.visibility_outlined, color: AppColors.black)
-                      : Icon(Icons.visibility_off_outlined,
-                          color: AppColors.black),
-                ),
-                height(15.h)
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  height(20.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AppConstant.commonText('Recovery Pharse or Private Key',
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.shadow),
+                      Image.asset(
+                        Assets.imagesScan,
+                        height: 24.h,
+                        width: 24.w,
+                      ),
+                    ],
+                  ),
+                  CommonTextfield(
+                    title: '',
+                    validator: (value) {
+                      return null;
+                    },
+                    hintText: 'Type your recovery phrase or private key',
+                    maxLines: 5,
+                  ),
+                  CommonTextfield(
+                    title: 'Wallet Name',
+                    controller: cubit.walletNameController,
+                    validator: (value) {
+                      return null;
+                    },
+                    hintText: 'e.g. Trading, NFT Vault, Investment',
+                  ),
+                  CommonTextfield(
+                    title: 'Create Password',
+                    validator: (value) =>
+                        slugValidation(value: value, slug: 'Password', length: 8),
+                    obscureText: cubit.isObscurePassword,
+                    controller: cubit.createPasswordController,
+                    hintText: 'At least 8 character in length',
+                    onTapSuffixWidget: () {
+                      cubit.togglePasswordVisibility();
+                    },
+                    onChanged: (value) {},
+                    suffixWidget: cubit.isObscurePassword
+                        ? Icon(Icons.visibility_outlined, color: AppColors.black)
+                        : Icon(Icons.visibility_off_outlined,
+                            color: AppColors.black),
+                  ),
+                  CommonTextfield(
+                    title: 'Confirm Password',
+                    controller: cubit.confirmPasswordController,
+                    validator: (value) => confirmValidate(
+                        value: cubit.createPasswordController.text,
+                        confirm: cubit.confirmPasswordController.text,
+                        slug: 'confirm password'),
+                    obscureText: cubit.isObscureConfirmPassword,
+                    hintText: 'At least 8 character in length',
+                    onTapSuffixWidget: () {
+                      cubit.toggleConfirmPasswordVisibility();
+                    },
+                    onChanged: (value) {},
+                    suffixWidget: cubit.isObscureConfirmPassword
+                        ? Icon(Icons.visibility_outlined, color: AppColors.black)
+                        : Icon(Icons.visibility_off_outlined,
+                            color: AppColors.black),
+                  ),
+                  height(15.h)
+                ],
+              ),
             ),
           ),
         );

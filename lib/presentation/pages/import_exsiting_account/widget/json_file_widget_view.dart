@@ -16,50 +16,53 @@ class JsonFileWidgetView extends StatelessWidget {
     var cubit = context.read<ImportExsitingAccountCubit>();
 
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          height(20.h),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: Theme.of(context).colorScheme.inversePrimary),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Column(
-                children: [
-                  Image.asset(
-                    Assets.imagesUploadCloud,
-                    height: 32.h,
-                    width: 32.w,
-                  ),
-                  height(20.h),
-                  AppConstant.commonText('Import your .Json File',
-                      color:Theme.of(context).colorScheme.onSecondaryContainer),
-                  height(20.h),
-                  CommonOutlinedButton(onTap: () {}, title: 'Browse'),
-                ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 2),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            height(20.h),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Theme.of(context).colorScheme.inversePrimary),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      Assets.imagesUploadCloud,
+                      height: 32.h,
+                      width: 32.w,
+                    ),
+                    height(20.h),
+                    AppConstant.commonText('Import your .Json File',
+                        color:Theme.of(context).colorScheme.onSecondaryContainer),
+                    height(20.h),
+                    CommonOutlinedButton(onTap: () {}, title: 'Browse'),
+                  ],
+                ),
               ),
             ),
-          ),
-          height(14.h),
-          CommonTextfield(
-            title: 'Username',
-            controller: cubit.userNameController,
-            validator: (value) {
-              return null;
-            },
-            hintText: 'Fill your username',
-          ),
-          CommonTextfield(
-            controller: cubit.createPasswordForJsonFile,
-            title: 'Create Password',
-            validator: (value) {
-              return null;
-            },
-            hintText: 'Fill your password',
-          ),
-        ],
+            height(14.h),
+            CommonTextfield(
+              title: 'Username',
+              controller: cubit.userNameController,
+              validator: (value) {
+                return null;
+              },
+              hintText: 'Fill your username',
+            ),
+            CommonTextfield(
+              controller: cubit.createPasswordForJsonFile,
+              title: 'Create Password',
+              validator: (value) {
+                return null;
+              },
+              hintText: 'Fill your password',
+            ),
+          ],
+        ),
       ),
     );
   }

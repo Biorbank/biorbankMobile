@@ -12,6 +12,7 @@ import 'package:biorbank/presentation/pages/chat/view/send_money_view.dart';
 import 'package:biorbank/presentation/pages/contacts_page/view/contact_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
 import 'package:biorbank/presentation/pages/dashboard/view/dashboard_view.dart';
+import 'package:biorbank/presentation/pages/debit_card/view/debit_card_screen.dart';
 import 'package:biorbank/presentation/pages/defi/view/defi_view.dart';
 import 'package:biorbank/presentation/pages/feedback/view/feedback_screen.dart';
 import 'package:biorbank/presentation/pages/home/view/home_view.dart';
@@ -58,6 +59,8 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: ChatRoute.page),
           AutoRoute(page: ContactRoute.page, maintainState: false),
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
+          AutoRoute(page: DebitCardRoute.page, maintainState: false),
+          
         ]),
         AutoRoute(page: ImportExistingAccountRoute.page),
         AutoRoute(page: ConnectHardwareWalletRoute.page),

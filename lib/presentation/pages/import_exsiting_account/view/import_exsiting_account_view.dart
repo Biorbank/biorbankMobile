@@ -11,8 +11,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../../utils/common_spacer.dart';
 import '../../../common/common_appbar.dart';
-@RoutePage()
 
+@RoutePage()
 class ImportExistingAccountScreen extends StatefulWidget {
   const ImportExistingAccountScreen({super.key});
 
@@ -60,21 +60,18 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
                 CommonTabbar(
                   selectedIndex: cubit.tabIndex,
                   length: 2,
+                  backgroundContainerMargin:0,
+                  labelContainerRadius: 6,
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  tabAlignment: TabAlignment.fill,
+                  isScrollable: false,
                   labelTextBackgroundPadding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
+                  labelColor: Theme.of(context).colorScheme.shadow,
+                  isShowBackgroundShadow: true,
                   onTap: (index) {},
-                  backgroundContainerMargin: 0,
                   tabController: tabController,
                   tabList: [AppStrings.pharseOrKey, AppStrings.jsonFile],
-                  labelColor: Theme.of(context).colorScheme.shadow,
-                  padding: EdgeInsets.zero,
-                  labelContainerRadius: 6,
-                  labelPadding: const EdgeInsets.symmetric(
-                    vertical: 8,
-                  ),
-                  tabAlignment: TabAlignment.center,
-                  tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                  isShowBackgroundShadow: true,
                 ),
                 Expanded(
                   child: TabBarView(controller: tabController, children: const [
@@ -90,7 +87,7 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
                       tabController.animateTo(1);
                     } else {
                       if (cubit.tabIndex == 1) {
-                      context.router.push(const ConnectHardwareWalletRoute());
+                        context.router.push(const ConnectHardwareWalletRoute());
                         // Navigator.pushNamed(
                         //     context, Routes.connectHardwareWalletRoute);
                       }

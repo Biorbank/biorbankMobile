@@ -109,7 +109,7 @@ class DrawerView extends StatelessWidget {
                             icon: Assets.imagesMessageFavorite,
                             title: 'Feedback',
                             onTap: () {
-                               Global.scaffoldKey.currentState?.closeDrawer();
+                              Global.scaffoldKey.currentState?.closeDrawer();
 
                               AutoTabsRouter.of(context).setActiveIndex(6);
                             }),
@@ -127,7 +127,10 @@ class DrawerView extends StatelessWidget {
                     drawerActionTile(
                         context: context,
                         icon: Assets.imagesCards,
-                        onTap: () {},
+                        onTap: () {
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          AutoTabsRouter.of(context).setActiveIndex(7);
+                        },
                         title: 'Debit Card'),
                     height(18.h),
                     drawerActionTile(

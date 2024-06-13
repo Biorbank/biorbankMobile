@@ -47,7 +47,7 @@ class CommonTabbar extends StatelessWidget {
               ?  EdgeInsets.symmetric(horizontal:backgroundContainerMargin?? 15)
               : EdgeInsets.zero,
           decoration: isShowBackgroundShadow
-              ? BoxDecoration(
+              ? BoxDecoration(  
                   color: Theme.of(context).colorScheme.inversePrimary,
                   borderRadius: BorderRadius.circular(12),
                 )

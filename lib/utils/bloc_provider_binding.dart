@@ -6,6 +6,7 @@ import 'package:biorbank/presentation/pages/chat/cubit/chat_cubit.dart';
 import 'package:biorbank/presentation/pages/contacts_page/cubit/contact_cubit.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
 import 'package:biorbank/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:biorbank/presentation/pages/debit_card/cubit/debit_card_cubit.dart';
 import 'package:biorbank/presentation/pages/defi/cubit/defi_cubit.dart';
 import 'package:biorbank/presentation/pages/feedback/cubit/feedback_cubit_cubit.dart';
 import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
@@ -57,6 +58,9 @@ class MultiBlocProviderList extends StatelessWidget {
             ),
             BlocProvider<FeedbackCubit>(
               create: (BuildContext context) => FeedbackCubit(),
+            ),
+            BlocProvider<DebitCardCubit>(
+              create: (BuildContext context) => DebitCardCubit(),
             ),
       ],
       child: child,

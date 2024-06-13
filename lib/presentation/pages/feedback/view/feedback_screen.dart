@@ -59,7 +59,7 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    height(35.h),
+                    height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
                       onTapBellIcon: () {},

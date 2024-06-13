@@ -63,6 +63,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const DashboardScreen(),
       );
     },
+    DebitCardRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const DebitCardScreen(),
+      );
+    },
     DefiDetailRoute.name: (routeData) {
       final args = routeData.argsAs<DefiDetailRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -267,6 +273,20 @@ class DashboardRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'DashboardRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [DebitCardScreen]
+class DebitCardRoute extends PageRouteInfo<void> {
+  const DebitCardRoute({List<PageRouteInfo>? children})
+      : super(
+          DebitCardRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DebitCardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

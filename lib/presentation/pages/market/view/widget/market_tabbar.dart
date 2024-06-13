@@ -54,13 +54,12 @@ class _MarketTabbarState extends State<MarketTabbar>
                               .colorScheme
                               .onSecondaryContainer,
                           labelPadding: const EdgeInsets.only(
-                            bottom: 10,
-                            top: 6,
-                          ),
+                              bottom: 10, top: 6, right: 30),
                           controller: tabController,
-                          padding: EdgeInsets.zero,
+                          isScrollable: true,
+                          padding: const EdgeInsets.only(left: 20),
                           indicatorSize: TabBarIndicatorSize.label,
-                          tabAlignment: TabAlignment.fill,
+                          tabAlignment: TabAlignment.start,
                           tabs: [
                             AppConstant.commonText('Overview',
                                 fontSize: 16.sp,

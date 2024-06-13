@@ -73,5 +73,12 @@ class Assets {
   static const String imagesLamp = 'assets/images/lamp.png';
   static const String imagesBug = 'assets/images/bug.png';
   static const String imagesSmilySad = 'assets/images/smily_sad.png';
+  static const String imagesCardLogo = 'assets/images/card_logo.png';
+  static const String imagesWhiteShadow = 'assets/images/white_shadow.png';
+  static const String imagesEyeHide = 'assets/images/eye_hide.png';
+  static const String imagesCloseCircle= 'assets/images/close_circle.png';
+  static const String imagesEye= 'assets/images/eye.png';
+  static const String imagesAppIconWhite= 'assets/images/app_icon_white.png';
+  static const String imagesAppGroup= 'assets/images/Group.png';
 
 }
