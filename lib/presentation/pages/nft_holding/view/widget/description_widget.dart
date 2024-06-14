@@ -6,7 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DescriptionWidget extends StatelessWidget {
-  const DescriptionWidget({super.key});
+  const DescriptionWidget(
+      {super.key,
+      required this.title,
+      this.isVisibleAcceptButton = true,
+      required this.description,
+      required this.chain,
+      required this.contactAddress,
+      required this.tokenId,
+      this.onTapExploreButton,
+      required this.tokenStandard});
+  final String title;
+  final bool isVisibleAcceptButton;
+  final String description;
+  final String contactAddress;
+  final String tokenId;
+  final String tokenStandard;
+  final String chain;
+  final VoidCallback? onTapExploreButton;
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +33,21 @@ class DescriptionWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           height(12.h),
-          AppConstant.commonText('Hooligan #7459',
+          AppConstant.commonText(title,
               fontSize: 20.sp,
               fontWeight: FontWeight.w500,
               color: Theme.of(context).colorScheme.shadow),
           height(12.h),
-          CommonOutlinedButton(
-              height: 50.h,
-              borderColor: Theme.of(context).colorScheme.onPrimary,
-              textColor: Theme.of(context).colorScheme.onPrimary,
-              onTap: () {},
-              title: 'Accept Offer'),
-          height(20.h),
+          Visibility(
+            visible: isVisibleAcceptButton,
+            child: CommonOutlinedButton(
+                height: 50.h,
+                borderColor: Theme.of(context).colorScheme.onPrimary,
+                textColor: Theme.of(context).colorScheme.onPrimary,
+                onTap: () {},
+                title: 'Accept Offer'),
+          ),
+          height(isVisibleAcceptButton ? 20.h : 0),
           AppConstant.commonDivider(),
           height(12.h),
           AppConstant.commonText('Description',
@@ -36,7 +56,7 @@ class DescriptionWidget extends StatelessWidget {
               color: Theme.of(context).colorScheme.shadow),
           height(12.h),
           AppConstant.commonText(
-              'A CNS or UNS blockchain domain. Use it to resolve your cryptocurrency address and decentralized websites',
+            description,
               fontSize: 14.sp,
               fontWeight: FontWeight.w400,
               color: Theme.of(context).colorScheme.onSecondaryContainer),
@@ -44,26 +64,27 @@ class DescriptionWidget extends StatelessWidget {
           rowWidget(
               context: context,
               title: 'Contract Address',
-              value: 'Oxa9a6a36269932',
+              onTapExploreButton:onTapExploreButton ,
+              value: contactAddress,
               valueTextColor: Theme.of(context).colorScheme.onPrimary,
               isShowIcon: true),
           height(12.h),
           rowWidget(
             context: context,
             title: 'Token ID',
-            value: '2955844746...34016',
+            value: tokenId,
           ),
           height(12.h),
           rowWidget(
             context: context,
             title: 'Token Standard',
-            value: 'ERC721',
+            value: tokenStandard,
           ),
           height(12.h),
           rowWidget(
             context: context,
             title: 'Chain',
-            value: 'Polygon',
+            value: chain,
           ),
         ],
       ),
@@ -75,7 +96,9 @@ class DescriptionWidget extends StatelessWidget {
       required String title,
       required String value,
       bool isShowIcon = false,
-      Color? valueTextColor}) {
+      Color? valueTextColor,
+      VoidCallback? onTapExploreButton,
+      }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -102,10 +125,13 @@ class DescriptionWidget extends StatelessWidget {
               width(isShowIcon ? 8.w : 0),
               Visibility(
                 visible: isShowIcon,
-                child: Image.asset(
-                  Assets.imagesExplore,
-                  height: 12.h,
-                  width: 12.w,
+                child: InkWell(
+                  onTap: onTapExploreButton,
+                  child: Image.asset(
+                    Assets.imagesExplore,
+                    height: 12.h,
+                    width: 12.w,
+                  ),
                 ),
               )
             ],

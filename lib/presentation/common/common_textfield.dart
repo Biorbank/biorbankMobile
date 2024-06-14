@@ -134,9 +134,13 @@ class CommonTextfield extends StatelessWidget {
               cursorHeight:cursorHeight ,
               decoration: InputDecoration(
                 errorMaxLines: 3,
+                suffixIconConstraints: const BoxConstraints(),
                 suffixIcon: suffixWidget != null
                     ? GestureDetector(
-                        onTap: onTapSuffixWidget, child: suffixWidget)
+                        onTap: onTapSuffixWidget, child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: suffixWidget,
+                        ))
                     : null,
                 prefixIcon: prefixWidget,
                 errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),

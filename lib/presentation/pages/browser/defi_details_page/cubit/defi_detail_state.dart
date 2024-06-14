@@ -13,3 +13,7 @@ final class DefiDetailLoanTabIndexChange extends DefiDetailState {
   final int index;
   DefiDetailLoanTabIndexChange({required this.index});
 }
+final class SelectedProviderState extends DefiDetailState {
+  final int index;
+  SelectedProviderState({required this.index});
+}

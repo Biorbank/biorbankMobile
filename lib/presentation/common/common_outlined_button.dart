@@ -12,6 +12,7 @@ class CommonOutlinedButton extends StatelessWidget {
       this.height,
       this.icon,
       this.fontSize,
+      this.fontWeight,
       this.borderRadius,
       this.borderColor});
   final String title;
@@ -22,6 +23,7 @@ class CommonOutlinedButton extends StatelessWidget {
   final Widget? icon;
   final double? borderRadius;
   final double? fontSize;
+  final FontWeight? fontWeight;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,7 +44,7 @@ class CommonOutlinedButton extends StatelessWidget {
                   color: textColor ??
                       Theme.of(context).colorScheme.onSecondaryContainer,
                   fontSize:fontSize?? 16.sp,
-                  fontWeight: FontWeight.w500),
+                  fontWeight:fontWeight?? FontWeight.w500),
               if (icon != null) width(10.w),
               icon ?? const SizedBox.shrink()
             ],

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
+import 'package:biorbank/presentation/common/nft_card_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
@@ -130,35 +131,5 @@ class NFTsTabWidget extends StatelessWidget {
     );
   }
 
-  Widget nftCardWidget(
-      {required BuildContext context,
-      required String imageUrl,
-      required String title}) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
-          border: Border.all(
-              color: Theme.of(context).colorScheme.onSecondaryFixed)),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
-              height: 145.h,
-              width: 145.w,
-              fit: BoxFit.cover,
-            ),
-          ),
-          height(12.h),
-          AppConstant.commonText(title,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.shadow)
-        ],
-      ),
-    );
-  }
+ 
 }

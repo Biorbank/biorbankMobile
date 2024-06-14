@@ -5,6 +5,7 @@ import 'package:biorbank/presentation/pages/auth/view/unlock_pin_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/defi_detail_screen.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/defi_navigation_screen.dart';
+import 'package:biorbank/presentation/pages/browser/defi_details_page/view/staking_defi_screen.dart';
 import 'package:biorbank/presentation/pages/browser/view/browser_view.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_view.dart';
@@ -15,11 +16,14 @@ import 'package:biorbank/presentation/pages/dashboard/view/dashboard_view.dart';
 import 'package:biorbank/presentation/pages/debit_card/view/debit_card_screen.dart';
 import 'package:biorbank/presentation/pages/defi/view/defi_view.dart';
 import 'package:biorbank/presentation/pages/feedback/view/feedback_screen.dart';
+import 'package:biorbank/presentation/pages/help_center/view/help_center_screen.dart';
 import 'package:biorbank/presentation/pages/home/view/home_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_exsiting_account_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
 import 'package:biorbank/presentation/pages/market/view/market_view.dart';
+import 'package:biorbank/presentation/pages/nft/view/nft_screen.dart';
+import 'package:biorbank/presentation/pages/nft/view/widget/nft_details.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/nft_holding_view.dart';
 import 'package:biorbank/presentation/pages/splash/splash_view.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +64,7 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: ContactRoute.page, maintainState: false),
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
+          AutoRoute(page: HelpCenterRoute.page, maintainState: false),
           
         ]),
         AutoRoute(page: ImportExistingAccountRoute.page),
@@ -70,5 +75,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: SendMoneyRoute.page),
         AutoRoute(page: ContactRoute.page),
         AutoRoute(page: NftHoldingRoute.page),
+        AutoRoute(page: StakingDefiRoute.page),
+        AutoRoute(page: NFTRoute.page),
       ];
 }

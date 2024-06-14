@@ -16,16 +16,13 @@ class DebitCardCubit extends Cubit<DebitCardState> {
   }
 
   void sortByFilterChange({required String filterValue}) {
-    print('Selected sort by filter= $filterValue');
     emit(SortByFilterUpdateState(value: filterValue));
   }
   void onlineOrInStoreFilterChange({required String filterValue}) {
-    print('Selected online filter = $filterValue');
     emit(OnlineInStoreFilterUpdateState(value: filterValue));
   }
 
   void typeFilterChange({required String filterValue}) {
-    print('Selected type filter = $filterValue');
     emit(TypeFilterUpdateState(value: filterValue));
   }
 

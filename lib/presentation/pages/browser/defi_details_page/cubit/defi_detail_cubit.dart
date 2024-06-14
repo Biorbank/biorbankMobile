@@ -9,6 +9,7 @@ class DefiDetailCubit extends Cubit<DefiDetailState> {
 
   int selectedTabIndex=0;
   int selectedLoanTabIndex=0;
+  int selectedProvider=0;
 
 
   void onChangeTabIndex({required int index}){
@@ -18,5 +19,9 @@ class DefiDetailCubit extends Cubit<DefiDetailState> {
   void onChangeLoanTabIndex({required int index}){
 
     emit(DefiDetailLoanTabIndexChange(index: index));
+  }
+  void onSelectProviderState({required int index}){
+
+    emit(SelectedProviderState(index: index));
   }
 }

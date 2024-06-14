@@ -5,6 +5,7 @@ import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/add_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_control.dart';
+import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_images.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_widget.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
 import 'package:biorbank/utils/app_widgets.dart';
@@ -13,15 +14,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'widget/carousel_images.dart';
-
 @RoutePage()
-class NftHoldingScreen extends StatelessWidget {
-  const NftHoldingScreen(
-      {super.key, required this.imageUrl, required this.title});
-  final String title;
-  final String imageUrl;
-
+class NFTDetailsPage extends StatelessWidget {
+  const NFTDetailsPage({
+    super.key,
+  });
   static List<String> images = [
     'https://wallpapers.com/images/hd/emotional-sad-boy-cartoon-yuu-otosaka-jc0qmd6njgzk6x90.jpg',
     'https://i.pinimg.com/736x/cd/58/c4/cd58c47e34804456c14fd2343c42ca78.jpg',
@@ -92,15 +89,16 @@ class NftHoldingScreen extends StatelessWidget {
                                       images: images),
 
                                   /// description widget
-                                   DescriptionWidget(
+                                  DescriptionWidget(
                                     title: 'Hooligan #7459',
                                     chain: 'Polygon',
+                                    isVisibleAcceptButton: false,
                                     description:
                                         'A CNS or UNS blockchain domain. Use it to resolve your cryptocurrency address and decentralized websites',
                                     contactAddress: 'Oxa9a6a36269932',
                                     tokenId: '2955844746...34016',
                                     tokenStandard: 'ERC721',
-                                    onTapExploreButton: (){},
+                                    onTapExploreButton: () {},
                                   ),
                                   height(20.h),
 

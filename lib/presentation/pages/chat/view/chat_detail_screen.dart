@@ -79,7 +79,7 @@ class ChatDetailScreen extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onSurface,
             child: Column(
               children: [
                 Row(

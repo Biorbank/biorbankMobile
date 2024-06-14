@@ -79,6 +79,12 @@ class Assets {
   static const String imagesCloseCircle= 'assets/images/close_circle.png';
   static const String imagesEye= 'assets/images/eye.png';
   static const String imagesAppIconWhite= 'assets/images/app_icon_white.png';
-  static const String imagesAppGroup= 'assets/images/Group.png';
+  static const String imagesQuestion= 'assets/images/question.png';
+  static const String imagesTickCircle= 'assets/images/tick_circle.png';
+  static const String imagesStarIcon= 'assets/images/star_icon.png';
+  static const String imagesXIcon= 'assets/images/x_icon.png';
+  static const String imagesInstagram= 'assets/images/instagram.png';
+  static const String imagesDiscordOutline= 'assets/images/discord_outline.png';
+  static const String imagesCart= 'assets/images/cart.png';
 
 }

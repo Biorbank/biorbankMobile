@@ -97,6 +97,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const FeedbackScreen(),
       );
     },
+    HelpCenterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const HelpCenterScreen(),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -119,6 +125,18 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const MarketScreen(),
+      );
+    },
+    NFTDetailsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NFTDetailsPage(),
+      );
+    },
+    NFTRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const NFTScreen(),
       );
     },
     NewAccountCreateRoute.name: (routeData) {
@@ -148,6 +166,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SplashScreen(),
+      );
+    },
+    StakingDefiRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const StakingDefiScreen(),
       );
     },
     UnlockPinRoute.name: (routeData) {
@@ -372,6 +396,20 @@ class FeedbackRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [HelpCenterScreen]
+class HelpCenterRoute extends PageRouteInfo<void> {
+  const HelpCenterRoute({List<PageRouteInfo>? children})
+      : super(
+          HelpCenterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HelpCenterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute({List<PageRouteInfo>? children})
@@ -423,6 +461,34 @@ class MarketRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MarketRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NFTDetailsPage]
+class NFTDetailsRoute extends PageRouteInfo<void> {
+  const NFTDetailsRoute({List<PageRouteInfo>? children})
+      : super(
+          NFTDetailsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NFTDetailsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [NFTScreen]
+class NFTRoute extends PageRouteInfo<void> {
+  const NFTRoute({List<PageRouteInfo>? children})
+      : super(
+          NFTRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NFTRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -508,6 +574,20 @@ class SplashRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'SplashRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [StakingDefiScreen]
+class StakingDefiRoute extends PageRouteInfo<void> {
+  const StakingDefiRoute({List<PageRouteInfo>? children})
+      : super(
+          StakingDefiRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StakingDefiRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

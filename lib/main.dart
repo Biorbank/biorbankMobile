@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupPreferences();
+ await setupPreferences();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp( MyApp());
 }

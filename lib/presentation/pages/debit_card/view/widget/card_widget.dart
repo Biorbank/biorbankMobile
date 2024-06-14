@@ -99,7 +99,7 @@ class CardWidget extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .onSecondaryContainer),
-                            height(8.h),
+                            height(isObscureText?4.h: 8.h),
                             isObscureText
                                 ? Row(
                                     children: [
@@ -128,7 +128,7 @@ class CardWidget extends StatelessWidget {
                                 color: Theme.of(context)
                                     .colorScheme
                                     .onSecondaryContainer),
-                            height(8.h),
+                            height(isObscureText?4.h: 8.h),
                            isObscureText? isObscureTextWidget(number: 3) :  Row(
                               children: [
                                 AppConstant.commonText(cvvNumber,

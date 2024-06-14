@@ -1,6 +1,7 @@
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommonTabbar extends StatelessWidget {
   const CommonTabbar(
@@ -16,6 +17,8 @@ class CommonTabbar extends StatelessWidget {
       this.indicatorColor,
       this.labelContainerRadius,
       this.tabBarIndicatorSize,
+      this.labelFontWight,
+      this.isShowBackground=false,
       this.backgroundContainerMargin,
       this.labelTextBackgroundPadding,
       this.isScrollable=true,
@@ -30,6 +33,7 @@ class CommonTabbar extends StatelessWidget {
   final EdgeInsets? labelPadding;
   final EdgeInsets? labelTextBackgroundPadding;
   final bool isShowBackgroundShadow;
+  final bool isShowBackground;
   final TabAlignment? tabAlignment;
   final TabBarIndicatorSize? tabBarIndicatorSize;
   final Color? labelColor;
@@ -37,6 +41,7 @@ class CommonTabbar extends StatelessWidget {
   final double? labelContainerRadius;
   final double? backgroundContainerMargin;
   final bool? isScrollable;
+  final FontWeight? labelFontWight;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -98,6 +103,12 @@ class CommonTabbar extends StatelessWidget {
                                   : FontWeight.w500),
                         ),
                       )
+                    :isShowBackground? 
+                    AppConstant.commonText(e,
+                                fontSize: 16.sp,
+                                fontWeight:selectedIndex == index
+                                    ? labelFontWight
+                                    : null)
                     : Padding(
                         padding: const EdgeInsets.only(right: 15),
                         child: Container(

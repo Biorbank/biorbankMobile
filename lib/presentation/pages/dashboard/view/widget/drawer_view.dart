@@ -174,7 +174,10 @@ class DrawerView extends StatelessWidget {
                     drawerActionTile(
                         context: context,
                         icon: Assets.imagesInfoFilled,
-                        onTap: () {},
+                        onTap: () {
+                           Global.scaffoldKey.currentState?.closeDrawer();
+                          AutoTabsRouter.of(context).setActiveIndex(8);
+                        },
                         title: 'Help Center'),
                     height(18.h),
                     drawerActionTile(
