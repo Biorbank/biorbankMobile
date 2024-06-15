@@ -119,8 +119,8 @@ class NftHoldingScreen extends StatelessWidget {
                                   onPressed: () {
                                     carouselController.previousPage();
                                   },
-                                  child: const Icon(Icons.arrow_back_ios_new,
-                                      size: 18, color: Colors.black),
+                                  child:  Icon(Icons.arrow_back_ios_new,
+                                      size: 18, color:Theme.of(context).colorScheme.shadow),
                                 ),
                               ),
                             ),
@@ -134,10 +134,10 @@ class NftHoldingScreen extends StatelessWidget {
                                   child: CarouselControl(
                                     onPressed: () =>
                                         carouselController.nextPage(),
-                                    child: const Icon(
+                                    child:  Icon(
                                         Icons.arrow_forward_ios_outlined,
                                         size: 18,
-                                        color: Colors.black),
+                                        color: Theme.of(context).colorScheme.shadow),
                                   ),
                                 ),
                               ),

@@ -2,12 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
+import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
+import 'package:biorbank/presentation/pages/nft/view/widget/price_line_chart.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/add_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_control.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_images.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_widget.dart';
-import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,9 +21,9 @@ class NFTDetailsPage extends StatelessWidget {
     super.key,
   });
   static List<String> images = [
-    'https://wallpapers.com/images/hd/emotional-sad-boy-cartoon-yuu-otosaka-jc0qmd6njgzk6x90.jpg',
-    'https://i.pinimg.com/736x/cd/58/c4/cd58c47e34804456c14fd2343c42ca78.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvbTcEQ002VxZLWOU4RIgIPpSDFXhsVvqQIIFKqA-CO_sx3HO1gLotwhB9zuaKROsZiQ&usqp=CAU'
+    'https://img.decrypt.co/insecure/rs:fit:3840:0:0:0/plain/https://cdn.decrypt.co/wp-content/uploads/2023/07/MPH-2-gID_7.jpg@webp',
+    'https://cdn.publish0x.com/prod/fs/images/89d99afdbfa537b3e108e202d9524189ffa3c74302d42815e72dc2fc4160ce3b.png',
+    'https://pbs.twimg.com/ext_tw_video_thumb/1466059844327247877/pu/img/Fp28ApEpaa4ogvM6?format=jpg&name=4096x4096'
   ];
   static CarouselController carouselController = CarouselController();
   @override
@@ -102,8 +103,8 @@ class NFTDetailsPage extends StatelessWidget {
                                   ),
                                   height(20.h),
 
-                                  /// price history chart
-                                  const PriceHistoryChart(),
+                                  /// price line chart
+                                  const PriceLineChart(),
                                   height(20.h)
                                 ],
                               ),
@@ -117,8 +118,8 @@ class NFTDetailsPage extends StatelessWidget {
                                   onPressed: () {
                                     carouselController.previousPage();
                                   },
-                                  child: const Icon(Icons.arrow_back_ios_new,
-                                      size: 18, color: Colors.black),
+                                  child:  Icon(Icons.arrow_back_ios_new,
+                                      size: 18, color: Theme.of(context).colorScheme.shadow),
                                 ),
                               ),
                             ),
@@ -132,10 +133,10 @@ class NFTDetailsPage extends StatelessWidget {
                                   child: CarouselControl(
                                     onPressed: () =>
                                         carouselController.nextPage(),
-                                    child: const Icon(
+                                    child:  Icon(
                                         Icons.arrow_forward_ios_outlined,
                                         size: 18,
-                                        color: Colors.black),
+                                        color: Theme.of(context).colorScheme.shadow),
                                   ),
                                 ),
                               ),
@@ -154,12 +155,16 @@ class NFTDetailsPage extends StatelessWidget {
                       boxShadow: [
                         BoxShadow(
                             blurRadius: 20,
-                            color: const Color(0xFF000000).withOpacity(0.12),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryFixedVariant
+                                .withOpacity(0.12),
                             offset: const Offset(0, -4))
                       ]),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 22, right: 16),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         GestureDetector(
                           onTap: () {},
@@ -167,12 +172,12 @@ class NFTDetailsPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                Assets.imagesShare,
-                                height: 21.h,
-                                width: 21.w,
+                                Assets.imagesCartFilled,
+                                height: 24.h,
+                                width: 24.w,
                               ),
                               height(6.h),
-                              AppConstant.commonText('Transfer',
+                              AppConstant.commonText('Add',
                                   color:
                                       Theme.of(context).colorScheme.onPrimary,
                                   fontSize: 12.sp,
@@ -180,17 +185,36 @@ class NFTDetailsPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        width(20.w),
+                        width(25.w),
                         Expanded(
-                            child: CommonButton(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => const AddAddressDialog(),
-                            );
-                          },
-                          name: 'Sell',
-                        ))
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: CommonOutlinedButton(
+                                height: 49.h,
+                                borderRadius: 16.r,
+                                borderColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                textColor:
+                                    Theme.of(context).colorScheme.onPrimary,
+                                onTap: () {},
+                                title: 'Make offer',
+                              )),
+                              width(15.w),
+                              Expanded(
+                                  child: CommonButton(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        const AddAddressDialog(),
+                                  );
+                                },
+                                name: 'Buy',
+                              ))
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),

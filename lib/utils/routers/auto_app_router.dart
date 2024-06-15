@@ -77,5 +77,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: NftHoldingRoute.page),
         AutoRoute(page: StakingDefiRoute.page),
         AutoRoute(page: NFTRoute.page),
+        AutoRoute(page: NFTDetailsRoute.page),
       ];
 }

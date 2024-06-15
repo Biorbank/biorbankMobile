@@ -86,5 +86,6 @@ class Assets {
   static const String imagesInstagram= 'assets/images/instagram.png';
   static const String imagesDiscordOutline= 'assets/images/discord_outline.png';
   static const String imagesCart= 'assets/images/cart.png';
+  static const String imagesCartFilled= 'assets/images/cart_filled.png';
 
 }

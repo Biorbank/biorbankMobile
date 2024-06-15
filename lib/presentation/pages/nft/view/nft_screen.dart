@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
+import 'package:biorbank/presentation/pages/nft/view/widget/activity_tab_details.dart';
 import 'package:biorbank/presentation/pages/nft/view/widget/item_tab_details.dart';
 import 'package:biorbank/presentation/pages/nft/view/widget/nft_profile_details.dart';
 import 'package:biorbank/presentation/pages/nft/view/widget/nft_volume_details.dart';
@@ -36,6 +37,7 @@ class _NFTScreenState extends State<NFTScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonBlueContainer(
             height: 120.h,
@@ -68,6 +70,7 @@ class _NFTScreenState extends State<NFTScreen>
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const NftVolumeDetails(
                     bestOffer: '0.9101',
@@ -94,10 +97,11 @@ class _NFTScreenState extends State<NFTScreen>
                       tabController: tabController,
                       tabList: const ['Items', 'Activity']),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height+60,
-                    child: TabBarView(controller: tabController, children: const [
+                    height: MediaQuery.of(context).size.height + 60,
+                    child:
+                        TabBarView(controller: tabController, children: const [
                       ItemTabDetails(),
-                      SizedBox(),
+                      ActivityTabDetails(),
                     ]),
                   ),
                 ],
