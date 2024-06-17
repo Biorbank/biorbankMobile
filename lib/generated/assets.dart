@@ -87,5 +87,16 @@ class Assets {
   static const String imagesDiscordOutline= 'assets/images/discord_outline.png';
   static const String imagesCart= 'assets/images/cart.png';
   static const String imagesCartFilled= 'assets/images/cart_filled.png';
+  static const String imagesArrowDropDown= 'assets/images/arrow_dropdown.png';
+  static const String imagesChevronDown= 'assets/images/chevron_down.png';
+  static const String imagesFile= 'assets/images/file.png';
+  static const String imagesCard= 'assets/images/card.png';
+  static const String imagesPostAd= 'assets/images/post_ad.png';
+  static const String imagesP2pManagement= 'assets/images/p2p_management.png';
+  static const String imagesBook= 'assets/images/book.png';
+  static const String imagesMerchent= 'assets/images/merchent.png';
+  static const String imagesLock= 'assets/images/lock.png';
+  static const String imagesHeadphone= 'assets/images/headphone.png';
+  static const String imagesFilterLine= 'assets/images/filter_line.png';
 
 }

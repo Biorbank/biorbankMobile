@@ -14,6 +14,7 @@ import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/nft_holding/cubit/nft_holding_cubit.dart';
+import 'package:biorbank/presentation/pages/p2p/cubit/p2p_market_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -65,6 +66,9 @@ class MultiBlocProviderList extends StatelessWidget {
             ),
             BlocProvider<HelpCenterCubit>(
               create: (BuildContext context) => HelpCenterCubit(),
+            ),
+            BlocProvider<P2pMarketCubit>(
+              create: (BuildContext context) => P2pMarketCubit(),
             ),
       ],
       child: child,

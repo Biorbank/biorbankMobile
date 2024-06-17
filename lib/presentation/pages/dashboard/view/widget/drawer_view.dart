@@ -160,7 +160,10 @@ class DrawerView extends StatelessWidget {
                     drawerActionTile(
                         context: context,
                         icon: Assets.imagesShop,
-                        onTap: () {},
+                        onTap: () {
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          context.router.push(const P2pMarketRoute());
+                        },
                         title: 'P2P Market'),
                     height(25.h),
                     AppConstant.commonDivider(),
@@ -175,7 +178,7 @@ class DrawerView extends StatelessWidget {
                         context: context,
                         icon: Assets.imagesInfoFilled,
                         onTap: () {
-                           Global.scaffoldKey.currentState?.closeDrawer();
+                          Global.scaffoldKey.currentState?.closeDrawer();
                           AutoTabsRouter.of(context).setActiveIndex(8);
                         },
                         title: 'Help Center'),

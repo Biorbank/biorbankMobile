@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
+import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/cubit/defi_detail_cubit.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/loan_detail_tab.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/nft_detail_tab.dart';
@@ -91,38 +92,53 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
             Row(
               children: [
                 Expanded(
-                  child: DefaultTabController(
+                  child: CommonTabbar(
+                      isShowBackground: true,
+                      indicatorColor: Theme.of(context).colorScheme.onPrimary,
+                      labelPadding:
+                          const EdgeInsets.only(bottom: 10, top: 6, right: 30),
+                      isScrollable: true,
+                      padding: const EdgeInsets.only(left: 20),
+                      tabBarIndicatorSize: TabBarIndicatorSize.label,
+                      tabAlignment: TabAlignment.start,
+                      selectedIndex: cubit.selectedTabIndex,
+                      labelFontWight: FontWeight.w400,
                       length: 3,
-                      child: TabBar(
-                          dividerHeight: 0,
-                          onTap: (value) {},
-                          unselectedLabelColor: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                          labelPadding: const EdgeInsets.only(
-                              bottom: 10, top: 6, right: 30),
-                          controller: tabController,
-                          isScrollable: true,
-                          padding: const EdgeInsets.only(left: 20),
-                          indicatorSize: TabBarIndicatorSize.label,
-                          tabAlignment: TabAlignment.start,
-                          tabs: [
-                            AppConstant.commonText('NFT',
-                                fontSize: 16.sp,
-                                fontWeight: cubit.selectedTabIndex == 0
-                                    ? FontWeight.w500
-                                    : null),
-                            AppConstant.commonText('Staking',
-                                fontSize: 16.sp,
-                                fontWeight: cubit.selectedTabIndex == 1
-                                    ? FontWeight.w500
-                                    : null),
-                            AppConstant.commonText('Loans',
-                                fontSize: 16.sp,
-                                fontWeight: cubit.selectedTabIndex == 2
-                                    ? FontWeight.w500
-                                    : null),
-                          ])),
+                      onTap: (index) {},
+                      tabController: tabController,
+                      tabList: const ['NFT', 'Staking', 'Loans']),
+                  //  DefaultTabController(
+                  //     length: 3,
+                  //     child: TabBar(
+                  //         dividerHeight: 0,
+                  //         onTap: (value) {},
+                  //         unselectedLabelColor: Theme.of(context)
+                  //             .colorScheme
+                  //             .onSecondaryContainer,
+                  //         labelPadding: const EdgeInsets.only(
+                  //             bottom: 10, top: 6, right: 30),
+                  //         controller: tabController,
+                  //         isScrollable: true,
+                  //         padding: const EdgeInsets.only(left: 20),
+                  //         indicatorSize: TabBarIndicatorSize.label,
+                  //         tabAlignment: TabAlignment.start,
+                  //         tabs: [
+                  //           AppConstant.commonText('NFT',
+                  //               fontSize: 16.sp,
+                  //               fontWeight: cubit.selectedTabIndex == 0
+                  //                   ? FontWeight.w500
+                  //                   : null),
+                  //           AppConstant.commonText('Staking',
+                  //               fontSize: 16.sp,
+                  //               fontWeight: cubit.selectedTabIndex == 1
+                  //                   ? FontWeight.w500
+                  //                   : null),
+                  //           AppConstant.commonText('Loans',
+                  //               fontSize: 16.sp,
+                  //               fontWeight: cubit.selectedTabIndex == 2
+                  //                   ? FontWeight.w500
+                  //                   : null),
+                  //         ])),
                 ),
                 GestureDetector(
                   onTap: () {},

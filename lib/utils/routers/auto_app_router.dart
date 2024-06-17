@@ -25,6 +25,8 @@ import 'package:biorbank/presentation/pages/market/view/market_view.dart';
 import 'package:biorbank/presentation/pages/nft/view/nft_screen.dart';
 import 'package:biorbank/presentation/pages/nft/view/widget/nft_details.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/nft_holding_view.dart';
+import 'package:biorbank/presentation/pages/p2p/view/my_order_screen.dart';
+import 'package:biorbank/presentation/pages/p2p/view/p2p_market_screen.dart';
 import 'package:biorbank/presentation/pages/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -78,5 +80,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: StakingDefiRoute.page),
         AutoRoute(page: NFTRoute.page),
         AutoRoute(page: NFTDetailsRoute.page),
+        AutoRoute(page: P2pMarketRoute.page),
+        AutoRoute(page: MyOrderRoute.page),
       ];
 }

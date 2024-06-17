@@ -1,10 +1,10 @@
 import 'package:biorbank/generated/assets.dart';
+import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/coins_tab_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/overview_tab_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/widget/filter_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/swap_tab_widget.dart';
-import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,40 +43,21 @@ class _MarketTabbarState extends State<MarketTabbar>
             Row(
               children: [
                 Expanded(
-                  child: DefaultTabController(
+                  child: CommonTabbar(
+                      isShowBackground: true,
+                      indicatorColor: Theme.of(context).colorScheme.onPrimary,
+                      labelPadding:
+                          const EdgeInsets.only(bottom: 10, top: 6, right: 30),
+                      isScrollable: true,
+                      padding: const EdgeInsets.only(left: 20),
+                      tabBarIndicatorSize: TabBarIndicatorSize.label,
+                      tabAlignment: TabAlignment.start,
+                      selectedIndex: cubit.selectedTabIndex,
+                      labelFontWight: FontWeight.w500,
                       length: 3,
-                      child: TabBar(
-                          indicatorColor:
-                              Theme.of(context).colorScheme.onPrimary,
-                          dividerHeight: 0,
-                          onTap: (value) {},
-                          unselectedLabelColor: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                          labelPadding: const EdgeInsets.only(
-                              bottom: 10, top: 6, right: 30),
-                          controller: tabController,
-                          isScrollable: true,
-                          padding: const EdgeInsets.only(left: 20),
-                          indicatorSize: TabBarIndicatorSize.label,
-                          tabAlignment: TabAlignment.start,
-                          tabs: [
-                            AppConstant.commonText('Overview',
-                                fontSize: 16.sp,
-                                fontWeight: cubit.selectedTabIndex == 0
-                                    ? FontWeight.w500
-                                    : null),
-                            AppConstant.commonText('Coins',
-                                fontSize: 16.sp,
-                                fontWeight: cubit.selectedTabIndex == 1
-                                    ? FontWeight.w500
-                                    : null),
-                            AppConstant.commonText('Swap',
-                                fontSize: 16.sp,
-                                fontWeight: cubit.selectedTabIndex == 2
-                                    ? FontWeight.w500
-                                    : null),
-                          ])),
+                      onTap: (index) {},
+                      tabController: tabController,
+                      tabList: const ['Overview', 'Coins', 'Swap']),
                 ),
                 GestureDetector(
                   onTap: () {

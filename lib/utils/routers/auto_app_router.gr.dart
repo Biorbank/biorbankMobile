@@ -127,6 +127,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MarketScreen(),
       );
     },
+    MyOrderRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MyOrderScreen(),
+      );
+    },
     NFTDetailsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -154,6 +160,12 @@ abstract class _$AppRouter extends RootStackRouter {
           imageUrl: args.imageUrl,
           title: args.title,
         ),
+      );
+    },
+    P2pMarketRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const P2pMarketScreen(),
       );
     },
     SendMoneyRoute.name: (routeData) {
@@ -466,6 +478,20 @@ class MarketRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [MyOrderScreen]
+class MyOrderRoute extends PageRouteInfo<void> {
+  const MyOrderRoute({List<PageRouteInfo>? children})
+      : super(
+          MyOrderRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MyOrderRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [NFTDetailsPage]
 class NFTDetailsRoute extends PageRouteInfo<void> {
   const NFTDetailsRoute({List<PageRouteInfo>? children})
@@ -548,6 +574,20 @@ class NftHoldingRouteArgs {
   String toString() {
     return 'NftHoldingRouteArgs{key: $key, imageUrl: $imageUrl, title: $title}';
   }
+}
+
+/// generated route for
+/// [P2pMarketScreen]
+class P2pMarketRoute extends PageRouteInfo<void> {
+  const P2pMarketRoute({List<PageRouteInfo>? children})
+      : super(
+          P2pMarketRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'P2pMarketRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

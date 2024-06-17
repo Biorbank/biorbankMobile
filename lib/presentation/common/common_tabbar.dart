@@ -68,8 +68,7 @@ class CommonTabbar extends StatelessWidget {
                 bottom: 6,
                 top: 6,
               ),
-              dividerHeight: 0,
-              
+              dividerHeight: 0,              
               indicatorPadding: EdgeInsets.zero,
               splashFactory: NoSplash.splashFactory,
               tabAlignment: tabAlignment ?? TabAlignment.start,
