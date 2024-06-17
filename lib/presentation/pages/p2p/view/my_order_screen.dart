@@ -176,7 +176,7 @@ class MyOrderScreen extends StatelessWidget {
             children: [
               commonTitleWidget(
                   context: context,
-                  title: 'Seller Information Information',
+                  title: 'Seller Information',
                   value: 'Elite Integration'),
               commonTitleWidget(
                 context: context,
