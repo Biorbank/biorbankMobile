@@ -9,6 +9,7 @@ import 'package:biorbank/presentation/pages/p2p/view/widget/payment_method_sheet
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -111,11 +112,14 @@ class P2pMarketScreen extends StatelessWidget {
                               context: context,
                               title: 'Fabulous',
                               orders: '9 Order(s) 82%',
+                              imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXuK2UbHTHM865f4E_lsWnqysgdXrpHg62g&s',
                               cs: '1.33',
                               limit: 'cs 13 - 50',
                               quantity: '260.4 USDT',
                               status: 'Online',
-                              onTapBuy: () {}),
+                              onTapBuy: () {
+                                context.router.push(const BuyUsdtRoute());
+                              }),
                         ),
                       ),
                     ],

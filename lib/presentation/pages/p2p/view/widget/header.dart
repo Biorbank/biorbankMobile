@@ -56,7 +56,7 @@ class P2PHeader extends StatelessWidget {
                 itemBackGroundColor: Theme.of(context).colorScheme.onPrimary,
                 textStyle: TextStyle(
                     color: Theme.of(context).colorScheme.shadow,
-                    fontSize: 24.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w700),
                 items: ['P2P']
                     .map((e) => DropdownMenuItem(

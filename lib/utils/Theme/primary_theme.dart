@@ -32,6 +32,7 @@ const blueColorScheme = ColorScheme(
     primaryFixed: Color(0xFF2E30B2),
    
     surfaceTint:  Color(0xFFF7931A),
-    onSecondaryFixedVariant: Color(0xFF000000)
+    onSecondaryFixedVariant: Color(0xFF000000),
+    onPrimaryFixed: Color(0xFF1BA1B4)
     
     );

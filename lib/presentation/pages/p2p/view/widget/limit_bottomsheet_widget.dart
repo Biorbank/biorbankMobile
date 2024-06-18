@@ -47,6 +47,7 @@ class LimitBottomsheetWidget extends StatelessWidget {
                   CommonTextfield(
                     title: '',
                     borderRadius: 100.r,
+                    inputType: TextInputType.number,
                     hintText: 'Enter Purchase  Amount',
                     suffixWidget: AppConstant.commonText('CAD',
                         fontSize: 12.sp,
@@ -100,7 +101,7 @@ class LimitBottomsheetWidget extends StatelessWidget {
                     blurRadius: 20,
                     spreadRadius: 0,
                     offset: const Offset(0, -4),
-                    color: const Color(0xFF000000).withOpacity(0.12))
+                    color: Theme.of(context).colorScheme.onSecondaryFixedVariant.withOpacity(0.12))
               ]),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -3,7 +3,7 @@ part of 'p2p_market_cubit.dart';
 @immutable
 sealed class P2pMarketState {}
 
-final class P2pMarketInitial extends P2pMarketState {}
+final class P2pMarketInitialState extends P2pMarketState {}
 final class CurrencySelectedState extends P2pMarketState {
   final CurrencyModel? currency;
   CurrencySelectedState({required this.currency});
@@ -27,4 +27,12 @@ final class PaymentMethodSheetStatusState extends P2pMarketState {
 final class LimitSheetStatus extends P2pMarketState {
   final bool isOpen;
   LimitSheetStatus({required this.isOpen});
+}
+final class PaymentMethodDropDownState extends P2pMarketState {
+  final CurrencyModel? paymentMethod;
+  PaymentMethodDropDownState({required this.paymentMethod});
+}
+final class PickedImageState extends P2pMarketState {
+  final XFile imageFile;
+  PickedImageState({required this.imageFile});
 }

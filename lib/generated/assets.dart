@@ -98,5 +98,6 @@ class Assets {
   static const String imagesLock= 'assets/images/lock.png';
   static const String imagesHeadphone= 'assets/images/headphone.png';
   static const String imagesFilterLine= 'assets/images/filter_line.png';
+  static const String imagesMessageQuestion= 'assets/images/message_question.png';
 
 }

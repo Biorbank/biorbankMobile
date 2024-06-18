@@ -5,13 +5,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-Column p2pCardWidget({required BuildContext context,
+Widget p2pCardWidget({required BuildContext context,
 required String title,
 required String orders,
 required String cs,
 required String status,
 required String quantity,
 required String limit,
+required String imageUrl,
 required VoidCallback onTapBuy
 }) {
   return Column(
@@ -115,7 +116,7 @@ required VoidCallback onTapBuy
             borderRadius: BorderRadius.circular(18.r),
             child: CachedNetworkImage(
               imageUrl:
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXuK2UbHTHM865f4E_lsWnqysgdXrpHg62g&s',
+                  imageUrl,
               height: 18.h,
               width: 18.w,
               fit: BoxFit.cover,
@@ -127,7 +128,7 @@ required VoidCallback onTapBuy
             child: CommonButton(
               borderRadius: 16.r,
               name: 'Buy',
-              onTap: () {},
+              onTap: onTapBuy,
               buttonColor: Theme.of(context).colorScheme.onPrimary,
             ),
           )

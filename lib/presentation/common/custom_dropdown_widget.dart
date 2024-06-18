@@ -1,7 +1,9 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_widgets.dart';
+import 'package:biorbank/utils/common_spacer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommonDropdownWidget<T> extends StatefulWidget {
@@ -21,6 +23,8 @@ class CommonDropdownWidget<T> extends StatefulWidget {
   final double? height;
   final bool isUseBackgroundColor;
   final String? dropDownArrow;
+  final String? title;
+  final EdgeInsets? dropDownContentPadding;
   const CommonDropdownWidget(
       {super.key,
       required this.labelText,
@@ -29,9 +33,11 @@ class CommonDropdownWidget<T> extends StatefulWidget {
       this.itemBackGroundColor,
       this.backGroundColor,
       this.errorMsg,
+      this.title,
       this.arrowColor,
       this.dropDownArrow,
       this.borderRadius,
+      this.dropDownContentPadding,
       required this.onChanged,
       this.fontColor,
       this.border,
@@ -53,6 +59,14 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Visibility(
+          visible: widget.title != null,
+          child: AppConstant.commonText(widget.title ?? '',
+              fontWeight: FontWeight.w500,
+              fontSize: 14.sp,
+              color: Theme.of(context).colorScheme.shadow),
+        ),
+        height(widget.title != null ? 8.h : 0),
         Container(
           height: widget.height ?? 45.h,
           alignment: Alignment.center,
@@ -69,12 +83,11 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
             child: DropdownButton2<T>(
               style: widget.textStyle,
               value: widget.value,
-              menuItemStyleData: const MenuItemStyleData(
-                padding: EdgeInsets.only(left: 12)
-              ),
+              menuItemStyleData:
+                  const MenuItemStyleData(padding: EdgeInsets.only(left: 12)),
               onChanged: widget.onChanged,
               dropdownStyleData: DropdownStyleData(
-                padding: const EdgeInsets.only(left: 4),
+                  padding: widget.dropDownContentPadding,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: widget.itemBackGroundColor ??
@@ -83,11 +96,12 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
                   icon: Padding(
                 padding: const EdgeInsets.only(right: 6),
                 child: Transform.rotate(
-                    angle: isOpen ?  3.13 : 0,
+                    angle: isOpen ? 3.13 : 0,
                     child: Image.asset(
-                     widget.dropDownArrow?? Assets.imagesChevronDown,
+                      widget.dropDownArrow ?? Assets.imagesChevronDown,
                       height: 18,
-                      color:widget.arrowColor ??Theme.of(context).colorScheme.shadow,
+                      color: widget.arrowColor ??
+                          Theme.of(context).colorScheme.shadow,
                     )),
               )
                   // Icon(

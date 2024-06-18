@@ -26,7 +26,7 @@ class MyOrderScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
-                      onTap: (){
+                      onTap: () {
                         context.router.back();
                       },
                       child: Image.asset(
@@ -137,36 +137,38 @@ class MyOrderScreen extends StatelessWidget {
             ],
           ),
           height(12.h),
-          Padding(
-            padding:  EdgeInsets.only(right: 50.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                commonTitleWidget(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: commonTitleWidget(
                     context: context, title: 'Price', value: '1.36'),
-                commonTitleWidget(
+              ),
+              Expanded(
+                child: commonTitleWidget(
                     context: context,
                     title: 'Trading Amount',
                     value: 'C\$ 500'),
-              ],
-            ),
+              ),
+            ],
           ),
           height(12.h),
-          Padding(
-            padding:  EdgeInsets.only(right: 45.w),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                commonTitleWidget(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: commonTitleWidget(
                     context: context, title: 'Quantity', value: '367.6470580'),
-                commonTitleWidget(
+              ),
+              Expanded(
+                child: commonTitleWidget(
                     context: context,
                     title: 'Payment Method',
                     value: 'Wise',
                     imageUrl:
                         'https://play-lh.googleusercontent.com/wU1A9m0ExkOTQAixWpggeLFzqeXFrR4A9GU9eDhLCO29AnAW4KzUYx1kyHPe21qPgw=w240-h480-rw'),
-              ],
-            ),
+              ),
+            ],
           ),
           height(10.h),
           AppConstant.commonDivider(),
@@ -174,14 +176,18 @@ class MyOrderScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              commonTitleWidget(
+              Expanded(
+                child: commonTitleWidget(
+                    context: context,
+                    title: 'Seller Information',
+                    value: 'Elite Integration'),
+              ),
+              Expanded(
+                child: commonTitleWidget(
                   context: context,
-                  title: 'Seller Information',
-                  value: 'Elite Integration'),
-              commonTitleWidget(
-                context: context,
-                title: 'Date',
-                value: '2024/02/14 14:51:14',
+                  title: 'Date',
+                  value: '2024/02/14 14:51:14',
+                ),
               ),
             ],
           ),
@@ -201,6 +207,8 @@ class MyOrderScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppConstant.commonText(title,
+            maxLines: 1,
+            textOverflow: TextOverflow.ellipsis,
             color: Theme.of(context).colorScheme.onSecondaryContainer,
             fontSize: 12.sp,
             fontWeight: FontWeight.w400),
@@ -219,10 +227,14 @@ class MyOrderScreen extends StatelessWidget {
                   ),
                 )),
             width(imageUrl != null && imageUrl.isNotEmpty ? 8.w : 0),
-            AppConstant.commonText(value,
-                color: Theme.of(context).colorScheme.shadow,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500),
+            Expanded(
+              child: AppConstant.commonText(value,
+                  maxLines: 1,
+                  textOverflow: TextOverflow.ellipsis,
+                  color: Theme.of(context).colorScheme.shadow,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500),
+            ),
           ],
         ),
       ],

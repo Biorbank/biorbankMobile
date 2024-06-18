@@ -8,7 +8,6 @@ import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widge
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/nft_detail_tab.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/risk_detail_widget.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/staking_detail_tab.dart';
-import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -107,38 +106,7 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
                       onTap: (index) {},
                       tabController: tabController,
                       tabList: const ['NFT', 'Staking', 'Loans']),
-                  //  DefaultTabController(
-                  //     length: 3,
-                  //     child: TabBar(
-                  //         dividerHeight: 0,
-                  //         onTap: (value) {},
-                  //         unselectedLabelColor: Theme.of(context)
-                  //             .colorScheme
-                  //             .onSecondaryContainer,
-                  //         labelPadding: const EdgeInsets.only(
-                  //             bottom: 10, top: 6, right: 30),
-                  //         controller: tabController,
-                  //         isScrollable: true,
-                  //         padding: const EdgeInsets.only(left: 20),
-                  //         indicatorSize: TabBarIndicatorSize.label,
-                  //         tabAlignment: TabAlignment.start,
-                  //         tabs: [
-                  //           AppConstant.commonText('NFT',
-                  //               fontSize: 16.sp,
-                  //               fontWeight: cubit.selectedTabIndex == 0
-                  //                   ? FontWeight.w500
-                  //                   : null),
-                  //           AppConstant.commonText('Staking',
-                  //               fontSize: 16.sp,
-                  //               fontWeight: cubit.selectedTabIndex == 1
-                  //                   ? FontWeight.w500
-                  //                   : null),
-                  //           AppConstant.commonText('Loans',
-                  //               fontSize: 16.sp,
-                  //               fontWeight: cubit.selectedTabIndex == 2
-                  //                   ? FontWeight.w500
-                  //                   : null),
-                  //         ])),
+                
                 ),
                 GestureDetector(
                   onTap: () {},

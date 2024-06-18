@@ -21,6 +21,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const BrowserScreen(),
       );
     },
+    BuyRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const BuyScreen(),
+      );
+    },
+    BuyUsdtRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const BuyUsdtScreen(),
+      );
+    },
     ChatDetailRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -168,6 +180,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const P2pMarketScreen(),
       );
     },
+    PaymentProcessRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PaymentProcessScreen(),
+      );
+    },
     SendMoneyRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -211,6 +229,34 @@ class BrowserRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'BrowserRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [BuyScreen]
+class BuyRoute extends PageRouteInfo<void> {
+  const BuyRoute({List<PageRouteInfo>? children})
+      : super(
+          BuyRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'BuyRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [BuyUsdtScreen]
+class BuyUsdtRoute extends PageRouteInfo<void> {
+  const BuyUsdtRoute({List<PageRouteInfo>? children})
+      : super(
+          BuyUsdtRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'BuyUsdtRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -586,6 +632,20 @@ class P2pMarketRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'P2pMarketRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PaymentProcessScreen]
+class PaymentProcessRoute extends PageRouteInfo<void> {
+  const PaymentProcessRoute({List<PageRouteInfo>? children})
+      : super(
+          PaymentProcessRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PaymentProcessRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
