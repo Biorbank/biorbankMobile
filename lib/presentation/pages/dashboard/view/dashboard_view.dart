@@ -23,17 +23,18 @@ class DashboardScreen extends StatelessWidget {
           cubit.selectedBottomTabIndex = state.index;
         }
         return AutoTabsRouter(
-          routes:  const [
+          routes: const [
             DefiRoute(),
             MarketRoute(),
             BrowserRoute(),
             ChatRoute(),
-            HomeRoute(),
+            DefiNavigationRoute(),
             ContactRoute(),
             FeedbackRoute(),
             DebitCardRoute(),
             HelpCenterRoute()
           ],
+        //  transitionBuilder:_customTransitionBuilder ,
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);
             return Scaffold(
@@ -46,6 +47,9 @@ class DashboardScreen extends StatelessWidget {
               floatingActionButton: GestureDetector(
                 onTap: () {
                   tabsRouter.setActiveIndex(4);
+                  final stackRouter = tabsRouter
+                      .innerRouterOf<StackRouter>(DefiNavigationRoute.name);
+                  stackRouter?.popUntilRoot();
                 },
                 child: Container(
                   height: 58.h,
@@ -116,7 +120,7 @@ class DashboardScreen extends StatelessWidget {
       },
     );
   }
-
+ 
   Widget _buildBottomBar({
     required BuildContext context,
     required String iconPath,

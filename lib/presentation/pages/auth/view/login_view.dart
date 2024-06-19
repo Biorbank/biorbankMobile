@@ -111,11 +111,14 @@ class _LoginViewState extends State<LoginScreen> with Validation {
                     color: Theme.of(context).colorScheme.onSecondaryContainer, textAlign: TextAlign.center),
               ),
               height(4.h),
-              CommonTextButton(
-                name: AppStrings.resetWallet,
-                onTap: () {},
-                fontWeight: FontWeight.w500,
-                textColor: Theme.of(context).colorScheme.onPrimary,
+              Center(
+                child: CommonTextButton(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  name: AppStrings.resetWallet,
+                  onTap: () {},
+                  fontWeight: FontWeight.w500,
+                  textColor: Theme.of(context).colorScheme.onPrimary,
+                ),
               )
             ],
           ),

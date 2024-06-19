@@ -99,5 +99,7 @@ class Assets {
   static const String imagesHeadphone= 'assets/images/headphone.png';
   static const String imagesFilterLine= 'assets/images/filter_line.png';
   static const String imagesMessageQuestion= 'assets/images/message_question.png';
+  static const String imagesQrCode= 'assets/images/qr_code.png';
+  static const String imagesScanner= 'assets/images/scanner.png';
 
 }

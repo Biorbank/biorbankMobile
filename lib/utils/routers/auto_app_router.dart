@@ -55,6 +55,7 @@ class AppRouter extends _$AppRouter {
           maintainState: false,
            children: [
             AutoRoute(
+              path: 'home',
               page: HomeRoute.page,
               initial: true,
               maintainState: true

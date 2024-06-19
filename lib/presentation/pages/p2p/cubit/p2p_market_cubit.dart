@@ -15,6 +15,8 @@ class P2pMarketCubit extends Cubit<P2pMarketState> {
   int selectedPaymentMethod = 0;
   bool isOpenPaymentMethodSheet = false;
   bool isOpenLimitSheet = false;
+  bool isTradingRequirement  = false;
+  bool isUnderstandTradingRule  = false;
   CurrencyModel? currentPaymentMethod;
   List<XFile> images = [];
 
@@ -122,6 +124,12 @@ class P2pMarketCubit extends Cubit<P2pMarketState> {
 
   void onPickImage({required XFile file}){
     emit(PickedImageState(imageFile: file));
+  }
+  void onChangeTradingRequirement({required bool value}){
+    emit(TradingRequirementsState(value: value));
+  }
+  void toggleUnderstandTradingRules({required bool value}){
+    emit(UnderstandTradingRuleState(value: value));
   }
 
   void refreshState(){

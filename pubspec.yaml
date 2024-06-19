@@ -59,6 +59,7 @@ dependencies:
   flutter_native_splash: ^2.4.0
   image_picker: ^1.1.2
   image_cropper: ^7.0.5
+  pretty_qr_code: ^3.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

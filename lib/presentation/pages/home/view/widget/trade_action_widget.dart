@@ -1,31 +1,26 @@
-import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/enum/home_page_action_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TradeActionWidget extends StatelessWidget {
-  const TradeActionWidget({super.key});
+  const TradeActionWidget({super.key,required this.onTap,required this.tradeOptionsList,this.selectedOption});
+final Function(int) onTap;
+final List<Map<String, dynamic>> tradeOptionsList;
+final   ActionEnum? selectedOption;
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<HomeCubit>();
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state is TradeOptionChnageState) {
-              cubit.selectedOption = state.value;
-            }
-            return Row(
+        child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: List.generate(
-                cubit.tradeOptions.length,
+                tradeOptionsList.length,
                 (index) => GestureDetector(
                   onTap: () {
-                    cubit.onTapeTradeActionOption(
-                        value: cubit.tradeOptions[index]['title']);
+                    onTap(index);
                   },
                   child: Column(
                     children: [
@@ -35,25 +30,24 @@ class TradeActionWidget extends StatelessWidget {
                         width: 48.w,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: cubit.selectedOption ==
-                                    cubit.tradeOptions[index]['title']
+                            color: selectedOption ==
+                                  tradeOptionsList[index]['type']
                                 ? Theme.of(context).colorScheme.onSurface
                                 : Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.2)),
-                        child: Image.asset(cubit.tradeOptions[index]['icon'],
-                            color: cubit.selectedOption ==
-                                    cubit.tradeOptions[index]['title']
+                        child: Image.asset(tradeOptionsList[index]['icon'],
+                            color: selectedOption ==
+                                  tradeOptionsList[index]['type']
                                 ? Theme.of(context).colorScheme.shadow
                                 : null),
                       ),
                       height(8.h),
-                      AppConstant.commonText(cubit.tradeOptions[index]['title'],
+                      AppConstant.commonText(tradeOptionsList[index]['title'],
                           color: Theme.of(context).colorScheme.onSurface)
                     ],
                   ),
                 ),
               ),
-            );
-          },
-        ));
+            )
+         );
   }
 }

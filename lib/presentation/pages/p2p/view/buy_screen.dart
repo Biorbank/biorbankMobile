@@ -8,16 +8,17 @@ import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/presentation/pages/p2p/cubit/p2p_market_cubit.dart';
 import 'package:biorbank/presentation/pages/p2p/view/widget/buy_sceen_appbar.dart';
+import 'package:biorbank/presentation/pages/p2p/view/widget/floating_price_dialog.dart';
 import 'package:biorbank/presentation/pages/p2p/view/widget/image_picker_dialog.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/image_picker_helper/image_picker_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:image_picker/image_picker.dart';
+
+import 'widget/counterparty_trading_requirement_widget.dart';
 
 @RoutePage()
 class BuyScreen extends StatelessWidget {
@@ -31,11 +32,15 @@ class BuyScreen extends StatelessWidget {
         if (state is PickedImageState) {
           cubit.images.add(state.imageFile);
           cubit.refreshState();
+        } else if (state is TradingRequirementsState) {
+          cubit.isTradingRequirement = state.value;
+        } else if (state is UnderstandTradingRuleState) {
+          cubit.isUnderstandTradingRule = state.value;
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           const BuySceenAppbar(),
+            const BuySceenAppbar(),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
@@ -43,11 +48,16 @@ class BuyScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      height(20.h),
+                      height(15.h),
                       buyActionButton(
-                          context: context,
-                          onTapFloatingButton: () {},
-                          onTapRatioButton: () {}),
+                        context: context,
+                        onTapFloatingButton: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const FloatingPriceDialog(),
+                          );
+                        },
+                      ),
                       height(12.h),
                       CommonTextfield(
                           title: 'Trading quantity',
@@ -183,44 +193,11 @@ class BuyScreen extends StatelessWidget {
                         onChanged: (p0) {},
                       ),
                       height(18.h),
-                      Container(
-                        height: 58.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: Theme.of(context).colorScheme.errorContainer,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              AppConstant.commonText(
-                                  'Counterparty Trading Requirements',
-                                  maxLines: 1,
-                                  textOverflow: TextOverflow.ellipsis,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).colorScheme.shadow),
-                              FlutterSwitch(
-                                width: 48.0,
-                                height: 26.0,
-                                toggleSize: 20.0,
-                                inactiveColor:
-                                    Theme.of(context).colorScheme.onSurface,
-                                toggleColor: const Color(0xFFDFE2E7),
-                                activeColor: AppColors.green,
-                                value: false,
-                                activeToggleColor:
-                                    Theme.of(context).colorScheme.onSurface,
-                                borderRadius: 25.0,
-                                padding: 4,
-                                showOnOff: false,
-                                onToggle: (val) {
-                                  //cubit.toggleFaceIdSwitch(value: val);
-                                },
-                              )
-                            ],
-                          ),
-                        ),
+                      CounterpartyTradingRequirementWidget(
+                        isTradingRequirement: cubit.isTradingRequirement,
+                        onToggle: (value) {
+                          cubit.onChangeTradingRequirement(value: value);
+                        },
                       ),
                       height(16.h),
                       const CommonTextfield(
@@ -331,8 +308,11 @@ class BuyScreen extends StatelessWidget {
                                     .onSecondaryContainer),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(5.r)),
-                            value: true,
-                            onChanged: (value) {},
+                            value: cubit.isUnderstandTradingRule,
+                            onChanged: (value) {
+                              cubit.toggleUnderstandTradingRules(
+                                  value: value ?? false);
+                            },
                           ),
                           width(10.w),
                           Expanded(
@@ -356,9 +336,9 @@ class BuyScreen extends StatelessWidget {
                         ],
                       ),
                       height(10.h),
-                       CommonButton(
+                      CommonButton(
                         name: 'Post',
-                        onTap: (){},
+                        onTap: () {},
                       ),
                       height(20.h),
                     ],
@@ -372,17 +352,17 @@ class BuyScreen extends StatelessWidget {
     ));
   }
 
-  Widget buyActionButton(
-      {required BuildContext context,
-      required VoidCallback onTapFloatingButton,
-      required VoidCallback onTapRatioButton}) {
+  Widget buyActionButton({
+    required BuildContext context,
+    required VoidCallback onTapFloatingButton,
+  }) {
     return Row(
       children: [
         Expanded(
           child: InkWell(
-            onTap: () {},
+            onTap: onTapFloatingButton,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.r),
                   color: Theme.of(context).colorScheme.errorContainer),
@@ -407,31 +387,13 @@ class BuyScreen extends StatelessWidget {
         ),
         width(14.w),
         Expanded(
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.r),
-                  color: Theme.of(context).colorScheme.errorContainer),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppConstant.commonText('Enter ratio',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          Theme.of(context).colorScheme.onSecondaryContainer),
-                  AppConstant.commonText('%',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color:
-                          Theme.of(context).colorScheme.onSecondaryContainer),
-                ],
-              ),
-            ),
-          ),
-        ),
+            child: CommonTextfield(
+          title: '',
+          isShowSpaceAfterTitle: false,
+          hintText: 'Enter ratio',
+          suffixWidget: AppConstant.commonText('%',
+              color: Theme.of(context).colorScheme.onSecondaryContainer),
+        )),
       ],
     );
   }

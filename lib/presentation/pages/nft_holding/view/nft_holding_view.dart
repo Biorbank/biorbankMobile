@@ -3,7 +3,7 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
-import 'package:biorbank/presentation/pages/nft_holding/view/widget/add_address_dialog.dart';
+import 'package:biorbank/presentation/pages/nft_holding/view/widget/choose_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_control.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_widget.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';

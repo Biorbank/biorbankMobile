@@ -1,53 +1,48 @@
 import 'package:biorbank/generated/assets.dart';
-import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChartTimePeriodWidget extends StatelessWidget {
-  const ChartTimePeriodWidget({super.key});
+  const ChartTimePeriodWidget({super.key,required this.onTap,required this.chartTimePeriod,required this.selectedChartTimePeriod});
+final Function(int) onTap;
+final List<String> chartTimePeriod;
+final   String? selectedChartTimePeriod;
+
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          var cubit = context.read<HomeCubit>();
-            if (state is ChartTimePeriodState) {
-          cubit.selectedChartTimePeriod = state.value;
-        }
-          return Row(
+      child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(
-                    cubit.chartTimePeriod.length,
+                    chartTimePeriod.length,
                     (index) => GestureDetector(
                       onTap: () {
-                        cubit.onChangeChartTimePeriod(
-                            value: cubit.chartTimePeriod[index]);
+                       onTap(index);
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                            color: cubit.selectedChartTimePeriod ==
-                                    cubit.chartTimePeriod[index]
+                            color: selectedChartTimePeriod ==
+                                    chartTimePeriod[index]
                                 ? Theme.of(context).colorScheme.onSurface
                                 : AppColors.transparent,
                             borderRadius: BorderRadius.circular(32)),
                         child: AppConstant.commonText(
-                          cubit.chartTimePeriod[index],
+                          chartTimePeriod[index],
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
-                          color: cubit.selectedChartTimePeriod ==
-                                  cubit.chartTimePeriod[index]
+                          color: selectedChartTimePeriod ==
+                                  chartTimePeriod[index]
                               ? Theme.of(context).colorScheme.shadow
                               : Theme.of(context)
                                   .colorScheme
@@ -65,9 +60,8 @@ class ChartTimePeriodWidget extends StatelessWidget {
                 width: 20.w,
               ),
             ],
-          );
-        },
-      ),
+          )
+       
     );
   }
 }

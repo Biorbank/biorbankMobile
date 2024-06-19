@@ -14,7 +14,7 @@ final class HomeTabIndexChangeState extends HomeState {
 }
 
 final class TradeOptionChnageState extends HomeState {
-  final String value;
+  final ActionEnum? value;
   TradeOptionChnageState({required this.value});
 }
 

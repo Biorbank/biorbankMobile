@@ -36,3 +36,11 @@ final class PickedImageState extends P2pMarketState {
   final XFile imageFile;
   PickedImageState({required this.imageFile});
 }
+final class TradingRequirementsState extends P2pMarketState {
+  final bool value;
+  TradingRequirementsState({required this.value});
+}
+final class UnderstandTradingRuleState extends P2pMarketState {
+  final bool value;
+  UnderstandTradingRuleState({required this.value});
+}

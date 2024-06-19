@@ -3,7 +3,6 @@ import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommonDropdownWidget<T> extends StatefulWidget {
@@ -63,7 +62,7 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
           visible: widget.title != null,
           child: AppConstant.commonText(widget.title ?? '',
               fontWeight: FontWeight.w500,
-              fontSize: 14.sp,
+              
               color: Theme.of(context).colorScheme.shadow),
         ),
         height(widget.title != null ? 8.h : 0),

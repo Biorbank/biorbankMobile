@@ -14,7 +14,8 @@ class CommonOutlinedButton extends StatelessWidget {
       this.fontSize,
       this.fontWeight,
       this.borderRadius,
-      this.borderColor});
+      this.borderColor,
+      this.isShowIconInPrefix = false});
   final String title;
   final VoidCallback onTap;
   final Color? textColor;
@@ -24,6 +25,7 @@ class CommonOutlinedButton extends StatelessWidget {
   final double? borderRadius;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final bool isShowIconInPrefix;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,7 +34,7 @@ class CommonOutlinedButton extends StatelessWidget {
         height: height ?? 40,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular( borderRadius??12),
+            borderRadius: BorderRadius.circular(borderRadius ?? 12),
             border: Border.all(
                 color: borderColor ??
                     Theme.of(context).colorScheme.onSecondaryContainer)),
@@ -40,13 +42,19 @@ class CommonOutlinedButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if (icon != null && isShowIconInPrefix) ...[
+                icon ?? const SizedBox.shrink(),
+                width(10.w),
+              ],
               AppConstant.commonText(title,
                   color: textColor ??
                       Theme.of(context).colorScheme.onSecondaryContainer,
-                  fontSize:fontSize?? 16.sp,
-                  fontWeight:fontWeight?? FontWeight.w500),
-              if (icon != null) width(10.w),
-              icon ?? const SizedBox.shrink()
+                  fontSize: fontSize ?? 16.sp,
+                  fontWeight: fontWeight ?? FontWeight.w500),
+               if (icon != null && !isShowIconInPrefix) ...[
+                width(10.w),
+                icon ?? const SizedBox.shrink(),
+              ],
             ],
           ),
         ),

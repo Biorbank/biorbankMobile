@@ -40,6 +40,7 @@ class CommonTextfield extends StatelessWidget {
   final TextStyle? textStyle;
   final double? cursorHeight;
   final double? height;
+  final EdgeInsets? scrollPadding;
   const CommonTextfield(
       {super.key,
       required this.title,
@@ -49,6 +50,7 @@ class CommonTextfield extends StatelessWidget {
       this.hintText = '',
       this.textColor,
       this.inputFormatter,
+      this.scrollPadding,
       this.inputType,
       this.validator,
       this.titleFontSize,
@@ -130,6 +132,7 @@ class CommonTextfield extends StatelessWidget {
               obscureText: obscureText,
               readOnly: isReadOnly ?? false,
               maxLength: maxLength,
+               scrollPadding:scrollPadding??const EdgeInsets.all(20.0),
               cursorColor: cursorColor,
               cursorHeight:cursorHeight ,
               decoration: InputDecoration(
