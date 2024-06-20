@@ -1,11 +1,11 @@
 import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
-import 'package:biorbank/presentation/pages/send/view/widget/payment_sheet.dart';
-import 'package:biorbank/presentation/pages/send/view/widget/send_money_crypto_tab.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'widget/crypto_stepper.dart';
 
 class SendCurrencyView extends StatefulWidget {
   const SendCurrencyView({super.key});
@@ -67,8 +67,8 @@ class _SendCurrencyViewState extends State<SendCurrencyView>
                   tabController: tabController,
                   tabList: const ['Crypto', 'Cash']),
               Expanded(
-                child: TabBarView(controller: tabController, children: [
-                  SendMoneyCryptoTab(
+                child: TabBarView(controller: tabController, children: const [
+                  /* SendMoneyCryptoTab(
                     onChangedAccount: (value) {
                       cubit.onChangeAccount(value: value);
                     },
@@ -90,8 +90,9 @@ class _SendCurrencyViewState extends State<SendCurrencyView>
                         builder: (context) => const PaymentSheet(),
                       );
                     },
-                  ),
-                  const SizedBox()
+                  ),*/
+                  CryptoStepper(),
+                  SizedBox.shrink()
                 ]),
               ),
             ],

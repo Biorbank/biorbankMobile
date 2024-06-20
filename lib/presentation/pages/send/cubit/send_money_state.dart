@@ -16,3 +16,7 @@ final class SelectedReceipentState extends SendMoneyState{
   final String account;
   SelectedReceipentState({required this.account});
 }
+final class StepperIndexState extends SendMoneyState{
+  final int index;
+  StepperIndexState({required this.index});
+}
