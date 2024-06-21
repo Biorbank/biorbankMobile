@@ -24,6 +24,9 @@ class CommonDropdownWidget<T> extends StatefulWidget {
   final String? dropDownArrow;
   final String? title;
   final EdgeInsets? dropDownContentPadding;
+  final DropdownSearchData<T>? dropdownSearchData;
+  final double? maxHeight;
+  final Function(bool)? onMenuStateChange;
   const CommonDropdownWidget(
       {super.key,
       required this.labelText,
@@ -33,9 +36,12 @@ class CommonDropdownWidget<T> extends StatefulWidget {
       this.backGroundColor,
       this.errorMsg,
       this.title,
+      this.dropdownSearchData,
       this.arrowColor,
+      this.onMenuStateChange,
       this.dropDownArrow,
       this.borderRadius,
+      this.maxHeight,
       this.dropDownContentPadding,
       required this.onChanged,
       this.fontColor,
@@ -43,7 +49,7 @@ class CommonDropdownWidget<T> extends StatefulWidget {
       this.height,
       this.isExpanded = false,
       this.textStyle,
-      this.isUseBackgroundColor = true});
+      this.isUseBackgroundColor = true, });
 
   @override
   State<CommonDropdownWidget<T>> createState() =>
@@ -82,11 +88,13 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
             child: DropdownButton2<T>(
               style: widget.textStyle,
               value: widget.value,
+
               menuItemStyleData:
                   const MenuItemStyleData(padding: EdgeInsets.only(left: 12)),
               onChanged: widget.onChanged,
               dropdownStyleData: DropdownStyleData(
                   padding: widget.dropDownContentPadding,
+                  maxHeight: widget.maxHeight,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: widget.itemBackGroundColor ??
@@ -110,8 +118,9 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
                   //     color: widget.arrowColor ??Theme.of(context).colorScheme.shadow),
                   ),
               items: widget.items,
+              dropdownSearchData:widget.dropdownSearchData,
               isExpanded: widget.isExpanded ?? false,
-              onMenuStateChange: (open) {
+              onMenuStateChange:widget.onMenuStateChange?? (open) {
                 setState(() {
                   isOpen = open;
                 });

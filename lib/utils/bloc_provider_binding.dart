@@ -2,6 +2,7 @@
 
 import 'package:biorbank/presentation/pages/auth/cubit/auth_cubit.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/cubit/defi_detail_cubit.dart';
+import 'package:biorbank/presentation/pages/buy_sell/cubit/buysell_cubit.dart';
 import 'package:biorbank/presentation/pages/chat/cubit/chat_cubit.dart';
 import 'package:biorbank/presentation/pages/contacts_page/cubit/contact_cubit.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
@@ -77,6 +78,9 @@ class MultiBlocProviderList extends StatelessWidget {
             ),
             BlocProvider<SendMoneyCubit>(
               create: (BuildContext context) => SendMoneyCubit(),
+            ),
+            BlocProvider<BuySellCubit>(
+              create: (BuildContext context) => BuySellCubit(),
             ),
       ],
       child: child,

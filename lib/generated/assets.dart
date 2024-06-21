@@ -101,5 +101,6 @@ class Assets {
   static const String imagesMessageQuestion= 'assets/images/message_question.png';
   static const String imagesQrCode= 'assets/images/qr_code.png';
   static const String imagesScanner= 'assets/images/scanner.png';
+  static const String imagesCalendar= 'assets/images/calendar.png';
 
 }

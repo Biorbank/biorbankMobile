@@ -1,5 +1,7 @@
 import 'package:biorbank/generated/assets.dart';
+import 'package:biorbank/presentation/pages/buy_sell/view/buy_sell_screen.dart';
 import 'package:biorbank/presentation/pages/deposit/view/deposit_view.dart';
+import 'package:biorbank/presentation/pages/pay_bills/view/pay_bills_view.dart';
 import 'package:biorbank/presentation/pages/send/view/send_currency_view.dart';
 import 'package:biorbank/utils/enum/home_page_action_enum.dart';
 import 'package:flutter/material.dart';
@@ -43,9 +45,9 @@ class HomeCubit extends Cubit<HomeState> {
       case ActionEnum.send:
         return const SendCurrencyView();
       case ActionEnum.buyORsell:
-        return const SizedBox.shrink();
+        return const BuySellScreen();
       case ActionEnum.payBills:
-        return const SizedBox.shrink();
+        return const PayBillsView();
       default:
       return const SizedBox.shrink();
     }
