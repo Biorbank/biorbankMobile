@@ -102,5 +102,6 @@ class Assets {
   static const String imagesQrCode= 'assets/images/qr_code.png';
   static const String imagesScanner= 'assets/images/scanner.png';
   static const String imagesCalendar= 'assets/images/calendar.png';
+  static const String imagesClock= 'assets/images/clock.png';
 
 }

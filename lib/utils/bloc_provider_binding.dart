@@ -17,6 +17,7 @@ import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/nft_holding/cubit/nft_holding_cubit.dart';
 import 'package:biorbank/presentation/pages/p2p/cubit/p2p_market_cubit.dart';
+import 'package:biorbank/presentation/pages/pay_bills/cubit/pay_bills_cubit.dart';
 import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,6 +82,9 @@ class MultiBlocProviderList extends StatelessWidget {
             ),
             BlocProvider<BuySellCubit>(
               create: (BuildContext context) => BuySellCubit(),
+            ),
+            BlocProvider<PayBillsCubit>(
+              create: (BuildContext context) => PayBillsCubit(),
             ),
       ],
       child: child,
