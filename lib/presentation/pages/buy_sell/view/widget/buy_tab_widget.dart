@@ -31,8 +31,8 @@ class BuyTabWidget extends StatelessWidget {
             var cubit = context.read<BuySellCubit>();
             if (state is RegionSelectedState) {
               cubit.selectedRegion = state.region;
-            } else if (state is PaymentMethodSelectedState) {
-              cubit.selectedPaymentMethod = state.paymentMethod;
+            } else if (state is PaymentMethodConfirmedState) {
+              cubit.confirmedPaymentMethod = state.paymentMethod;
             }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,34 +132,65 @@ class BuyTabWidget extends StatelessWidget {
                   ),
                 ),
                 height(18.h),
-                CommonDropdownWidget(
-                  isExpanded: true,
-                  borderRadius: 12.r,
-                  labelText: 'Select payment method',
-                  value: cubit.selectedPaymentMethod,
-                  title: 'Payment Method',
-                  items: cubit.paymentMethodList
-                      .map((e) => DropdownMenuItem(
-                          value: e,
+                AppConstant.commonText('Payment Method',
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).colorScheme.shadow),
+                height(8.h),
+                InkWell(
+                  onTap: (){
+                       showModalBottomSheet(
+                        isScrollControlled: false,
+                        useRootNavigator: true,
+                        shape: const OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12))),
+                        backgroundColor:
+                            Theme.of(context).colorScheme.onSurface,
+                        context: context,
+                        builder: (context) => const SelectPaymentMethodSheet());
+                  },
+                  child: Container(
+                      height: 45.h,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12.r),
+                          color: Theme.of(context).colorScheme.errorContainer),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: Visibility(
+                          visible: cubit.confirmedPaymentMethod.isNotEmpty,
+                          replacement: Align(
+                            alignment: Alignment.centerLeft,
+                            child: AppConstant.commonText('Select payment method',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12.sp,
+                                textAlign: TextAlign.left,
+                                color: Theme.of(context).colorScheme.outline),
+                          ),
                           child: Row(
                             children: [
                               CachedNetworkImage(
-                                imageUrl: e.url,
+                                imageUrl:
+                                    cubit.confirmedPaymentMethod['image_url'] ??
+                                        '',
                                 height: 24.h,
                                 width: 24.w,
-                                fit: BoxFit.cover,
+                                placeholder: (context, url) =>
+                                    const SizedBox.shrink(),
                               ),
                               width(8.w),
-                              AppConstant.commonText(e.name,
-                                  fontSize: 14.sp,
-                                  color: Theme.of(context).colorScheme.shadow),
+                              AppConstant.commonText(
+                                  cubit.confirmedPaymentMethod['payment_name'] ??
+                                      '',
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .shadow)
                             ],
-                          )))
-                      .toList(),
-                  backGroundColor: Theme.of(context).colorScheme.errorContainer,
-                  onChanged: (value) {
-                    cubit.onSelectPaymentMethod(payment: value);
-                  },
+                          ),
+                        ),
+                      )),
                 ),
                 height(18.h),
                 CommonDropdownWidget(
@@ -280,18 +311,7 @@ class BuyTabWidget extends StatelessWidget {
                 CommonButton(
                   name: 'Continue',
                   onTap: () {
-                    showModalBottomSheet(
-                        isScrollControlled: false,
-                        useRootNavigator: true,
-                        shape: const OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12))),
-                        backgroundColor:
-                            Theme.of(context).colorScheme.onSurface,
-                        context: context,
-                        builder: (context) => const SelectPaymentMethodSheet());
+                 
                   },
                 ),
                 height(30.h),

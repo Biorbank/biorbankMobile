@@ -8,7 +8,11 @@ final class RegionSelectedState extends BuysellState {
   final CurrencyModel? region;
   RegionSelectedState({required this.region});
 }
-final class PaymentMethodSelectedState extends BuysellState {
-  final CurrencyModel? paymentMethod;
-  PaymentMethodSelectedState({required this.paymentMethod});
+final class PaymentMethodConfirmedState extends BuysellState {
+  final Map<String,dynamic> paymentMethod;
+  PaymentMethodConfirmedState({required this.paymentMethod});
+}
+final class SelectedPaymentMethodState extends BuysellState {
+  final Map<String,dynamic> paymentMethod;
+  SelectedPaymentMethodState({required this.paymentMethod});
 }
