@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/auth/widgets/common_topview.dart';
-import 'package:biorbank/presentation/pages/token_page/view/token_screen.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
@@ -62,12 +61,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   buttonColor: Theme.of(context).colorScheme.errorContainer,
                   textColor: Theme.of(context).colorScheme.shadow,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => TokenScreen(),
-                      ),
-                    );
+                   context.router.push(const TokenRoute());
                   },
                 ),
                 height(10),

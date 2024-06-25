@@ -204,6 +204,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const StakingDefiScreen(),
       );
     },
+    TokenRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const TokenScreen(),
+      );
+    },
     UnlockPinRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -216,13 +222,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const WelcomeScreen(),
       );
     },
-    // TokenRoute.name: (routeData) {
-    //   return AutoRoutePage<dynamic>(
-    //     routeData: routeData,
-    //     child: const TokenScreen(),
-    //   );
-    // },
-
   };
 }
 
@@ -695,6 +694,20 @@ class StakingDefiRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'StakingDefiRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TokenScreen]
+class TokenRoute extends PageRouteInfo<void> {
+  const TokenRoute({List<PageRouteInfo>? children})
+      : super(
+          TokenRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TokenRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

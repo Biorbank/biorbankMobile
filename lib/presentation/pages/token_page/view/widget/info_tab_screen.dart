@@ -17,7 +17,7 @@ class InfoTabScreen extends StatelessWidget {
     var items = [
       {"https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png": "ETH"},
       {
-        "https://academy.cryptowebacademy.com/wp-content/uploads/2023/12/bitcoin_logo-1-768x768-1.png":
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png":
             "Bitcoin"
       },
     ];
@@ -121,7 +121,7 @@ class InfoTabScreen extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 14),
+            padding: const EdgeInsets.symmetric(vertical: 14),
             child: Column(
               children: [
                 Row(

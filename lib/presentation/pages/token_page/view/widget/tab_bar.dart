@@ -2,7 +2,7 @@ import 'package:biorbank/presentation/pages/token_page/view/widget/history_tab_s
 import 'package:biorbank/presentation/pages/token_page/view/widget/info_tab_screen.dart';
 import 'package:biorbank/presentation/pages/token_page/view/widget/news_tab_screen.dart';
 import 'package:biorbank/presentation/pages/token_page/view/widget/overview_tab_screen.dart';
-import 'package:biorbank/presentation/pages/token_page/view/widget/social_tab_screen.dart';
+import 'package:biorbank/presentation/pages/token_page/view/widget/social_tab_wdget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,12 +72,15 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
               Expanded(
                 child: TabBarView(
                   controller: tabController,
-                  children: const [
-                    OverviewTabScreen(),
-                    InfoTabScreen(),
-                    SocialTabScreen(),
-                    HistoryTabScreen(),
-                    NewsTabScreen(),
+                  children: [
+                    const OverviewTabScreen(),
+                    const InfoTabScreen(),
+                    SocialTabWdget(
+                      onChangedChain: (p0) {},
+                      onChangedExplores: (p0) {},
+                    ),
+                    const HistoryTabScreen(),
+                    const NewsTabScreen(),
                   ],
                 ),
               )

@@ -6,6 +6,6 @@ class CandleChartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InteractiveChart(candles: []);
+    return InteractiveChart(candles: const []);
   }
 }
