@@ -216,6 +216,13 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const WelcomeScreen(),
       );
     },
+    // TokenRoute.name: (routeData) {
+    //   return AutoRoutePage<dynamic>(
+    //     routeData: routeData,
+    //     child: const TokenScreen(),
+    //   );
+    // },
+
   };
 }
 

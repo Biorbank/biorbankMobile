@@ -7,6 +7,7 @@ class Assets {
   static const String imagesWelcomeImage = 'assets/images/welcome_image.png';
   static const String svgsHeaderIcon = 'assets/svgs/header_icon.svg';
   static const String svgsSplashIcon = 'assets/svgs/splash_icon.svg';
+  static const String svgsSettingcon = 'assets/svgs/setting.svg';
   static const String imagesAppIcon = 'assets/images/app_icon.png';
   static const String imagesUser = 'assets/images/user.png';
   static const String imagesBackArrow = 'assets/images/back_arrow.png';

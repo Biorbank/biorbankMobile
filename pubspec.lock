@@ -390,6 +390,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animate:
+    dependency: transitive
+    description:
+      name: flutter_animate
+      sha256: "7c8a6594a9252dad30cc2ef16e33270b6248c4dedc3b3d06c86c4f3f4dc05ae5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.5.0"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -438,6 +446,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.9.1"
+  flutter_shaders:
+    dependency: transitive
+    description:
+      name: flutter_shaders
+      sha256: "02750b545c01ff4d8e9bbe8f27a7731aa3778402506c67daa1de7f5fc3f4befe"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -632,6 +648,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+1"
+  interactive_chart:
+    dependency: "direct main"
+    description:
+      name: interactive_chart
+      sha256: "6237d938e57205034b6f3e96158954d876bf86467d76495d93ef393c883753b8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.5"
   intl:
     dependency: "direct main"
     description:
@@ -872,6 +896,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
+  progress_bar_chart:
+    dependency: "direct main"
+    description:
+      name: progress_bar_chart
+      sha256: e9bb66d2c1ad617e4ca629731855d31c0f745ae828f18f246656a8f03533196a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.12"
   provider:
     dependency: transitive
     description:
