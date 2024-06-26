@@ -11,9 +11,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(
@@ -34,7 +40,7 @@ class DashboardScreen extends StatelessWidget {
             DebitCardRoute(),
             HelpCenterRoute()
           ],
-        //  transitionBuilder:_customTransitionBuilder ,
+          //  transitionBuilder:_customTransitionBuilder ,
           builder: (context, child) {
             final tabsRouter = AutoTabsRouter.of(context);
             return Scaffold(
@@ -120,7 +126,7 @@ class DashboardScreen extends StatelessWidget {
       },
     );
   }
- 
+
   Widget _buildBottomBar({
     required BuildContext context,
     required String iconPath,

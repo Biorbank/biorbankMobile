@@ -1,46 +1,44 @@
+import 'package:biorbank/presentation/pages/token_page/view/widget/news_tab_widget/news_read_screen.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../cubit/token_cubit.dart';
 
 class NewsTabScreen extends StatelessWidget {
   const NewsTabScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<TokenCubit>();
     return SingleChildScrollView(
       child: Column(
         children: [
-          _buildNewsRow(
-              context: context,
-              notes:
-                  "Ledn launches ether-backend loans as it perps to onboard former Celsius users",
-              type: "The Block",
-              time: "3 hours ago"),
-          _buildNewsRow(
-              context: context,
-              notes:
-                  "Ledn launches ether-backend loans as it perps to onboard former Celsius users",
-              type: "The Block",
-              time: "3 hours ago"),
-          _buildNewsRow(
-              context: context,
-              notes:
-                  "Ledn launches ether-backend loans as it perps to onboard former Celsius users",
-              type: "The Block",
-              time: "3 hours ago"),
-          _buildNewsRow(
-              context: context,
-              notes:
-                  "Ledn launches ether-backend loans as it perps to onboard former Celsius users",
-              type: "The Block",
-              time: "3 hours ago"),
-          _buildNewsRow(
-              context: context,
-              notes:
-                  "Ledn launches ether-backend loans as it perps to onboard former Celsius users",
-              type: "The Block",
-              time: "3 hours ago"),
+          ...List.generate(
+            cubit.newsData.length,
+            (index) {
+              final data = cubit.newsData[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewsReadScreen(newsData: data),
+                    ),
+                  );
+                },
+                child: _buildNewsRow(
+                    context: context,
+                    newsImg: data.img ?? "",
+                    name: data.name ?? "",
+                    type: data.newsType ?? "",
+                    seenTime: data.seenTime ?? ""),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -48,21 +46,26 @@ class NewsTabScreen extends StatelessWidget {
 
   _buildNewsRow({
     required BuildContext context,
-    required String notes,
+    required String name,
+    required String newsImg,
     required String type,
-    required String time,
+    required String seenTime,
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 50.h,
-            width: 50,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Theme.of(context).colorScheme.onSecondaryFixed,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: CachedNetworkImage(
+              imageUrl: newsImg ?? '',
+              height: 50.h,
+              width: 50.h,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ),
           width(10),
@@ -70,7 +73,7 @@ class NewsTabScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppConstant.commonText(notes,
+                AppConstant.commonText(name,
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     color: Theme.of(context).colorScheme.shadow),
@@ -89,7 +92,7 @@ class NewsTabScreen extends StatelessWidget {
                             Theme.of(context).colorScheme.onSecondaryFixed,
                       ),
                     ),
-                    AppConstant.commonText(time,
+                    AppConstant.commonText(seenTime,
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         color:

@@ -1,18 +1,24 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:biorbank/generated/assets.dart';
-import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/global.dart';
-import 'package:biorbank/utils/preferences.dart';
-import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:day_night_switch/day_night_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DrawerView extends StatelessWidget {
+import '../../../../../generated/assets.dart';
+import '../../../../../utils/app_strings.dart';
+import '../../../../../utils/global.dart';
+import '../../../../../utils/preferences.dart';
+import '../../../../../utils/routers/auto_app_router.dart';
+
+class DrawerView extends StatefulWidget {
   const DrawerView({super.key});
 
+  @override
+  State<DrawerView> createState() => _DrawerViewState();
+}
+
+class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Drawer(

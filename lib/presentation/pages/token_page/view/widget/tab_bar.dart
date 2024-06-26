@@ -1,17 +1,28 @@
-import 'package:biorbank/presentation/pages/token_page/view/widget/history_tab_screen.dart';
-import 'package:biorbank/presentation/pages/token_page/view/widget/info_tab_screen.dart';
-import 'package:biorbank/presentation/pages/token_page/view/widget/news_tab_screen.dart';
-import 'package:biorbank/presentation/pages/token_page/view/widget/overview_tab_screen.dart';
 import 'package:biorbank/presentation/pages/token_page/view/widget/social_tab_wdget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/common_tabbar.dart';
 import '../../cubit/token_cubit.dart';
-import '../../cubit/token_state.dart';
+import 'history_tab_screen.dart';
+import 'info_tab_screen.dart';
+import 'news_tab_screen.dart';
+import 'overview_tab_screen.dart';
 
 class TabBarViewScreen extends StatefulWidget {
-  const TabBarViewScreen({super.key});
+  final TokenCubit cubit;
+  final Function(dynamic) onChanged1;
+  final Function(dynamic) onChanged2;
+  final dynamic Function(int) onTapOverView;
+  final Function(String?) onChangedOverView;
+
+  const TabBarViewScreen(
+      {super.key,
+      required this.cubit,
+      required this.onChanged1,
+      required this.onChanged2,
+      required this.onTapOverView,
+      required this.onChangedOverView});
 
   @override
   State<TabBarViewScreen> createState() => _TabBarViewScreenState();
@@ -32,94 +43,49 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TokenCubit, TokenState>(
-      builder: (context, state) {
-        var cubit = context.read<TokenCubit>();
-        if (state is TabBarIndexState) {
-          cubit.selectedTabIndex = state.index;
-        } else if (state is ChangeOverviewDropDown) {
-          cubit.selectedValue = state.value;
-        } else if (state is ChangeInfoDropDown1) {
-          cubit.onChanged1Value = state.value;
-        } else if (state is ChangeInfoDropDown2) {
-          cubit.onChanged2Value = state.value;
-        } else if (state is ExploreDropDownValueState) {
-          cubit.selectedExplore = state.value;
-        } else if (state is ChainDropDownValueState) {
-          cubit.selectedChain = state.value;
-        }
-        return Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonTabbar(
+          isShowBackground: true,
+          indicatorColor: Theme.of(context).colorScheme.onPrimary,
+          labelPadding: const EdgeInsets.only(bottom: 10, top: 6, right: 30),
+          isScrollable: true,
+          padding: const EdgeInsets.only(left: 20),
+          tabBarIndicatorSize: TabBarIndicatorSize.label,
+          tabAlignment: TabAlignment.start,
+          selectedIndex: widget.cubit.selectedTabIndex,
+          labelFontWight: FontWeight.w500,
+          length: 5,
+          onTap: (index) {},
+          tabController: tabController,
+          tabList: const ['Overview', 'Info', 'Social', 'History', 'News'],
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: tabController,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: CommonTabbar(
-                        isShowBackground: true,
-                        indicatorColor: Theme.of(context).colorScheme.onPrimary,
-                        labelPadding: const EdgeInsets.only(
-                            bottom: 10, top: 6, right: 30),
-                        isScrollable: true,
-                        padding: const EdgeInsets.only(left: 20),
-                        tabBarIndicatorSize: TabBarIndicatorSize.label,
-                        tabAlignment: TabAlignment.start,
-                        selectedIndex: cubit.selectedTabIndex,
-                        labelFontWight: FontWeight.w500,
-                        length: 5,
-                        onTap: (index) {},
-                        tabController: tabController,
-                        tabList: const [
-                          'Overview',
-                          'Info',
-                          'Social',
-                          'History',
-                          'News'
-                        ]),
-                  ),
-                ],
+              OverviewTabScreen(
+                cubit: widget.cubit,
+                onTap: widget.onTapOverView,
+                onChanged: widget.onChangedOverView,
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    OverviewTabScreen(
-                      cubit: cubit,
-                      onTap: (index) {
-                        cubit.onTapeTradeActionOption(
-                            value: cubit.tradeOptions[index]['type']);
-                      },
-                      onChanged: (value) {
-                        cubit.changeOverviewDropDown(value: value ?? '');
-                      },
-                    ),
-                    InfoTabScreen(
-                      cubit: cubit,
-                      onChanged1: (value) {
-                        cubit.changeInfoDropDown1(value: value);
-                      },
-                      onChanged2: (value) {
-                        cubit.changeInfoDropDown2(value: value);
-                      },
-                    ),
-                    SocialTabWdget(
-                      tokenCubit: cubit,
-                      onChangedChain: (chain) {
-                        cubit.changeChainDropDown(value: chain ?? '');
-                      },
-                      onChangedExplores: (explore) {
-                        cubit.changeExploreDropDown(value: explore ?? '');
-                      },
-                    ),
-                    const HistoryTabScreen(),
-                    const NewsTabScreen(),
-                  ],
-                ),
-              )
+              InfoTabScreen(
+                cubit: widget.cubit,
+                onChanged1: widget.onChanged1,
+                onChanged2: widget.onChanged2,
+              ),
+              SocialTabWdget(
+                onChangedChain: (p0) {},
+                onChangedExplores: (p0) {},
+                tokenCubit: widget.cubit,
+              ),
+              const HistoryTabScreen(),
+              const NewsTabScreen(),
             ],
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 }

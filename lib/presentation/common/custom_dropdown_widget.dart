@@ -27,29 +27,31 @@ class CommonDropdownWidget<T> extends StatefulWidget {
   final DropdownSearchData<T>? dropdownSearchData;
   final double? maxHeight;
   final Function(bool)? onMenuStateChange;
-  const CommonDropdownWidget(
-      {super.key,
-      required this.labelText,
-      required this.items,
-      this.value,
-      this.itemBackGroundColor,
-      this.backGroundColor,
-      this.errorMsg,
-      this.title,
-      this.dropdownSearchData,
-      this.arrowColor,
-      this.onMenuStateChange,
-      this.dropDownArrow,
-      this.borderRadius,
-      this.maxHeight,
-      this.dropDownContentPadding,
-      required this.onChanged,
-      this.fontColor,
-      this.border,
-      this.height,
-      this.isExpanded = false,
-      this.textStyle,
-      this.isUseBackgroundColor = true, });
+
+  const CommonDropdownWidget({
+    super.key,
+    required this.labelText,
+    required this.items,
+    this.value,
+    this.itemBackGroundColor,
+    this.backGroundColor,
+    this.errorMsg,
+    this.title,
+    this.dropdownSearchData,
+    this.arrowColor,
+    this.onMenuStateChange,
+    this.dropDownArrow,
+    this.borderRadius,
+    this.maxHeight,
+    this.dropDownContentPadding,
+    required this.onChanged,
+    this.fontColor,
+    this.border,
+    this.height,
+    this.isExpanded = false,
+    this.textStyle,
+    this.isUseBackgroundColor = true,
+  });
 
   @override
   State<CommonDropdownWidget<T>> createState() =>
@@ -68,7 +70,6 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
           visible: widget.title != null,
           child: AppConstant.commonText(widget.title ?? '',
               fontWeight: FontWeight.w500,
-              
               color: Theme.of(context).colorScheme.shadow),
         ),
         height(widget.title != null ? 8.h : 0),
@@ -88,7 +89,6 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
             child: DropdownButton2<T>(
               style: widget.textStyle,
               value: widget.value,
-
               menuItemStyleData:
                   const MenuItemStyleData(padding: EdgeInsets.only(left: 12)),
               onChanged: widget.onChanged,
@@ -118,13 +118,14 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
                   //     color: widget.arrowColor ??Theme.of(context).colorScheme.shadow),
                   ),
               items: widget.items,
-              dropdownSearchData:widget.dropdownSearchData,
+              dropdownSearchData: widget.dropdownSearchData,
               isExpanded: widget.isExpanded ?? false,
-              onMenuStateChange:widget.onMenuStateChange?? (open) {
-                setState(() {
-                  isOpen = open;
-                });
-              },
+              onMenuStateChange: widget.onMenuStateChange ??
+                  (open) {
+                    setState(() {
+                      isOpen = open;
+                    });
+                  },
               hint: Text(
                 widget.labelText,
                 style: TextStyle(

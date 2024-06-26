@@ -47,4 +47,9 @@ class AppStrings {
   static String days7 = '7 days';
   static String days30 = '30 days';
   static String days90 = '90 days';
+  static String transactionDetails = 'Transaction Details';
+  static String onlyOnce = 'Only Once';
+  static String everyTime = 'Every Time';
+  static String alertName = 'Alert Name';
+  static String message = 'Message';
 }

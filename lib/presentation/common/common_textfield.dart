@@ -19,6 +19,7 @@ class CommonTextfield extends StatelessWidget {
   final bool? isShowTitle;
   final Widget? suffixWidget;
   final Widget? prefixWidget;
+  final Widget? prefix;
   final TextStyle? hintStyle;
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatter;
@@ -41,6 +42,7 @@ class CommonTextfield extends StatelessWidget {
   final double? cursorHeight;
   final double? height;
   final EdgeInsets? scrollPadding;
+
   const CommonTextfield(
       {super.key,
       required this.title,
@@ -71,6 +73,7 @@ class CommonTextfield extends StatelessWidget {
       this.errorMsg,
       this.isFilled,
       this.prefixWidget,
+      this.prefix,
       this.fillColor,
       this.onTapSuffixWidget,
       this.verticalPading,
@@ -117,9 +120,7 @@ class CommonTextfield extends StatelessWidget {
               onTap: textFieldOnTap ?? () {},
               onEditingComplete: () {
                 FocusManager.instance.primaryFocus?.unfocus();
-            
               },
-              
               inputFormatters: inputFormatter,
               obscuringCharacter: '*',
               onTapOutside: (v) {
@@ -127,26 +128,30 @@ class CommonTextfield extends StatelessWidget {
               },
               validator: validator,
               autovalidateMode: AutovalidateMode.onUserInteraction,
-              textInputAction:
-                  maxLines == 1 ? TextInputAction.done : TextInputAction.newline,
+              textInputAction: maxLines == 1
+                  ? TextInputAction.done
+                  : TextInputAction.newline,
               obscureText: obscureText,
               readOnly: isReadOnly ?? false,
               maxLength: maxLength,
-               scrollPadding:scrollPadding??const EdgeInsets.all(20.0),
+              scrollPadding: scrollPadding ?? const EdgeInsets.all(20.0),
               cursorColor: cursorColor,
-              cursorHeight:cursorHeight ,
+              cursorHeight: cursorHeight,
               decoration: InputDecoration(
                 errorMaxLines: 3,
                 suffixIconConstraints: const BoxConstraints(),
                 suffixIcon: suffixWidget != null
                     ? GestureDetector(
-                        onTap: onTapSuffixWidget, child: Padding(
+                        onTap: onTapSuffixWidget,
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: suffixWidget,
                         ))
                     : null,
+                prefix: prefix,
                 prefixIcon: prefixWidget,
-                errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
+                errorStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.error),
                 hintText: hintText,
                 fillColor: fillColor ??
                     ((isFilled ?? false)
@@ -155,7 +160,8 @@ class CommonTextfield extends StatelessWidget {
                 filled: isFilled ?? true,
                 hintStyle: hintStyle ??
                     TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
                         fontWeight: FontWeight.normal,
                         fontSize: 13.sp),
                 counterText: '',
@@ -174,8 +180,8 @@ class CommonTextfield extends StatelessWidget {
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
-                  borderSide:
-                      BorderSide(color: Theme.of(context).colorScheme.onPrimary),
+                  borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.onPrimary),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
@@ -193,9 +199,10 @@ class CommonTextfield extends StatelessWidget {
                 ),
               ),
               keyboardType: maxLines == 1 ? inputType : TextInputType.multiline,
-              style:textStyle?? TextStyle(
-                  fontSize: 15,
-                  color: textColor ?? Theme.of(context).colorScheme.shadow),
+              style: textStyle ??
+                  TextStyle(
+                      fontSize: 15,
+                      color: textColor ?? Theme.of(context).colorScheme.shadow),
               onChanged: onChanged,
               initialValue: initialVal,
             ),

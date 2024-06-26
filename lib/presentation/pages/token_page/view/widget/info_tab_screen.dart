@@ -13,12 +13,15 @@ class InfoTabScreen extends StatelessWidget {
   final TokenCubit cubit;
   final Function(dynamic) onChanged1;
   final Function(dynamic) onChanged2;
-  const InfoTabScreen({super.key, required this.cubit,required this.onChanged1,required this.onChanged2});
+
+  const InfoTabScreen(
+      {super.key,
+      required this.cubit,
+      required this.onChanged1,
+      required this.onChanged2});
 
   @override
   Widget build(BuildContext context) {
-
-
     final List<StatisticsItem> stats = [
       StatisticsItem(Theme.of(context).colorScheme.surface, 75.27),
       StatisticsItem(Theme.of(context).colorScheme.onInverseSurface, 21.10),
@@ -54,7 +57,7 @@ class InfoTabScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             CachedNetworkImage(
-                              imageUrl: items.url,
+                              imageUrl: items.url ?? "",
                               height: 20.h,
                               width: 20,
                               fit: BoxFit.cover,
@@ -62,7 +65,7 @@ class InfoTabScreen extends StatelessWidget {
                                   const CircularProgressIndicator(),
                             ),
                             width(5),
-                            Text(items.name),
+                            Text(items.name ?? ""),
                           ],
                         ),
                       );
@@ -100,7 +103,7 @@ class InfoTabScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             CachedNetworkImage(
-                              imageUrl: items.url,
+                              imageUrl: items.url ?? "",
                               height: 20.h,
                               width: 20,
                               fit: BoxFit.cover,
@@ -108,7 +111,7 @@ class InfoTabScreen extends StatelessWidget {
                                   const CircularProgressIndicator(),
                             ),
                             width(5),
-                            Text(items.name),
+                            Text(items.name ?? ""),
                           ],
                         ),
                       );
