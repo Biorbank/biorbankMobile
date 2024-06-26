@@ -73,8 +73,31 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
                 child: TabBarView(
                   controller: tabController,
                   children: [
-                    const OverviewTabScreen(),
-                    const InfoTabScreen(),
+                    OverviewTabScreen(
+                      cubit: cubit,
+                      onTap: (index) {
+                        cubit.onTapeTradeActionOption(
+                            value: cubit.tradeOptions[index]['type']);
+                      },
+                      onChanged: (value) {
+                        setState(() {
+                          cubit.selectedValue = value ?? "";
+                          cubit.changeOverviewDropDown(
+                              value: cubit.selectedValue);
+                        });
+                      },
+                    ),
+                    InfoTabScreen(
+                      cubit: cubit,
+                      onChanged1: (value) {
+                        cubit.onChanged1Value = value;
+                        cubit.changeInfoDropDown1(value: value);
+                      },
+                      onChanged2: (value) {
+                        cubit.onChanged2Value = value;
+                        cubit.changeInfoDropDown2(value: value);
+                      },
+                    ),
                     SocialTabWdget(
                       onChangedChain: (p0) {},
                       onChangedExplores: (p0) {},

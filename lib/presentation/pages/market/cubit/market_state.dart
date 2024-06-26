@@ -43,6 +43,7 @@ class CurrencyModel {
   final String name;
   CurrencyModel({required this.name, required this.url});
 }
+
 final class ChangeSelectedCryptoTabState extends MarketState {
   final int index;
   ChangeSelectedCryptoTabState({required this.index});

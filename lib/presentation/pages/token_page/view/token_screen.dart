@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../generated/assets.dart';
-import '../../../../utils/Theme/app_colors.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../common/common_appbar.dart';
 
@@ -45,11 +44,11 @@ class TokenScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppConstant.commonText("ETH",
-                            color: AppColors.black,
+                            color: Theme.of(context).colorScheme.shadow,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500),
                         AppConstant.commonText("Ethereum",
-                            color: AppColors.grey,
+                            color: Theme.of(context).colorScheme.onSecondaryContainer,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w400),
                       ],
@@ -58,7 +57,7 @@ class TokenScreen extends StatelessWidget {
                     GestureDetector(
                       // onTap: ,
                       child: CircleAvatar(
-                        backgroundColor: AppColors.grey100,
+                        backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
                         child: Image.asset(Assets.imagesNotification,
                             height: 18.h,
                             width: 18.w,
@@ -73,12 +72,14 @@ class TokenScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: _buildOwnedMarketValueContainer(
-                        name: "Owned", value: "0.1304"),
+                        name: "Owned", value: "0.1304", context: context),
                   ),
                   width(9),
                   Expanded(
                     child: _buildOwnedMarketValueContainer(
-                        name: "Market Value", value: "\$327.10"),
+                        name: "Market Value",
+                        value: "\$327.10",
+                        context: context),
                   ),
                 ],
               ),
@@ -92,23 +93,28 @@ class TokenScreen extends StatelessWidget {
   }
 
   _buildOwnedMarketValueContainer(
-      {required String name, required String value}) {
+      {required String name,
+      required String value,
+      required BuildContext context}) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
-          color: AppColors.blue20,
+          color: Theme.of(context).colorScheme.onSurface,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
-            BoxShadow(color: AppColors.grey100, spreadRadius: 0.5, blurRadius: 10)
+            BoxShadow(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                spreadRadius: 0.5,
+                blurRadius: 10)
           ]),
       child: Column(
         children: [
           AppConstant.commonText(name,
-              color: AppColors.grey,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
               fontSize: 14.sp,
               fontWeight: FontWeight.w400),
           AppConstant.commonText(value,
-              color: AppColors.black,
+              color: Theme.of(context).colorScheme.shadow,
               fontSize: 16.sp,
               fontWeight: FontWeight.w500),
         ],
