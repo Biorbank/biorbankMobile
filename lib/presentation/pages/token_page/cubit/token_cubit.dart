@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../../utils/enum/home_page_action_enum.dart';
+import '../../market/cubit/market_cubit.dart';
 
 class TokenCubit extends Cubit<TokenState> {
   TokenCubit() : super(InitialTokenState());
@@ -10,6 +11,8 @@ class TokenCubit extends Cubit<TokenState> {
   int selectedTabIndex = 0;
 
   String selectedValue = "1 day";
+  String selectedExplore = "Etherscan";
+  String selectedChain = "7 more";
 
   CurrencyModel? onChanged1Value;
   CurrencyModel? onChanged2Value;
@@ -50,10 +53,13 @@ class TokenCubit extends Cubit<TokenState> {
     },
   ];
 
+  List<String> exploreDataList=['Etherscan', 'Bitscan'];
+  List<String> chainDataList=['7 more', '8 more'];
+
   ActionEnum? selectedOption;
 
   void onChangeTabIndex({required int index}) {
-    emit(ChangeTabBarIndexState(index: index));
+    emit(TabBarIndexState(index: index));
   }
 
   void changeOverviewDropDown({required String value}) {
@@ -70,5 +76,13 @@ class TokenCubit extends Cubit<TokenState> {
 
   void onTapeTradeActionOption({required ActionEnum? value}) {
     emit(TradeOptionChnageState(value: value));
+  }
+
+  void changeExploreDropDown({required String value}) {
+    emit(ExploreDropDownValueState(value: value));
+  }
+
+  void changeChainDropDown({required String value}) {
+    emit(ChainDropDownValueState(value: value));
   }
 }

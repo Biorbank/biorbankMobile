@@ -57,7 +57,7 @@ class CommonTradeActionWidget extends StatelessWidget {
                                 ? Theme.of(context).colorScheme.shadow
                                 : Theme.of(context).colorScheme.onPrimary
                             : colorSelect
-                                ? Theme.of(context).colorScheme.onPrimary
+                                ? Theme.of(context).colorScheme.onSurface
                                 : Theme.of(context).colorScheme.onPrimary),
                   ),
                   height(8.h),

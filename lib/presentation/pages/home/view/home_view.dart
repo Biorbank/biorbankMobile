@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../common/common_trade_action_widget.dart';
+
 @RoutePage()
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -96,7 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       height(cubit.selectedOption == null ? 30.h : 12.h),
-                      TradeActionWidget(
+                      CommonTradeActionWidget(
+                        colorSelect: true,
                         onTap: (index) {
                           cubit.onTapeTradeActionOption(
                               value: cubit.tradeOptions[index]['type']);

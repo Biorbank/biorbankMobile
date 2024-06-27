@@ -25,7 +25,6 @@ class OverviewTabScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -125,7 +124,8 @@ class OverviewTabScreen extends StatelessWidget {
                         items: cubit.overviewItems.map((String items) {
                           return DropdownMenuItem(
                             value: items,
-                            child: Text(items),
+                            child: AppConstant.commonText(items,
+                                color: Theme.of(context).colorScheme.shadow),
                           );
                         }).toList(),
                         onChanged: onChanged,

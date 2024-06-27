@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../utils/enum/home_page_action_enum.dart';
+import '../../market/cubit/market_cubit.dart';
 
 @immutable
 sealed class TokenState {}
 
 class InitialTokenState extends TokenState {}
 
-final class ChangeTabBarIndexState extends TokenState {
+final class TabBarIndexState extends TokenState {
   final int index;
-  ChangeTabBarIndexState({required this.index});
+  TabBarIndexState({required this.index});
 }
 
 final class TradeOptionChnageState extends TokenState {
@@ -23,11 +24,6 @@ final class ChangeOverviewDropDown extends TokenState{
   ChangeOverviewDropDown({required this.value});
 }
 
-class CurrencyModel {
-  final String url;
-  final String name;
-  CurrencyModel({required this.name, required this.url});
-}
 
 final class ChangeInfoDropDown1 extends TokenState{
   final CurrencyModel value;
@@ -39,3 +35,11 @@ final class ChangeInfoDropDown2 extends TokenState{
   ChangeInfoDropDown2({required this.value});
 }
 
+final class ExploreDropDownValueState extends TokenState{
+  final String value;
+  ExploreDropDownValueState({required this.value});
+}
+final class ChainDropDownValueState extends TokenState{
+  final String value;
+  ChainDropDownValueState({required this.value});
+}

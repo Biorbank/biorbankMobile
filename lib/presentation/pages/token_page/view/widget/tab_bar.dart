@@ -35,8 +35,18 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
     return BlocBuilder<TokenCubit, TokenState>(
       builder: (context, state) {
         var cubit = context.read<TokenCubit>();
-        if (state is ChangeTabBarIndexState) {
+        if (state is TabBarIndexState) {
           cubit.selectedTabIndex = state.index;
+        } else if (state is ChangeOverviewDropDown) {
+          cubit.selectedValue = state.value;
+        } else if (state is ChangeInfoDropDown1) {
+          cubit.onChanged1Value = state.value;
+        } else if (state is ChangeInfoDropDown2) {
+          cubit.onChanged2Value = state.value;
+        } else if (state is ExploreDropDownValueState) {
+          cubit.selectedExplore = state.value;
+        } else if (state is ChainDropDownValueState) {
+          cubit.selectedChain = state.value;
         }
         return Expanded(
           child: Column(
@@ -80,27 +90,26 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
                             value: cubit.tradeOptions[index]['type']);
                       },
                       onChanged: (value) {
-                        setState(() {
-                          cubit.selectedValue = value ?? "";
-                          cubit.changeOverviewDropDown(
-                              value: cubit.selectedValue);
-                        });
+                        cubit.changeOverviewDropDown(value: value ?? '');
                       },
                     ),
                     InfoTabScreen(
                       cubit: cubit,
                       onChanged1: (value) {
-                        cubit.onChanged1Value = value;
                         cubit.changeInfoDropDown1(value: value);
                       },
                       onChanged2: (value) {
-                        cubit.onChanged2Value = value;
                         cubit.changeInfoDropDown2(value: value);
                       },
                     ),
                     SocialTabWdget(
-                      onChangedChain: (p0) {},
-                      onChangedExplores: (p0) {},
+                      tokenCubit: cubit,
+                      onChangedChain: (chain) {
+                        cubit.changeChainDropDown(value: chain ?? '');
+                      },
+                      onChangedExplores: (explore) {
+                        cubit.changeExploreDropDown(value: explore ?? '');
+                      },
                     ),
                     const HistoryTabScreen(),
                     const NewsTabScreen(),

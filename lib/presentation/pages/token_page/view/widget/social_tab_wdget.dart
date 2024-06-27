@@ -1,5 +1,6 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
+import 'package:biorbank/presentation/pages/token_page/cubit/token_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,10 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SocialTabWdget extends StatelessWidget {
-  const SocialTabWdget({super.key,required this.onChangedChain,required this.onChangedExplores});
- final Function(String?) onChangedExplores;
- final Function(String?) onChangedChain;
-   @override
+  const SocialTabWdget(
+      {super.key,
+      required this.onChangedChain,
+      required this.onChangedExplores,
+      required this.tokenCubit});
+  final Function(String?) onChangedExplores;
+  final Function(String?) onChangedChain;
+  final TokenCubit tokenCubit;
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -50,7 +56,8 @@ class SocialTabWdget extends StatelessWidget {
                   ),
                   width(8.w),
                   InkWell(
-                      onTap: () {}, child: const Icon(Icons.more_horiz_outlined))
+                      onTap: () {},
+                      child: const Icon(Icons.more_horiz_outlined))
                 ],
               ),
             ),
@@ -69,13 +76,15 @@ class SocialTabWdget extends StatelessWidget {
                 CommonDropdownWidget(
                   labelText: 'Select explore',
                   height: 34.h,
+                  value: tokenCubit.selectedExplore,
                   borderRadius: 12.r,
-                  backGroundColor: Theme.of(context).colorScheme.surfaceContainer,
-                  items: ['Etherscan', 'Bitscan']
+                  backGroundColor:
+                      Theme.of(context).colorScheme.surfaceContainer,
+                  items: tokenCubit.exploreDataList
                       .map((e) => DropdownMenuItem(
                           value: e,
                           child: AppConstant.commonText(e,
-                              color: Theme.of(context).colorScheme.shadow)))
+                              color: Theme.of(context).colorScheme.shadow,fontSize: 14.sp)))
                       .toList(),
                   onChanged: onChangedExplores,
                 )
@@ -133,8 +142,9 @@ class SocialTabWdget extends StatelessWidget {
                           Assets.imagesSearch,
                           height: 16.h,
                           width: 16.h,
-                          color:
-                              Theme.of(context).colorScheme.onSecondaryContainer,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
                           fit: BoxFit.cover,
                         ),
                         width(6.w),
@@ -165,7 +175,6 @@ class SocialTabWdget extends StatelessWidget {
                   ],
                 )),
             height(20.h),
-      
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -181,8 +190,9 @@ class SocialTabWdget extends StatelessWidget {
                               horizontal: 10, vertical: 8),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12.r),
-                              color:
-                                  Theme.of(context).colorScheme.surfaceContainer),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainer),
                           child: AppConstant.commonText('Ethereum Ecosystem',
                               maxLines: 1,
                               textOverflow: TextOverflow.ellipsis,
@@ -194,15 +204,17 @@ class SocialTabWdget extends StatelessWidget {
                         child: CommonDropdownWidget(
                           labelText: 'Select chain',
                           height: 34.h,
+                          value: tokenCubit.selectedChain,
                           borderRadius: 12.r,
                           backGroundColor:
                               Theme.of(context).colorScheme.surfaceContainer,
-                          items: ['7 more', '8 more']
+                          items:tokenCubit.chainDataList
                               .map((e) => DropdownMenuItem(
                                   value: e,
                                   child: AppConstant.commonText(e,
-                                      color:
-                                          Theme.of(context).colorScheme.shadow)))
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .shadow,fontSize: 14.sp)))
                               .toList(),
                           onChanged: onChangedChain,
                         ),
