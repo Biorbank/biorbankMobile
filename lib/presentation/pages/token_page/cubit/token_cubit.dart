@@ -2,35 +2,101 @@ import 'package:biorbank/presentation/pages/token_page/cubit/token_state.dart';
 import 'package:biorbank/presentation/pages/token_page/model/currency_model.dart';
 import 'package:biorbank/presentation/pages/token_page/model/news_model.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../../utils/enum/home_page_action_enum.dart';
+import '../view/widget/alert_btn/time_picker_widget.dart';
 
 class TokenCubit extends Cubit<TokenState> {
   TokenCubit() : super(InitialTokenState());
 
+//TabBar Screen
   int selectedTabIndex = 0;
-  int tabCreateBTCIndex = 0;
 
+  void onChangeTabIndex({required int index}) {
+    emit(TabBarIndexState(index: index));
+  }
+
+// OverView Tab Screen
   String selectedValue = "1 day";
-  String selectedExplore = "Etherscan";
-  String selectedChain = "7 more";
-
-  CurrencyModel2? onChanged1Value;
-  CurrencyModel2? onChanged2Value;
-
   List<String> overviewItems = [
     "1 day",
     "7 day",
     "15 day",
   ];
 
-  List<String> cadItems = [
-    "5852.26  CAD",
-    "6952.26  CAD",
-    "5582.26  CAD",
+  List<Map<String, dynamic>> tradeOptions = [
+    {'icon': Assets.imagesSwapArrow, 'title': 'Swap', 'type': ActionEnum.swap},
+    {
+      'icon': Assets.imagesArrowDown,
+      'title': 'Deposit',
+      'type': ActionEnum.deposit
+    },
+    {'icon': Assets.imagesArrowUp, 'title': 'Send', 'type': ActionEnum.send},
+    {
+      'icon': Assets.imagesBitcoinRefresh,
+      'title': 'Buy/Sell',
+      'type': ActionEnum.buyORsell
+    },
+    {
+      'icon': Assets.imagesWallet,
+      'title': 'Pay Bills',
+      'type': ActionEnum.payBills
+    },
   ];
 
+  ActionEnum? selectedOption;
+
+  void changeOverviewDropDown({required String value}) {
+    emit(ChangeOverviewDropDown(value: value));
+  }
+
+  void onTapeTradeActionOption({required ActionEnum? value}) {
+    emit(TradeOptionChnageState(value: value));
+  }
+
+// Info Tab Screen
+  CurrencyModel2? onChanged1Value;
+  CurrencyModel2? onChanged2Value;
+  List<CurrencyModel2> items = [
+    CurrencyModel2(
+        name: 'ETH',
+        url: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png'),
+    CurrencyModel2(
+        name: 'Bitcoin',
+        url:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
+  ];
+
+  void changeInfoDropDown1({required CurrencyModel2 value}) {
+    emit(ChangeInfoDropDown1(value: value));
+  }
+
+  void changeInfoDropDown2({required CurrencyModel2 value}) {
+    emit(ChangeInfoDropDown2(value: value));
+  }
+
+// Social Tab Screen
+
+  String selectedExplore = "Etherscan";
+  List<String> exploreDataList = ['Etherscan', 'Bitscan'];
+
+  String selectedChain = "7 more";
+  List<String> chainDataList = ['7 more', '8 more'];
+
+  void changeExploreDropDown({required String value}) {
+    emit(ExploreDropDownValueState(value: value));
+  }
+
+  void changeChainDropDown({required String value}) {
+    emit(ChainDropDownValueState(value: value));
+  }
+
+// Create Alert on BTC popup
+
+  String crossingValue = "Crossing";
   List<String> crossingItems = [
     "Crossing",
     "Crossing Up",
@@ -46,15 +112,72 @@ class TokenCubit extends Cubit<TokenState> {
     "Moving Down %",
   ];
 
-  List<CurrencyModel2> items = [
-    CurrencyModel2(
-        name: 'ETH',
-        url: 'https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png'),
-    CurrencyModel2(
-        name: 'Bitcoin',
-        url:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
+  String cadValue = "5852.26  CAD";
+  List<String> cadItems = [
+    "5852.26  CAD",
+    "6952.26  CAD",
+    "5582.26  CAD",
   ];
+
+  int tabCreateBTCIndex = 0;
+
+  String selectedHour = "00";
+  String selectedMinute = "00";
+  String selectedAmPm = 'AM';
+
+  final FixedExtentScrollController hourController =
+      FixedExtentScrollController();
+  final FixedExtentScrollController minuteController =
+      FixedExtentScrollController();
+  final FixedExtentScrollController amPmController =
+      FixedExtentScrollController();
+  final TextEditingController selectTimeCtrl = TextEditingController();
+
+  List<String> amPm = ['AM', 'PM'];
+  List<String> min = List.generate(
+    60,
+    (index) => index.toString().padLeft(2, '0'),
+  );
+
+  List<String> hour = List.generate(
+    13,
+    (index) => index.toString().padLeft(2, '0'),
+  );
+
+  String selectedTime = DateFormat('HH:mm').format(DateTime.now());
+
+  void showTimePicker(
+      {required BuildContext context,
+      required TimePickerWidget timePicker}) async {
+    final selectTime = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: Theme.of(context).colorScheme.scrim,
+      constraints: BoxConstraints.loose(const Size.fromHeight(200)),
+      builder: (BuildContext context) {
+        return timePicker;
+      },
+    );
+
+    selectTimeCtrl.text = selectedTime;
+  }
+
+  void changeCrossingDropDown({required String value}) {
+    emit(ChangeCrossingDropDown(value: value));
+  }
+
+  void changeCreateBTCTabIndex({required int index}) {
+    emit(TabCreateBTCIndexChangeState(index: index));
+  }
+
+  void changeCadDropDown({required String value}) {
+    emit(ChangeCadDropDown(value: value));
+  }
+
+  void selectTime({required String time}) {
+    emit(SelectedTimeState(time: time));
+  }
+
+// News Tab Screen
 
   List<NewsModel> newsData = [
     NewsModel(
@@ -128,69 +251,4 @@ class TokenCubit extends Cubit<TokenState> {
           "https://file.xunruicms.com/admin_html/assets/pages/media/profile/profile_user.jpg",
     ),
   ];
-
-  List<Map<String, dynamic>> tradeOptions = [
-    {'icon': Assets.imagesSwapArrow, 'title': 'Swap', 'type': ActionEnum.swap},
-    {
-      'icon': Assets.imagesArrowDown,
-      'title': 'Deposit',
-      'type': ActionEnum.deposit
-    },
-    {'icon': Assets.imagesArrowUp, 'title': 'Send', 'type': ActionEnum.send},
-    {
-      'icon': Assets.imagesBitcoinRefresh,
-      'title': 'Buy/Sell',
-      'type': ActionEnum.buyORsell
-    },
-    {
-      'icon': Assets.imagesWallet,
-      'title': 'Pay Bills',
-      'type': ActionEnum.payBills
-    },
-  ];
-
-  List<String> exploreDataList = ['Etherscan', 'Bitscan'];
-  List<String> chainDataList = ['7 more', '8 more'];
-
-  ActionEnum? selectedOption;
-
-  void onChangeTabIndex({required int index}) {
-    emit(TabBarIndexState(index: index));
-  }
-
-  void changeCreateBTCTabIndex({required int index}) {
-    emit(TabCreateBTCIndexChangeState(index: index));
-  }
-
-  void changeOverviewDropDown({required String value}) {
-    emit(ChangeOverviewDropDown(value: value));
-  }
-
-  void changeCrossingDropDown({required String value}) {
-    emit(ChangeCrossingDropDown(value: value));
-  }
-
-  void changeCadDropDown({required String value}) {
-    emit(ChangeCadDropDown(value: value));
-  }
-
-  void changeInfoDropDown1({required CurrencyModel2 value}) {
-    emit(ChangeInfoDropDown1(value: value));
-  }
-
-  void changeInfoDropDown2({required CurrencyModel2 value}) {
-    emit(ChangeInfoDropDown2(value: value));
-  }
-
-  void onTapeTradeActionOption({required ActionEnum? value}) {
-    emit(TradeOptionChnageState(value: value));
-  }
-
-  void changeExploreDropDown({required String value}) {
-    emit(ExploreDropDownValueState(value: value));
-  }
-
-  void changeChainDropDown({required String value}) {
-    emit(ChainDropDownValueState(value: value));
-  }
 }

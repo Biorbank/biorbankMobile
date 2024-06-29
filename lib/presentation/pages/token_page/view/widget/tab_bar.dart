@@ -15,14 +15,19 @@ class TabBarViewScreen extends StatefulWidget {
   final Function(dynamic) onChanged2;
   final dynamic Function(int) onTapOverView;
   final Function(String?) onChangedOverView;
+  final Function(String?) onChangedExplores;
+  final Function(String?) onChangedChain;
 
-  const TabBarViewScreen(
-      {super.key,
-      required this.cubit,
-      required this.onChanged1,
-      required this.onChanged2,
-      required this.onTapOverView,
-      required this.onChangedOverView});
+  const TabBarViewScreen({
+    super.key,
+    required this.cubit,
+    required this.onChanged1,
+    required this.onChanged2,
+    required this.onTapOverView,
+    required this.onChangedOverView,
+    required this.onChangedChain,
+    required this.onChangedExplores,
+  });
 
   @override
   State<TabBarViewScreen> createState() => _TabBarViewScreenState();
@@ -76,8 +81,8 @@ class _TabBarViewScreenState extends State<TabBarViewScreen>
                 onChanged2: widget.onChanged2,
               ),
               SocialTabWdget(
-                onChangedChain: (p0) {},
-                onChangedExplores: (p0) {},
+                onChangedChain: widget.onChangedChain,
+                onChangedExplores: widget.onChangedExplores,
                 tokenCubit: widget.cubit,
               ),
               const HistoryTabScreen(),

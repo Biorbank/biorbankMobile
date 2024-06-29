@@ -24,7 +24,6 @@ class TokenScreen extends StatelessWidget {
       body: BlocBuilder<TokenCubit, TokenState>(
         builder: (context, state) {
           var cubit = context.read<TokenCubit>();
-
           if (state is TabBarIndexState) {
             cubit.selectedTabIndex = state.index;
           } else if (state is ChangeOverviewDropDown) {
@@ -37,17 +36,13 @@ class TokenScreen extends StatelessWidget {
             cubit.selectedExplore = state.value;
           } else if (state is ChainDropDownValueState) {
             cubit.selectedChain = state.value;
+          } else if (state is ChangeCrossingDropDown) {
+            cubit.crossingValue = state.value;
+          } else if (state is ChangeCadDropDown) {
+            cubit.cadValue = state.value;
+          } else if (state is SelectedTimeState) {
+            cubit.selectedTime = state.time;
           }
-
-          // else if (state is TabCreateBTCIndexChangeState) {
-          //   cubit. = state.index;
-          // } else if (state is ChangeCrossingDropDown) {
-          // cubit.selectedTabIndex = state.index;
-          // } else if (state is ChangeCadDropDown) {
-          // cubit.selectedTabIndex = state.index;
-          // } else if (state is TradeOptionChnageState) {
-          // cubit.selectedTabIndex = state.index;
-          // }
 
           return SafeArea(
             child: Padding(
@@ -102,6 +97,9 @@ class TokenScreen extends StatelessWidget {
                                   onChangedCad: (value) {
                                     cubit.changeCadDropDown(value: value ?? "");
                                   },
+                                  selectedTime: () {
+                                    cubit.selectTime(time: cubit.selectedTime);
+                                  },
                                 );
                               },
                             );
@@ -146,11 +144,17 @@ class TokenScreen extends StatelessWidget {
                         cubit.changeInfoDropDown2(value: value);
                       },
                       onChangedOverView: (value) {
-                        cubit.changeOverviewDropDown(value: value??"");
+                        cubit.changeOverviewDropDown(value: value ?? "");
                       },
                       onTapOverView: (index) {
                         cubit.onTapeTradeActionOption(
                             value: cubit.tradeOptions[index]['type']);
+                      },
+                      onChangedExplores: (value) {
+                        cubit.changeExploreDropDown(value: value ?? "");
+                      },
+                      onChangedChain: (value) {
+                        cubit.changeChainDropDown(value: value ?? "");
                       },
                     ),
                   ),

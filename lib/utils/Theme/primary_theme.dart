@@ -35,6 +35,7 @@ const blueColorScheme = ColorScheme(
     surfaceBright: Color(0xFFF1B71C),
     onSecondaryFixedVariant: Color(0xFF000000),
     onPrimaryFixed: Color(0xFF1BA1B4),
-    surfaceContainer: Color(0xFFFBFBFB)
+    surfaceContainer: Color(0xFFFBFBFB),
+    scrim: Colors.transparent,
     
     );

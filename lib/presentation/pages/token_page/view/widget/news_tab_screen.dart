@@ -59,7 +59,7 @@ class NewsTabScreen extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: CachedNetworkImage(
-              imageUrl: newsImg ?? '',
+              imageUrl: newsImg,
               height: 50.h,
               width: 50.h,
               fit: BoxFit.cover,

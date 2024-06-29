@@ -8,16 +8,18 @@ sealed class TokenState {}
 
 class InitialTokenState extends TokenState {}
 
+//TabBar Screen
 final class TabBarIndexState extends TokenState {
   final int index;
 
   TabBarIndexState({required this.index});
 }
 
-final class TabCreateBTCIndexChangeState extends TokenState {
-  final int index;
+// OverView Tab Screen
+final class ChangeOverviewDropDown extends TokenState {
+  final String value;
 
-  TabCreateBTCIndexChangeState({required this.index});
+  ChangeOverviewDropDown({required this.value});
 }
 
 final class TradeOptionChnageState extends TokenState {
@@ -26,11 +28,33 @@ final class TradeOptionChnageState extends TokenState {
   TradeOptionChnageState({required this.value});
 }
 
-final class ChangeOverviewDropDown extends TokenState {
+// Info Tab Screen
+final class ChangeInfoDropDown1 extends TokenState {
+  final CurrencyModel2 value;
+
+  ChangeInfoDropDown1({required this.value});
+}
+
+final class ChangeInfoDropDown2 extends TokenState {
+  final CurrencyModel2 value;
+
+  ChangeInfoDropDown2({required this.value});
+}
+
+// Social Tab Screen
+final class ExploreDropDownValueState extends TokenState {
   final String value;
 
-  ChangeOverviewDropDown({required this.value});
+  ExploreDropDownValueState({required this.value});
 }
+
+final class ChainDropDownValueState extends TokenState {
+  final String value;
+
+  ChainDropDownValueState({required this.value});
+}
+
+// Create Alert on BTC popup
 
 final class ChangeCrossingDropDown extends TokenState {
   final String value;
@@ -44,26 +68,14 @@ final class ChangeCadDropDown extends TokenState {
   ChangeCadDropDown({required this.value});
 }
 
-final class ChangeInfoDropDown1 extends TokenState {
-  final CurrencyModel2 value;
+final class TabCreateBTCIndexChangeState extends TokenState {
+  final int index;
 
-  ChangeInfoDropDown1({required this.value});
+  TabCreateBTCIndexChangeState({required this.index});
 }
 
-final class ChangeInfoDropDown2 extends TokenState {
-  final CurrencyModel2 value;
+final class SelectedTimeState extends TokenState {
+  final String time;
 
-  ChangeInfoDropDown2({required this.value});
-}
-
-final class ExploreDropDownValueState extends TokenState {
-  final String value;
-
-  ExploreDropDownValueState({required this.value});
-}
-
-final class ChainDropDownValueState extends TokenState {
-  final String value;
-
-  ChainDropDownValueState({required this.value});
+  SelectedTimeState({required this.time});
 }

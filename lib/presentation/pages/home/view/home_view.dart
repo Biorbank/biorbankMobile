@@ -6,7 +6,6 @@ import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_time_period_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/share_detail_tab_widget.dart';
-import 'package:biorbank/presentation/pages/home/view/widget/trade_action_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
