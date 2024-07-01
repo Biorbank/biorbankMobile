@@ -132,7 +132,7 @@ class P2PHeader extends StatelessWidget {
                       value: selectedCurrency,
                       isExpanded: false,
                       height: 30.h,
-                      dropDownArrow: Assets.imagesArrowDropDown,
+                      dropDownArrow: Assets.imagesArrowDropdown,
                       backGroundColor: Theme.of(context)
                           .colorScheme
                           .onSurface
@@ -179,7 +179,7 @@ class P2PHeader extends StatelessWidget {
                     value: selectedCountry,
                     isExpanded: false,
                     height: 30.h,
-                    dropDownArrow: Assets.imagesArrowDropDown,
+                    dropDownArrow: Assets.imagesArrowDropdown,
                     backGroundColor: Theme.of(context)
                         .colorScheme
                         .onSurface

@@ -72,7 +72,7 @@ class NftProfileDetails extends StatelessWidget {
                           child: Transform.rotate(
                             angle: 1.6,
                             child: Image.asset(
-                              Assets.imagesLogOut,
+                              Assets.imagesLogout,
                               height: 24.h,
                               width: 24.w,
                               color: Theme.of(context).colorScheme.onSurface,

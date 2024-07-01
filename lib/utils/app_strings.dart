@@ -52,4 +52,21 @@ class AppStrings {
   static String everyTime = 'Every Time';
   static String alertName = 'Alert Name';
   static String message = 'Message';
+  static String home = 'Home';
+  static String contacts = 'Contacts';
+  static String feedback = 'Feedback';
+  static String holdings = 'Holdings';
+  static String debitCard = 'Debit Card';
+  static String priceAlerts = 'Price Alerts';
+  static String swap = 'Swap';
+  static String staking = 'Staking';
+  static String takeALoan = 'Take a Loan';
+  static String p2PMarket = 'P2P Market';
+  static String settings = 'Settings';
+  static String helpCenter = 'Help Center';
+  static String support = 'Support';
+  static String backup = 'Backup';
+  static String logout = 'Logout';
+  static String quickAccess = 'Quick Access';
+  static String menu = 'Menu';
 }

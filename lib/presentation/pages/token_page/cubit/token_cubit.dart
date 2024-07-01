@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../../utils/enum/home_page_action_enum.dart';
-import '../view/widget/alert_btn/time_picker_widget.dart';
+import '../view/widget/alert_btn/custom_date_time_picker/custom_time_picker_widget.dart';
+import '../view/widget/alert_btn/custom_date_time_picker/custome_date_month_picker.dart';
 
 class TokenCubit extends Cubit<TokenState> {
   TokenCubit() : super(InitialTokenState());
@@ -132,6 +133,7 @@ class TokenCubit extends Cubit<TokenState> {
   final FixedExtentScrollController amPmController =
       FixedExtentScrollController();
   final TextEditingController selectTimeCtrl = TextEditingController();
+  final TextEditingController selectDateCtrl = TextEditingController();
 
   List<String> amPm = ['AM', 'PM'];
   List<String> min = List.generate(
@@ -146,6 +148,8 @@ class TokenCubit extends Cubit<TokenState> {
 
   String selectedTime = DateFormat('HH:mm').format(DateTime.now());
 
+  String selectedDate = DateFormat('MMMM d, yyyy').format(DateTime.now());
+
   void showTimePicker(
       {required BuildContext context,
       required TimePickerWidget timePicker}) async {
@@ -159,6 +163,19 @@ class TokenCubit extends Cubit<TokenState> {
     );
 
     selectTimeCtrl.text = selectedTime;
+  }
+
+  void showDatePicker(
+      {required BuildContext context,
+      required CustomCalendarDatePicker customCalendarDatePicker}) async {
+    final selectDate = await showModalBottomSheet<DateTime>(
+      context: context,
+      backgroundColor: Theme.of(context).colorScheme.scrim,
+      builder: (BuildContext context) {
+        return customCalendarDatePicker;
+      },
+    );
+    selectDateCtrl.text = selectedDate;
   }
 
   void changeCrossingDropDown({required String value}) {

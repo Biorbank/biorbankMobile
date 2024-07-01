@@ -14,12 +14,14 @@ class CommonSearchAppbar extends StatelessWidget {
       this.onTapTextField,
       this.isVisibleTextField = true,
       this.onTapScan});
+
   final String? hintText;
   final TextEditingController? textController;
   final VoidCallback? onTapScan;
   final VoidCallback? onTapBellIcon;
   final VoidCallback? onTapTextField;
   final bool isVisibleTextField;
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -29,14 +31,32 @@ class CommonSearchAppbar extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              GestureDetector(
+              InkWell(
                 onTap: () {
+                  Global.controller.showDrawer();
                   Global.scaffoldKey.currentState?.openDrawer();
                 },
-                child: Icon(
-                  Icons.sort,
-                  color: Theme.of(context).colorScheme.onSurface,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 50),
+                  child: Icon(
+                    Icons.sort,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
+
+                //     ValueListenableBuilder<AdvancedDrawerValue>(
+                //   valueListenable: Global.controller,
+                //   builder: (_, value, __) {
+                //     return AnimatedSwitcher(
+                //       duration: const Duration(milliseconds: 50),
+                //       child: Icon(
+                //         Icons.sort,
+                //         color: Theme.of(context).colorScheme.onSurface,
+                //         key: ValueKey<bool>(value.visible),
+                //       ),
+                //     );
+                //   },
+                // ),
               ),
               width(20.w),
               Visibility(

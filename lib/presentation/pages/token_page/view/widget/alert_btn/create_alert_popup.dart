@@ -1,7 +1,8 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
-import 'package:biorbank/presentation/pages/token_page/view/widget/alert_btn/time_picker_widget.dart';
+import 'package:biorbank/presentation/pages/token_page/view/widget/alert_btn/custom_date_time_picker/custom_time_picker_widget.dart';
+import 'package:biorbank/presentation/pages/token_page/view/widget/alert_btn/custom_date_time_picker/custome_date_month_picker.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -211,12 +212,24 @@ class _CreateAlertPopupState extends State<CreateAlertPopup>
                         ),
                       ),
                       CommonTextfield(
+                        controller: widget.cubit.selectDateCtrl,
                         title: "Expiration",
                         isShowTitle: true,
-                        hintText:
-                            DateFormat('MMMM d, yyyy').format(DateTime.now()),
+                        hintText: widget.cubit.selectedDate,
                         suffixWidget: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            widget.cubit.showDatePicker(
+                              context: context,
+                              customCalendarDatePicker:
+                                  CustomCalendarDatePicker(
+                                cubit: widget.cubit,
+                                onDateSelected: (date) {
+                                  widget.cubit.selectedDate =
+                                      DateFormat('MMMM d, yyyy').format(date);
+                                },
+                              ),
+                            );
+                          },
                           child: Image.asset(
                             Assets.imagesCalendar,
                             height: 20,
@@ -230,7 +243,7 @@ class _CreateAlertPopupState extends State<CreateAlertPopup>
                         title: "",
                         isShowTitle: false,
                         isShowSpaceAfterTitle: false,
-                        hintText: DateFormat('HH:mm').format(DateTime.now()),
+                        hintText: widget.cubit.selectedTime,
                         suffixWidget: InkWell(
                           onTap: () {
                             widget.cubit.showTimePicker(

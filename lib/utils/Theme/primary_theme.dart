@@ -18,6 +18,7 @@ const blueColorScheme = ColorScheme(
     error: Colors.red,
     onError: Color(0xFF1C1460),
     surface: Color(0xFF0060A9),
+    onSurfaceVariant: Color(0xFF96B5F1),
     onSurface: Color(0xFFFFFFFF),
     inversePrimary:  Color(0xFFF7F8FA),
     shadow: Colors.black,

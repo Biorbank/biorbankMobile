@@ -22,9 +22,17 @@ class DashboardCubit extends Cubit<DashboardState> {
     const HomeScreen(),
   ];
 
+  bool isBackUp = true;
+
+
+  void toggleBackUp({required bool value}) {
+    isBackUp = value;
+    emit(BackUp(isBackUp: value));
+  }
+
   List<Map<String, dynamic>> navigationItems = [
     {
-      'icon': Assets.imagesdefi,
+      'icon': Assets.imagesDefi,
       'active_icon': Assets.imagesDefiSelected,
       'title': 'DeFi'
     },

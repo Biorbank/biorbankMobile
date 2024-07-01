@@ -82,7 +82,7 @@ class OverviewTabScreen extends StatelessWidget {
                             Theme.of(context).colorScheme.onPrimaryContainer,
                         radius: 22,
                         child: SvgPicture.asset(
-                          Assets.svgsSettingcon,
+                          Assets.svgsSetting,
                           height: 20.h,
                           width: 20.w,
                           fit: BoxFit.fitWidth,
