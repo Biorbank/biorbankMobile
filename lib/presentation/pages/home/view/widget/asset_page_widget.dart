@@ -54,7 +54,7 @@ class AssetPageWidget extends StatelessWidget {
                         Row(
                           children: [
                             AppConstant.commonText(
-                              "all Account",
+                              "All Account",
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Theme.of(context).colorScheme.onSurface,
@@ -105,6 +105,39 @@ class AssetPageWidget extends StatelessWidget {
                     ),
                   ),
                   height(20.h),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        AppConstant.commonText(
+                          "Tokens",
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.shadow,
+                        ),
+                        width(4),
+                        AppConstant.commonText(
+                          "(8)",
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                          color: Theme.of(context).colorScheme.shadow,
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.add_circle_outline,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.shadow,
+                        ),
+                        width(4),
+                        Image.asset(
+                          Assets.imagesFilter,
+                          color: Theme.of(context).colorScheme.tertiary,
+                          height: 20,
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ),
                   Expanded(
                     child: ListView.builder(
                       itemCount: cubit.myActTokenData.length,
