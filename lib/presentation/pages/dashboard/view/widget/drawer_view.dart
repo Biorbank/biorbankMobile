@@ -99,7 +99,7 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildName(title: AppStrings.quickAccess, context: context),
                   _buildItems(
                     context: context,
-                    icon: Assets.imagesHome,
+                    icon: Assets.imagesHomeFill,
                     isSelected: selectItem == 1,
                     onTap: () {
                       selectItem = 1;
@@ -112,7 +112,7 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   ),
                   _buildItems(
                     context: context,
-                    icon: Assets.imagesContact,
+                    icon: Assets.imagesContactLine,
                     isSelected: selectItem == 2,
                     onTap: () {
                       selectItem = 2;
@@ -275,7 +275,7 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
             child: _buildItems(
               isSelected: false,
               context: context,
-              icon: Assets.imagesLogout,
+              icon: Assets.imagesLogoutLine,
               onTap: () {
                 UserPreferences.eraseData();
 

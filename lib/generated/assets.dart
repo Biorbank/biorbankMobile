@@ -5,6 +5,7 @@ class Assets {
   static const String imagesAppIcon = 'assets/images/app_icon.png';
   static const String imagesAppIconWhite = 'assets/images/app_icon_white.png';
   static const String imagesArrowDown = 'assets/images/arrow_down.png';
+  static const String imagesArrowDownOutline = 'assets/images/arrow_down_outline.png';
   static const String imagesArrowDropdown = 'assets/images/arrow_dropdown.png';
   static const String imagesArrowRight = 'assets/images/arrow_right.png';
   static const String imagesArrowUp = 'assets/images/arrow_up.png';
@@ -31,6 +32,7 @@ class Assets {
   static const String imagesCloseCircle = 'assets/images/close_circle.png';
   static const String imagesConnect = 'assets/images/connect.png';
   static const String imagesContact = 'assets/images/contact.png';
+  static const String imagesContactLine = 'assets/images/contact_line.png';
   static const String imagesCopy = 'assets/images/copy.png';
   static const String imagesCopyRounded = 'assets/images/copy_rounded.png';
   static const String imagesDanger = 'assets/images/danger.png';
@@ -60,6 +62,7 @@ class Assets {
   static const String imagesHolding = 'assets/images/holding.png';
   static const String imagesHoldingLine = 'assets/images/holding_line.png';
   static const String imagesHome = 'assets/images/home.png';
+  static const String imagesHomeFill = 'assets/images/home_fill.png';
   static const String imagesHomeIconWhite = 'assets/images/home_icon_white.png';
   static const String imagesImg = 'assets/images/img.png';
   static const String imagesInfo = 'assets/images/info.png';
@@ -68,6 +71,7 @@ class Assets {
   static const String imagesLamp = 'assets/images/lamp.png';
   static const String imagesLock = 'assets/images/lock.png';
   static const String imagesLogout = 'assets/images/logout.png';
+  static const String imagesLogoutLine = 'assets/images/Logout_line.png';
   static const String imagesMerchent = 'assets/images/merchent.png';
   static const String imagesMessage = 'assets/images/message.png';
   static const String imagesMessageEdit = 'assets/images/message_edit.png';

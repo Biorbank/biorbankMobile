@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:biorbank/presentation/common/common_balance_widget.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
-import 'package:biorbank/presentation/common/common_balance_widget.dart';
 import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_time_period_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_widget.dart';
@@ -110,7 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                Expanded(child: cubit.getActionScreen(value: cubit.selectedOption))
+                Expanded(
+                    child: cubit.getActionScreen(value: cubit.selectedOption))
               ],
             ),
             Visibility(
@@ -120,14 +121,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 minChildSize: 0.3,
                 maxChildSize: 0.7,
                 builder: (context, scrollController) => Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(24),
-                            topRight: Radius.circular(24))),
-                    child: ShareDetailsTabWidget(
-                      scrollController: scrollController,
-                    )),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24))),
+                  child: ShareDetailsTabWidget(
+                    scrollController: scrollController,
+                  ),
+                ),
               ),
             )
           ],

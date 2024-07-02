@@ -15,7 +15,6 @@ class CryptoStepper extends StatelessWidget {
     super.key,
   });
 
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -28,7 +27,8 @@ class CryptoStepper extends StatelessWidget {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Stepper(stepIconMargin:const EdgeInsets.symmetric(vertical: 8),
+              Stepper(
+                  stepIconMargin: const EdgeInsets.symmetric(vertical: 8),
                   elevation: 0,
                   // stepIconBuilder: (stepIndex, stepState) {
                   //   return null;
@@ -80,7 +80,7 @@ class CryptoStepper extends StatelessWidget {
                             color: Theme.of(context).colorScheme.shadow)),
                     Step(
                       state: StepState.complete,
-                      isActive: cubit.activeStepIndex >= 0,
+                      isActive: cubit.activeStepIndex >= 1,
                       content: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -193,15 +193,12 @@ class CryptoStepper extends StatelessWidget {
                     ),
                     Step(
                       state: StepState.complete,
-                      isActive: cubit.activeStepIndex >= 0,
-                      content: const SizedBox.shrink(),
+                      isActive: cubit.activeStepIndex >= 2,
                       title: AppConstant.commonText('Withdraw Amount',
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: Theme.of(context).colorScheme.shadow),
-                      stepStyle: const StepStyle(
-                        color: Color(0xFFEBEBEB),
-                      ),
+                      content: const SizedBox.shrink(),
                     ),
                   ]),
               Row(
