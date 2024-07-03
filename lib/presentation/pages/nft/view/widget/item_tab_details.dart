@@ -69,32 +69,29 @@ class ItemTabDetails extends StatelessWidget {
             ],
           ),
           height(15.h),
-          Expanded(
-            child: GridView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: 6,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 0.78,
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                     context.router.push(const NFTDetailsRoute());
-                    },
-                    child: nftCardWidget(
-                        context: context,
-                        imageUrl:
-                            'https://lh3.googleusercontent.com/IKACYcRzfRafyywq-i3QKWM3CALwdOTVC3q5Ka8WrrOgDp0Oq2OIhz2OwNMTZGkQWihNNjImu0r9KraSaWpVlhqGJ-l4NtTReol-Zg',
-                        title: 'Hooligan #7459'),
-                  );
+          GridView.builder(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            itemCount: 12,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 0.78,
+                crossAxisCount: 2,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 15),
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  context.router.push(const NFTDetailsRoute());
                 },
-              ),
+                child: nftCardWidget(
+                    context: context,
+                    imageUrl:
+                        'https://lh3.googleusercontent.com/IKACYcRzfRafyywq-i3QKWM3CALwdOTVC3q5Ka8WrrOgDp0Oq2OIhz2OwNMTZGkQWihNNjImu0r9KraSaWpVlhqGJ-l4NtTReol-Zg',
+                    title: 'Hooligan #7459'),
+              );
+            },
           ),
-          
         ],
       ),
     );

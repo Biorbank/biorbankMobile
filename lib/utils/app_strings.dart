@@ -69,4 +69,5 @@ class AppStrings {
   static String logout = 'Logout';
   static String quickAccess = 'Quick Access';
   static String menu = 'Menu';
+  static String history = 'History';
 }

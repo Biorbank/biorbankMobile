@@ -33,6 +33,7 @@ import 'package:biorbank/presentation/pages/p2p/view/payment_process_screen.dart
 import 'package:biorbank/presentation/pages/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/pages/history/view/history_screen.dart';
 import '../../presentation/pages/token_page/view/token_screen.dart';
 
 part 'auto_app_router.gr.dart';
@@ -73,6 +74,7 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
           AutoRoute(page: HelpCenterRoute.page, maintainState: false),
+          AutoRoute(page: HistoryRoute.page, maintainState: false),
           
         ]),
         AutoRoute(page: ImportExistingAccountRoute.page),
@@ -92,5 +94,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: TokenRoute.page),
+
       ];
 }

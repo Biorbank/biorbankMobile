@@ -8,15 +8,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ActivityTabDetails extends StatelessWidget {
+class ActivityTabDetails extends StatefulWidget {
   const ActivityTabDetails({super.key});
 
   @override
+  State<ActivityTabDetails> createState() => _ActivityTabDetailsState();
+}
+
+class _ActivityTabDetailsState extends State<ActivityTabDetails> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           height(6.h),
           Row(
@@ -52,165 +58,158 @@ class ActivityTabDetails extends StatelessWidget {
           ),
           height(30.h),
           SizedBox(height: 190.h, child: const BarChartSample()),
-          Expanded(
-            child: ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => height(14.h),
-                itemCount: 3,
-                itemBuilder: (context, index) => Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12.r),
-                          border: Border.all(
-                              color: Theme.of(context) 
-                                  .colorScheme
-                                  .onSecondaryFixed)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(14.r),
-                                child: CachedNetworkImage(
-                                  imageUrl:
-                                      'https://i.seadn.io/s/raw/files/3c2e640cc123dd02a3bcb82142cc997c.png?auto=format&dpr=1&w=1000',
-                                  height: 44.h,
-                                  width: 44.w,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) =>
-                                      const SizedBox.shrink(),
-                                ),
-                              ),
-                              width(10.w),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: AppConstant.commonText(
-                                              'My Pet Hooligan',
-                                              fontSize: 12.sp,
-                                              maxLines: 1,
-                                              textOverflow:
-                                                  TextOverflow.ellipsis,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .shadow),
-                                        ),
-                                        width(8.w),
-                                        Row(
-                                          children: [
-                                            AppConstant.commonText('Sale',
-                                                fontSize: 12.sp,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .onInverseSurface),
-                                            width(10.w),
-                                            Image.asset(
-                                              Assets.imagesExploreRounded,
-                                              height: 12.h,
-                                              width: 12.w,
-                                              fit: BoxFit.cover,
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    height(4.h),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Expanded(
-                                          child: AppConstant.commonText(
-                                              'Hooligan #7257',
-                                              fontSize: 14.sp,
-                                              maxLines: 1,
-                                              textOverflow:
-                                                  TextOverflow.ellipsis,
-                                              fontWeight: FontWeight.w500,
-                                              color: Theme.of(context)
-                                                  .colorScheme
-                                                  .shadow),
-                                        ),
-                                        width(10.w),
-                                        Row(
-                                          children: [
-                                            CachedNetworkImage(
-                                              imageUrl:
-                                                  'https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png',
-                                              height: 16.h,
-                                              width: 16.w,
-                                              placeholder: (context, url) =>
-                                                  const SizedBox.shrink(),
-                                            ),
-                                            width(10.w),
-                                            AppConstant.commonText('0.98',
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .shadow),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-
-                                    /// expention tile
-                                    ExpansionTile(
-                                      minTileHeight: 10,
-                                      dense: true,
-                                      visualDensity: const VisualDensity(vertical: -4),
-                                      tilePadding: EdgeInsets.zero,
-                                        shape: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: AppColors.transparent)),
-                                        collapsedIconColor: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondaryContainer,
-                                        iconColor: Theme.of(context)
-                                            .colorScheme
-                                            .onSecondaryContainer,
-                                        title: AppConstant.commonText(
-                                            fontWeight: FontWeight.w500,
-                                            '03/09/2024, 01:32:11',
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .onSecondaryContainer,
-                                            fontSize: 12.sp),
-                                        children: [
-                                          height(8.h),
-                                          commonRowTile(
-                                              context: context,
-                                              title: 'Price',
-                                              value: '\$3.86K'),
-                                          height(10.h),
-                                          commonRowTile(
-                                              context: context,
-                                              title: 'From',
-                                              value: '0x45f59...a8e6'),
-                                          height(10.h),
-                                          commonRowTile(
-                                              context: context,
-                                              title: 'To',
-                                              value: '0x1cc2...387d'),
-                                          height(10.h),
-                                        ])
-                                  ],
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) => height(14.h),
+            itemCount: 10,
+            itemBuilder: (context, index) => Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                      color: Theme.of(context).colorScheme.onSecondaryFixed)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(14.r),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              'https://i.seadn.io/s/raw/files/3c2e640cc123dd02a3bcb82142cc997c.png?auto=format&dpr=1&w=1000',
+                          height: 44.h,
+                          width: 44.w,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) =>
+                              const SizedBox.shrink(),
+                        ),
                       ),
-                    )),
-          )
+                      width(10.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: AppConstant.commonText(
+                                      'My Pet Hooligan',
+                                      fontSize: 12.sp,
+                                      maxLines: 1,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      color:
+                                          Theme.of(context).colorScheme.shadow),
+                                ),
+                                width(8.w),
+                                Row(
+                                  children: [
+                                    AppConstant.commonText('Sale',
+                                        fontSize: 12.sp,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onInverseSurface),
+                                    width(10.w),
+                                    Image.asset(
+                                      Assets.imagesExploreRounded,
+                                      height: 12.h,
+                                      width: 12.w,
+                                      fit: BoxFit.cover,
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                            height(4.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: AppConstant.commonText(
+                                      'Hooligan #7257',
+                                      fontSize: 14.sp,
+                                      maxLines: 1,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w500,
+                                      color:
+                                          Theme.of(context).colorScheme.shadow),
+                                ),
+                                width(10.w),
+                                Row(
+                                  children: [
+                                    CachedNetworkImage(
+                                      imageUrl:
+                                          'https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png',
+                                      height: 16.h,
+                                      width: 16.w,
+                                      placeholder: (context, url) =>
+                                          const SizedBox.shrink(),
+                                    ),
+                                    width(10.w),
+                                    AppConstant.commonText('0.98',
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .shadow),
+                                  ],
+                                )
+                              ],
+                            ),
+
+                            /// expention tile
+                            ExpansionTile(
+                                minTileHeight: 10,
+                                dense: true,
+                                visualDensity:
+                                    const VisualDensity(vertical: -4),
+                                tilePadding: EdgeInsets.zero,
+                                shape: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: AppColors.transparent)),
+                                collapsedIconColor: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                                iconColor: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
+                                title: AppConstant.commonText(
+                                    fontWeight: FontWeight.w500,
+                                    '03/09/2024, 01:32:11',
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer,
+                                    fontSize: 12.sp),
+                                children: [
+                                  height(8.h),
+                                  commonRowTile(
+                                      context: context,
+                                      title: 'Price',
+                                      value: '\$3.86K'),
+                                  height(10.h),
+                                  commonRowTile(
+                                      context: context,
+                                      title: 'From',
+                                      value: '0x45f59...a8e6'),
+                                  height(10.h),
+                                  commonRowTile(
+                                      context: context,
+                                      title: 'To',
+                                      value: '0x1cc2...387d'),
+                                  height(10.h),
+                                ])
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

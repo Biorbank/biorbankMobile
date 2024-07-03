@@ -21,9 +21,23 @@ class NFTScreen extends StatefulWidget {
 class _NFTScreenState extends State<NFTScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
+  ScrollController topScrollController = ScrollController();
+  int selectedIndex = 0;
+
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(
+      () {
+        if (!tabController.indexIsChanging) {
+          setState(() {
+            selectedIndex = tabController.index;
+            print('Current tab index: ${tabController.index}');
+          });
+        }
+      },
+    );
     super.initState();
   }
 
@@ -69,42 +83,47 @@ class _NFTScreenState extends State<NFTScreen>
           height(20.h),
           Expanded(
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const NftVolumeDetails(
-                    bestOffer: '0.9101',
-                    totalVolume: '23.8K',
-                    floorPrice: '0.977',
-                    listed: '3.4%',
-                    totalOwner: '3,649',
-                    uniqueOwners: '41.41%',
-                  ),
-                  height(10.h),
-                  CommonTabbar(
-                      isShowBackground: true,
-                      indicatorColor: Theme.of(context).colorScheme.onPrimary,
-                      labelPadding:
-                          const EdgeInsets.only(bottom: 10, top: 6, right: 30),
-                      isScrollable: true,
-                      padding: const EdgeInsets.only(left: 20),
-                      tabBarIndicatorSize: TabBarIndicatorSize.label,
-                      tabAlignment: TabAlignment.start,
-                      selectedIndex: 0,
-                      labelFontWight: FontWeight.w500,
-                      length: 2,
-                      onTap: (index) {},
-                      tabController: tabController,
-                      tabList: const ['Items', 'Activity']),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height + 60,
-                    child:
-                        TabBarView(controller: tabController, children: const [
-                      ItemTabDetails(),
-                      ActivityTabDetails(),
-                    ]),
-                  ),
-                ],
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return ConstrainedBox(
+                    constraints:
+                        BoxConstraints(maxHeight: constraints.maxHeight),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const NftVolumeDetails(
+                          bestOffer: '0.9101',
+                          totalVolume: '23.8K',
+                          floorPrice: '0.977',
+                          listed: '3.4%',
+                          totalOwner: '3,649',
+                          uniqueOwners: '41.41%',
+                        ),
+                        height(10.h),
+                        CommonTabbar(
+                            isShowBackground: true,
+                            indicatorColor:
+                                Theme.of(context).colorScheme.onPrimary,
+                            labelPadding: const EdgeInsets.only(
+                                bottom: 10, top: 6, right: 30),
+                            isScrollable: true,
+                            padding: const EdgeInsets.only(left: 20),
+                            tabBarIndicatorSize: TabBarIndicatorSize.label,
+                            tabAlignment: TabAlignment.start,
+                            selectedIndex: 0,
+                            labelFontWight: FontWeight.w500,
+                            length: 2,
+                            onTap: (index) {},
+                            tabController: tabController,
+                            tabList: const ['Items', 'Activity']),
+                        selectedIndex == 0
+                            ? const ItemTabDetails()
+                            : const ActivityTabDetails(),
+                      ],
+                    ),
+                  );
+                },
               ),
             ),
           ),

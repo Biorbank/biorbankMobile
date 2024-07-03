@@ -39,7 +39,8 @@ class _DashboardScreenState extends State<DashboardScreen>
             ContactRoute(),
             FeedbackRoute(),
             DebitCardRoute(),
-            HelpCenterRoute()
+            HelpCenterRoute(),
+            HistoryRoute(),
           ],
           //  transitionBuilder:_customTransitionBuilder ,
           builder: (context, child) {

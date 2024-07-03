@@ -1,4 +1,3 @@
-import 'package:progress_bar_chart/progress_bar_chart.dart';
 
 class MyAccountModel {
   final double? percent;

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:biorbank/presentation/pages/history/view/history_screen.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
@@ -25,23 +26,6 @@ class DrawerView extends StatefulWidget {
 
 class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
   int selectItem = 1;
-
-  final drawerList = [
-    "Home",
-    "Contacts",
-    "Feedback",
-    "Holdings",
-    "Debit Card",
-    "Price Alerts",
-    "Swap",
-    "Staking",
-    "Take a Loan",
-    "P2P Market",
-    "Settings",
-    "Help Center",
-    "Support",
-    "Backup"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -208,22 +192,35 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                     },
                     title: AppStrings.p2PMarket,
                   ),
+                  _buildItems(
+                    context: context,
+                    icon: Assets.imagesCalendar,
+                    isSelected: selectItem == 11,
+                    onTap: () {
+                      selectItem = 11;
+                      Global.controller.hideDrawer();
+                      Global.scaffoldKey.currentState?.closeDrawer();
+                      AutoTabsRouter.of(context).setActiveIndex(9);
+
+                    },
+                    title: AppStrings.history,
+                  ),
                   _buildName(title: AppStrings.settings, context: context),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesSettingsLine,
-                    isSelected: selectItem == 11,
+                    isSelected: selectItem == 12,
                     onTap: () {
-                      selectItem = 11;
+                      selectItem = 12;
                     },
                     title: AppStrings.settings,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesHelpCenterLine,
-                    isSelected: selectItem == 12,
+                    isSelected: selectItem == 13,
                     onTap: () {
-                      selectItem = 12;
+                      selectItem = 13;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       AutoTabsRouter.of(context).setActiveIndex(8);
@@ -233,18 +230,18 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesSupportLine,
-                    isSelected: selectItem == 13,
+                    isSelected: selectItem == 14,
                     onTap: () {
-                      selectItem = 13;
+                      selectItem = 14;
                     },
                     title: AppStrings.support,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesBackupLine,
-                    isSelected: selectItem == 14,
+                    isSelected: selectItem == 15,
                     onTap: () {
-                      selectItem = 14;
+                      selectItem = 15;
                     },
                     title: AppStrings.backUp,
                     switchWidget: BlocBuilder<DashboardCubit, DashboardState>(
