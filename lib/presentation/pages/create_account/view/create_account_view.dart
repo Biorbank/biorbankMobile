@@ -3,6 +3,7 @@ import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
 import 'package:biorbank/presentation/pages/create_account/widget/word_selector_dialog.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/db/db_wallet.dart';
 import 'package:biorbank/utils/preferences.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,10 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                         if (cubit.formKey.currentState?.validate() ?? false) {
                           UserPreferences.setUserData(
                               value: cubit.createPasswordController.text);
+                          BiorbankAccounts.insertAccount(Account(
+                              id: 0,
+                              name: cubit.accountNameTextController.text,
+                              mnemonic: cubit.mnemonic));
                           context.router.pushAndPopUntil(
                             const DashboardRoute(),
                             predicate: (route) => false,

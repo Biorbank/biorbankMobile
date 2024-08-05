@@ -201,7 +201,6 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       AutoTabsRouter.of(context).setActiveIndex(9);
-
                     },
                     title: AppStrings.history,
                   ),
@@ -274,7 +273,7 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
               context: context,
               icon: Assets.imagesLogoutLine,
               onTap: () {
-                UserPreferences.eraseData();
+                // UserPreferences.eraseData();
 
                 context.router.replaceAll([const WelcomeRoute()]);
                 // Navigator.pushNamedAndRemoveUntil(

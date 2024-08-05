@@ -10,33 +10,39 @@ part 'create_account_state.dart';
 
 class CreateAccountCubit extends Cubit<CreateAccountState> {
   CreateAccountCubit() : super(CreateAccountInitialState());
- 
-  TextEditingController firstWordTextController =TextEditingController();
-  TextEditingController secondWordTextController =TextEditingController();
-  TextEditingController accountNameTextController =TextEditingController();
-  TextEditingController createPasswordController =TextEditingController();
-  TextEditingController confirmPasswordController =TextEditingController();
+
+  TextEditingController firstWordTextController = TextEditingController();
+  TextEditingController secondWordTextController = TextEditingController();
+  TextEditingController accountNameTextController = TextEditingController();
+  TextEditingController createPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  String mnemonic = "";
+  List<String> mnemonicList = [];
   bool isShowRecoveryPharseView = true;
   bool isShowPassword = true;
   bool isShowConfirmPassword = true;
   String word = "if i share my recovery phrase i will lose my money";
-  bool isValidWordSelction=false;
+  bool isValidWordSelction = false;
   List<String> wordData = [];
   List<String> selectedWords = [];
-  GlobalKey<FormState> formKey=GlobalKey<FormState>();
-  
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  void setMnemonic({required String value}) {
+    mnemonic = value;
+    mnemonicList = mnemonic.split(" ");
+  }
+
   void copyToClipboard() {
     emit(CreateAccountInitialState());
-    String clipboardText = Global.recoveryPhraseList
+    String clipboardText = mnemonicList
         .asMap()
         .entries
         .map((entry) => '${entry.key + 1}. ${entry.value}')
         .join('\n');
     emit(RecoveryPhraseSelectedState(phraseData: clipboardText));
-    
   }
 
-  refreshState(){
+  refreshState() {
     emit(CreateAccountInitialState());
   }
 
@@ -70,20 +76,19 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
   }
 
   void shuffleList() {
-    isValidWordSelction=false;
-    isShowRecoveryPharseView=true;
+    isValidWordSelction = false;
+    isShowRecoveryPharseView = true;
     selectedWords.clear();
     List<String> wordList = word.split(" ");
     wordList.shuffle(Random());
     wordData = wordList;
   }
 
-  void cleanTextFiledData(){
+  void cleanTextFiledData() {
     firstWordTextController.clear();
     secondWordTextController.clear();
     accountNameTextController.clear();
     createPasswordController.clear();
     confirmPasswordController.clear();
-
   }
 }

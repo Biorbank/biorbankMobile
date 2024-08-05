@@ -15,8 +15,8 @@ import '../../../../utils/Theme/app_colors.dart';
 import '../../../../utils/common_spacer.dart';
 import '../../../common/common_text_button.dart';
 import '../../../common/common_textfield.dart';
-@RoutePage()
 
+@RoutePage()
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -73,8 +73,9 @@ class _LoginViewState extends State<LoginScreen> with Validation {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   AppConstant.commonText(AppStrings.unlockWithFaceId,
-                      color: Theme.of(context).colorScheme.onSecondaryContainer, fontSize: 12.sp),
-                      width(8.w),
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                      fontSize: 12.sp),
+                  width(8.w),
                   BlocBuilder<AuthCubit, AuthState>(
                     builder: (context, state) {
                       return FlutterSwitch(
@@ -97,10 +98,13 @@ class _LoginViewState extends State<LoginScreen> with Validation {
               height(25.h),
               CommonButton(
                 name: AppStrings.unlock,
-                textColor:Theme.of(context).colorScheme.onSurface,
+                textColor: Theme.of(context).colorScheme.onSurface,
                 onTap: () {
                   if (cubit.formKey.currentState?.validate() ?? false) {
-                   context.router.pushAndPopUntil(const DashboardRoute(), predicate: (route) => false,);
+                    context.router.pushAndPopUntil(
+                      const DashboardRoute(),
+                      predicate: (route) => false,
+                    );
                   }
                 },
               ),
@@ -108,7 +112,8 @@ class _LoginViewState extends State<LoginScreen> with Validation {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: AppConstant.commonText(AppStrings.walletDesc,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer, textAlign: TextAlign.center),
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    textAlign: TextAlign.center),
               ),
               height(4.h),
               Center(

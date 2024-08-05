@@ -32,7 +32,7 @@ class _CreateAccountFieldViewState extends State<CreateAccountFieldView>
             decoration: BoxDecoration(
                 color: AppColors.blue50,
                 borderRadius: BorderRadius.circular(12),
-                boxShadow:  [
+                boxShadow: [
                   BoxShadow(
                     color: const Color(0xFFAAAAAA).withOpacity(0.15),
                     spreadRadius: 0,
@@ -54,7 +54,7 @@ class _CreateAccountFieldViewState extends State<CreateAccountFieldView>
                   title: 'Word #8',
                   validator: (value) => confirmValidate(
                       value: value,
-                      confirm: Global.recoveryPhraseList[7],
+                      confirm: cubit.mnemonicList[7],
                       slug: 'phrase'),
                   controller: cubit.firstWordTextController,
                   hintText: 'Enter word#8',
@@ -64,7 +64,7 @@ class _CreateAccountFieldViewState extends State<CreateAccountFieldView>
                   title: 'Word #12',
                   validator: (value) => confirmValidate(
                       value: value,
-                      confirm: Global.recoveryPhraseList[11],
+                      confirm: cubit.mnemonicList[11],
                       slug: 'phrase'),
                   controller: cubit.secondWordTextController,
                   hintText: 'Enter word#12',

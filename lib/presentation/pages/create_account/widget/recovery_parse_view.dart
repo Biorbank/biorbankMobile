@@ -30,7 +30,8 @@ class RecoveryParseView extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6), color: Theme.of(context).colorScheme.onPrimaryContainer),
+              borderRadius: BorderRadius.circular(6),
+              color: Theme.of(context).colorScheme.onPrimaryContainer),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,7 +45,7 @@ class RecoveryParseView extends StatelessWidget {
                   childAspectRatio: 3.5,
                   mainAxisSpacing: 15.0,
                 ),
-                itemCount: Global.recoveryPhraseList.length,
+                itemCount: cubit.mnemonicList.length,
                 itemBuilder: (context, index) {
                   return Container(
                     decoration: BoxDecoration(
@@ -53,7 +54,7 @@ class RecoveryParseView extends StatelessWidget {
                         color: const Color.fromRGBO(255, 255, 255, 1)),
                     child: Center(
                       child: AppConstant.commonText(
-                          '${index + 1}. ${Global.recoveryPhraseList[index]}',
+                          '${index + 1}. ${cubit.mnemonicList[index]}',
                           color: AppColors.black,
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w500),
