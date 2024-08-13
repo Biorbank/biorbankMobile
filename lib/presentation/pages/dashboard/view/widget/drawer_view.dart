@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:biorbank/presentation/pages/history/view/history_screen.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_switch/flutter_switch.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../utils/Theme/app_colors.dart';
 import '../../../../../utils/global.dart';
-import '../../../../../utils/preferences.dart';
 import '../../../../../utils/routers/auto_app_router.dart';
 import '../../cubit/dashboard_cubit.dart';
 
@@ -87,10 +85,11 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                     isSelected: selectItem == 1,
                     onTap: () {
                       selectItem = 1;
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(4);
+                      });
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
-
-                      AutoTabsRouter.of(context).setActiveIndex(4);
                     },
                     title: AppStrings.home,
                   ),
@@ -100,7 +99,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                     isSelected: selectItem == 2,
                     onTap: () {
                       selectItem = 2;
-                      AutoTabsRouter.of(context).setActiveIndex(5);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(5);
+                      });
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       // if (context.router.canPop()) {
@@ -117,8 +118,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       selectItem = 3;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
-
-                      AutoTabsRouter.of(context).setActiveIndex(6);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(6);
+                      });
                     },
                     title: AppStrings.feedback,
                   ),
@@ -140,7 +142,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       selectItem = 5;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
-                      AutoTabsRouter.of(context).setActiveIndex(7);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(7);
+                      });
                     },
                     title: AppStrings.debitCard,
                   ),
@@ -188,7 +192,10 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       selectItem = 10;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
-                      context.router.push(const P2pMarketRoute());
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(9);
+                        // context.router.push(const P2pMarketRoute());
+                      });
                     },
                     title: AppStrings.p2PMarket,
                   ),
@@ -200,7 +207,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       selectItem = 11;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
-                      AutoTabsRouter.of(context).setActiveIndex(9);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(10);
+                      });
                     },
                     title: AppStrings.history,
                   ),
@@ -222,7 +231,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       selectItem = 13;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
-                      AutoTabsRouter.of(context).setActiveIndex(8);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(8);
+                      });
                     },
                     title: AppStrings.helpCenter,
                   ),

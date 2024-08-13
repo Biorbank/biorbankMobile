@@ -11,6 +11,7 @@ class PriceDetailWidget extends StatelessWidget {
       required this.differentAmt,
       required this.totalDifferentInPercentage,
       required this.isProfit});
+
   final String title;
   final String currentAmt;
   final String differentAmt;
@@ -57,8 +58,9 @@ class PriceDetailWidget extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
                     decoration: BoxDecoration(
-                      color:  isProfit
-                          ?const Color(0xFFE5FAEE):const Color(0xFFFDEBEC),
+                      color: isProfit
+                          ? const Color(0xFFE5FAEE)
+                          : const Color(0xFFFDEBEC),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: AppConstant.commonText(

@@ -8,7 +8,6 @@ import '../../../../generated/assets.dart';
 import '../../../../utils/Theme/app_colors.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../../utils/app_widgets.dart';
-import '../../../../utils/global.dart';
 import '../cubit/create_account_cubit.dart';
 import 'instruction_widget.dart';
 

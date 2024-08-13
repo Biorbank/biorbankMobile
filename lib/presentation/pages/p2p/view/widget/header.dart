@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../utils/global.dart';
+
 class P2PHeader extends StatelessWidget {
   const P2PHeader(
       {super.key,
@@ -25,6 +27,7 @@ class P2PHeader extends StatelessWidget {
   final CurrencyModel? selectedCurrency;
   final Function(CurrencyModel?) onChangedCurrency;
   final Function(CurrencyModel?) onChangedCountry;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,14 +41,27 @@ class P2PHeader extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  context.router.back();
+                  Global.controller.showDrawer();
+                  Global.scaffoldKey.currentState?.openDrawer();
                 },
-                child: Icon(
-                  Icons.arrow_back_ios_new_outlined,
-                  color: Theme.of(context).colorScheme.onSurface,
-                  size: 20,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 50),
+                  child: Icon(
+                    Icons.sort,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ),
+              // InkWell(
+              //   onTap: () {
+              //     context.router.back();
+              //   },
+              //   child: Icon(
+              //     Icons.arrow_back_ios_new_outlined,
+              //     color: Theme.of(context).colorScheme.onSurface,
+              //     size: 20,
+              //   ),
+              // ),
               CommonDropdownWidget(
                 labelText: '',
                 value: 'P2P',

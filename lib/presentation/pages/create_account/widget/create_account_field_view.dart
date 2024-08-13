@@ -2,7 +2,6 @@ import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

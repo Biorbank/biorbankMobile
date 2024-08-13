@@ -10,7 +10,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trustdart/trustdart.dart';
+// import 'package:trustdart/trustdart.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatefulWidget {
@@ -24,7 +24,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void generateTrustMnemonic(
       {required CreateAccountCubit cubit,
       required BuildContext context}) async {
-    String result = await Trustdart.generateMnemonic("");
+    String? result = "";
+    // String result = await Trustdart.generateMnemonic("");
     cubit.setMnemonic(value: result);
     context.router.push(const CreateAccountRoute());
   }

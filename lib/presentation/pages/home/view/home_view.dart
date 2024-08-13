@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_balance_widget.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
+import 'package:biorbank/presentation/common/common_center_balance_widget_.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_time_period_widget.dart';
@@ -23,10 +24,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final DraggableScrollableController _draggableController =
+      DraggableScrollableController();
+  double _currentExtent = 0.3;
+
   @override
   void initState() {
     context.read<HomeCubit>().onTapeTradeActionOption(value: null);
     super.initState();
+
+    _draggableController.addListener(() {
+      double extent = _draggableController.size;
+
+      if (_currentExtent != extent) {
+        setState(() {
+          _currentExtent = extent;
+        });
+
+        if (_currentExtent >= 0.6) {}
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _draggableController.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = context.read<HomeCubit>();
-
         if (state is TradeOptionChnageState) {
           cubit.selectedOption = state.value;
         } else if (state is ChartTimePeriodState) {
@@ -65,14 +87,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                             ),
                             height(10.h),
-                            Visibility(
-                              visible: cubit.selectedOption == null,
-                              child: const CommonBalanceWidget(
-                                amount: '\$75,630.90',
-                                currentRate: 'CA \$0.00 (0.00%)',
-                                isShowBalanceWidget: false,
-                              ),
-                            )
+                            _currentExtent >= 0.6
+                                ? const CommonCenterBalanceWidget(
+                                    amount: "\$75,630.90",
+                                  )
+                                : Visibility(
+                                    visible: cubit.selectedOption == null,
+                                    child: const CommonBalanceWidget(
+                                      amount: '\$75,630.90',
+                                      currentRate: 'CA \$0.00 (0.00%)',
+                                      isShowBalanceWidget: false,
+                                    ),
+                                  )
                           ],
                         ),
                       ),
@@ -117,19 +143,22 @@ class _HomeScreenState extends State<HomeScreen> {
             Visibility(
               visible: cubit.selectedOption == null,
               child: DraggableScrollableSheet(
+                controller: _draggableController,
                 initialChildSize: 0.3,
                 minChildSize: 0.3,
                 maxChildSize: 0.7,
-                builder: (context, scrollController) => Container(
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(24),
-                          topRight: Radius.circular(24))),
-                  child: ShareDetailsTabWidget(
-                    scrollController: scrollController,
-                  ),
-                ),
+                builder: (context, scrollController) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(24),
+                            topRight: Radius.circular(24))),
+                    child: ShareDetailsTabWidget(
+                      scrollController: scrollController,
+                    ),
+                  );
+                },
               ),
             )
           ],

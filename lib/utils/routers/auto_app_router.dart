@@ -51,7 +51,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: UnlockPinRoute.page),
         AutoRoute(page: CreateAccountRoute.page),
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
-          AutoRoute(page: DefiRoute.page),
+          // AutoRoute(page: DefiRoute.page),
+          AutoRoute(page: DefiDetailRoute.page),
           AutoRoute(page: MarketRoute.page),
           AutoRoute(page: DefiNavigationRoute.page,
           initial: true,
@@ -67,6 +68,11 @@ class AppRouter extends _$AppRouter {
               page: DefiDetailRoute.page,
               maintainState: false,
             ),
+             AutoRoute(
+              page: NftHoldingRoute.page,
+              maintainState: false,
+            ),
+
           ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),
@@ -74,9 +80,10 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
           AutoRoute(page: HelpCenterRoute.page, maintainState: false),
+          AutoRoute(page: P2pMarketRoute.page, maintainState: false),
           AutoRoute(page: HistoryRoute.page, maintainState: false),
-          
         ]),
+
         AutoRoute(page: ImportExistingAccountRoute.page),
         AutoRoute(page: ConnectHardwareWalletRoute.page),
         AutoRoute(page: NewAccountCreateRoute.page),
@@ -88,7 +95,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: StakingDefiRoute.page),
         AutoRoute(page: NFTRoute.page),
         AutoRoute(page: NFTDetailsRoute.page),
-        AutoRoute(page: P2pMarketRoute.page),
+        // AutoRoute(page: P2pMarketRoute.page),
         AutoRoute(page: MyOrderRoute.page),
         AutoRoute(page: BuyUsdtRoute.page),
         AutoRoute(page: PaymentProcessRoute.page),

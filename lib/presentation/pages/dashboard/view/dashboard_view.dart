@@ -30,17 +30,19 @@ class _DashboardScreenState extends State<DashboardScreen>
           cubit.selectedBottomTabIndex = state.index;
         }
         return AutoTabsRouter(
-          routes: const [
-            DefiRoute(),
-            MarketRoute(),
-            BrowserRoute(),
-            ChatRoute(),
-            DefiNavigationRoute(),
-            ContactRoute(),
-            FeedbackRoute(),
-            DebitCardRoute(),
-            HelpCenterRoute(),
-            HistoryRoute(),
+          routes: [
+            // DefiRoute(),
+            DefiDetailRoute(index: 0),
+            const MarketRoute(),
+            const BrowserRoute(),
+            const ChatRoute(),
+            const DefiNavigationRoute(),
+            const ContactRoute(),
+            const FeedbackRoute(),
+            const DebitCardRoute(),
+            const HelpCenterRoute(),
+            const P2pMarketRoute(),
+            const HistoryRoute(),
             //history section
           ],
           //  transitionBuilder:_customTransitionBuilder ,
@@ -76,7 +78,6 @@ class _DashboardScreenState extends State<DashboardScreen>
               openRatio: 0.65,
               animationCurve: Curves.easeIn,
               animationDuration: const Duration(milliseconds: 300),
-              // rtlOpening: true,
               backdropColor: Theme.of(context).colorScheme.primary,
               drawer: DrawerView(cubit: cubit),
               child: Scaffold(
@@ -128,7 +129,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                   ),
                 ),
                 bottomNavigationBar: AnimatedBottomNavigationBar.builder(
-                  height: 68.h,
+                  height: 75.h,
                   itemCount: cubit.navigationItems.length,
                   tabBuilder: (index, isActive) {
                     var data = cubit.navigationItems[index];

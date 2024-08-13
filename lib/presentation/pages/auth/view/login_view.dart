@@ -100,12 +100,12 @@ class _LoginViewState extends State<LoginScreen> with Validation {
                 name: AppStrings.unlock,
                 textColor: Theme.of(context).colorScheme.onSurface,
                 onTap: () {
-                  if (cubit.formKey.currentState?.validate() ?? false) {
+                  // if (cubit.formKey.currentState?.validate() ?? false) {
                     context.router.pushAndPopUntil(
                       const DashboardRoute(),
                       predicate: (route) => false,
                     );
-                  }
+                  // }
                 },
               ),
               height(20.h),

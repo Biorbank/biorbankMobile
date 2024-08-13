@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CommonSearchAppbar extends StatelessWidget {
   const CommonSearchAppbar(
       {super.key,
+      this.drawerReplace,
       this.hintText,
       this.textController,
       this.onTapBellIcon,
@@ -15,6 +16,7 @@ class CommonSearchAppbar extends StatelessWidget {
       this.isVisibleTextField = true,
       this.onTapScan});
 
+  final Widget? drawerReplace;
   final String? hintText;
   final TextEditingController? textController;
   final VoidCallback? onTapScan;
@@ -31,33 +33,33 @@ class CommonSearchAppbar extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              InkWell(
-                onTap: () {
-                  Global.controller.showDrawer();
-                  Global.scaffoldKey.currentState?.openDrawer();
-                },
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 50),
-                  child: Icon(
-                    Icons.sort,
-                    color: Theme.of(context).colorScheme.onSurface,
+              drawerReplace ??
+                  InkWell(
+                    onTap: () {
+                      Global.controller.showDrawer();
+                      Global.scaffoldKey.currentState?.openDrawer();
+                    },
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 50),
+                      child: Icon(
+                        Icons.sort,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    //     ValueListenableBuilder<AdvancedDrawerValue>(
+                    //   valueListenable: Global.controller,
+                    //   builder: (_, value, __) {
+                    //     return AnimatedSwitcher(
+                    //       duration: const Duration(milliseconds: 50),
+                    //       child: Icon(
+                    //         Icons.sort,
+                    //         color: Theme.of(context).colorScheme.onSurface,
+                    //         key: ValueKey<bool>(value.visible),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   ),
-                ),
-
-                //     ValueListenableBuilder<AdvancedDrawerValue>(
-                //   valueListenable: Global.controller,
-                //   builder: (_, value, __) {
-                //     return AnimatedSwitcher(
-                //       duration: const Duration(milliseconds: 50),
-                //       child: Icon(
-                //         Icons.sort,
-                //         color: Theme.of(context).colorScheme.onSurface,
-                //         key: ValueKey<bool>(value.visible),
-                //       ),
-                //     );
-                //   },
-                // ),
-              ),
               width(20.w),
               Visibility(
                 visible: isVisibleTextField,

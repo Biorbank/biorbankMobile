@@ -16,7 +16,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 @RoutePage()
 class DefiDetailScreen extends StatefulWidget {
   const DefiDetailScreen({super.key, required this.index});
+
   final int index;
+
   @override
   State<DefiDetailScreen> createState() => _DefiDetailScreenState();
 }
@@ -24,6 +26,7 @@ class DefiDetailScreen extends StatefulWidget {
 class _DefiDetailScreenState extends State<DefiDetailScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     tabController =
@@ -32,8 +35,9 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
       context
           .read<DefiDetailCubit>()
           .onChangeTabIndex(index: tabController.index);
-        
-      if (tabController.index == 2&& context.read<DefiDetailCubit>().selectedLoanTabIndex==1) {
+
+      if (tabController.index == 2 &&
+          context.read<DefiDetailCubit>().selectedLoanTabIndex == 1) {
         context.read<DefiDetailCubit>().onChangeLoanTabIndex(index: 0);
       }
     });
@@ -106,7 +110,6 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
                       onTap: (index) {},
                       tabController: tabController,
                       tabList: const ['NFT', 'Staking', 'Loans']),
-                
                 ),
                 GestureDetector(
                   onTap: () {},
