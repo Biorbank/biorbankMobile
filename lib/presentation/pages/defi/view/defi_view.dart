@@ -30,11 +30,11 @@ class DefiScreen extends StatelessWidget {
                   hintText: 'ID/USDT',
                   textController:
                       context.read<DefiCubit>().searchTextController,
-                  onTapTextField: () {
-                    context.router.push(const CommonSearchRoute());
-
-                    //Navigator.pushNamed(context, Routes.serachViewRoute);
-                  },
+                  // onTapTextField: () {
+                  //   context.router.push(const CommonSearchRoute());
+                  //
+                  //   //Navigator.pushNamed(context, Routes.serachViewRoute);
+                  // },
                 ),
                 height(10.h),
                 const CommonBalanceWidget(

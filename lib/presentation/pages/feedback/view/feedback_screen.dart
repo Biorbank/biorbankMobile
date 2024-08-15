@@ -62,7 +62,6 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                     height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
                     ),
                   ],

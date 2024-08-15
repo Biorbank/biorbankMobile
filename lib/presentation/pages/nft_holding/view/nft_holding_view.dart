@@ -45,7 +45,6 @@ class NftHoldingScreen extends StatelessWidget {
                 height(35.h),
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
-                  onTapBellIcon: () {},
                   textController: TextEditingController(),
                 ),
               ],

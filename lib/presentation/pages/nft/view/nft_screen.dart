@@ -74,7 +74,6 @@ class _NFTScreenState extends State<NFTScreen>
                       ),
                     ),
                     hintText: 'ID/USDT',
-                    onTapBellIcon: () {},
                     textController: TextEditingController(),
                   ),
                 ],

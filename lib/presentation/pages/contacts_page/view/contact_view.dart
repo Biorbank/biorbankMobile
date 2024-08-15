@@ -64,7 +64,6 @@ class _ContactViewState extends State<ContactScreen>
                     height(35.h),
                     CommonSearchAppbar(
                       hintText: 'Address, ens, name..',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
                     ),
                   ],

@@ -3,7 +3,6 @@ import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/currency_convert_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/range_slider_widget.dart';
-import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/select_crypto_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/swap_setting_dialog.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/swap_tab_widget/widget/unlock_token_dialog.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
@@ -30,7 +29,7 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              height(10.h),
+              height(22.h),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
@@ -45,20 +44,20 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
                         width(10.w),
                         GestureDetector(
                           onTap: () {
-                            context
-                                .read<MarketCubit>()
-                                .onChangeSelectedCryptoTabIndex(index: 0);
-                            showModalBottomSheet(
-                              isScrollControlled: true,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(12),
-                                      topRight: Radius.circular(12))),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.onSurface,
-                              context: context,
-                              builder: (context) => const SelectCryptoWidget(),
-                            );
+                            // context
+                            //     .read<MarketCubit>()
+                            //     .onChangeSelectedCryptoTabIndex(index: 0);
+                            // showModalBottomSheet(
+                            //   isScrollControlled: true,
+                            //   shape: const RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.only(
+                            //           topLeft: Radius.circular(12),
+                            //           topRight: Radius.circular(12))),
+                            //   backgroundColor:
+                            //       Theme.of(context).colorScheme.onSurface,
+                            //   context: context,
+                            //   builder: (context) => const SelectCryptoWidget(),
+                            // );
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(
@@ -101,7 +100,7 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
                           );
                         },
                         child: Image.asset(
-                          Assets.imagesSetting,
+                          Assets.imagesFilter,
                           height: 20.h,
                           width: 20.w,
                         ))

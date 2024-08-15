@@ -20,6 +20,7 @@ class MarketTabbar extends StatefulWidget {
 class _MarketTabbarState extends State<MarketTabbar>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
@@ -59,26 +60,29 @@ class _MarketTabbarState extends State<MarketTabbar>
                       tabController: tabController,
                       tabList: const ['Overview', 'Coins', 'Swap']),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      shape: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12))),
-                      backgroundColor: Theme.of(context).colorScheme.onSurface,
-                      context: context,
-                      builder: (context) => const OverviewFilters(),
-                    );
-                  },
-                  child: Image.asset(
-                    Assets.imagesFilter,
-                    height: 20.h,
-                    width: 20.w,
-                  ),
-                ),
+                cubit.selectedTabIndex == 1
+                    ? GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: const OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    topRight: Radius.circular(12))),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                            context: context,
+                            builder: (context) => const OverviewFilters(),
+                          );
+                        },
+                        child: Image.asset(
+                          Assets.imagesFilter,
+                          height: 20.h,
+                          width: 20.w,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
                 width(20.w)
               ],
             ),

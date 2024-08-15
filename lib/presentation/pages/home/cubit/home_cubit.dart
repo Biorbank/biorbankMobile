@@ -16,11 +16,94 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitialState());
 
   TextEditingController searchController = TextEditingController();
+  TextEditingController networkController = TextEditingController();
+  TextEditingController collectionController = TextEditingController();
 
   String selectedChartTimePeriod = '1W';
   ActionEnum? selectedOption;
   List<String> chartTimePeriod = ['1W', 'MTD', '1M', 'YTD', '1Y', 'ALL'];
   int tabIndex = 0;
+
+  List<Map<String, dynamic>> marketStatusList = [
+    {
+      'name': "Listed",
+      "value": false,
+    },
+    {
+      'name': "Has Offer",
+      "value": false,
+    },
+    {
+      'name': "Not Listed",
+      "value": false,
+    },
+  ];
+
+  List<Map<String, dynamic>> optionsList = [
+    {
+      "name": 'Hide unverified NFTs',
+      "value": false,
+    },
+    {
+      "name": 'Hide Low value NFTs',
+      "value": false,
+    },
+    {
+      "name": 'Show Manually Hidden NFTs',
+      "value": false,
+    }
+  ];
+
+  List<Map<String, dynamic>> collectionsList = [
+    {
+      "img":
+          "https://i.seadn.io/s/raw/files/4ee7ead8ab3941cad1e94f080ce27d56.png?auto=format&dpr=1&w=1000",
+      "name": 'MyPetHooligan',
+      "value": false,
+    },
+    {
+      "img":
+          "https://i.seadn.io/s/raw/files/4ee7ead8ab3941cad1e94f080ce27d56.png?auto=format&dpr=1&w=1000",
+      "name": 'Bored Ape Yacht Club',
+      "value": false,
+    },
+    {
+      "img":
+          "https://i.seadn.io/s/raw/files/4ee7ead8ab3941cad1e94f080ce27d56.png?auto=format&dpr=1&w=1000",
+      "name": 'Unstoppable Domains - (Polygon)',
+      "value": false,
+    }
+  ];
+
+  resetFilter() {
+    for (int i = 0; i < marketStatusList.length; i++) {
+      marketStatusList[i]["value"] = false;
+    }
+    for (int i = 0; i < optionsList.length; i++) {
+      optionsList[i]["value"] = false;
+    }
+    for (int i = 0; i < collectionsList.length; i++) {
+      collectionsList[i]["value"] = false;
+    }
+  }
+
+  void updateMarketStatusList({required int index, required bool value}) {
+    emit(MarketStatusLoadingState());
+    marketStatusList[index]['value'] = value;
+    emit(MarketStatusChangeState(marketStatus: marketStatusList));
+  }
+
+  void updateOptionsList({required int index, required bool value}) {
+    emit(OptionLoadingState());
+    optionsList[index]['value'] = value;
+    emit(OptionChangeState(option: List.from(optionsList)));
+  }
+
+  void updateCollectionsList({required int index, required bool value}) {
+    emit(CollectionLoadingState());
+    collectionsList[index]['value'] = value;
+    emit(CollectionChangeState(collection: List.from(collectionsList)));
+  }
 
   void onChangeChartTimePeriod({required String value}) {
     emit(ChartTimePeriodState(value: value));

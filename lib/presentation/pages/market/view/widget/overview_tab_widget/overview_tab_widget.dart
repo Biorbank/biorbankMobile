@@ -1,5 +1,4 @@
 import 'package:biorbank/generated/assets.dart';
-import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/widget/eth_gas_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/widget/greed_index_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/overview_tab_widget/widget/options_volality_widget.dart';
@@ -59,57 +58,29 @@ class OverviewWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AppConstant.commonText('2,508.98 USDT',
+                    AppConstant.commonText('Crypto Market Cap',
+                        fontSize: 12.sp,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer),
+                    AppConstant.commonText('3.46T',
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,
                         color: Theme.of(context).colorScheme.shadow),
-                    Row(
-                      children: [
-                        Transform.rotate(
-                          angle: 1.56,
-                          child: Image.asset(
-                            Assets.imagesSwapArrow,
-                            height: 14.h,
-                            width: 14.w,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer,
-                          ),
-                        ),
-                        width(6.w),
-                        AppConstant.commonText('\$3,376.57',
-                            fontSize: 12.sp,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer),
-                        Icon(
-                          Icons.arrow_drop_up_rounded,
-                          size: 26,
-                          color: Theme.of(context).colorScheme.onInverseSurface,
-                        ),
-                        AppConstant.commonText('0.54%',
-                            fontSize: 12.sp,
-                            color:
-                                Theme.of(context).colorScheme.onInverseSurface)
-                      ],
-                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 35.h,
-                  width: 77.w,
-                  child: CommonButton(
-                    name: 'Buy',
-                    buttonColor: Theme.of(context).colorScheme.onPrimary,
-                    borderRadius: 30,
-                    onTap: () {},
-                  ),
-                )
+                const Spacer(),
+                Icon(
+                  Icons.arrow_drop_up_rounded,
+                  size: 26,
+                  color: Theme.of(context).colorScheme.onInverseSurface,
+                ),
+                AppConstant.commonText('0.54%',
+                    fontSize: 12.sp,
+                    color: Theme.of(context).colorScheme.onInverseSurface),
               ],
             ),
           ),

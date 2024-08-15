@@ -192,6 +192,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const PaymentProcessScreen(),
       );
     },
+    PriceAlertRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PriceAlertScreen(),
+      );
+    },
     SendMoneyRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -672,6 +678,20 @@ class PaymentProcessRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'PaymentProcessRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PriceAlertScreen]
+class PriceAlertRoute extends PageRouteInfo<void> {
+  const PriceAlertRoute({List<PageRouteInfo>? children})
+      : super(
+          PriceAlertRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PriceAlertRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

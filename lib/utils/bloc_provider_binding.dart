@@ -17,6 +17,7 @@ import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/nft_holding/cubit/nft_holding_cubit.dart';
 import 'package:biorbank/presentation/pages/p2p/cubit/p2p_market_cubit.dart';
 import 'package:biorbank/presentation/pages/pay_bills/cubit/pay_bills_cubit.dart';
+import 'package:biorbank/presentation/pages/price_alert/cubit/price_alert_cubit.dart';
 import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
 import 'package:biorbank/presentation/pages/token_page/cubit/token_cubit.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,9 @@ class MultiBlocProviderList extends StatelessWidget {
         BlocProvider<HistoryCubit>(
           create: (BuildContext context) => HistoryCubit(),
         ),
-
+        BlocProvider<PriceAlertCubit>(
+          create: (BuildContext context) => PriceAlertCubit(),
+        ),
       ],
       child: child,
     );

@@ -40,6 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             const ContactRoute(),
             const FeedbackRoute(),
             const DebitCardRoute(),
+            // const PriceAlertRoute(),
             const HelpCenterRoute(),
             const P2pMarketRoute(),
             const HistoryRoute(),

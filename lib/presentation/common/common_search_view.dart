@@ -6,8 +6,8 @@ import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-@RoutePage()
 
+@RoutePage()
 class CommonSearchScreen extends StatefulWidget {
   const CommonSearchScreen({super.key});
 
@@ -18,6 +18,7 @@ class CommonSearchScreen extends StatefulWidget {
 class _CommonSearchViewState extends State<CommonSearchScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+
   @override
   void initState() {
     tabController = TabController(length: 5, vsync: this);

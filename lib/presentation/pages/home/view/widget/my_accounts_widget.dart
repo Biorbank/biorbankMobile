@@ -28,7 +28,6 @@ class MyAccountsWidget extends StatelessWidget {
                 height(40.h),
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
-                  onTapTextField: () {},
                 ),
                 height(10.h),
               ],

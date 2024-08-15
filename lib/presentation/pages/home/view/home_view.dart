@@ -8,7 +8,6 @@ import 'package:biorbank/presentation/pages/home/view/widget/chart_time_period_w
 import 'package:biorbank/presentation/pages/home/view/widget/chart_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/share_detail_tab_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final DraggableScrollableController _draggableController =
       DraggableScrollableController();
-  double _currentExtent = 0.3;
+  double _currentExtent = 0.33;
 
   @override
   void initState() {
@@ -59,8 +58,18 @@ class _HomeScreenState extends State<HomeScreen> {
         var cubit = context.read<HomeCubit>();
         if (state is TradeOptionChnageState) {
           cubit.selectedOption = state.value;
-        } else if (state is ChartTimePeriodState) {
+        }
+        else if (state is ChartTimePeriodState) {
           cubit.selectedChartTimePeriod = state.value;
+        }
+        else if (state is MarketStatusChangeState) {
+          cubit.marketStatusList = state.marketStatus;
+        }
+        else if (state is OptionChangeState) {
+          cubit.optionsList = state.option;
+        }
+        else if (state is CollectionChangeState) {
+          cubit.collectionsList = state.collection;
         }
         return Stack(
           children: [
@@ -81,10 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               hintText: 'ID/USDT',
                               textController:
                                   context.read<HomeCubit>().searchController,
-                              onTapTextField: () {
-                                context.router.push(const CommonSearchRoute());
-                                //  Navigator.pushNamed(context, Routes.serachViewRoute);
-                              },
+                              // onTapTextField: () {
+                              //   context.router.push(const CommonSearchRoute());
+                              //   //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                              // },
                             ),
                             height(10.h),
                             _currentExtent >= 0.6
@@ -144,13 +153,13 @@ class _HomeScreenState extends State<HomeScreen> {
               visible: cubit.selectedOption == null,
               child: DraggableScrollableSheet(
                 controller: _draggableController,
-                initialChildSize: 0.3,
-                minChildSize: 0.3,
+                initialChildSize: 0.33,
+                minChildSize: 0.33,
                 maxChildSize: 0.7,
                 builder: (context, scrollController) {
                   return Container(
                     decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onSurface,
+                        color: Theme.of(context).colorScheme.onSecondary,
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(24),
                             topRight: Radius.circular(24))),

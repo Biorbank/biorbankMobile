@@ -53,7 +53,6 @@ class _DebitCardScreenState extends State<DebitCardScreen>
                     height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
                     ),
                   ],

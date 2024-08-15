@@ -77,7 +77,6 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
                     height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
                     ),
                   ],

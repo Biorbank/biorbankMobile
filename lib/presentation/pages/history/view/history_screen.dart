@@ -32,7 +32,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 height(40.h),
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
-                  onTapTextField: () {},
                 ),
                 height(10.h),
                 Row(

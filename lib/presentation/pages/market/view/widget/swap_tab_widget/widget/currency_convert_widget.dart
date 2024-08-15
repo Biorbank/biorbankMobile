@@ -18,13 +18,24 @@ class CurrencyConvertWidget extends StatelessWidget {
     return BlocBuilder<MarketCubit, MarketState>(
       builder: (context, state) {
         var cubit = context.read<MarketCubit>();
+
         if (state is CurrncySelectedState) {
           cubit.selectedCurrency = state.currency;
         } else if (state is ReceiveCurrncySelectedState) {
           cubit.selectedReceiveCurrency = state.currency;
         }
+
+        final selectedCurrency =
+            cubit.currencyList.contains(cubit.selectedCurrency)
+                ? cubit.selectedCurrency
+                : cubit.currencyList.first;
+        final selectedReceiveCurrency =
+            cubit.receiveCurrencyList.contains(cubit.selectedReceiveCurrency)
+                ? cubit.selectedReceiveCurrency
+                : cubit.receiveCurrencyList[1];
+
         return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,7 +58,7 @@ class CurrencyConvertWidget extends StatelessWidget {
                       ),
                       CommonDropdownWidget(
                         labelText: '',
-                        value: cubit.selectedCurrency,
+                        value: selectedCurrency,
                         borderRadius: 8,
                         height: 40.h,
                         items: cubit.currencyList
@@ -64,14 +75,16 @@ class CurrencyConvertWidget extends StatelessWidget {
                                     ),
                                     width(8.w),
                                     AppConstant.commonText(e.name,
-                                        color:
-                                            Theme.of(context).colorScheme.shadow,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .shadow,
                                         fontSize: 12.sp,
                                         fontWeight: FontWeight.w600),
                                   ],
                                 )))
                             .toList(),
-                        backGroundColor: Theme.of(context).colorScheme.onSurface,
+                        backGroundColor:
+                            Theme.of(context).colorScheme.onSurface,
                         onChanged: (value) {
                           cubit.onSelectCurrency(currency: value);
                         },
@@ -81,6 +94,7 @@ class CurrencyConvertWidget extends StatelessWidget {
                 ),
               ),
               height(15.h),
+              // Swap arrow
               Center(
                 child: Container(
                   height: 32.h,
@@ -102,6 +116,7 @@ class CurrencyConvertWidget extends StatelessWidget {
                 ),
               ),
               height(15.h),
+              // Receive amount and currency dropdown
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -113,8 +128,9 @@ class CurrencyConvertWidget extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w500,
-                          color:
-                              Theme.of(context).colorScheme.onSecondaryContainer),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer),
                       children: [
                         TextSpan(
                             text: '0',
@@ -140,7 +156,7 @@ class CurrencyConvertWidget extends StatelessWidget {
                         color: Theme.of(context).colorScheme.outline),
                     CommonDropdownWidget(
                       labelText: '',
-                      value: cubit.selectedReceiveCurrency,
+                      value: selectedReceiveCurrency,
                       borderRadius: 8,
                       height: 40.h,
                       items: cubit.receiveCurrencyList
@@ -157,7 +173,8 @@ class CurrencyConvertWidget extends StatelessWidget {
                                   ),
                                   width(8.w),
                                   AppConstant.commonText(e.name,
-                                      color: Theme.of(context).colorScheme.shadow,
+                                      color:
+                                          Theme.of(context).colorScheme.shadow,
                                       fontSize: 12.sp,
                                       fontWeight: FontWeight.w600),
                                 ],

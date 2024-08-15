@@ -1,9 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
+import 'package:biorbank/presentation/common/common_bell_bottom_sheet.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../utils/routers/auto_app_router.dart';
 
 class CommonSearchAppbar extends StatelessWidget {
   const CommonSearchAppbar(
@@ -65,7 +69,10 @@ class CommonSearchAppbar extends StatelessWidget {
                 visible: isVisibleTextField,
                 child: Expanded(
                   child: GestureDetector(
-                    onTap: onTapTextField,
+                    onTap: onTapTextField ??
+                        () {
+                          context.router.push(const CommonSearchRoute());
+                        },
                     child: AbsorbPointer(
                       absorbing: true,
                       child: CommonTextfield(
@@ -111,7 +118,25 @@ class CommonSearchAppbar extends StatelessWidget {
             ),
             width(15.w),
             GestureDetector(
-              onTap: onTapBellIcon,
+              onTap: onTapBellIcon ??
+                  () {
+                    showModalBottomSheet(
+                      context: context,
+                      useRootNavigator: true,
+                      scrollControlDisabledMaxHeightRatio: 2 / 5,
+                      shape: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          topLeft: Radius.circular(12),
+                        ),
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.onSurface,
+                      builder: (context) {
+                        return CommonBellBottomSheet();
+                      },
+                    );
+                  },
               child: Image.asset(Assets.imagesNotification,
                   height: 24.h,
                   width: 24.w,

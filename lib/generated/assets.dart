@@ -11,6 +11,7 @@ class Assets {
   static const String imagesArrowUp = 'assets/images/arrow_up.png';
   static const String imagesBackArrow = 'assets/images/back_arrow.png';
   static const String imagesBackupLine = 'assets/images/backup_line.png';
+  static const String imagesBellEmpty = 'assets/images/bell_empty.png';
   static const String imagesBitcoin = 'assets/images/bitcoin.png';
   static const String imagesBitcoinRefresh = 'assets/images/bitcoin_refresh.png';
   static const String imagesBook = 'assets/images/book.png';
