@@ -32,6 +32,7 @@ class P2pMarketScreen extends StatelessWidget {
         } else if (state is LimitSheetStatus) {
           cubit.isOpenLimitSheet = state.isOpen;
         }
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

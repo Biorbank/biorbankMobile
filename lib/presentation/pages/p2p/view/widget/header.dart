@@ -30,6 +30,17 @@ class P2PHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<P2pMarketCubit>();
+
+    final selectedCurrency =
+    cubit.currencyList.contains(cubit.selectedCurrency)
+        ? cubit.selectedCurrency
+        : cubit.currencyList.first;
+    final selectedCountry =
+    cubit.countryList.contains(cubit.selectedCountry)
+        ? cubit.selectedCountry
+        : cubit.countryList.first;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -62,6 +73,7 @@ class P2PHeader extends StatelessWidget {
               //     size: 20,
               //   ),
               // ),
+              width(MediaQuery.of(context).size.width * 0.05),
               CommonDropdownWidget(
                 labelText: '',
                 value: 'P2P',

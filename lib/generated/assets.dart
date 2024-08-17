@@ -11,6 +11,7 @@ class Assets {
   static const String imagesArrowUp = 'assets/images/arrow_up.png';
   static const String imagesBackArrow = 'assets/images/back_arrow.png';
   static const String imagesBackupLine = 'assets/images/backup_line.png';
+  static const String imagesBank = 'assets/images/bank.png';
   static const String imagesBellEmpty = 'assets/images/bell_empty.png';
   static const String imagesBitcoin = 'assets/images/bitcoin.png';
   static const String imagesBitcoinRefresh = 'assets/images/bitcoin_refresh.png';
@@ -36,8 +37,10 @@ class Assets {
   static const String imagesContactLine = 'assets/images/contact_line.png';
   static const String imagesCopy = 'assets/images/copy.png';
   static const String imagesCopyRounded = 'assets/images/copy_rounded.png';
+  static const String imagesCryptoAddress = 'assets/images/crypto_address.png';
   static const String imagesDanger = 'assets/images/danger.png';
   static const String imagesDay = 'assets/images/day.png';
+  static const String imagesDebitCard = 'assets/images/debit_card.png';
   static const String imagesDebitCardLine = 'assets/images/debit_card_line.png';
   static const String imagesDefi = 'assets/images/defi.png';
   static const String imagesDefiSelected = 'assets/images/defi_selected.png';
