@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final DraggableScrollableController _draggableController =
       DraggableScrollableController();
   double _currentExtent = 0.33;
-
+ double bottomsheetInitialize=0;
   @override
   void initState() {
     context.read<HomeCubit>().onTapeTradeActionOption(value: null);
@@ -36,8 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
       double extent = _draggableController.size;
 
       if (_currentExtent != extent) {
-        setState(() {
-          _currentExtent = extent;
+        WidgetsBinding.instance.addPostFrameCallback((t){
+          setState(() {
+            _currentExtent = extent;
+          });
         });
 
         if (_currentExtent >= 0.6) {}
@@ -85,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            height(40.h),
+                            height(45.h),
                             CommonSearchAppbar(
                               hintText: 'ID/USDT',
                               textController:
@@ -146,15 +148,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Expanded(
-                    child: cubit.getActionScreen(value: cubit.selectedOption))
+                  child: LayoutBuilder(
+                    builder: (context,constraint) {
+                      print('Contsrint== ${constraint.minHeight}');
+                      WidgetsBinding.instance.addPostFrameCallback((a){
+                        bottomsheetInitialize=constraint.minHeight+52.h;
+                      });
+                      return cubit.getActionScreen(value: cubit.selectedOption);
+                    }
+                  ),
+                )
               ],
             ),
             Visibility(
               visible: cubit.selectedOption == null,
               child: DraggableScrollableSheet(
                 controller: _draggableController,
-                initialChildSize: 0.33,
-                minChildSize: 0.33,
+                initialChildSize: bottomsheetInitialize/MediaQuery.of(context).size.height,
+                minChildSize: bottomsheetInitialize/MediaQuery.of(context).size.height,
                 maxChildSize: 0.7,
                 builder: (context, scrollController) {
                   return Container(
