@@ -4,6 +4,7 @@ import 'package:biorbank/presentation/common/common_crypto_detail_tile.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -83,7 +84,9 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
                   itemCount: 10,
                   itemBuilder: (context, index) => CommonCryptoDetailTile(
                       context: context,
-                      onTap: () {},
+                      onTap: () {
+                        context.router.push(const TokenRoute());
+                      },
                       contentPadding: const EdgeInsets.only(left: 8),
                       coinName: 'Ethereum',
                       coinImageUrl:

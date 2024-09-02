@@ -9,6 +9,8 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   int selectedBottomTabIndex = 4;
 
+  int selectItem = 1;
+
   // List<Widget> bottomTabViews = [
   //   const DefiScreen(),
   //   const MarketScreen(),

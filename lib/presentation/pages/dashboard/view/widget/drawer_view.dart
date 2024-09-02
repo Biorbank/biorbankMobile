@@ -12,6 +12,8 @@ import '../../../../../generated/assets.dart';
 import '../../../../../utils/Theme/app_colors.dart';
 import '../../../../../utils/global.dart';
 import '../../../../../utils/routers/auto_app_router.dart';
+import '../../../browser/defi_details_page/cubit/defi_detail_cubit.dart';
+import '../../../market/cubit/market_cubit.dart';
 import '../../cubit/dashboard_cubit.dart';
 
 class DrawerView extends StatefulWidget {
@@ -24,10 +26,10 @@ class DrawerView extends StatefulWidget {
 }
 
 class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
-  int selectItem = 1;
-
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<DashboardCubit>();
+
     return Padding(
       padding: const EdgeInsets.only(left: 32),
       child: Column(
@@ -83,9 +85,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesHomeFill,
-                    isSelected: selectItem == 1,
+                    isSelected: cubit.selectItem == 1,
                     onTap: () {
-                      selectItem = 1;
+                      cubit.selectItem = 1;
                       Future.delayed(const Duration(milliseconds: 200), () {
                         AutoTabsRouter.of(context).setActiveIndex(4);
                       });
@@ -97,9 +99,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesContactLine,
-                    isSelected: selectItem == 2,
+                    isSelected: cubit.selectItem == 2,
                     onTap: () {
-                      selectItem = 2;
+                      cubit.selectItem = 2;
                       Future.delayed(const Duration(milliseconds: 200), () {
                         AutoTabsRouter.of(context).setActiveIndex(5);
                       });
@@ -114,9 +116,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesFeedbackLine,
-                    isSelected: selectItem == 3,
+                    isSelected: cubit.selectItem == 3,
                     onTap: () {
-                      selectItem = 3;
+                      cubit.selectItem = 3;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
@@ -129,18 +131,18 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesHoldingLine,
-                    isSelected: selectItem == 4,
+                    isSelected: cubit.selectItem == 4,
                     onTap: () {
-                      selectItem = 4;
+                      cubit.selectItem = 4;
                     },
                     title: AppStrings.holdings,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesDebitCardLine,
-                    isSelected: selectItem == 5,
+                    isSelected: cubit.selectItem == 5,
                     onTap: () {
-                      selectItem = 5;
+                      cubit.selectItem = 5;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
@@ -152,9 +154,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesPriceAlertLine,
-                    isSelected: selectItem == 6,
+                    isSelected: cubit.selectItem == 6,
                     onTap: () {
-                      selectItem = 6;
+                      cubit.selectItem = 6;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
@@ -173,36 +175,54 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesSwapLine,
-                    isSelected: selectItem == 7,
+                    isSelected: cubit.selectItem == 7,
                     onTap: () {
-                      selectItem = 7;
+                      cubit.selectItem = 7;
+                      Global.controller.hideDrawer();
+                      Global.scaffoldKey.currentState?.closeDrawer();
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        context.read<MarketCubit>().selectedTabIndex = 2;
+                        AutoTabsRouter.of(context).setActiveIndex(1);
+                      });
                     },
                     title: AppStrings.swap,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesStakingLine,
-                    isSelected: selectItem == 8,
+                    isSelected: cubit.selectItem == 8,
                     onTap: () {
-                      selectItem = 8;
+                      cubit.selectItem = 8;
+                      Global.controller.hideDrawer();
+                      Global.scaffoldKey.currentState?.closeDrawer();
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        context.read<DefiDetailCubit>().selectedTabIndex = 1;
+                        AutoTabsRouter.of(context).setActiveIndex(0);
+                      });
                     },
                     title: AppStrings.staking,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesTakeALoanLine,
-                    isSelected: selectItem == 9,
+                    isSelected: cubit.selectItem == 9,
                     onTap: () {
-                      selectItem = 9;
+                      cubit.selectItem = 9;
+                      Global.controller.hideDrawer();
+                      Global.scaffoldKey.currentState?.closeDrawer();
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        context.read<DefiDetailCubit>().selectedTabIndex = 2;
+                        AutoTabsRouter.of(context).setActiveIndex(0);
+                      });
                     },
                     title: AppStrings.takeALoan,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesP2pMarketLine,
-                    isSelected: selectItem == 10,
+                    isSelected: cubit.selectItem == 10,
                     onTap: () {
-                      selectItem = 10;
+                      cubit.selectItem = 10;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
@@ -215,9 +235,9 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesCalendar,
-                    isSelected: selectItem == 11,
+                    isSelected: cubit.selectItem == 11,
                     onTap: () {
-                      selectItem = 11;
+                      cubit.selectItem = 11;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
@@ -230,18 +250,18 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesSettingsLine,
-                    isSelected: selectItem == 12,
+                    isSelected: cubit.selectItem == 12,
                     onTap: () {
-                      selectItem = 12;
+                      cubit.selectItem = 12;
                     },
                     title: AppStrings.settings,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesHelpCenterLine,
-                    isSelected: selectItem == 13,
+                    isSelected: cubit.selectItem == 13,
                     onTap: () {
-                      selectItem = 13;
+                      cubit.selectItem = 13;
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
@@ -253,18 +273,18 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                   _buildItems(
                     context: context,
                     icon: Assets.imagesSupportLine,
-                    isSelected: selectItem == 14,
+                    isSelected: cubit.selectItem == 14,
                     onTap: () {
-                      selectItem = 14;
+                      cubit.selectItem = 14;
                     },
                     title: AppStrings.support,
                   ),
                   _buildItems(
                     context: context,
                     icon: Assets.imagesBackupLine,
-                    isSelected: selectItem == 15,
+                    isSelected: cubit.selectItem == 15,
                     onTap: () {
-                      selectItem = 15;
+                      cubit.selectItem = 15;
                     },
                     title: AppStrings.backUp,
                     switchWidget: BlocBuilder<DashboardCubit, DashboardState>(

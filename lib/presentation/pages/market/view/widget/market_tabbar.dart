@@ -11,25 +11,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MarketTabbar extends StatefulWidget {
-  const MarketTabbar({super.key});
+  final TabController tabController;
+
+  const MarketTabbar({super.key, required this.tabController});
 
   @override
   State<MarketTabbar> createState() => _MarketTabbarState();
 }
 
-class _MarketTabbarState extends State<MarketTabbar>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
-
-  @override
-  void initState() {
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() {
-      context.read<MarketCubit>().onChangeTabIndex(index: tabController.index);
-    });
-    super.initState();
-  }
-
+class _MarketTabbarState extends State<MarketTabbar> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MarketCubit, MarketState>(
@@ -45,20 +35,21 @@ class _MarketTabbarState extends State<MarketTabbar>
               children: [
                 Expanded(
                   child: CommonTabbar(
-                      isShowBackground: true,
-                      indicatorColor: Theme.of(context).colorScheme.onPrimary,
-                      labelPadding:
-                          const EdgeInsets.only(bottom: 10, top: 6, right: 30),
-                      isScrollable: true,
-                      padding: const EdgeInsets.only(left: 20),
-                      tabBarIndicatorSize: TabBarIndicatorSize.label,
-                      tabAlignment: TabAlignment.start,
-                      selectedIndex: cubit.selectedTabIndex,
-                      labelFontWight: FontWeight.w500,
-                      length: 3,
-                      onTap: (index) {},
-                      tabController: tabController,
-                      tabList: const ['Overview', 'Coins', 'Swap']),
+                    isShowBackground: true,
+                    indicatorColor: Theme.of(context).colorScheme.onPrimary,
+                    labelPadding:
+                        const EdgeInsets.only(bottom: 10, top: 6, right: 30),
+                    isScrollable: true,
+                    padding: const EdgeInsets.only(left: 20),
+                    tabBarIndicatorSize: TabBarIndicatorSize.label,
+                    tabAlignment: TabAlignment.start,
+                    selectedIndex: cubit.selectedTabIndex,
+                    labelFontWight: FontWeight.w500,
+                    length: 3,
+                    onTap: (index) {},
+                    tabController: widget.tabController,
+                    tabList: const ['Overview', 'Coins', 'Swap'],
+                  ),
                 ),
                 cubit.selectedTabIndex == 1
                     ? GestureDetector(
@@ -66,10 +57,12 @@ class _MarketTabbarState extends State<MarketTabbar>
                           showModalBottomSheet(
                             isScrollControlled: true,
                             shape: const OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(12),
-                                    topRight: Radius.circular(12))),
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                            ),
                             backgroundColor:
                                 Theme.of(context).colorScheme.onSurface,
                             context: context,
@@ -87,11 +80,14 @@ class _MarketTabbarState extends State<MarketTabbar>
               ],
             ),
             Expanded(
-              child: TabBarView(controller: tabController, children: const [
-                OverviewWidget(),
-                CoinsTabWidget(),
-                SwapTabWidget()
-              ]),
+              child: TabBarView(
+                controller: widget.tabController,
+                children: const [
+                  OverviewWidget(),
+                  CoinsTabWidget(),
+                  SwapTabWidget()
+                ],
+              ),
             )
           ],
         );
