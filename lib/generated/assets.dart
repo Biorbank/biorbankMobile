@@ -126,5 +126,6 @@ class Assets {
   static const String svgsHeaderIcon = 'assets/svgs/header_icon.svg';
   static const String svgsSetting = 'assets/svgs/setting.svg';
   static const String svgsSplashIcon = 'assets/svgs/splash_icon.svg';
+  static const String imagesPlusCircle = 'assets/images/plus_circle.png';
 
 }

@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/common_trade_action_widget.dart';
+import 'widget/asset_token_page.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
@@ -150,9 +151,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: LayoutBuilder(
                     builder: (context,constraint) {
-                      print('Contsrint== ${constraint.minHeight}');
                       WidgetsBinding.instance.addPostFrameCallback((a){
-                        bottomsheetInitialize=constraint.minHeight+52.h;
+                        setState(() {
+                        bottomsheetInitialize=constraint.minHeight+52.h;                         
+                        });
                       });
                       return cubit.getActionScreen(value: cubit.selectedOption);
                     }
@@ -166,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 controller: _draggableController,
                 initialChildSize: bottomsheetInitialize/MediaQuery.of(context).size.height,
                 minChildSize: bottomsheetInitialize/MediaQuery.of(context).size.height,
-                maxChildSize: 0.7,
+                maxChildSize: 0.7.h,
                 builder: (context, scrollController) {
                   return Container(
                     decoration: BoxDecoration(
@@ -174,7 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(24),
                             topRight: Radius.circular(24))),
-                    child: ShareDetailsTabWidget(
+                    child:
+                     _currentExtent >= 0.6?AssetsTokenView(scrollController: scrollController,)
+                    : ShareDetailsTabWidget(
                       scrollController: scrollController,
                     ),
                   );
