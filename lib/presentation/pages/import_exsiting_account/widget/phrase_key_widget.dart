@@ -34,7 +34,7 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AppConstant.commonText('Recovery Pharse or Private Key',
+                      AppConstant.commonText('Recovery Phrase or Private Key',
                           fontWeight: FontWeight.w500,
                           color: Theme.of(context).colorScheme.shadow),
                       Image.asset(
@@ -46,10 +46,11 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
                   ),
                   CommonTextfield(
                     title: '',
+                    controller: cubit.pharseKeyController,
                     validator: (value) {
                       return null;
                     },
-                    hintText: 'Type your recovery phrase or private key',
+                    hintText: 'Type your recovery pharse or private key',
                     maxLines: 5,
                   ),
                   CommonTextfield(
@@ -62,8 +63,8 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
                   ),
                   CommonTextfield(
                     title: 'Create Password',
-                    validator: (value) =>
-                        slugValidation(value: value, slug: 'Password', length: 8),
+                    validator: (value) => slugValidation(
+                        value: value, slug: 'Password', length: 8),
                     obscureText: cubit.isObscurePassword,
                     controller: cubit.createPasswordController,
                     hintText: 'At least 8 character in length',
@@ -72,7 +73,8 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
                     },
                     onChanged: (value) {},
                     suffixWidget: cubit.isObscurePassword
-                        ? Icon(Icons.visibility_outlined, color: AppColors.black)
+                        ? Icon(Icons.visibility_outlined,
+                            color: AppColors.black)
                         : Icon(Icons.visibility_off_outlined,
                             color: AppColors.black),
                   ),
@@ -90,7 +92,8 @@ class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
                     },
                     onChanged: (value) {},
                     suffixWidget: cubit.isObscureConfirmPassword
-                        ? Icon(Icons.visibility_outlined, color: AppColors.black)
+                        ? Icon(Icons.visibility_outlined,
+                            color: AppColors.black)
                         : Icon(Icons.visibility_off_outlined,
                             color: AppColors.black),
                   ),

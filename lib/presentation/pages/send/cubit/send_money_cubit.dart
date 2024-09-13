@@ -9,22 +9,25 @@ class SendMoneyCubit extends Cubit<SendMoneyState> {
   int sendTabIndex = 0;
   String? selectedAccount;
   String? selectedReceipent;
-  int activeStepIndex=0;
+  int activeStepIndex = 0;
   List<String> accountList = ['Account 1', 'Account 2', 'Account 3'];
   List<String> receipentList = ['Receipent 1', 'Receipent 2', 'Receipent 3'];
-    void onChangeTabIndex({required int index}) {
+  TextEditingController recipientAddressController = TextEditingController();
+  TextEditingController withdrawAmountController = TextEditingController();
+
+  void onChangeTabIndex({required int index}) {
     emit(SendMoneyTabIndexState(index: index));
   }
+
   void onChangeAccount({required String value}) {
     emit(SelectedAccountState(account: value));
   }
+
   void onChangeReceipent({required String value}) {
     emit(SelectedReceipentState(account: value));
   }
-  
-      void onChangeStepperIndex({required int index}) {
+
+  void onChangeStepperIndex({required int index}) {
     emit(StepperIndexState(index: index));
   }
-
-
 }

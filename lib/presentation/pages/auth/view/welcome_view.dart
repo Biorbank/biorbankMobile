@@ -5,12 +5,14 @@ import 'package:biorbank/presentation/pages/auth/widgets/common_topview.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
+import 'package:biorbank/utils/service/wallet_store_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:trustdart/trustdart.dart';
+// import 'package:trustdart/trustdart.dart';
 
 @RoutePage()
 class WelcomeScreen extends StatefulWidget {
@@ -21,11 +23,20 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  void generateTrustMnemonic(
+  void generateMnemonic(
       {required CreateAccountCubit cubit,
       required BuildContext context}) async {
-    String result = await Trustdart.generateMnemonic("");
-    cubit.setMnemonic(value: result);
+    late String seedPhrase;
+    //backup wallet
+    if (AppHelper.command == AppCommand.backupSeedPhrase) {
+      seedPhrase = AppHelper.walletService.currentWallet.seedPhrase;
+    }
+    //create wallet
+    else {
+      seedPhrase = WalletStoreService.generateMnemonic();
+    }
+
+    cubit.setMnemonic(value: seedPhrase);
     context.router.push(const CreateAccountRoute());
   }
 
@@ -51,9 +62,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         CommonButton(
                           name: "Create New Account",
                           onTap: () {
-                            generateTrustMnemonic(
-                                cubit: cubit, context: context);
-                            // context.router.push(const CreateAccountRoute());
+                            generateMnemonic(cubit: cubit, context: context);
+                            context.router.push(const CreateAccountRoute());
 
                             // Navigator.pushNamed(context, Routes.createAccountRoute);
                           },

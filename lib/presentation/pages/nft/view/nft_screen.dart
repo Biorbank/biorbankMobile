@@ -7,6 +7,7 @@ import 'package:biorbank/presentation/pages/nft/view/widget/item_tab_details.dar
 import 'package:biorbank/presentation/pages/nft/view/widget/nft_profile_details.dart';
 import 'package:biorbank/presentation/pages/nft/view/widget/nft_volume_details.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -33,7 +34,7 @@ class _NFTScreenState extends State<NFTScreen>
         if (!tabController.indexIsChanging) {
           setState(() {
             selectedIndex = tabController.index;
-            print('Current tab index: ${tabController.index}');
+            LogService.logger.i('Current tab index: ${tabController.index}');
           });
         }
       },

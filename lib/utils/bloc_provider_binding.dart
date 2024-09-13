@@ -19,12 +19,15 @@ import 'package:biorbank/presentation/pages/p2p/cubit/p2p_market_cubit.dart';
 import 'package:biorbank/presentation/pages/pay_bills/cubit/pay_bills_cubit.dart';
 import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
 import 'package:biorbank/presentation/pages/token_page/cubit/token_cubit.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MultiBlocProviderList extends StatelessWidget {
-  const MultiBlocProviderList({super.key, required this.child});
+  const MultiBlocProviderList(
+      {super.key, required this.child, required this.db});
 
+  final CryptoDBRepositoryImpl db;
   final Widget child;
 
   @override
@@ -34,6 +37,7 @@ class MultiBlocProviderList extends StatelessWidget {
         BlocProvider<AuthCubit>(
           create: (BuildContext context) => AuthCubit(),
         ),
+        BlocProvider<CryptoDBRepositoryImpl>(create: (_) => db),
         BlocProvider<CreateAccountCubit>(
           create: (BuildContext context) => CreateAccountCubit(),
         ),
@@ -94,7 +98,6 @@ class MultiBlocProviderList extends StatelessWidget {
         BlocProvider<HistoryCubit>(
           create: (BuildContext context) => HistoryCubit(),
         ),
-
       ],
       child: child,
     );

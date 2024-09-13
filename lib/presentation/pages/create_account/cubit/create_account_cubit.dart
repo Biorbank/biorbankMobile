@@ -4,8 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../../utils/global.dart';
-
 part 'create_account_state.dart';
 
 class CreateAccountCubit extends Cubit<CreateAccountState> {

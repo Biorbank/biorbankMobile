@@ -1,14 +1,27 @@
+import 'dart:math';
+
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
+import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/helpers/toast_helper.dart';
+import 'package:biorbank/utils/models/transaction_detail_model.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
+import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:web3dart/web3dart.dart';
 
 import '../../../../common/common_button.dart';
+
+import 'package:http/http.dart' as http;
 
 class CryptoStepper extends StatelessWidget {
   const CryptoStepper({
@@ -122,6 +135,7 @@ class CryptoStepper extends StatelessWidget {
                               width: 16.w,
                               fit: BoxFit.cover,
                             ),
+                            controller: cubit.recipientAddressController,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -245,6 +259,7 @@ class CryptoStepper extends StatelessWidget {
                               fontWeight: FontWeight.w500,
                               color: Theme.of(context).colorScheme.shadow))
                     ])),
+                controller: cubit.withdrawAmountController,
               ),
               height(6.h),
               Row(
@@ -327,7 +342,76 @@ class CryptoStepper extends StatelessWidget {
               height(20.h),
               CommonButton(
                 name: 'Withdraw',
-                onTap: () {},
+                onTap: () async {
+                  try {
+                    double sendAmount = double.parse(
+                        cubit.withdrawAmountController.text == ""
+                            ? "0"
+                            : cubit.withdrawAmountController.text);
+
+                    CryptoDBRepositoryImpl db =
+                        context.read<CryptoDBRepositoryImpl>();
+
+                    CryptoAssetRepositoryImpl usdterc20 = db.state.assetList
+                        .firstWhere((asset) =>
+                            asset.getAsset().tokenId ==
+                            "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0");
+
+                    String txid = await usdterc20.sendBalance(
+                        sendAmount, cubit.recipientAddressController.text);
+
+                    LogService.logger
+                        .i("===========transaction id=========== ${txid}");
+                    successToast("Trnx: ${txid}");
+                    return;
+
+                    /* 
+                    // ! We use ERC20 for all other chains
+                    final erc20AbiString =
+                        await rootBundle.loadString('assets/abi/ERC-20.json');
+
+                    ContractAbi? _erc20Abi =
+                        ContractAbi.fromJson(erc20AbiString, 'ERC20');
+                    final contract = DeployedContract(
+                        _erc20Abi,
+                        EthereumAddress.fromHex(
+                            "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0"));
+                    
+                    final ethAddress = EthereumAddress.fromHex(
+                        cubit.recipientAddressController.text);
+
+                    final tokenTransfertransaction = Transaction.callContract(
+                      contract: contract,
+                      function: contract.function('transfer'),
+                      parameters: <dynamic>[
+                        ethAddress,
+                        _convertToBigInt(sendAmount)
+                      ],
+                    );
+
+                    // Setup Web3 Client
+                    var httpClient = http.Client();
+
+                    final _wallet =
+                        AppHelper.walletService.currentWallet.ethwallet;
+
+                    final Credentials credentials =
+                        EthPrivateKey.fromHex(_wallet.privateKey);
+                    final Web3Client _web3client = Web3Client(
+                        "https://dimensional-dark-daylight.ethereum-sepolia.quiknode.pro/d8ea75dfa368b9d3331062d83efd4276af41d573",
+                        httpClient);
+                    final response = await _web3client.sendTransaction(
+                        credentials, tokenTransfertransaction,
+                        chainId: 11155111);
+                    LogService.logger.i("===========transaction id===========");
+                    LogService.logger.i(response);
+                    successToast("Trnx: ${response}"); */
+                  } catch (error) {
+                    // LogService.logger.e('_sendTokenTransaction', error);
+                    LogService.logger.i(error);
+                    rethrow;
+                  }
+                },
               ),
               height(60)
             ],
@@ -335,5 +419,28 @@ class CryptoStepper extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> addTransactionHistory(
+      BuildContext context,
+      CryptoDBRepositoryImpl db,
+      int assetIndex,
+      CryptoAssetRepositoryImpl asset,
+      String recipientAddressString,
+      double sendAmount,
+      String txHash) async {
+    await db.addTransactionHistory(
+        TransactionType.send,
+        txHash,
+        assetIndex,
+        asset.getAsset().networkId,
+        TransactionDetail(
+          amount: sendAmount,
+          from: asset.getPublicKey(),
+          to: recipientAddressString,
+        ),
+        TransactionStatus.pending, //TODO need change in the future
+        0,
+        DateTime.now());
   }
 }

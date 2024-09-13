@@ -5,7 +5,10 @@ import 'package:biorbank/presentation/pages/dashboard/cubit/dashboard_cubit.dart
 import 'package:biorbank/presentation/pages/dashboard/view/widget/drawer_view.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/global.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
+import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +24,27 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with TickerProviderStateMixin {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    migration();
+  }
+
+  Future<void> migration() async {
+    LogService.logger.i(
+        "Wallet - ${AppHelper.walletService.currentWallet.ethwallet.toJson()}");
+
+    bool isExist = AppHelper.walletService.isWalletExist;
+
+    if (isExist) {
+      if (context.mounted) {
+        CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+        await db.initRepo();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DashboardCubit, DashboardState>(

@@ -3,9 +3,13 @@ import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
 import 'package:biorbank/presentation/pages/create_account/widget/word_selector_dialog.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/db/db_wallet.dart';
+import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/preferences.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
+import 'package:biorbank/utils/service/logger_service.dart';
+import 'package:biorbank/utils/service/wallet_store_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -88,7 +92,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                   ),
                   CommonButton(
                     name: 'Next',
-                    onTap: () {
+                    onTap: () async {
                       if (cubit.isShowRecoveryPharseView) {
                         cubit.cleanTextFiledData();
                         cubit.updateView(
@@ -98,10 +102,26 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                         if (cubit.formKey.currentState?.validate() ?? false) {
                           UserPreferences.setUserData(
                               value: cubit.createPasswordController.text);
-                          BiorbankAccounts.insertAccount(Account(
-                              id: 0,
-                              name: cubit.accountNameTextController.text,
-                              mnemonic: cubit.mnemonic));
+
+                          Map map = {};
+                          map['seed_phrase'] = cubit.mnemonic;
+                          map['wallet_name'] =
+                              cubit.accountNameTextController.text;
+
+                          try {
+                            BiorBankWallet newWallet =
+                                await compute(generateNewWallet, map);
+                            await context
+                                .read<CryptoDBRepositoryImpl>()
+                                .storeWallet(newWallet);
+                          } catch (e) {
+                            LogService.logger.i(
+                                "==========GenerateNewWallet Error===========");
+                          }
+                          // BiorbankAccounts.insertAccount(Account(
+                          //     id: 0,
+                          //     name: cubit.accountNameTextController.text,
+                          //     mnemonic: cubit.mnemonic));
                           context.router.pushAndPopUntil(
                             const DashboardRoute(),
                             predicate: (route) => false,
