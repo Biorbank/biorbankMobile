@@ -34,11 +34,10 @@ class CommonCryptoDetailTile extends StatelessWidget {
         height: 50.h,
         child: Stack(
           children: [
-            CachedNetworkImage(
-              imageUrl: coinImageUrl,
-              height: 44.h,
-              width: 44.h,
-              placeholder: (context, url) => const SizedBox.shrink(),
+            Image.asset(
+              coinImageUrl,
+              height: 40.h,
+              width: 40.w,
             ),
             Visibility(
               visible: secondCoinUrl != null,

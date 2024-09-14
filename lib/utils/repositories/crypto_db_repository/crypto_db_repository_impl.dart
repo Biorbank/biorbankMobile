@@ -372,4 +372,27 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
     List<int> currentBlockHeight = await Future.wait(heightFutures);
     return currentBlockHeight;
   }
+
+  Future<CryptoAssetInformation?> getToken(
+      String tokenAddress, NetworkInformation networkInfo) async {
+    for (int i = 0; i < BlockchainService.instance.bhelpers.length; i++) {
+      BlockchainHelper bhelper = BlockchainService.instance.bhelpers[i];
+      if (bhelper.networkId == networkInfo.id) {
+        Map<String, dynamic> tokenInfo =
+            await bhelper.getTokenInformation(tokenAddress);
+
+        return CryptoAssetInformation(
+          type: AssetType.token,
+          tokenId: tokenAddress, // sepolia Ethereum USDT
+          name: tokenInfo["tokenName"],
+          symbol: tokenInfo["tokenSymbol"],
+          decimal: int.parse(tokenInfo["tokenDecimals"].toString()),
+          networkId: networkInfo.id,
+          cmcId: -1,
+          logo: "assets/img/cryptoicon/-1.png",
+        );
+      }
+    }
+    return null;
+  }
 }

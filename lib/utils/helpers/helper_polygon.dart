@@ -101,5 +101,10 @@ class PolygonHelper extends BlockchainHelper {
   }
 
   @override
+  Future<Map<String, dynamic>> getTokenInformation(String txHash) async {
+    return {};
+  }
+
+  @override
   int get networkId => 3;
 }

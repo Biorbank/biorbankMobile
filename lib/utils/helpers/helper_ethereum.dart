@@ -1,7 +1,11 @@
 import 'dart:convert';
 
+import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/helpers/blockchainhelper.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
+import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'package:web3dart/web3dart.dart';
 
 class EthereumHelper extends BlockchainHelper {
   EthereumHelper(super.model);
@@ -74,7 +78,7 @@ class EthereumHelper extends BlockchainHelper {
 
   @override
   Future<Map<String, dynamic>> getTransactionStatus(String txHash) async {
-    /*try {
+    /* try {
       var response = await TppApiService.instance.dio.get(
           "/api.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txhash=${txHash}");
       if (response.statusCode == 200) {
@@ -89,8 +93,32 @@ class EthereumHelper extends BlockchainHelper {
     } catch (err) {
       LogService.logger.e('EthereumHelper getTransactionStatus', err);
     }
-    return {"status": TransactionStatus.pending};*/
-    return {};
+    return {"status": TransactionStatus.pending}; */
+    try {
+      LogService.logger.i("Checking tx status - ${txHash}");
+      final client = Web3Client(
+          'https://dimensional-dark-daylight.ethereum-sepolia.quiknode.pro/d8ea75dfa368b9d3331062d83efd4276af41d573',
+          Client());
+      final TransactionReceipt? txReceipt =
+          await client.getTransactionReceipt(txHash);
+      if (txReceipt != null) {
+        // Check if the transaction was successful
+        if (txReceipt.status == false) {
+          print('Transaction failed');
+          return {"status": TransactionStatus.failed};
+        }
+        if (txReceipt.blockNumber == const BlockNum.pending()) {
+          print('Transaction is still pending');
+          return {"status": TransactionStatus.pending};
+        }
+        print('Transaction completed');
+        return {"status": TransactionStatus.completed, "networkFee": 0.0};
+      }
+    } catch (err) {
+      LogService.logger.e('EthereumHelper getTransactionStatus ${err}');
+    }
+    print('Transaction is still pending');
+    return {"status": TransactionStatus.pending};
   }
 
   static Future<int> getTransactionCountByAddress(String address) async {
@@ -104,6 +132,51 @@ class EthereumHelper extends BlockchainHelper {
       LogService.logger.e('EthereumHelper getTransactionCountByAddress', err);
     }*/
     return 0;
+  }
+
+  @override
+  Future<Map<String, dynamic>> getTokenInformation(String tokenAddress) async {
+    try {
+      LogService.logger.i("Checking tx status - ${tokenAddress}");
+      final client = Web3Client(
+          'https://dimensional-dark-daylight.ethereum-sepolia.quiknode.pro/d8ea75dfa368b9d3331062d83efd4276af41d573',
+          Client());
+      // ! We use ERC20 for all other chains
+      final erc20AbiString =
+          await rootBundle.loadString('assets/abi/ERC-20.json');
+
+      ContractAbi? _erc20Abi = ContractAbi.fromJson(erc20AbiString, 'ERC20');
+      final contract =
+          DeployedContract(_erc20Abi, EthereumAddress.fromHex(tokenAddress));
+
+      final tokenName = await client.call(
+        contract: contract,
+        function: contract.function('name'),
+        params: [],
+      );
+
+      final tokenSymbol = await client.call(
+        contract: contract,
+        function: contract.function('symbol'),
+        params: [],
+      );
+
+      final tokenDecimals = await client.call(
+        contract: contract,
+        function: contract.function('decimals'),
+        params: [],
+      );
+      LogService.logger.i("${tokenName} ${tokenSymbol} ${tokenDecimals}");
+      return {
+        "tokenName": tokenName.first,
+        "tokenSymbol": tokenSymbol.first,
+        "tokenDecimals": tokenDecimals.first
+      };
+    } catch (err) {
+      LogService.logger.e('EthereumHelper getTransactionStatus ${err}');
+      throw err;
+    }
+    return {};
   }
 
   @override

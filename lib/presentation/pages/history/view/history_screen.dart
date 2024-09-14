@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
+import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../generated/assets.dart';
 import '../../../../utils/app_widgets.dart';
@@ -19,6 +23,11 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryScreenState extends State<HistoryScreen> {
+  Future<void> refreshHandler() async {
+    await context.read<CryptoDBRepositoryImpl>().updateTransactionHistory();
+    // ignore: use_build_context_synchronously
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -135,76 +144,91 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
         ),
         Expanded(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24),
-                    child: AppConstant.commonText(
-                      "Transaction History",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Theme.of(context).colorScheme.shadow,
+          child: RefreshIndicator(
+            onRefresh: refreshHandler,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24),
+                      child: AppConstant.commonText(
+                        "Transaction History",
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).colorScheme.shadow,
+                      ),
                     ),
-                  ),
-                  _buildDateText(text: "12/31/2023", context: context),
-                  _buildRow(
-                      imgT: false,
-                      onTap: () {},
-                      icon: Assets.imagesArrowUp,
-                      typeName: "Sent",
-                      time: "3:48 PM",
-                      result: "-0.0922076 ETH",
-                      value: "-CAS280.44",
-                      context: context),
-                  _buildRow(
-                      imgT: false,
-                      onTap: () {},
-                      icon: Assets.imagesArrowDown,
-                      typeName: "Recivied",
-                      time: "3:48 PM",
-                      result: "+99.7830 FLIP",
-                      value: "-CAS280.44",
-                      context: context),
-                  height(12),
-                  _buildDateText(text: "12/24/2023", context: context),
-                  _buildRow(
-                      imgT: true,
-                      onTap: () {},
-                      img:
-                          "https://imgs.search.brave.com/gJJ2DXf7c2YPd4ycahYNJL8VPVNJzfps-iiLDeecNPw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wbmcu/cG5ndHJlZS5jb20v/cG5nLXZlY3Rvci8y/MDIzMTIwMi9vdXJt/aWQvcG5ndHJlZS1y/b3VuZGVkLXJhc3Rl/ci1pY29uLW9mLWEt/c21vb3RoLWJsdWUt/ZG9sbGFyLXN5bWJv/bC1pbi1wbmctaW1h/Z2VfMTA4NTA0MTYu/cG5n",
-                      typeName: "Fees",
-                      time: "3:48 PM",
-                      result: "-0.0922076 ETH",
-                      value: "-CAS280.44",
-                      context: context),
-                  _buildRow(
-                      imgT: false,
-                      onTap: () {},
-                      icon: Assets.imagesArrowDown,
-                      typeName: "Recivied",
-                      time: "3:48 PM",
-                      result: "+99.7830 FLIP",
-                      value: "-CAS280.44",
-                      context: context),
-                  _buildRow(
-                      imgT: false,
-                      onTap: () {},
-                      icon: Assets.imagesArrowUp,
-                      typeName: "Sent",
-                      time: "3:48 PM",
-                      result: "-0.0922076 ETH",
-                      value: "-CAS280.44",
-                      context: context),
-                ],
+                    BlocBuilder<CryptoDBRepositoryImpl,
+                        CryptoDBRepositoryState>(builder: (context, state) {
+                      return _buildTransactionHistory(context);
+                    })
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  _buildTransactionHistory(BuildContext context) {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    List<TransactionHistoryImpl> hTList = db.state.historyList.toList();
+    hTList.sort((a, b) => b.timeStamp.compareTo(a.timeStamp));
+
+    // Group transactions by date
+    Map<String, List<TransactionHistoryImpl>> groupedTransactions = {};
+    for (var transaction in hTList) {
+      String date = transaction.timeStamp
+          .toLocal()
+          .toString()
+          .split(' ')[0]; // Extract date part
+      if (!groupedTransactions.containsKey(date)) {
+        groupedTransactions[date] = [];
+      }
+      groupedTransactions[date]!.add(transaction);
+    }
+
+    // Build the list of widgets
+    List<Widget> widgetList = [];
+    groupedTransactions.forEach((date, transactions) {
+      widgetList.add(_buildDateText(text: date, context: context));
+      for (var transaction in transactions) {
+        String sign = transaction.type == TransactionType.send ? "-" : "+";
+        final DateFormat formatter = DateFormat('hh:mm a');
+
+        widgetList.add(_buildRow(
+          imgT: transaction.type == TransactionType.send ? false : true,
+          onTap: () {
+            // Handle onTap
+          },
+          icon: transaction.type == TransactionType.send
+              ? Assets.imagesArrowUp
+              : Assets.imagesArrowDown,
+          typeName: transaction.state.status == TransactionStatus.pending
+              ? "Pending"
+              : transaction.state.status == TransactionStatus.failed
+                  ? "Failed"
+                  : (transaction.type == TransactionType.send
+                      ? "Sent"
+                      : "Received"),
+          time: formatter.format(transaction.timeStamp.toLocal()),
+          result:
+              "${sign}${transaction.info.amount} ${db.state.assetList[transaction.assetIndex].getAsset().symbol}",
+          value: "", // Adjust this as needed
+          context: context,
+        ));
+      }
+      widgetList.add(height(12)); // Add spacing between date groups
+    });
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: widgetList,
     );
   }
 

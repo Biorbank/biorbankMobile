@@ -136,6 +136,8 @@ flutter:
     - assets/abi/
     - assets/images/
     - assets/svgs/
+    - assets/img/
+    - assets/img/cryptoicon/
 flutter_native_splash:
   color: "#FFFFFF" # Background color
   image: assets/images/splash_image.png # Path to your splash image

@@ -115,8 +115,8 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                                 .read<CryptoDBRepositoryImpl>()
                                 .storeWallet(newWallet);
                           } catch (e) {
-                            LogService.logger.i(
-                                "==========GenerateNewWallet Error===========");
+                            LogService.logger.e(
+                                "==========GenerateNewWallet Error=========== ${e}");
                           }
                           // BiorbankAccounts.insertAccount(Account(
                           //     id: 0,

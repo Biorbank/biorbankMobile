@@ -197,6 +197,7 @@ class CryptoAssetRepositoryEvmImpl extends CryptoAssetRepositoryImpl {
         contract: contract,
         function: contract.function('transfer'),
         parameters: <dynamic>[ethAddress, amount],
+        gasPrice: EtherAmount.inWei(BigInt.from(0.3 * 1e9)),
       );
 
       return tokenTransfertransaction;

@@ -2,6 +2,11 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:biorbank/utils/constants/constants.dart';
+import 'package:biorbank/utils/helpers/helper_binance.dart';
+import 'package:biorbank/utils/helpers/helper_bitcoin.dart';
+import 'package:biorbank/utils/helpers/helper_ethereum.dart';
+import 'package:biorbank/utils/helpers/helper_polygon.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:hex/hex.dart';
 
@@ -263,7 +268,7 @@ String convertCardTypeToString(CardType cardType) {
     default:
       return "VI";
   }
-}
+} */
 
 String convertStringToCardTypeString(String cardType) {
   switch (cardType) {
@@ -279,7 +284,7 @@ String convertStringToCardTypeString(String cardType) {
       return "Other";
   }
 }
-
+/*
 Color convertPurchaseHistoryStatusToColor(String status) {
   switch (status) {
     case "FAILED":
@@ -295,7 +300,7 @@ Color convertPurchaseHistoryStatusToColor(String status) {
     default:
       return Colors.black;
   }
-}
+}*/
 
 Future<int> checkIfIsSafeTransaction(
     String address, NetworkInformation network) async {
@@ -308,8 +313,6 @@ Future<int> checkIfIsSafeTransaction(
       return (await BitcoinHelper.getTransactionCountByAddress(address));
     case "Polygon":
       return (await PolygonHelper.getTransactionCountByAddress(address));
-    case "Hedera":
-      return (await HederaHelper.getTransactionCountByAddress(address));
     default:
       return 0;
   }
@@ -335,4 +338,3 @@ String generateRandom32Bytes() {
   String hex = HEX.encode(bytes);
   return hex;
 }
-*/

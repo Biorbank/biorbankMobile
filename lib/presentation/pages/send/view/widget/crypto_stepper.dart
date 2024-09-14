@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
@@ -7,26 +5,41 @@ import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/helpers/app_helper.dart';
-import 'package:biorbank/utils/helpers/toast_helper.dart';
 import 'package:biorbank/utils/models/transaction_detail_model.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:web3dart/web3dart.dart';
 
 import '../../../../common/common_button.dart';
 
-import 'package:http/http.dart' as http;
+class CryptoStepper extends StatefulWidget {
+  const CryptoStepper({super.key});
 
-class CryptoStepper extends StatelessWidget {
-  const CryptoStepper({
-    super.key,
-  });
+  @override
+  State<CryptoStepper> createState() => _CryptoStepperState();
+}
+
+class _CryptoStepperState extends State<CryptoStepper> {
+  List<CryptoAssetRepositoryImpl> assetList = [];
+  CryptoAssetRepositoryImpl? selectedAsset;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    migration();
+  }
+
+  migration() {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    setState(() {
+      assetList.addAll(db.state.assetList);
+      selectedAsset = db.state.assetList.first;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,19 +86,38 @@ class CryptoStepper extends StatelessWidget {
                           borderRadius: 12.r,
                           title: 'Crypto',
                           labelText: '',
-                          items: cubit.accountList
+                          value: selectedAsset,
+                          items: assetList
                               .map((e) => DropdownMenuItem(
                                     value: e,
-                                    child: AppConstant.commonText(e,
-                                        fontSize: 14.sp,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .shadow),
+                                    child: Row(
+                                      children: [
+                                        Image.asset(
+                                          e.getAsset().logo,
+                                          width: 25.w,
+                                          height: 25.w,
+                                          fit: BoxFit.contain,
+                                        ),
+                                        SizedBox(
+                                          width: 10.w,
+                                        ),
+                                        AppConstant.commonText(
+                                            e.getAsset().name,
+                                            fontSize: 14.sp,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .shadow),
+                                      ],
+                                    ),
                                   ))
                               .toList(),
                           backGroundColor:
                               Theme.of(context).colorScheme.errorContainer,
-                          onChanged: (p0) {},
+                          onChanged: (val) {
+                            setState(() {
+                              selectedAsset = val;
+                            });
+                          },
                         ),
                         title: AppConstant.commonText('Select Crypto',
                             fontWeight: FontWeight.w500,
@@ -348,23 +380,42 @@ class CryptoStepper extends StatelessWidget {
                         cubit.withdrawAmountController.text == ""
                             ? "0"
                             : cubit.withdrawAmountController.text);
-
+                    String recipientAddressString =
+                        cubit.recipientAddressController.text;
                     CryptoDBRepositoryImpl db =
                         context.read<CryptoDBRepositoryImpl>();
 
-                    CryptoAssetRepositoryImpl usdterc20 = db.state.assetList
-                        .firstWhere((asset) =>
-                            asset.getAsset().tokenId ==
-                            "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0");
+                    if (true) {
+                      int usdterc20Index = db.state.assetList.indexWhere(
+                          (asset) =>
+                              asset.getAsset().tokenId ==
+                              "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0");
 
-                    String txid = await usdterc20.sendBalance(
-                        sendAmount, cubit.recipientAddressController.text);
+                      if (usdterc20Index != -1) {
+                        CryptoAssetRepositoryImpl usdterc20 =
+                            db.state.assetList[usdterc20Index];
 
-                    LogService.logger
-                        .i("===========transaction id=========== ${txid}");
-                    successToast("Trnx: ${txid}");
-                    return;
+                        String txHash = await usdterc20.sendBalance(
+                            sendAmount, recipientAddressString);
 
+                        if (context.mounted) {
+                          addTransactionHistory(
+                            context,
+                            db,
+                            usdterc20Index,
+                            usdterc20,
+                            cubit.recipientAddressController.text,
+                            sendAmount,
+                            txHash,
+                          );
+                        }
+
+                        LogService.logger.i(
+                            "===========transaction id=========== ${txHash}");
+                        // successToast("Trnx: ${txHash}");
+                        return;
+                      }
+                    }
                     /* 
                     // ! We use ERC20 for all other chains
                     final erc20AbiString =
@@ -407,8 +458,7 @@ class CryptoStepper extends StatelessWidget {
                     LogService.logger.i(response);
                     successToast("Trnx: ${response}"); */
                   } catch (error) {
-                    // LogService.logger.e('_sendTokenTransaction', error);
-                    LogService.logger.i(error);
+                    LogService.logger.e('_sendTokenTransaction ${error}');
                     rethrow;
                   }
                 },
@@ -442,5 +492,21 @@ class CryptoStepper extends StatelessWidget {
         TransactionStatus.pending, //TODO need change in the future
         0,
         DateTime.now());
+  }
+
+  Future<bool> checkTransactionSafety(BuildContext context,
+      CryptoAssetRepositoryImpl asset, String recipient) async {
+    // try {
+    //   int txCount =
+    //       await checkIfIsSafeTransaction(recipient, asset.getNetwork());
+    //   if (txCount == 0 && context.mounted) {
+    //     var confirmed = await showConfirmTransactionDialog(context, recipient);
+    //     if (confirmed == true) return true;
+    //     return false;
+    //   }
+    //   return true;
+    // } catch (error) {}
+
+    return true;
   }
 }

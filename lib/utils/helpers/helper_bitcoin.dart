@@ -157,5 +157,10 @@ class BitcoinHelper extends BlockchainHelper {
   }
 
   @override
+  Future<Map<String, dynamic>> getTokenInformation(String txHash) async {
+    return {};
+  }
+
+  @override
   int get networkId => 0;
 }

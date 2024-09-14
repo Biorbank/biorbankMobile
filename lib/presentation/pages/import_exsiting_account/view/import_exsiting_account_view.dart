@@ -112,7 +112,7 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
                         );
                       } catch (e) {
                         LogService.logger
-                            .i("==========import Wallet Error=========== ${e}");
+                            .e("==========import Wallet Error=========== ${e}");
                       }
                     } else {
                       if (cubit.tabIndex == 1) {
