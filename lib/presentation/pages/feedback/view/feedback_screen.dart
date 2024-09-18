@@ -10,6 +10,7 @@ import 'package:biorbank/presentation/pages/feedback/view/widget/do_not_like_tab
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,8 +47,8 @@ class _FeedbackScreenState extends State<FeedbackScreen>
         var cubit = context.read<FeedbackCubit>();
         if (state is IncludedScreenshotState) {
           cubit.isIncludedScreenshot = state.value;
-        }else if(state is ChangeNotLikeTabIndexState){
-          cubit.notLikeTabIndex=state.index;
+        } else if (state is ChangeNotLikeTabIndexState) {
+          cubit.notLikeTabIndex = state.index;
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +63,11 @@ class _FeedbackScreenState extends State<FeedbackScreen>
                     height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
+                      onTapTextField: () {
+                        context.router.push(const CommonSearchRoute());
+                        //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                      },
                     ),
                   ],
                 ),

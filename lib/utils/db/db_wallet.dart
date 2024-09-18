@@ -83,6 +83,7 @@ class Account {
   }
 }
 
+/*
 class BiorbankAccounts {
 // Define a function that inserts Accounts into the database
   static Future<void> insertAccount(Account account) async {
@@ -148,3 +149,4 @@ class BiorbankAccounts {
     );
   }
 }
+*/

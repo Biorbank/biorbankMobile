@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/utils/app_widgets.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +29,11 @@ class AssetPageWidget extends StatelessWidget {
                 height(40.h),
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
-                  onTapTextField: () {},
+                  textController: TextEditingController(),
+                  onTapTextField: () {
+                    context.router.push(const CommonSearchRoute());
+                    //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                  },
                 ),
                 height(10.h),
                 Row(

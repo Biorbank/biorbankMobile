@@ -4,6 +4,8 @@ import 'package:biorbank/presentation/pages/home/view/widget/price_detail_widget
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/db/db_wallet.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,7 +19,7 @@ class HoldingTabWidget extends StatefulWidget {
 }
 
 class _HoldingTabWidgetState extends State<HoldingTabWidget> {
-  List<Account> _accounts = [];
+  List<BiorBankWallet> wallets = [];
 
   @override
   void initState() {
@@ -26,9 +28,8 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
   }
 
   Future<void> _loadAccounts() async {
-    List<Account> res = await BiorbankAccounts.accounts();
     setState(() {
-      _accounts = res;
+      wallets = AppHelper.walletService.wallets;
     });
   }
 
@@ -61,7 +62,7 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
             padding: EdgeInsets.zero,
             shrinkWrap: true,
             separatorBuilder: (context, index) => height(10.h),
-            itemCount: _accounts.length,
+            itemCount: wallets.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => InkWell(
               onTap: () {
@@ -73,7 +74,7 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
                 );
               },
               child: PriceDetailWidget(
-                title: _accounts[index].name,
+                title: wallets[index].name,
                 currentAmt: '\$74,200.00',
                 differentAmt: '+643.67',
                 isProfit: true,

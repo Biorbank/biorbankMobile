@@ -9,6 +9,7 @@ import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widge
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/risk_detail_widget.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/staking_detail_tab.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,8 +33,9 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
       context
           .read<DefiDetailCubit>()
           .onChangeTabIndex(index: tabController.index);
-        
-      if (tabController.index == 2&& context.read<DefiDetailCubit>().selectedLoanTabIndex==1) {
+
+      if (tabController.index == 2 &&
+          context.read<DefiDetailCubit>().selectedLoanTabIndex == 1) {
         context.read<DefiDetailCubit>().onChangeLoanTabIndex(index: 0);
       }
     });
@@ -73,8 +75,11 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
                     height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
+                      onTapTextField: () {
+                        context.router.push(const CommonSearchRoute());
+                        //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                      },
                     ),
                   ],
                 ),
@@ -106,7 +111,6 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
                       onTap: (index) {},
                       tabController: tabController,
                       tabList: const ['NFT', 'Staking', 'Loans']),
-                
                 ),
                 GestureDetector(
                   onTap: () {},

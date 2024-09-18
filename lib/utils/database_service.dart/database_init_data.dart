@@ -8,9 +8,8 @@ NetworkInformation bitcoin = NetworkInformation(
   name: 'Bitcoin',
 );
 NetworkInformation ethereum = NetworkInformation(
-  // sepolia
   id: 1,
-  rpcUrl: Env.ethereumRpcUrl, // sepolia Ethereum rpcURL
+  rpcUrl: Env.ethereumRpcUrl,
   explorerUrl: "https://etherscan.io/tx",
   chainId: 1,
   name: 'Ethereum',
@@ -35,6 +34,14 @@ NetworkInformation hedera = NetworkInformation(
   explorerUrl: "https://hederaexplorer.io/search-details/transaction",
   chainId: 0,
   name: "Hedera",
+);
+NetworkInformation sepolia = NetworkInformation(
+  // sepolia
+  id: 5,
+  rpcUrl: Env.sepoliaRpcUrl, // sepolia Ethereum rpcURL
+  explorerUrl: "https://sepolia.etherscan.io/",
+  chainId: 11155111,
+  name: 'Sepolia Ethereum',
 );
 CryptoAssetInformation btccoin = CryptoAssetInformation(
     networkId: 0,

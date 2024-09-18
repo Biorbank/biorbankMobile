@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +42,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 height(40.h),
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
-                  onTapTextField: () {},
+                  textController: TextEditingController(),
+                  onTapTextField: () {
+                    context.router.push(const CommonSearchRoute());
+                    //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                  },
                 ),
                 height(10.h),
                 Row(
@@ -147,6 +152,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
           child: RefreshIndicator(
             onRefresh: refreshHandler,
             child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
@@ -164,7 +170,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     BlocBuilder<CryptoDBRepositoryImpl,
                         CryptoDBRepositoryState>(builder: (context, state) {
                       return _buildTransactionHistory(context);
-                    })
+                    }),
                   ],
                 ),
               ),
@@ -210,7 +216,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               ? Assets.imagesArrowUp
               : Assets.imagesArrowDown,
           typeName: transaction.state.status == TransactionStatus.pending
-              ? "Pending"
+              ? "Pending..."
               : transaction.state.status == TransactionStatus.failed
                   ? "Failed"
                   : (transaction.type == TransactionType.send

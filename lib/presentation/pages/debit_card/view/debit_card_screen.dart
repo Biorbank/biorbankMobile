@@ -7,6 +7,7 @@ import 'package:biorbank/presentation/pages/debit_card/view/widget/buy_card_tab.
 import 'package:biorbank/presentation/pages/debit_card/view/widget/debit_tab_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -35,10 +36,10 @@ class _DebitCardScreenState extends State<DebitCardScreen>
         var cubit = context.read<DebitCardCubit>();
         if (state is SortByFilterUpdateState) {
           cubit.selectedSortByFilter = state.value;
-        }else if(state is OnlineInStoreFilterUpdateState){
-          cubit.selectedOnlineInStoreFilter=state.value;
-        }else if(state is TypeFilterUpdateState){
-          cubit.selectedTypeFilter=state.value;
+        } else if (state is OnlineInStoreFilterUpdateState) {
+          cubit.selectedOnlineInStoreFilter = state.value;
+        } else if (state is TypeFilterUpdateState) {
+          cubit.selectedTypeFilter = state.value;
         }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,8 +54,11 @@ class _DebitCardScreenState extends State<DebitCardScreen>
                     height(45.h),
                     CommonSearchAppbar(
                       hintText: 'ID/USDT',
-                      onTapBellIcon: () {},
                       textController: TextEditingController(),
+                      onTapTextField: () {
+                        context.router.push(const CommonSearchRoute());
+                        //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                      },
                     ),
                   ],
                 ),

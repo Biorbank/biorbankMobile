@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:biorbank/utils/helpers/app_helper.dart';
-import 'package:biorbank/utils/helpers/exceptions/wallet_manager_exception.dart';
 import 'package:biorbank/utils/helpers/toast_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/service/secure_storage_service.dart';
@@ -16,7 +15,7 @@ import 'package:web3dart/credentials.dart';
 
 const String _pathForEthPrivateKey = "m/44'/60'/0'/0/0";
 const String _pathForBtcPrivateKey = "m/84'/0'/0'/0/0";
-const String _pathForHbarPrivateKey = "m/44'/3030'/0'/0/0";
+// const String _pathForHbarPrivateKey = "m/44'/3030'/0'/0/0";
 Future<BiorBankWallet> generateLegacyWallet(Map argu) async {
   String privateKey = argu['privateKey'];
   WalletAddress ethwallet = await _generateEthWalletWithPrivateKey(privateKey);

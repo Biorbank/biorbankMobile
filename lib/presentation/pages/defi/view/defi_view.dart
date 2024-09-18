@@ -32,7 +32,6 @@ class DefiScreen extends StatelessWidget {
                       context.read<DefiCubit>().searchTextController,
                   onTapTextField: () {
                     context.router.push(const CommonSearchRoute());
-
                     //Navigator.pushNamed(context, Routes.serachViewRoute);
                   },
                 ),
