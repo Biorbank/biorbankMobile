@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
@@ -5,6 +7,7 @@ import 'package:biorbank/presentation/pages/send/cubit/send_money_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/transaction_detail_model.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
@@ -92,8 +95,9 @@ class _CryptoStepperState extends State<CryptoStepper> {
                                     value: e,
                                     child: Row(
                                       children: [
-                                        Image.asset(
-                                          e.getAsset().logo,
+                                        Image.file(
+                                          File(
+                                              "${AppHelper.appDir}/${e.getAsset().logo}"),
                                           width: 25.w,
                                           height: 25.w,
                                           fit: BoxFit.contain,

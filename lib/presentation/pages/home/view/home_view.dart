@@ -7,6 +7,7 @@ import 'package:biorbank/presentation/pages/home/view/widget/chart_time_period_w
 import 'package:biorbank/presentation/pages/home/view/widget/chart_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/share_detail_tab_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,12 +68,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             height(10.h),
                             Visibility(
                               visible: cubit.selectedOption == null,
-                              child: const CommonBalanceWidget(
-                                amount: '\$75,630.90',
-                                currentRate: 'CA \$0.00 (0.00%)',
-                                isShowBalanceWidget: false,
+                              child: BlocBuilder<CryptoDBRepositoryImpl,
+                                  CryptoDBRepositoryState>(
+                                builder: (context, state) {
+                                  return CommonBalanceWidget(
+                                    amount: '\$ ${state.totalPrice}',
+                                    currentRate: 'CA \$0.00 (0.00%)',
+                                    isShowBalanceWidget: false,
+                                  );
+                                },
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),

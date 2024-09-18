@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:biorbank/utils/Theme/primary_theme.dart';
 import 'package:biorbank/utils/bloc_provider_binding.dart';
 import 'package:biorbank/utils/db/db_wallet.dart';
@@ -10,6 +13,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:is_first_run/is_first_run.dart';
+
+Future<void> copyAssets(String assetPath) async {
+  // const assetPath = '/assets/img/cryptoicons';
+
+  // Create the folder if it does not exist
+  final myFolder = Directory(AppHelper.appDir + assetPath);
+  if (!await myFolder.exists()) {
+    await myFolder.create(recursive: true);
+    String assetsPath = await rootBundle.loadString('AssetManifest.json');
+    Map<String, dynamic> manifestMap = json.decode(assetsPath);
+    List<String> paths = manifestMap.keys.toList();
+    for (String path in paths) {
+      File newFile = File('${AppHelper.appDir}/$path');
+      if (!await newFile.exists()) {
+        ByteData data = await rootBundle.load(path);
+        List<int> bytes =
+            data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+        await newFile.create(recursive: true);
+        await newFile.writeAsBytes(bytes);
+      }
+    }
+  }
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +56,7 @@ Future<void> main() async {
     await walletStorageManager.clearAll();
   }
   await AppHelper.init();
+  await copyAssets('/assets/img/cryptoicons');
 
   CryptoDBRepositoryImpl db = CryptoDBRepositoryImpl.create();
 

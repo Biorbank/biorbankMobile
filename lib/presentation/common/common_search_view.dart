@@ -8,9 +8,11 @@ import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/database_service.dart/database_service.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/helpers/func_helper.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
+import 'package:biorbank/utils/service/cmc_service.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,9 +88,9 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
               ),
               height(8.h),
               Expanded(
-                child: SingleChildScrollView(
-                  child: BlocBuilder<CryptoDBRepositoryImpl,
-                      CryptoDBRepositoryState>(builder: (context, state) {
+                child: BlocBuilder<CryptoDBRepositoryImpl,
+                    CryptoDBRepositoryState>(
+                  builder: (context, state) {
                     List<CryptoAssetRepositoryImpl> assetList = state.assetList;
                     return ListView.separated(
                       shrinkWrap: true,
@@ -96,17 +98,23 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
                       separatorBuilder: (context, index) => height(6.h),
                       itemCount: assetList.length,
                       itemBuilder: (context, index) => CommonCryptoDetailTile(
-                        context: context,
-                        onTap: () {},
-                        contentPadding: const EdgeInsets.only(left: 8),
-                        coinName: assetList.elementAt(index).getAsset().name,
-                        coinImageUrl:
-                            assetList.elementAt(index).getAsset().logo,
-                        coinShortName:
-                            assetList.elementAt(index).getAsset().symbol,
-                      ),
+                          context: context,
+                          onTap: () {},
+                          contentPadding: const EdgeInsets.only(left: 8),
+                          coinName: assetList.elementAt(index).getAsset().name,
+                          coinImageUrl:
+                              "${AppHelper.appDir}/${assetList.elementAt(index).getAsset().logo}",
+                          coinShortName:
+                              assetList.elementAt(index).getAsset().symbol,
+                          coinBalance: assetList.elementAt(index).state.balance,
+                          coinPriceInUSD:
+                              assetList.elementAt(index).state.quote.priceInUSD,
+                          isQuoteLoading:
+                              assetList.elementAt(index).state.quoteState,
+                          isBalanceLoading:
+                              assetList.elementAt(index).state.assetState),
                     );
-                  }),
+                  },
                 ),
               ),
               CommonButton(
@@ -125,6 +133,7 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
 
   showImportTokenDialog() async {
     if (context.mounted == false) return false;
+
     NetworkInformation? selectedNetwork;
     CryptoAssetInformation? selectedAsset;
     TextEditingController tokenAddressEditingController =
@@ -273,7 +282,29 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
                       if (selectedNetwork != null && selectedAsset != null) {
                         LogService.logger.i(
                             "${selectedAsset!.tokenId} ${selectedNetwork!.id}");
-                        await db.importToken(selectedAsset!, selectedNetwork!);
+
+                        int tokenCMCID = await getCMCID(
+                            selectedAsset!.tokenId, selectedNetwork!);
+
+                        if (tokenCMCID != -1) {
+                          String url =
+                              "https://s2.coinmarketcap.com/static/img/coins/64x64/$tokenCMCID.png";
+                          await saveToFile(url, tokenCMCID);
+                        }
+
+                        final newCryptoAsset = CryptoAssetInformation(
+                          type: AssetType.token,
+                          tokenId:
+                              selectedAsset!.tokenId, // sepolia Ethereum USDT
+                          name: selectedAsset!.name,
+                          symbol: selectedAsset!.symbol,
+                          decimal: selectedAsset!.decimal,
+                          networkId: selectedAsset!.networkId,
+                          cmcId: tokenCMCID,
+                          logo: "assets/img/cryptoicon/$tokenCMCID.png",
+                        );
+
+                        await db.importToken(newCryptoAsset, selectedNetwork!);
                         if (context.mounted) {
                           Navigator.of(context).pop();
                         }

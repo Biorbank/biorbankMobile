@@ -10,29 +10,28 @@ NetworkInformation bitcoin = NetworkInformation(
 NetworkInformation ethereum = NetworkInformation(
   // sepolia
   id: 1,
-  rpcUrl:
-      "https://dimensional-dark-daylight.ethereum-sepolia.quiknode.pro/d8ea75dfa368b9d3331062d83efd4276af41d573", // sepolia Ethereum rpcURL
+  rpcUrl: Env.ethereumRpcUrl, // sepolia Ethereum rpcURL
   explorerUrl: "https://etherscan.io/tx",
-  chainId: 11155111,
+  chainId: 1,
   name: 'Ethereum',
 );
 NetworkInformation binance = NetworkInformation(
   id: 2,
-  rpcUrl: "Env.binanceRpcUrl",
+  rpcUrl: Env.binanceRpcUrl,
   explorerUrl: "https://bscscan.com/tx",
   chainId: 56,
   name: 'Binance',
 );
 NetworkInformation polygon = NetworkInformation(
   id: 3,
-  rpcUrl: "Env.polygonRpcUrl",
+  rpcUrl: Env.polygonRpcUrl,
   explorerUrl: "https://polygonscan.com/tx",
   chainId: 137,
   name: 'Polygon',
 );
 NetworkInformation hedera = NetworkInformation(
   id: 4,
-  rpcUrl: "Env.hederaRpcUrl",
+  rpcUrl: Env.hederaRpcUrl,
   explorerUrl: "https://hederaexplorer.io/search-details/transaction",
   chainId: 0,
   name: "Hedera",
@@ -58,7 +57,7 @@ CryptoAssetInformation ethcoin = CryptoAssetInformation(
 CryptoAssetInformation usdterc20 = CryptoAssetInformation(
     type: AssetType.token,
     tokenId:
-        "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0", // sepolia Ethereum USDT
+        "0xdac17f958d2ee523a2206206994597c13d831ec7", // sepolia Ethereum USDT
     name: "Tether USD",
     symbol: "USDT",
     decimal: 6,

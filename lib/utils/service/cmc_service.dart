@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/helpers/func_helper.dart';
 import 'package:biorbank/utils/models/response_model.dart';
+import 'package:biorbank/utils/networks/cmc_api_service.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:http/http.dart' as http;
@@ -53,9 +56,9 @@ Future<CryptoQuote> getCryptoQuoteLastestSingle(int id, int cmcId) async {
 Future<List<CryptoQuote>> getCryptoQuoteLatestMultiple(
     List<int> cmcIdlist) async {
   List<CryptoQuote> list = [];
-  /*String multiple = cmcIdlist.join(',');
-  var response = await TppApiService.instance.dio.get(
-      "/pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?id=$multiple");
+  String multiple = cmcIdlist.join(',');
+  var response = await CmcApiService.instance.dio
+      .get("/v2/cryptocurrency/quotes/latest?id=$multiple");
 
   if (response.statusCode == 200) {
     var result = response.data;
@@ -78,7 +81,7 @@ Future<List<CryptoQuote>> getCryptoQuoteLatestMultiple(
       list.add(cq);
     }
     return list;
-  }*/
+  }
   return list;
 }
 
@@ -141,4 +144,35 @@ Future<FunctionResponse> getCryptoQuoteHistoricalSingle(
     LogService.logger.e('getCryptoQuoteHistoricalSingle', error);
   }*/
   return FunctionResponse(statusCode: 0, message: []);
+}
+
+Future<int> getCMCID(
+    String tokenAddress, NetworkInformation networkInfo) async {
+  LogService.logger.i("getCMCID: ${networkInfo.chainId} $tokenAddress");
+  try {
+    final response = await CmcApiService.instance.dio
+        .get("/v2/cryptocurrency/info?address=$tokenAddress");
+    if ([200, 201].contains(response.statusCode)) {
+      final result = response.data;
+      Map<String, dynamic> data = result["data"];
+      String idString = data.keys.first;
+
+      return int.parse(idString);
+    }
+  } catch (e) {
+    LogService.logger.e("Get CMC-ID of coinmarketcap from token $e");
+  }
+  return -1;
+}
+
+Future<void> saveToFile(String url, int cmcId) async {
+  final response = await http.get(Uri.parse(url));
+  final bytes = response.bodyBytes;
+
+  final File file =
+      File('${AppHelper.appDir}/assets/img/cryptoicon/$cmcId.png');
+  if (!file.existsSync()) {
+    file.createSync();
+  }
+  await file.writeAsBytes(bytes);
 }
