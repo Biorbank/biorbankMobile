@@ -3,6 +3,7 @@ import 'dart:convert';
 enum WalletAddressType {
   bitcoin,
   ethereum,
+  litecoin,
   hedera,
 }
 
@@ -13,6 +14,7 @@ enum WalletType {
 
 class BiorBankWallet {
   final WalletAddress? btcwallet;
+  final WalletAddress? ltcwallet;
   final WalletAddress ethwallet;
   final String seedPhrase; // we use the same seedPhrase for 3 wallets.
   //id is unquite identifier for the wallet , created once and never changes
@@ -21,16 +23,20 @@ class BiorBankWallet {
   WalletType walletType;
   final String id;
   BiorBankWallet(
-      {this.btcwallet,
-      required this.ethwallet,
-      this.seedPhrase = "",
-      required this.id,
-      required this.name,
-      this.walletType = WalletType.multiChainWallet});
+      {
+        this.btcwallet,
+        this.ltcwallet,
+        required this.ethwallet,
+        this.seedPhrase = "",
+        required this.id,
+        required this.name,
+        this.walletType = WalletType.multiChainWallet
+      });
   Map<String, dynamic> toJson() => walletType == WalletType.multiChainWallet
       ? {
           'id': id,
           'btcwallet': btcwallet!.toJson(),
+          'ltcwallet': ltcwallet!.toJson(),
           'ethwallet': ethwallet.toJson(),
           'seedPhrase': seedPhrase,
           'name': name,
@@ -50,6 +56,7 @@ class BiorBankWallet {
             id: wallet['id'],
             name: wallet['name'],
             btcwallet: WalletAddress.fromJson(wallet['btcwallet']),
+            ltcwallet: WalletAddress.fromJson(wallet['ltcwallet']),
             ethwallet: WalletAddress.fromJson(wallet['ethwallet']),
             seedPhrase: wallet['seedPhrase'],
             walletType: WalletType.multiChainWallet)
@@ -79,6 +86,8 @@ class BiorBankWallet {
       switch (asset) {
         case "BTC":
           return btcwallet!.publicKey;
+        case "LTC":
+          return ltcwallet!.publicKey;
         case "ETH":
           return ethwallet.publicKey;
         case "BSLETH":

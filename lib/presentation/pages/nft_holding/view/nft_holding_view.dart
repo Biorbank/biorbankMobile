@@ -10,7 +10,7 @@ import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_histor
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'widget/carousel_images.dart';

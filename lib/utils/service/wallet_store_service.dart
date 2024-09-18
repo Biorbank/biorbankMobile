@@ -13,10 +13,25 @@ import 'package:flutter/material.dart';
 import 'package:hex/hex.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web3dart/credentials.dart';
+import 'package:bitcoin_base/bitcoin_base.dart';
+
 
 const String _pathForEthPrivateKey = "m/44'/60'/0'/0/0";
-const String _pathForBtcPrivateKey = "m/84'/0'/0'/0/0";
+const String _pathForBtcPrivateKey = "m/44'/0'/0'/0/0";
+const String _pathForLtcPrivateKey = "m/84'/2'/0'/0/0";
 const String _pathForHbarPrivateKey = "m/44'/3030'/0'/0/0";
+
+final litecoin = NetworkType(
+    messagePrefix: '\x19Litecoin Signed Message:\n',  // Litecoin-specific message prefix
+    bech32: 'ltc',  // Bech32 prefix for Litecoin
+    bip32: Bip32Type(
+        public: 0x019da462,  // BIP32 public key prefix for Litecoin
+        private: 0x019d9cfe  // BIP32 private key prefix for Litecoin
+    ),
+    pubKeyHash: 0x30,  // Addresses start with 'L' (legacy P2PKH)
+    scriptHash: 0x32,  // Addresses start with 'M' (P2SH)
+    wif: 0xb0  // WIF private key prefix
+);
 Future<BiorBankWallet> generateLegacyWallet(Map argu) async {
   String privateKey = argu['privateKey'];
   WalletAddress ethwallet = await _generateEthWalletWithPrivateKey(privateKey);
@@ -33,6 +48,7 @@ Future<BiorBankWallet> generateNewWallet(Map argu) async {
   try {
     String seedPhrase = argu['seed_phrase'];
     WalletAddress btcwallet = await _generateBtcWallet(seedPhrase);
+    WalletAddress ltcwallet = await _generateLtcWallet(seedPhrase);
     WalletAddress ethwallet = await _generateEthWallet(seedPhrase);
     AppHelper.command = AppCommand.createWallet;
     String id = const Uuid().v1();
@@ -40,6 +56,7 @@ Future<BiorBankWallet> generateNewWallet(Map argu) async {
         id: id,
         name: argu['wallet_name'],
         btcwallet: btcwallet,
+        ltcwallet: ltcwallet,
         ethwallet: ethwallet,
         seedPhrase: seedPhrase);
   } catch (error) {
@@ -121,6 +138,29 @@ Future<WalletAddress> _generateBtcWallet(String seedPhrase) async {
       addressType: WalletAddressType.bitcoin,
       seedPhrase: seedPhrase);
 }
+
+
+Future<WalletAddress> _generateLtcWallet(String seedPhrase) async {
+  final Chain chain = _getChainByMnemonic(seedPhrase);
+  ExtendedKey extendedKey = chain.forPath(_pathForLtcPrivateKey);
+
+  String privateKey = extendedKey.privateKeyHex().substring(2);
+  List<int> list = HEX.decode(privateKey);
+  Uint8List bytes = Uint8List.fromList(list);
+
+  final keyPair = ECPair.fromPrivateKey(bytes, network: litecoin);
+  final String address = P2WPKH(
+    data: PaymentData(pubkey: keyPair.publicKey),
+    network: litecoin,
+  ).data!.address ?? "";
+
+  return WalletAddress(
+      privateKey: privateKey,
+      publicKey: address,
+      addressType: WalletAddressType.litecoin,
+      seedPhrase: seedPhrase);
+}
+
 
 Future<WalletAddress> _generateEthWallet(String seedPhrase) async {
   final Chain chain = _getChainByMnemonic(seedPhrase);
