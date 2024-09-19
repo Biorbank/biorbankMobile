@@ -72,9 +72,15 @@ dependencies:
   web3dart: ^2.7.3
   bitcoin_base: ^4.7.0
   basic_utils: ^5.7.0
+  solana: ^0.31.0
+  cosmos: ^0.3.5
+  bs58: ^1.0.2
+  bech32: ^0.2.2
   defichaindart: ^3.4.0
   hex: ^0.2.0
   dart_bip32_bip44: ^0.2.0
+  dart_bip32: ^2.0.5
+  pointycastle: ^3.9.1
   flutter_secure_storage: ^4.2.1
   upgrader: ^10.3.0
   flutter_bitcoin: ^1.0.1
