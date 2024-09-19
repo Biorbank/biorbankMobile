@@ -2,23 +2,30 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:biorbank/utils/helpers/app_helper.dart';
-import 'package:biorbank/utils/helpers/exceptions/wallet_manager_exception.dart';
 import 'package:biorbank/utils/helpers/toast_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/service/secure_storage_service.dart';
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:bech32/bech32.dart' as bech32;
+
 import 'package:dart_bip32_bip44/dart_bip32_bip44.dart';
+
 import 'package:defichaindart/defichaindart.dart';
 import 'package:flutter/material.dart';
 import 'package:hex/hex.dart';
 import 'package:uuid/uuid.dart';
 import 'package:web3dart/credentials.dart';
-import 'package:bitcoin_base/bitcoin_base.dart';
+import 'package:solana/solana.dart' as solana;
+import 'package:bs58/bs58.dart';
+import 'package:convert/convert.dart';
+
+
 
 
 const String _pathForEthPrivateKey = "m/44'/60'/0'/0/0";
 const String _pathForBtcPrivateKey = "m/44'/0'/0'/0/0";
 const String _pathForLtcPrivateKey = "m/84'/2'/0'/0/0";
+const String _pathForCosmosPrivateKey = "m/44'/118'/0'/0/0";
 const String _pathForHbarPrivateKey = "m/44'/3030'/0'/0/0";
 
 final litecoin = NetworkType(
@@ -32,6 +39,7 @@ final litecoin = NetworkType(
     scriptHash: 0x32,  // Addresses start with 'M' (P2SH)
     wif: 0xb0  // WIF private key prefix
 );
+
 Future<BiorBankWallet> generateLegacyWallet(Map argu) async {
   String privateKey = argu['privateKey'];
   WalletAddress ethwallet = await _generateEthWalletWithPrivateKey(privateKey);
@@ -47,17 +55,21 @@ Future<BiorBankWallet> generateLegacyWallet(Map argu) async {
 Future<BiorBankWallet> generateNewWallet(Map argu) async {
   try {
     String seedPhrase = argu['seed_phrase'];
-    WalletAddress btcwallet = await _generateBtcWallet(seedPhrase);
-    WalletAddress ltcwallet = await _generateLtcWallet(seedPhrase);
-    WalletAddress ethwallet = await _generateEthWallet(seedPhrase);
+    WalletAddress bitCoinWallet = await _generateBtcWallet(seedPhrase);
+    WalletAddress litCoinWallet = await _generateLtcWallet(seedPhrase);
+    WalletAddress solWallet = await _generateSolanaWallet(seedPhrase);
+    WalletAddress cosmosWallet = await _generateCosmosWallet(seedPhrase);
+    WalletAddress etherWallet = await _generateEthWallet(seedPhrase);
     AppHelper.command = AppCommand.createWallet;
     String id = const Uuid().v1();
     return BiorBankWallet(
         id: id,
         name: argu['wallet_name'],
-        btcwallet: btcwallet,
-        ltcwallet: ltcwallet,
-        ethwallet: ethwallet,
+        btcwallet: bitCoinWallet,
+        ltcwallet: litCoinWallet,
+        solanawallet: solWallet,
+        cosmoswallet: cosmosWallet,
+        ethwallet: etherWallet,
         seedPhrase: seedPhrase);
   } catch (error) {
     rethrow;
@@ -122,16 +134,12 @@ Future<WalletAddress> _generateHederaWallet(String seedPhrase) async {
 Future<WalletAddress> _generateBtcWallet(String seedPhrase) async {
   final Chain chain = _getChainByMnemonic(seedPhrase);
   ExtendedKey extendedKey = chain.forPath(_pathForBtcPrivateKey);
-
-  //removing first 2 zeros from the private string
   String privateKey = extendedKey.privateKeyHex().substring(2);
   List<int> list = HEX.decode(privateKey);
   Uint8List bytes = Uint8List.fromList(list);
-
   final keyPair = ECPair.fromPrivateKey(bytes);
   final String address =
       P2WPKH(data: PaymentData(pubkey: keyPair.publicKey)).data!.address ?? "";
-  // return [privateKey, address];
   return WalletAddress(
       privateKey: privateKey,
       publicKey: address,
@@ -143,22 +151,48 @@ Future<WalletAddress> _generateBtcWallet(String seedPhrase) async {
 Future<WalletAddress> _generateLtcWallet(String seedPhrase) async {
   final Chain chain = _getChainByMnemonic(seedPhrase);
   ExtendedKey extendedKey = chain.forPath(_pathForLtcPrivateKey);
-
   String privateKey = extendedKey.privateKeyHex().substring(2);
   List<int> list = HEX.decode(privateKey);
   Uint8List bytes = Uint8List.fromList(list);
-
   final keyPair = ECPair.fromPrivateKey(bytes, network: litecoin);
-  final String address = P2WPKH(
-    data: PaymentData(pubkey: keyPair.publicKey),
-    network: litecoin,
-  ).data!.address ?? "";
-
+  final String address = P2WPKH(data: PaymentData(pubkey: keyPair.publicKey), network: litecoin).data!.address ?? "";
   return WalletAddress(
       privateKey: privateKey,
       publicKey: address,
       addressType: WalletAddressType.litecoin,
       seedPhrase: seedPhrase);
+}
+
+
+Future<WalletAddress> _generateSolanaWallet(String seedPhrase) async {
+  final keyPair = await solana.Ed25519HDKeyPair.fromMnemonic(seedPhrase);
+  final List<int> publicKeyList = keyPair.publicKey.bytes;
+  final Uint8List publicKeyBytes = Uint8List.fromList(publicKeyList);
+  final String publicKey = base58.encode(publicKeyBytes);
+
+  return WalletAddress(
+    privateKey: '',
+    publicKey: publicKey,
+    addressType: WalletAddressType.solana,
+    seedPhrase: seedPhrase,
+  );
+}
+Future<WalletAddress> _generateCosmosWallet(String seedPhrase) async {
+  final seed = bip39.mnemonicToSeed(seedPhrase);
+  final hdWallet = HDWallet.fromSeed(seed);
+  final derivedKey = hdWallet.derivePath(_pathForCosmosPrivateKey);
+  final privateKeyHex = derivedKey.privKey;
+  final privateKey = hexStringToUint8List(privateKeyHex!);
+  final publicKeyHex = derivedKey.pubKey;
+  final publicKey = hexStringToUint8List(publicKeyHex!);
+  final address = _bech32Encode('cosmos', publicKey);
+
+  return WalletAddress(
+    privateKey: privateKeyHex,
+    publicKey: address,
+    addressType: WalletAddressType.cosmos,
+    seedPhrase: seedPhrase,
+  );
 }
 
 
@@ -176,6 +210,7 @@ Future<WalletAddress> _generateEthWallet(String seedPhrase) async {
       seedPhrase: seedPhrase);
 }
 
+
 Future<WalletAddress> _generateEthWalletWithPrivateKey(
     String privateKey) async {
   Credentials credentials = EthPrivateKey.fromHex(privateKey);
@@ -192,6 +227,40 @@ Chain _getChainByMnemonic(String mnemonic) {
   final String seed = bip39.mnemonicToSeedHex(mnemonic);
 
   return Chain.seed(seed);
+}
+
+List<int> _toWords(Uint8List data) {
+  const int dataBits = 8;
+  const int wordBits = 5;
+  int value = 0;
+  int bits = 0;
+  final maxWord = (1 << wordBits) - 1;
+  final words = <int>[];
+
+  for (final byte in data) {
+    value = (value << dataBits) | byte;
+    bits += dataBits;
+
+    while (bits >= wordBits) {
+      bits -= wordBits;
+      words.add((value >> bits) & maxWord);
+    }
+  }
+
+  if (bits > 0) {
+    words.add((value << (wordBits - bits)) & maxWord);
+  }
+
+  return words;
+}
+
+Uint8List hexStringToUint8List(String hexString) {
+  hexString = hexString.replaceFirst('0x', '');
+  return Uint8List.fromList(hex.decode(hexString));
+}
+String _bech32Encode(String prefix, Uint8List publicKey) {
+  final words = _toWords(publicKey);
+  return bech32.Bech32Encoder().convert(bech32.Bech32(prefix, words));
 }
 
 class WalletStoreService {
@@ -290,6 +359,7 @@ class WalletStoreService {
       // Do nothing
     }
   }
+
 
   bool walletNameAlreadyExists(String name) {
     return wallets.where((element) => element.getName() == name).isEmpty;

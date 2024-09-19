@@ -4,6 +4,8 @@ enum WalletAddressType {
   bitcoin,
   ethereum,
   litecoin,
+  solana,
+  cosmos,
   hedera,
 }
 
@@ -15,6 +17,8 @@ enum WalletType {
 class BiorBankWallet {
   final WalletAddress? btcwallet;
   final WalletAddress? ltcwallet;
+  final WalletAddress? solanawallet;
+  final WalletAddress? cosmoswallet;
   final WalletAddress ethwallet;
   final String seedPhrase; // we use the same seedPhrase for 3 wallets.
   //id is unquite identifier for the wallet , created once and never changes
@@ -26,6 +30,8 @@ class BiorBankWallet {
       {
         this.btcwallet,
         this.ltcwallet,
+        this.solanawallet,
+        this.cosmoswallet,
         required this.ethwallet,
         this.seedPhrase = "",
         required this.id,
@@ -37,6 +43,8 @@ class BiorBankWallet {
           'id': id,
           'btcwallet': btcwallet!.toJson(),
           'ltcwallet': ltcwallet!.toJson(),
+          'solanawallet': solanawallet!.toJson(),
+          'cosmoswallet': cosmoswallet!.toJson(),
           'ethwallet': ethwallet.toJson(),
           'seedPhrase': seedPhrase,
           'name': name,
@@ -57,6 +65,8 @@ class BiorBankWallet {
             name: wallet['name'],
             btcwallet: WalletAddress.fromJson(wallet['btcwallet']),
             ltcwallet: WalletAddress.fromJson(wallet['ltcwallet']),
+            solanawallet: WalletAddress.fromJson(wallet['solanawallet']),
+            cosmoswallet: WalletAddress.fromJson(wallet['solanawallet']),
             ethwallet: WalletAddress.fromJson(wallet['ethwallet']),
             seedPhrase: wallet['seedPhrase'],
             walletType: WalletType.multiChainWallet)
@@ -88,6 +98,10 @@ class BiorBankWallet {
           return btcwallet!.publicKey;
         case "LTC":
           return ltcwallet!.publicKey;
+        case "SOL":
+          return solanawallet!.publicKey;
+        case "ATOM":
+          return cosmoswallet!.publicKey;
         case "ETH":
           return ethwallet.publicKey;
         case "BSLETH":
