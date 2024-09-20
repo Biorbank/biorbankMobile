@@ -210,7 +210,6 @@ Future<WalletAddress> _generateEthWallet(String seedPhrase) async {
       seedPhrase: seedPhrase);
 }
 
-
 Future<WalletAddress> _generateEthWalletWithPrivateKey(
     String privateKey) async {
   Credentials credentials = EthPrivateKey.fromHex(privateKey);

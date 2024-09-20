@@ -9,6 +9,7 @@ import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -51,8 +52,11 @@ class NftHoldingScreen extends StatelessWidget {
                   height(35.h),
                   CommonSearchAppbar(
                     hintText: 'ID/USDT',
-                    onTapBellIcon: () {},
                     textController: TextEditingController(),
+                    onTapTextField: () {
+                      context.router.push(const CommonSearchRoute());
+                      //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                    },
                   ),
                 ],
               ),
@@ -92,7 +96,7 @@ class NftHoldingScreen extends StatelessWidget {
                                       images: images),
 
                                   /// description widget
-                                   DescriptionWidget(
+                                  DescriptionWidget(
                                     title: 'Hooligan #7459',
                                     chain: 'Polygon',
                                     description:
@@ -100,7 +104,7 @@ class NftHoldingScreen extends StatelessWidget {
                                     contactAddress: 'Oxa9a6a36269932',
                                     tokenId: '2955844746...34016',
                                     tokenStandard: 'ERC721',
-                                    onTapExploreButton: (){},
+                                    onTapExploreButton: () {},
                                   ),
                                   height(20.h),
 
@@ -119,8 +123,10 @@ class NftHoldingScreen extends StatelessWidget {
                                   onPressed: () {
                                     carouselController.previousPage();
                                   },
-                                  child:  Icon(Icons.arrow_back_ios_new,
-                                      size: 18, color:Theme.of(context).colorScheme.shadow),
+                                  child: Icon(Icons.arrow_back_ios_new,
+                                      size: 18,
+                                      color:
+                                          Theme.of(context).colorScheme.shadow),
                                 ),
                               ),
                             ),
@@ -134,10 +140,12 @@ class NftHoldingScreen extends StatelessWidget {
                                   child: CarouselControl(
                                     onPressed: () =>
                                         carouselController.nextPage(),
-                                    child:  Icon(
+                                    child: Icon(
                                         Icons.arrow_forward_ios_outlined,
                                         size: 18,
-                                        color: Theme.of(context).colorScheme.shadow),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .shadow),
                                   ),
                                 ),
                               ),

@@ -18,7 +18,7 @@ abstract class BlockchainHelper {
   BlockchainHelper(this.model);
   Future<int> getCurrentBlockNumber();
   Future<Map<String, dynamic>> getTransactionStatus(String txHash);
-  Future<Map<String, dynamic>> getTokenInformation(String txHash);
+  Future<Map<String, dynamic>> getTokenInformation(String tokenAddress);
   Future<List<Map<String, dynamic>>> getNewTransactions(
       int startBlock, int endBlock);
   factory BlockchainHelper.fromModal(

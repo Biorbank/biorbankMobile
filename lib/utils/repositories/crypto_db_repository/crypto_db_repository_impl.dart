@@ -9,6 +9,7 @@ import 'package:biorbank/utils/helpers/blockchainhelper.dart';
 import 'package:biorbank/utils/helpers/func_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/models/transaction_detail_model.dart';
+import 'package:biorbank/utils/networks/cmc_api_service.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:biorbank/utils/service/blockchain_service.dart';
 import 'package:biorbank/utils/service/cmc_service.dart';
@@ -375,23 +376,24 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
 
   Future<CryptoAssetInformation?> getToken(
       String tokenAddress, NetworkInformation networkInfo) async {
-    for (int i = 0; i < BlockchainService.instance.bhelpers.length; i++) {
-      BlockchainHelper bhelper = BlockchainService.instance.bhelpers[i];
-      if (bhelper.networkId == networkInfo.id) {
-        Map<String, dynamic> tokenInfo =
-            await bhelper.getTokenInformation(tokenAddress);
+    try {
+      BlockchainHelper bhelper =
+          BlockchainService.instance.getHelperByNetworkId(networkInfo.id);
+      Map<String, dynamic> tokenInfo =
+          await bhelper.getTokenInformation(tokenAddress);
 
-        return CryptoAssetInformation(
-          type: AssetType.token,
-          tokenId: tokenAddress, // sepolia Ethereum USDT
-          name: tokenInfo["tokenName"],
-          symbol: tokenInfo["tokenSymbol"],
-          decimal: int.parse(tokenInfo["tokenDecimals"].toString()),
-          networkId: networkInfo.id,
-          cmcId: -1,
-          logo: "assets/img/cryptoicon/-1.png",
-        );
-      }
+      return CryptoAssetInformation(
+        type: AssetType.token,
+        tokenId: tokenAddress, // sepolia Ethereum USDT
+        name: tokenInfo["tokenName"],
+        symbol: tokenInfo["tokenSymbol"],
+        decimal: int.parse(tokenInfo["tokenDecimals"].toString()),
+        networkId: networkInfo.id,
+        cmcId: -1,
+        logo: "assets/img/cryptoicon/-1.png",
+      );
+    } catch (e) {
+      LogService.logger.i("Get Token: $e");
     }
     return null;
   }

@@ -104,7 +104,7 @@ class BscHelper extends BlockchainHelper {
   }
 
   @override
-  Future<Map<String, dynamic>> getTokenInformation(String txHash) async {
+  Future<Map<String, dynamic>> getTokenInformation(String tokenAddress) async {
     return {};
   }
 
