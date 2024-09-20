@@ -3,6 +3,7 @@ import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/response_model.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_btc_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_evm_impl.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repository_sol_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +57,14 @@ abstract class CryptoAssetRepositoryImpl
           walletAddress: currentWallet.btcwallet!,
           asset: asset,
           network: network);
-    } else {
+    }
+    else if(networkId == 4) {
+      repo = CryptoAssetRepositorySolanaImpl(
+        asset: asset,
+        network: network,
+        walletAddress: currentWallet.solanawallet!,
+      );
+    }else {
       repo = CryptoAssetRepositoryEvmImpl(
         asset: asset,
         network: network,

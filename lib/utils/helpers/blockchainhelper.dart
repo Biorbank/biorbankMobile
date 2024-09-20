@@ -9,6 +9,7 @@ enum BlockchainHelperType {
   ethereum,
   binance,
   polygon,
+  solana,
 }
 
 abstract class BlockchainHelper {
@@ -31,6 +32,8 @@ abstract class BlockchainHelper {
       case BlockchainHelperType.binance:
         return BscHelper(model);
       case BlockchainHelperType.polygon:
+        return PolygonHelper(model);
+      case BlockchainHelperType.solana:
         return PolygonHelper(model);
     }
   }

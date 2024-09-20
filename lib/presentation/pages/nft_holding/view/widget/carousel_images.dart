@@ -11,7 +11,7 @@ class CarouselImageWidget extends StatelessWidget {
     required this.images,
   });
 
-  final CarouselController carouselController;
+  final CarouselSliderController carouselController;
   final List<String> images;
 
   @override

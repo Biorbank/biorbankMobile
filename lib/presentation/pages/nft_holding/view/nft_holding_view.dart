@@ -28,7 +28,7 @@ class NftHoldingScreen extends StatelessWidget {
     'https://i.pinimg.com/736x/cd/58/c4/cd58c47e34804456c14fd2343c42ca78.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvbTcEQ002VxZLWOU4RIgIPpSDFXhsVvqQIIFKqA-CO_sx3HO1gLotwhB9zuaKROsZiQ&usqp=CAU'
   ];
-  static CarouselController carouselController = CarouselController();
+  static CarouselSliderController carouselController = CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
