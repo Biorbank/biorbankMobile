@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
-import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
+import 'package:biorbank/utils/preferences.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+@RoutePage()
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -11,18 +14,26 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3)).then((value) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const WelcomeScreen();
-      },));
-    },);
+    Future.delayed(const Duration(seconds: 3)).then(
+      (value) {
+        String userData = UserPreferences.getUserData();
+        if (userData.isNotEmpty) {
+          context.router.pushAndPopUntil(
+            const LoginRoute(),
+            predicate: (route) => false,
+          );
+        } else {
+          context.router.pushAndPopUntil(
+            const WelcomeRoute(),
+            predicate: (route) => false,
+          );
+        }
+      },
+    );
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
