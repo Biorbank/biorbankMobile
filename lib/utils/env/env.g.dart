@@ -577,6 +577,68 @@ final class _Env {
     growable: false,
   ).map((int i) => _envieddatahederaRpcUrl[i] ^ _enviedkeyhederaRpcUrl[i]));
 
+  static const List<int> _envieddatasolanaRpcUrl = <int>[
+    2063575245,
+    690560700,
+    2715597332,
+    2435342169,
+    2738647704,
+    1147015354,
+    1937233676,
+    1089931622,
+    544567676,
+    1086044960,
+    4125018189,
+    2631176923,
+    2164902986,
+    2122216992,
+    1142184702,
+    393298109,
+    2180883819,
+    719448463,
+    3462840455,
+    232906201,
+    2642951615,
+    228331962,
+    3143246835,
+    1269829441,
+    877742580,
+  ];
+
+  static const List<int> _enviedkeysolanaRpcUrl = <int>[
+    2063575205,
+    690560712,
+    2715597408,
+    2435342121,
+    2738647787,
+    1147015296,
+    1937233699,
+    1089931593,
+    544567581,
+    1086045008,
+    4125018148,
+    2631176949,
+    2164902952,
+    2122217025,
+    1142184592,
+    393298134,
+    2180883736,
+    719448544,
+    3462840548,
+    232906160,
+    2642951646,
+    228331990,
+    3143246813,
+    1269829416,
+    877742491,
+  ];
+
+  static final String solanaRpcUrl = String.fromCharCodes(List<int>.generate(
+    _envieddatasolanaRpcUrl.length,
+        (int i) => i,
+    growable: false,
+  ).map((int i) => _envieddatasolanaRpcUrl[i] ^ _enviedkeysolanaRpcUrl[i]));
+
   static const List<int> _enviedkeywalletConnectProjectId = <int>[
     3289507628,
     760071312,

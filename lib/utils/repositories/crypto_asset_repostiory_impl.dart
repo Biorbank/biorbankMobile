@@ -58,7 +58,7 @@ abstract class CryptoAssetRepositoryImpl
           asset: asset,
           network: network);
     }
-    else if(networkId == 4) {
+    else if(networkId == 6) {
       repo = CryptoAssetRepositorySolanaImpl(
         asset: asset,
         network: network,

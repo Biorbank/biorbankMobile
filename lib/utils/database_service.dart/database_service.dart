@@ -189,6 +189,7 @@ class DatabaseService {
     db.insert('Network', binance.toMap());
     db.insert('Network', polygon.toMap());
     db.insert('Network', hedera.toMap());
+    db.insert('Network', solana.toMap());
   }
 
   Future<void> _createAssetTable(Batch db) async {
@@ -211,6 +212,9 @@ class DatabaseService {
     db.insert('Asset', ethcoin.toMap());
     if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
       db.insert('Asset', hbarcoin.toMap());
+    }
+    if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
+      db.insert('Asset', solanacoin.toMap());
     }
     db.insert('Asset', usdterc20.toMap());
     db.insert('Asset', bslbep20.toMap());

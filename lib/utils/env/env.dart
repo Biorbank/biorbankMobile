@@ -21,6 +21,9 @@ abstract class Env {
   @EnviedField(varName: 'HEDERA_RPC_URL', obfuscate: true)
   static final String hederaRpcUrl = _Env.hederaRpcUrl;
 
+  @EnviedField(varName: 'SOLANA_RPC_URL', obfuscate: true)
+  static final String solanaRpcUrl = _Env.solanaRpcUrl;
+
   @EnviedField(varName: 'WALLETCONNECT_PROJECTID', obfuscate: true)
   static final String walletConnectProjectId = _Env.walletConnectProjectId;
 
