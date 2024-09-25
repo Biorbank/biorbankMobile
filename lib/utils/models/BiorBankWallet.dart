@@ -20,12 +20,14 @@ class BiorBankWallet {
   String name = "";
   WalletType walletType;
   final String id;
+  double totalAmount;
   BiorBankWallet(
       {this.btcwallet,
       required this.ethwallet,
       this.seedPhrase = "",
       required this.id,
       required this.name,
+      this.totalAmount = 0.0,
       this.walletType = WalletType.multiChainWallet});
   Map<String, dynamic> toJson() => walletType == WalletType.multiChainWallet
       ? {
@@ -35,12 +37,14 @@ class BiorBankWallet {
           'seedPhrase': seedPhrase,
           'name': name,
           'type': walletType.index,
+          'totalAmount': totalAmount,
         }
       : {
           'id': id,
           'ethwallet': ethwallet.toJson(),
           'name': name,
           'type': walletType.index,
+          'totalAmount': totalAmount,
         };
   static BiorBankWallet fromJson(String str) {
     Map<String, dynamic> wallet = json.decode(str);
@@ -52,12 +56,16 @@ class BiorBankWallet {
             btcwallet: WalletAddress.fromJson(wallet['btcwallet']),
             ethwallet: WalletAddress.fromJson(wallet['ethwallet']),
             seedPhrase: wallet['seedPhrase'],
-            walletType: WalletType.multiChainWallet)
+            walletType: WalletType.multiChainWallet,
+            totalAmount: wallet['totalAmount'],
+          )
         : BiorBankWallet(
             id: wallet['id'],
             name: wallet['name'],
             ethwallet: WalletAddress.fromJson(wallet['ethwallet']),
-            walletType: WalletType.legacyWallet);
+            walletType: WalletType.legacyWallet,
+            totalAmount: wallet['totalAmount'],
+          );
   }
 
   String getName() {

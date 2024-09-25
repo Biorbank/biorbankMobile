@@ -37,7 +37,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     }
 
     cubit.setMnemonic(value: seedPhrase);
-    context.router.push(const CreateAccountRoute());
   }
 
   @override
