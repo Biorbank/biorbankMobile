@@ -1,7 +1,7 @@
   
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CarouselImageWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class CarouselImageWidget extends StatelessWidget {
     required this.images,
   });
 
-  final CarouselController carouselController;
+  final CarouselSliderController carouselController;
   final List<String> images;
 
   @override

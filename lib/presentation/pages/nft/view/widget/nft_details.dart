@@ -13,7 +13,7 @@ import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
@@ -26,7 +26,7 @@ class NFTDetailsPage extends StatelessWidget {
     'https://cdn.publish0x.com/prod/fs/images/89d99afdbfa537b3e108e202d9524189ffa3c74302d42815e72dc2fc4160ce3b.png',
     'https://pbs.twimg.com/ext_tw_video_thumb/1466059844327247877/pu/img/Fp28ApEpaa4ogvM6?format=jpg&name=4096x4096'
   ];
-  static CarouselController carouselController = CarouselController();
+  static CarouselSliderController carouselController = CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

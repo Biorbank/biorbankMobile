@@ -14,6 +14,8 @@ import 'package:flutter_bitcoin/flutter_bitcoin.dart';
 import 'package:web3dart/web3dart.dart';
 
 import 'package:convert/convert.dart';
+import 'package:solana/solana.dart';
+
 
 String addCommas(String input) {
   List<String> list = input.split('.');
@@ -118,6 +120,16 @@ class ValidateWalletAddress {
   static bool validateEVM(String str) {
     try {
       EthereumAddress.fromHex(str);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool validateSolana(String str) {
+    try {
+      // Use the Base58 encoding to check if the address is valid
+      Ed25519HDPublicKey.fromBase58(str);
       return true;
     } catch (e) {
       return false;

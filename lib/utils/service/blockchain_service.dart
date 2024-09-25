@@ -16,8 +16,11 @@ class BlockchainService {
 
     if (!currentWallet.isLegacyWallet) {
       WalletAddress btcmodel = currentWallet.btcwallet!;
+      WalletAddress solanamodel = currentWallet.solanawallet!;
       _bhelpers.add(
           BlockchainHelper.fromModal(btcmodel, BlockchainHelperType.bitcoin));
+      _bhelpers.add(
+          BlockchainHelper.fromModal(solanamodel, BlockchainHelperType.solana));
     }
     WalletAddress ethmodel = currentWallet.ethwallet;
 
@@ -27,6 +30,7 @@ class BlockchainService {
         BlockchainHelper.fromModal(ethmodel, BlockchainHelperType.binance));
     _bhelpers.add(
         BlockchainHelper.fromModal(ethmodel, BlockchainHelperType.polygon));
+
   }
 
   List<BlockchainHelper> get bhelpers {
