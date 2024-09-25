@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -63,7 +64,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               .onSecondaryContainer,
                         ),
                         AppConstant.commonText(
-                          "\$75,630.90",
+                          "\$${AppHelper.walletService.currentWallet.totalAmount}",
                           fontSize: 32,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.onSurface,
@@ -169,7 +170,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ),
                     BlocBuilder<CryptoDBRepositoryImpl,
                         CryptoDBRepositoryState>(builder: (context, state) {
-                      return _buildTransactionHistory(context);
+                      return _buildTransactionHistory(state);
                     }),
                   ],
                 ),
@@ -181,9 +182,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  _buildTransactionHistory(BuildContext context) {
+  _buildTransactionHistory(CryptoDBRepositoryState state) {
     CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
-    List<TransactionHistoryImpl> hTList = db.state.historyList.toList();
+    List<TransactionHistoryImpl> hTList = state.historyList.toList();
     hTList.sort((a, b) => b.timeStamp.compareTo(a.timeStamp));
 
     // Group transactions by date
