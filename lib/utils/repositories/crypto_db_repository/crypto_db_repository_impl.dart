@@ -9,7 +9,6 @@ import 'package:biorbank/utils/helpers/blockchainhelper.dart';
 import 'package:biorbank/utils/helpers/func_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/models/transaction_detail_model.dart';
-import 'package:biorbank/utils/networks/cmc_api_service.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:biorbank/utils/service/blockchain_service.dart';
 import 'package:biorbank/utils/service/cmc_service.dart';
@@ -53,6 +52,13 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
     bool isSuccess =
         (await AppHelper.walletService.updateWallet(index, newName));
     emit(state.copyWith(key: const Uuid().v4()));
+    return isSuccess;
+  }
+
+  Future<bool> updateWalletForTotalBalance(
+      int index, double totalAmount) async {
+    bool isSuccess = (await AppHelper.walletService
+        .updateWalletForTotalBalance(index, totalAmount));
     return isSuccess;
   }
 
@@ -232,6 +238,9 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
       ]);
       totalBalance += balance * quoteList.elementAt(i).priceInUSD;
     }
+    AppHelper.walletService.currentWallet.totalAmount = totalBalance;
+    await updateWalletForTotalBalance(
+        AppHelper.walletService.currentIndex, totalBalance);
     emit(state.copyWith(totalPrice: totalBalance));
   }
 

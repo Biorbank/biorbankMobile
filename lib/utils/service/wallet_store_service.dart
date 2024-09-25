@@ -370,6 +370,10 @@ class WalletStoreService {
   }
 
   Future<bool> updateWallet(int index, String newName) async {
+    if (index < 0) {
+      errorToast("No Wallet");
+      return false;
+    }
     if (!walletNameAlreadyExists(newName)) {
       errorToast('Wallet Name Already Exists');
       return false;
@@ -379,6 +383,20 @@ class WalletStoreService {
       return false;
     }
     wallets.elementAt(index).changeName(newName);
+
+    List<String> newWalletsInString =
+        wallets.map((e) => json.encode(e.toJson())).toList();
+    await _prefs.setStringList("wallets", newWalletsInString);
+    return true;
+  }
+
+  Future<bool> updateWalletForTotalBalance(
+      int index, double totalAmount) async {
+    if (index < 0) {
+      errorToast("No Wallet");
+      return false;
+    }
+    wallets.elementAt(index).totalAmount = totalAmount;
 
     List<String> newWalletsInString =
         wallets.map((e) => json.encode(e.toJson())).toList();

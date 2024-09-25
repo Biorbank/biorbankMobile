@@ -43,8 +43,8 @@ class DeFiTabWidget extends StatelessWidget {
             itemCount: 2,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
-                context.router.push(DefiDetailRoute(index: index+1));
-               // AutoTabsRouter.of(context).setActiveIndex(6);
+                context.router.push(DefiDetailRoute(index: index + 1));
+                // AutoTabsRouter.of(context).setActiveIndex(6);
               },
               child: PriceDetailWidget(
                 title: index == 0 ? 'Staking' : 'Liquidity Providing (LP)',

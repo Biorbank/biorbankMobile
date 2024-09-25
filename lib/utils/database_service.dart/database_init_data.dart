@@ -87,34 +87,6 @@ CryptoAssetInformation bnbcoin = CryptoAssetInformation(
     decimal: 18,
     cmcId: 1839,
     logo: "assets/img/cryptoicon/1839.png");
-
-CryptoAssetInformation rivia = CryptoAssetInformation(
-    type: AssetType.token,
-    tokenId: "0.0.1320271",
-    name: "Rivia USD",
-    symbol: "rUSD",
-    decimal: 6,
-    networkId: 4,
-    cmcId: Constants.riviaTokenFakeCmcId,
-    logo: "assets/img/cryptoicon/1320271.png");
-CryptoAssetInformation bslbep20 = CryptoAssetInformation(
-    type: AssetType.token,
-    tokenId: "0x0af55d5ff28a3269d69b98680fd034f115dd53ac",
-    name: "BankSocial",
-    symbol: "BSL",
-    decimal: 8,
-    networkId: 2,
-    cmcId: 10102,
-    logo: "assets/img/cryptoicon/10102.png");
-CryptoAssetInformation bslhts = CryptoAssetInformation(
-    type: AssetType.token,
-    tokenId: Constants.bslHtsTokenId,
-    name: "BankSocial",
-    symbol: "BSL",
-    decimal: 8,
-    networkId: 4,
-    cmcId: Constants.bslHtsTokenFakeCmcId,
-    logo: "assets/img/cryptoicon/10102.png");
 CryptoAssetInformation busdtoken = CryptoAssetInformation(
     networkId: 2,
     type: AssetType.token,

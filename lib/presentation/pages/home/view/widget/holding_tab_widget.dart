@@ -75,10 +75,10 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
               },
               child: PriceDetailWidget(
                 title: wallets[index].name,
-                currentAmt: '\$74,200.00',
-                differentAmt: '+643.67',
+                currentAmt: '\$${wallets[index].totalAmount}',
+                differentAmt: '+0',
                 isProfit: true,
-                totalDifferentInPercentage: '+1.23%',
+                totalDifferentInPercentage: '+0%',
               ),
             ),
           ),

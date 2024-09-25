@@ -5,6 +5,7 @@ import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/preferences.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:biorbank/utils/validation.dart';
@@ -27,6 +28,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginScreen> with Validation {
+  Future<void> migration() async {
+    LogService.logger.i(
+        "Wallet - ${AppHelper.walletService.currentWallet.ethwallet.toJson()}");
+
+    bool isExist = AppHelper.walletService.isWalletExist;
+
+    if (isExist) {
+      if (context.mounted) {
+        CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+        await db.initRepo();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<AuthCubit>();
@@ -101,8 +116,9 @@ class _LoginViewState extends State<LoginScreen> with Validation {
               CommonButton(
                 name: AppStrings.unlock,
                 textColor: Theme.of(context).colorScheme.onSurface,
-                onTap: () {
+                onTap: () async {
                   if (cubit.formKey.currentState?.validate() ?? false) {
+                    await migration();
                     context.router.pushAndPopUntil(
                       const DashboardRoute(),
                       predicate: (route) => false,

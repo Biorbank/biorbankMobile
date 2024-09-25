@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
-import 'package:biorbank/presentation/pages/create_account/widget/word_selector_dialog.dart';
+import 'package:biorbank/presentation/pages/create_account/widget/important_view.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/preferences.dart';
@@ -29,18 +29,33 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountViewState extends State<CreateAccountScreen> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
-        context.read<CreateAccountCubit>().shuffleList();
-        showDialog(
-          context: context,
-          builder: (context) {
-            return const WordSelectorDialog();
-          },
-        );
-      },
-    );
     super.initState();
+  }
+
+  buildScreenByStep(int step) {
+    if (step == 0) {
+      return const ImportantView();
+    } else if (step == 1) {
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const RecoveryParseView(),
+            height(25.h),
+          ],
+        ),
+      );
+    } else if (step == 2) {
+      return SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CreateAccountFieldView(),
+            height(25.h),
+          ],
+        ),
+      );
+    }
   }
 
   @override
@@ -49,11 +64,10 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
       builder: (context, state) {
         var cubit = BlocProvider.of<CreateAccountCubit>(context);
         return PopScope(
-          canPop: cubit.isShowRecoveryPharseView,
+          canPop: cubit.step == 0,
           onPopInvoked: (didPop) {
-            if (!cubit.isShowRecoveryPharseView) {
-              cubit.updateView(
-                  value: cubit.isShowRecoveryPharseView ? false : true);
+            if (cubit.step != 0) {
+              cubit.updateStep(value: 0);
             }
           },
           child: Scaffold(
@@ -66,38 +80,27 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                   height(14.h),
                   CommonAppbar(
                     onTapBack: () {
-                      if (cubit.isShowRecoveryPharseView) {
+                      if (cubit.step == 0) {
                         Navigator.pop(context);
-                      }
-                      if (!cubit.isShowRecoveryPharseView) {
-                        cubit.updateView(
-                            value:
-                                cubit.isShowRecoveryPharseView ? false : true);
+                      } else if (cubit.step == 1) {
+                        cubit.updateStep(value: 0);
+                      } else if (cubit.step == 2) {
+                        cubit.updateStep(value: 1);
                       }
                     },
                     title: AppStrings.createNewAccount,
                   ),
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          cubit.isShowRecoveryPharseView
-                              ? const RecoveryParseView()
-                              : const CreateAccountFieldView(),
-                          height(25.h),
-                        ],
-                      ),
-                    ),
+                    child: buildScreenByStep(cubit.step),
                   ),
                   CommonButton(
-                    name: 'Next',
+                    name: cubit.step == 0 ? "I understand" : 'Next',
                     onTap: () async {
-                      if (cubit.isShowRecoveryPharseView) {
+                      if (cubit.step == 0) {
+                        cubit.updateStep(value: 1);
+                      } else if (cubit.step == 1) {
                         cubit.cleanTextFiledData();
-                        cubit.updateView(
-                            value:
-                                cubit.isShowRecoveryPharseView ? false : true);
+                        cubit.updateStep(value: 2);
                       } else {
                         if (cubit.formKey.currentState?.validate() ?? false) {
                           UserPreferences.setUserData(

@@ -211,17 +211,14 @@ class DatabaseService {
     }
     db.insert('Asset', ethcoin.toMap());
     if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
-      db.insert('Asset', hbarcoin.toMap());
-    }
-    if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
       db.insert('Asset', solanacoin.toMap());
     }
     db.insert('Asset', usdterc20.toMap());
-    db.insert('Asset', bslbep20.toMap());
-    if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
-      db.insert('Asset', rivia.toMap());
-      // db.insert('Asset', bslhts.toMap());
-    }
+    // db.insert('Asset', bslbep20.toMap());
+    // if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
+    // db.insert('Asset', rivia.toMap());
+    // db.insert('Asset', bslhts.toMap());
+    // }
 
     db.insert('Asset', bnbcoin.toMap());
     db.insert('Asset', maticcoin.toMap());

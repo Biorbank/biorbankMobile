@@ -16,7 +16,7 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
   TextEditingController confirmPasswordController = TextEditingController();
   String mnemonic = "";
   List<String> mnemonicList = [];
-  bool isShowRecoveryPharseView = true;
+  int step = 0;
   bool isShowPassword = true;
   bool isShowConfirmPassword = true;
   String word = "if i share my recovery phrase i will lose my money";
@@ -44,9 +44,9 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
     emit(CreateAccountInitialState());
   }
 
-  void updateView({required bool value}) {
+  void updateStep({required int value}) {
     emit(CreateAccountInitialState());
-    isShowRecoveryPharseView = value;
+    step = value;
     emit(PasswordToggleState());
   }
 
@@ -74,8 +74,8 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
   }
 
   void shuffleList() {
+    step = 0;
     isValidWordSelction = false;
-    isShowRecoveryPharseView = true;
     selectedWords.clear();
     List<String> wordList = word.split(" ");
     wordList.shuffle(Random());
