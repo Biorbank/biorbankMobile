@@ -391,6 +391,17 @@ class _CryptoStepperState extends State<CryptoStepper> {
 
                     if (true) {
                       int usdterc20Index = db.state.assetList.indexWhere(
+                              (asset) =>
+                          asset.getAsset().symbol ==
+                              "SOL");
+
+                      if (usdterc20Index != -1) {
+                        CryptoAssetRepositoryImpl usdterc20 =
+                        db.state.assetList[usdterc20Index];
+
+                        String txHash = await usdterc20.sendBalance(
+                            sendAmount, recipientAddressString);
+                      /*int usdterc20Index = db.state.assetList.indexWhere(
                           (asset) =>
                               asset.getAsset().tokenId ==
                               "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0");
@@ -412,7 +423,7 @@ class _CryptoStepperState extends State<CryptoStepper> {
                             sendAmount,
                             txHash,
                           );
-                        }
+                        }*/
 
                         LogService.logger.i(
                             "===========transaction id=========== ${txHash}");

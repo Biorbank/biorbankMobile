@@ -35,6 +35,13 @@ NetworkInformation hedera = NetworkInformation(
   chainId: 0,
   name: "Hedera",
 );
+NetworkInformation solana = NetworkInformation(
+  id: 6,
+  rpcUrl: Env.solanaRpcUrl,
+  explorerUrl: "https://solscan.io/tx",
+  chainId: 0,
+  name: "Solana",
+);
 NetworkInformation sepolia = NetworkInformation(
   // sepolia
   id: 5,
@@ -98,3 +105,23 @@ CryptoAssetInformation maticcoin = CryptoAssetInformation(
     decimal: 18,
     cmcId: 3890,
     logo: "assets/img/cryptoicon/3890.png");
+
+CryptoAssetInformation hbarcoin = CryptoAssetInformation(
+    networkId: 4,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "HBAR",
+    symbol: "HBAR",
+    decimal: 8,
+    cmcId: 4642,
+    logo: "assets/img/cryptoicon/4642.png");
+
+CryptoAssetInformation solanacoin = CryptoAssetInformation(
+    networkId: 6,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "SOL",
+    symbol: "SOL",
+    decimal: 8,
+    cmcId: 4646,
+    logo: "assets/img/cryptoicon/4646.png");
