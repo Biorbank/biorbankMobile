@@ -7,8 +7,10 @@ import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/service/secure_storage_service.dart';
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:bech32/bech32.dart' as bech32;
-
+import 'package:dart_bip32/dart_bip32.dart' as bip32;
 import 'package:dart_bip32_bip44/dart_bip32_bip44.dart';
+import 'package:polkadart/polkadart.dart' as polkadot;
+
 
 import 'package:defichaindart/defichaindart.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,7 @@ import 'package:web3dart/credentials.dart';
 import 'package:solana/solana.dart' as solana;
 import 'package:bs58/bs58.dart';
 import 'package:convert/convert.dart';
+import 'package:cosmos_sdk/cosmos_sdk.dart';
 
 
 
@@ -26,6 +29,9 @@ const String _pathForEthPrivateKey = "m/44'/60'/0'/0/0";
 const String _pathForBtcPrivateKey = "m/44'/0'/0'/0/0";
 const String _pathForLtcPrivateKey = "m/84'/2'/0'/0/0";
 const String _pathForCosmosPrivateKey = "m/44'/118'/0'/0/0";
+const String _pathForThorPrivateKey = "m/44'/931'/0'/0/0";
+const String _pathForInjectivePrivateKey = "m/44'/60'/0'/0/0";
+const String _pathForKujiraPrivateKey = "m/44'/118'/0'/0/0";
 const String _pathForHbarPrivateKey = "m/44'/3030'/0'/0/0";
 
 final litecoin = NetworkType(
@@ -58,7 +64,10 @@ Future<BiorBankWallet> generateNewWallet(Map argu) async {
     WalletAddress bitCoinWallet = await _generateBtcWallet(seedPhrase);
     WalletAddress litCoinWallet = await _generateLtcWallet(seedPhrase);
     WalletAddress solWallet = await _generateSolanaWallet(seedPhrase);
+    WalletAddress injWallet = await _generateInjectiveWallet(seedPhrase);
+    WalletAddress kujiWallet = await _generateKujiraWallet(seedPhrase);
     WalletAddress cosmosWallet = await _generateCosmosWallet(seedPhrase);
+    WalletAddress thorWallet = await _generateThorchainWallet(seedPhrase);
     WalletAddress etherWallet = await _generateEthWallet(seedPhrase);
     AppHelper.command = AppCommand.createWallet;
     String id = const Uuid().v1();
@@ -68,7 +77,10 @@ Future<BiorBankWallet> generateNewWallet(Map argu) async {
         btcwallet: bitCoinWallet,
         ltcwallet: litCoinWallet,
         solanawallet: solWallet,
+        injectivewallet: injWallet,
+        kujirawallet: kujiWallet,
         cosmoswallet: cosmosWallet,
+        thorchainwallet: thorWallet,
         ethwallet: etherWallet,
         seedPhrase: seedPhrase);
   } catch (error) {
@@ -177,24 +189,86 @@ Future<WalletAddress> _generateSolanaWallet(String seedPhrase) async {
     seedPhrase: seedPhrase,
   );
 }
-Future<WalletAddress> _generateCosmosWallet(String seedPhrase) async {
-  final seed = bip39.mnemonicToSeed(seedPhrase);
-  final hdWallet = HDWallet.fromSeed(seed);
-  final derivedKey = hdWallet.derivePath(_pathForCosmosPrivateKey);
-  final privateKeyHex = derivedKey.privKey;
-  final privateKey = hexStringToUint8List(privateKeyHex!);
-  final publicKeyHex = derivedKey.pubKey;
-  final publicKey = hexStringToUint8List(publicKeyHex!);
-  final address = _bech32Encode('cosmos', publicKey);
-
+Future<WalletAddress> _generateInjectiveWallet(String seedPhrase) async {
+  final seedBytes = bip39.mnemonicToSeed(seedPhrase);
+  final rootKey = bip32.BIP32.fromSeed(seedBytes);
+  final derivedKey = rootKey.derivePath(_pathForInjectivePrivateKey);
+  final privateKeyBytes = derivedKey.privateKey;
+  if (privateKeyBytes == null) {
+    throw Exception('Derived private key is null');
+  }
+  final privateKey = CosmosSecp256K1PrivateKey.fromBytes(privateKeyBytes);
+  final pubkey = privateKey.toPublicKey();
+  final injectiveAddress = pubkey.toAddresss(hrp: "inj");
   return WalletAddress(
-    privateKey: privateKeyHex,
-    publicKey: address,
-    addressType: WalletAddressType.cosmos,
+    privateKey: privateKey.toString(),
+    publicKey: injectiveAddress.address,
+    addressType: WalletAddressType.injective,
     seedPhrase: seedPhrase,
   );
 }
 
+Future<WalletAddress> _generateKujiraWallet(String seedPhrase) async {
+  final seedBytes = bip39.mnemonicToSeed(seedPhrase);
+  final rootKey = bip32.BIP32.fromSeed(seedBytes);
+  final derivedKey = rootKey.derivePath(_pathForKujiraPrivateKey);  // BIP44 path for Kujira
+
+  final privateKeyBytes = derivedKey.privateKey;
+  if (privateKeyBytes == null) {
+    throw Exception('Derived private key is null');
+  }
+  final privateKey = CosmosSecp256K1PrivateKey.fromBytes(privateKeyBytes);
+  final pubkey = privateKey.toPublicKey();
+  final kujiraAddress = pubkey.toAddresss(hrp: "kujira");
+  return WalletAddress(
+    privateKey: privateKey.toString(),
+    publicKey: kujiraAddress.address,
+    addressType: WalletAddressType.kujira,
+    seedPhrase: seedPhrase,
+  );
+}
+
+Future<WalletAddress> _generateCosmosWallet(String seedPhrase) async {
+  final seedBytes = bip39.mnemonicToSeed(seedPhrase);
+  final rootKey = bip32.BIP32.fromSeed(seedBytes);
+  final derivedKey = rootKey.derivePath(_pathForCosmosPrivateKey);  // BIP44 path for Cosmos
+
+  final privateKeyBytes = derivedKey.privateKey;
+  if (privateKeyBytes == null) {
+    throw Exception('Derived private key is null');
+  }
+
+  final privateKey = CosmosSecp256K1PrivateKey.fromBytes(privateKeyBytes);
+  final pubkey = privateKey.toPublicKey();
+  final cosmosAddress = pubkey.toAddresss(hrp: "cosmos");
+  return WalletAddress(
+    privateKey: privateKey.toString(),
+    publicKey: cosmosAddress.address,
+    addressType: WalletAddressType.cosmos,  // Assuming you have a type for Cosmos in WalletAddressType
+    seedPhrase: seedPhrase,
+  );
+}
+
+Future<WalletAddress> _generateThorchainWallet(String seedPhrase, {bool isTestnet = false}) async {
+  final seedBytes = bip39.mnemonicToSeed(seedPhrase);
+  final rootKey = bip32.BIP32.fromSeed(seedBytes);
+  final derivedKey = rootKey.derivePath(_pathForThorPrivateKey);
+
+  final privateKeyBytes = derivedKey.privateKey;
+  if (privateKeyBytes == null) {
+    throw Exception('Derived private key is null');
+  }
+  final privateKey = CosmosSecp256K1PrivateKey.fromBytes(privateKeyBytes);
+  final pubkey = privateKey.toPublicKey();
+  final hrp = isTestnet ? 'tthor' : 'thor';
+  final thorAddress = pubkey.toAddresss(hrp: hrp);
+  return WalletAddress(
+    privateKey: HEX.encode(privateKeyBytes),
+    publicKey: thorAddress.address,
+    addressType: WalletAddressType.thorchain,
+    seedPhrase: seedPhrase,
+  );
+}
 
 Future<WalletAddress> _generateEthWallet(String seedPhrase) async {
   final Chain chain = _getChainByMnemonic(seedPhrase);

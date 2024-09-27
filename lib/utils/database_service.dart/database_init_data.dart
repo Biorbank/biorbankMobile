@@ -42,6 +42,13 @@ NetworkInformation solana = NetworkInformation(
   chainId: 0,
   name: "Solana",
 );
+NetworkInformation injective = NetworkInformation(
+  id: 7,
+  rpcUrl: Env.injectiveRpcUrl,
+  explorerUrl: "https://testnet.explorer.injective.network/transaction/",
+  chainId: 0,
+  name: "Injective",
+);
 NetworkInformation sepolia = NetworkInformation(
   // sepolia
   id: 5,
@@ -125,3 +132,13 @@ CryptoAssetInformation solanacoin = CryptoAssetInformation(
     decimal: 8,
     cmcId: 4646,
     logo: "assets/img/cryptoicon/4646.png");
+
+CryptoAssetInformation injectivecoin = CryptoAssetInformation(
+    networkId: 7,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "INJ",
+    symbol: "INJ",
+    decimal: 8,
+    cmcId: 4647,
+    logo: "assets/img/cryptoicon/4647.png");

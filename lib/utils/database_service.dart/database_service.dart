@@ -190,6 +190,7 @@ class DatabaseService {
     db.insert('Network', polygon.toMap());
     db.insert('Network', hedera.toMap());
     db.insert('Network', solana.toMap());
+    db.insert('Network', injective.toMap());
   }
 
   Future<void> _createAssetTable(Batch db) async {
@@ -208,11 +209,12 @@ class DatabaseService {
           FOREIGN KEY (networkId) REFERENCES Network(id) ON DELETE CASCADE)''');
     if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
       db.insert('Asset', btccoin.toMap());
+      db.insert('Asset', solanacoin.toMap());
+      db.insert('Asset', injectivecoin.toMap());
+
     }
     db.insert('Asset', ethcoin.toMap());
-    if (!AppHelper.walletService.currentWallet.isLegacyWallet) {
-      db.insert('Asset', solanacoin.toMap());
-    }
+
     db.insert('Asset', usdterc20.toMap());
     // db.insert('Asset', bslbep20.toMap());
     // if (!AppHelper.walletService.currentWallet.isLegacyWallet) {

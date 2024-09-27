@@ -15,6 +15,8 @@ import 'package:web3dart/web3dart.dart';
 
 import 'package:convert/convert.dart';
 import 'package:solana/solana.dart';
+import 'package:bech32/bech32.dart';
+
 
 
 String addCommas(String input) {
@@ -121,6 +123,17 @@ class ValidateWalletAddress {
     try {
       EthereumAddress.fromHex(str);
       return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool validateBech32(String str) {
+    try {
+      final decoded = Bech32Codec().decode(str);
+      // Optionally, you can also validate the HRP (Human-Readable Part)
+      // For example, check for "bc" (Bitcoin) or "cosmos" (Cosmos)
+      return decoded.hrp.isNotEmpty && decoded.data.isNotEmpty;
     } catch (e) {
       return false;
     }

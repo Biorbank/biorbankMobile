@@ -393,7 +393,7 @@ class _CryptoStepperState extends State<CryptoStepper> {
                       int usdterc20Index = db.state.assetList.indexWhere(
                               (asset) =>
                           asset.getAsset().symbol ==
-                              "SOL");
+                              "INJ");
 
                       if (usdterc20Index != -1) {
                         CryptoAssetRepositoryImpl usdterc20 =

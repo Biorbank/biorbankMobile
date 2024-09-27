@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/response_model.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repository_inj_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_btc_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_evm_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_sol_impl.dart';
@@ -64,7 +65,15 @@ abstract class CryptoAssetRepositoryImpl
         network: network,
         walletAddress: currentWallet.solanawallet!,
       );
-    }else {
+    }
+    else if(networkId == 7) {
+      repo = CryptoAssetRepositoryInjectiveImpl(
+        asset: asset,
+        network: network,
+        walletAddress: currentWallet.injectivewallet!,
+      );
+    }
+    else {
       repo = CryptoAssetRepositoryEvmImpl(
         asset: asset,
         network: network,

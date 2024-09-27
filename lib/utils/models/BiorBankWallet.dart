@@ -5,7 +5,10 @@ enum WalletAddressType {
   ethereum,
   litecoin,
   solana,
+  injective,
+  kujira,
   cosmos,
+  thorchain,
   hedera,
 }
 
@@ -18,7 +21,10 @@ class BiorBankWallet {
   final WalletAddress? btcwallet;
   final WalletAddress? ltcwallet;
   final WalletAddress? solanawallet;
+  final WalletAddress? injectivewallet;
+  final WalletAddress? kujirawallet;
   final WalletAddress? cosmoswallet;
+  final WalletAddress? thorchainwallet;
   final WalletAddress ethwallet;
   final String seedPhrase; // we use the same seedPhrase for 3 wallets.
   //id is unquite identifier for the wallet , created once and never changes
@@ -32,11 +38,15 @@ class BiorBankWallet {
         this.btcwallet,
         this.ltcwallet,
         this.solanawallet,
+        this.injectivewallet,
+        this.kujirawallet,
         this.cosmoswallet,
+        this.thorchainwallet,
         required this.ethwallet,
         this.seedPhrase = "",
         required this.id,
         required this.name,
+        this.totalAmount = 0.0,
         this.walletType = WalletType.multiChainWallet
       });
   Map<String, dynamic> toJson() => walletType == WalletType.multiChainWallet
@@ -45,7 +55,10 @@ class BiorBankWallet {
           'btcwallet': btcwallet!.toJson(),
           'ltcwallet': ltcwallet!.toJson(),
           'solanawallet': solanawallet!.toJson(),
+          'injectivewallet': injectivewallet!.toJson(),
+          'kujirawallet': kujirawallet!.toJson(),
           'cosmoswallet': cosmoswallet!.toJson(),
+          'thorchainwallet': thorchainwallet!.toJson(),
           'ethwallet': ethwallet.toJson(),
           'seedPhrase': seedPhrase,
           'name': name,
@@ -69,7 +82,10 @@ class BiorBankWallet {
             btcwallet: WalletAddress.fromJson(wallet['btcwallet']),
             ltcwallet: WalletAddress.fromJson(wallet['ltcwallet']),
             solanawallet: WalletAddress.fromJson(wallet['solanawallet']),
-            cosmoswallet: WalletAddress.fromJson(wallet['solanawallet']),
+            injectivewallet: WalletAddress.fromJson(wallet['injectivewallet']),
+            kujirawallet: WalletAddress.fromJson(wallet['kujirawallet']),
+            cosmoswallet: WalletAddress.fromJson(wallet['cosmoswallet']),
+            thorchainwallet: WalletAddress.fromJson(wallet['thorchainwallet']),
             ethwallet: WalletAddress.fromJson(wallet['ethwallet']),
             seedPhrase: wallet['seedPhrase'],
             walletType: WalletType.multiChainWallet,
@@ -105,8 +121,14 @@ class BiorBankWallet {
           return btcwallet!.publicKey;
         case "LTC":
           return ltcwallet!.publicKey;
+        case "INJ":
+          return injectivewallet!.publicKey;
+        case "KUJI":
+          return kujirawallet!.publicKey;
         case "SOL":
           return solanawallet!.publicKey;
+        case "RUNE":
+          return thorchainwallet!.publicKey;
         case "ATOM":
           return cosmoswallet!.publicKey;
         case "ETH":
