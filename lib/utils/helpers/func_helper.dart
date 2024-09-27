@@ -7,7 +7,6 @@ import 'package:biorbank/utils/helpers/helper_bitcoin.dart';
 import 'package:biorbank/utils/helpers/helper_ethereum.dart';
 import 'package:biorbank/utils/helpers/helper_polygon.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
-import 'package:flutter/material.dart';
 import 'package:hex/hex.dart';
 
 import 'package:flutter_bitcoin/flutter_bitcoin.dart';

@@ -9,8 +9,6 @@ import 'package:bip39/bip39.dart' as bip39;
 import 'package:bech32/bech32.dart' as bech32;
 import 'package:dart_bip32/dart_bip32.dart' as bip32;
 import 'package:dart_bip32_bip44/dart_bip32_bip44.dart';
-import 'package:polkadart/polkadart.dart' as polkadot;
-
 
 import 'package:defichaindart/defichaindart.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +30,6 @@ const String _pathForCosmosPrivateKey = "m/44'/118'/0'/0/0";
 const String _pathForThorPrivateKey = "m/44'/931'/0'/0/0";
 const String _pathForInjectivePrivateKey = "m/44'/60'/0'/0/0";
 const String _pathForKujiraPrivateKey = "m/44'/118'/0'/0/0";
-const String _pathForHbarPrivateKey = "m/44'/3030'/0'/0/0";
 
 final litecoin = NetworkType(
     messagePrefix: '\x19Litecoin Signed Message:\n',  // Litecoin-specific message prefix
@@ -330,10 +327,6 @@ List<int> _toWords(Uint8List data) {
 Uint8List hexStringToUint8List(String hexString) {
   hexString = hexString.replaceFirst('0x', '');
   return Uint8List.fromList(hex.decode(hexString));
-}
-String _bech32Encode(String prefix, Uint8List publicKey) {
-  final words = _toWords(publicKey);
-  return bech32.Bech32Encoder().convert(bech32.Bech32(prefix, words));
 }
 
 class WalletStoreService {

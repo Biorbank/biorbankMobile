@@ -8,7 +8,6 @@ import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:http/http.dart' as http;
 
 import 'crypto_db_repository/crypto_db_repository_impl.dart';
-import 'package:cosmos_sdk/cosmos_sdk.dart';
 
 class CryptoAssetRepositoryInjectiveImpl extends CryptoAssetRepositoryImpl {
   final CryptoAssetInformation asset;
@@ -99,14 +98,6 @@ class CryptoAssetRepositoryInjectiveImpl extends CryptoAssetRepositoryImpl {
       );
 
       if (accountInfoResponse.statusCode == 200) {
-        final accountInfo = json.decode(accountInfoResponse.body);
-        final accountNumber = accountInfo['account']['account_number'];
-        final sequence = accountInfo['account']['sequence'];
-
-        // Add signer info (requires signing the transaction with private key)
-        // This is where the signature process would happen
-
-        // Broadcast the transaction (after signing)
         final response = await http.post(
           Uri.parse('https://testnet.sentry.lcd.injective.network/cosmos/tx/v1beta1/txs'), // The correct LCD endpoint
           headers: {'Content-Type': 'application/json'},
