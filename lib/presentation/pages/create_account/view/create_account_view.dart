@@ -13,10 +13,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../utils/app_strings.dart';
 import '../../../common/common_appbar.dart';
 import '../widget/create_account_field_view.dart';
-import '../widget/recovery_parse_view.dart';
 
 @RoutePage()
 class CreateAccountScreen extends StatefulWidget {
@@ -40,16 +40,6 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const RecoveryParseView(),
-            height(25.h),
-          ],
-        ),
-      );
-    } else if (step == 2) {
-      return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
             const CreateAccountFieldView(),
             height(25.h),
           ],
@@ -66,82 +56,90 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
         return PopScope(
           canPop: cubit.step == 0,
           onPopInvoked: (didPop) {
-            if (cubit.step != 0) {
-              cubit.updateStep(value: 0);
-            }
+            // if (cubit.step != 0) {
+            //   cubit.updateStep(value: 0);
+            // }
           },
-          child: Scaffold(
-            body: SafeArea(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  height(14.h),
-                  CommonAppbar(
-                    onTapBack: () {
-                      if (cubit.step == 0) {
-                        Navigator.pop(context);
-                      } else if (cubit.step == 1) {
-                        cubit.updateStep(value: 0);
-                      } else if (cubit.step == 2) {
-                        cubit.updateStep(value: 1);
-                      }
-                    },
-                    title: AppStrings.createNewAccount,
-                  ),
-                  Expanded(
-                    child: buildScreenByStep(cubit.step),
-                  ),
-                  CommonButton(
-                    name: cubit.step == 0 ? "I understand" : 'Next',
-                    onTap: () async {
-                      if (cubit.step == 0) {
-                        cubit.updateStep(value: 1);
-                      } else if (cubit.step == 1) {
-                        cubit.cleanTextFiledData();
-                        cubit.updateStep(value: 2);
-                      } else {
-                        if (cubit.formKey.currentState?.validate() ?? false) {
-                          UserPreferences.setUserData(
-                              value: cubit.createPasswordController.text);
+          child: ValueListenableBuilder<bool>(
+            valueListenable: cubit.isLoadingNotifier,
+            builder: (context, isLoading, child) {
+              return ModalProgressHUD(
+                inAsyncCall: isLoading,
+                child: Scaffold(
+                  body: SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          height(14.h),
+                          CommonAppbar(
+                            onTapBack: () {
+                              if (cubit.step == 0) {
+                                Navigator.pop(context);
+                              } else if (cubit.step == 1) {
+                                cubit.updateStep(value: 0);
+                              }
+                            },
+                            title: AppStrings.createNewAccount,
+                          ),
+                          Expanded(
+                            child: buildScreenByStep(cubit.step),
+                          ),
+                          CommonButton(
+                            name: cubit.step == 0 ? "I understand" : 'Next',
+                            onTap: () async {
+                              cubit.isLoadingNotifier.value = true;
+                              if (cubit.step == 0) {
+                                cubit.updateStep(value: 1);
+                              } else {
+                                if (cubit.formKey.currentState?.validate() ??
+                                    false) {
+                                  UserPreferences.setUserData(
+                                      value:
+                                          cubit.createPasswordController.text);
 
-                          Map map = {};
-                          map['seed_phrase'] = cubit.mnemonic;
-                          map['wallet_name'] =
-                              cubit.accountNameTextController.text;
+                                  Map map = {};
+                                  map['seed_phrase'] = cubit.mnemonic;
+                                  map['wallet_name'] =
+                                      cubit.accountNameTextController.text;
 
-                          try {
-                            BiorBankWallet newWallet =
-                                await compute(generateNewWallet, map);
-                            await context
-                                .read<CryptoDBRepositoryImpl>()
-                                .storeWallet(newWallet);
-                          } catch (e) {
-                            LogService.logger.e(
-                                "==========GenerateNewWallet Error=========== ${e}");
-                          }
-                          // BiorbankAccounts.insertAccount(Account(
-                          //     id: 0,
-                          //     name: cubit.accountNameTextController.text,
-                          //     mnemonic: cubit.mnemonic));
-                          context.router.pushAndPopUntil(
-                            const DashboardRoute(),
-                            predicate: (route) => false,
-                          );
-                          // Navigator.pushNamedAndRemoveUntil(
-                          //   context,
-                          //   Routes.dashboardRoute,
-                          //   (route) => false,
-                          // );
-                        }
-                      }
-                    },
+                                  try {
+                                    BiorBankWallet newWallet =
+                                        await compute(generateNewWallet, map);
+                                    await context
+                                        .read<CryptoDBRepositoryImpl>()
+                                        .storeWallet(newWallet);
+                                  } catch (e) {
+                                    LogService.logger.e(
+                                        "==========GenerateNewWallet Error=========== ${e}");
+                                  }
+                                  // BiorbankAccounts.insertAccount(Account(
+                                  //     id: 0,
+                                  //     name: cubit.accountNameTextController.text,
+                                  //     mnemonic: cubit.mnemonic));
+                                  context.router.pushAndPopUntil(
+                                    const DashboardRoute(),
+                                    predicate: (route) => false,
+                                  );
+                                  // Navigator.pushNamedAndRemoveUntil(
+                                  //   context,
+                                  //   Routes.dashboardRoute,
+                                  //   (route) => false,
+                                  // );
+                                }
+                              }
+                              cubit.isLoadingNotifier.value = false;
+                            },
+                          ),
+                          height(10.h),
+                        ],
+                      ),
+                    ),
                   ),
-                  height(10.h),
-                ],
-              ),
-            )),
+                ),
+              );
+            },
           ),
         );
       },
