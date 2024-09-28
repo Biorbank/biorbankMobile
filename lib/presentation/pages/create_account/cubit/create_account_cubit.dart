@@ -24,6 +24,7 @@ class CreateAccountCubit extends Cubit<CreateAccountState> {
   List<String> wordData = [];
   List<String> selectedWords = [];
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  ValueNotifier<bool> isLoadingNotifier = ValueNotifier(false);
 
   void setMnemonic({required String value}) {
     mnemonic = value;
