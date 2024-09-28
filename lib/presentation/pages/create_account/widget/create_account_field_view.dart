@@ -27,53 +27,6 @@ class _CreateAccountFieldViewState extends State<CreateAccountFieldView>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           height(20.h),
-          Container(
-            decoration: BoxDecoration(
-                color: AppColors.blue50,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFFAAAAAA).withOpacity(0.15),
-                    spreadRadius: 0,
-                    blurRadius: 40,
-                    offset: const Offset(2, 4),
-                  ),
-                ]),
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                height(14.h),
-                AppConstant.commonText('Fill out the words',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer),
-                height(6.h),
-                CommonTextfield(
-                  title: 'Word #8',
-                  validator: (value) => confirmValidate(
-                      value: value,
-                      confirm: cubit.mnemonicList[7],
-                      slug: 'phrase'),
-                  controller: cubit.firstWordTextController,
-                  hintText: 'Enter word#8',
-                  onChanged: (value) {},
-                ),
-                CommonTextfield(
-                  title: 'Word #12',
-                  validator: (value) => confirmValidate(
-                      value: value,
-                      confirm: cubit.mnemonicList[11],
-                      slug: 'phrase'),
-                  controller: cubit.secondWordTextController,
-                  hintText: 'Enter word#12',
-                  onChanged: (value) {},
-                ),
-                height(4.h),
-              ],
-            ),
-          ),
-          height(20.h),
           CommonTextfield(
             title: 'Account Name',
             controller: cubit.accountNameTextController,
