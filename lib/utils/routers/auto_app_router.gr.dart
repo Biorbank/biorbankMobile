@@ -84,7 +84,7 @@ abstract class _$AppRouter extends RootStackRouter {
     DefiDetailRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const DefiDetailScreen(),
+        child: const DefiDetailScreen(index: 0,),
       );
     },
     DefiNavigationRoute.name: (routeData) {
@@ -390,7 +390,7 @@ class DebitCardRoute extends PageRouteInfo<void> {
 /// generated route for
 /// [DefiDetailScreen]
 class DefiDetailRoute extends PageRouteInfo<void> {
-  const DefiDetailRoute({List<PageRouteInfo>? children})
+  const DefiDetailRoute({List<PageRouteInfo>? children, required int index})
       : super(
           DefiDetailRoute.name,
           initialChildren: children,

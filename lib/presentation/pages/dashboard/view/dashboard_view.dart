@@ -41,7 +41,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         return AutoTabsRouter(
           routes: const [
             // DefiRoute(),
-            DefiDetailRoute(),
+            DefiDetailRoute(index: 1),
             // MarketRoute(isSwap: false,index: 0),
             MarketRoute(),
             BrowserRoute(),
