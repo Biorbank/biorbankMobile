@@ -47,6 +47,7 @@ NetworkInformation injective = NetworkInformation(
   explorerUrl: "https://testnet.explorer.injective.network/transaction/",
   chainId: 0,
   name: "Injective",
+  logo: "assets/img/cryptoicon/7226.png"
 );
 NetworkInformation thorchain = NetworkInformation(
   id: 9,
@@ -54,6 +55,7 @@ NetworkInformation thorchain = NetworkInformation(
   explorerUrl: "https://thorchain.net/tx/",
   chainId: 0,
   name: "Thorchain",
+  logo: "assets/img/cryptoicon/4157.png"
 );
 NetworkInformation cosmos = NetworkInformation(
   id: 10,
@@ -61,6 +63,7 @@ NetworkInformation cosmos = NetworkInformation(
   explorerUrl: "https://www.mintscan.io/cosmos/tx/",
   chainId: 0,
   name: "Cosmos",
+  logo: "assets/img/cryptoicon/3794.png"
 );
 NetworkInformation kujira = NetworkInformation(
   id: 11,
@@ -68,6 +71,7 @@ NetworkInformation kujira = NetworkInformation(
   explorerUrl: "https://finder.kujira.network/kaiyo-1/tx/",
   chainId: 0,
   name: "Kujira",
+  logo: "assets/img/cryptoicon/15185.png"
 );
 NetworkInformation litecoin = NetworkInformation(
   id: 8,
@@ -75,6 +79,7 @@ NetworkInformation litecoin = NetworkInformation(
   explorerUrl: "https://blockchair.com/litecoin/transactions",
   chainId: 2,
   name: 'Litecoin',
+  logo: "assets/img/cryptoicon/2.png"
 );
 NetworkInformation sepolia = NetworkInformation(
   // sepolia
@@ -83,6 +88,7 @@ NetworkInformation sepolia = NetworkInformation(
   explorerUrl: "https://sepolia.etherscan.io/tx",
   chainId: 11155111,
   name: 'Sepolia Ethereum',
+  logo: "assets/img/cryptoicon/1027.png"
 );
 NetworkInformation solana = NetworkInformation(
   id: 6,

@@ -22,7 +22,7 @@ mixin Validation {
       return '$slug can not be empty';
     }
 
-    if (length != null && (value?.trim().length ?? 0) != length) {
+    if (length != null && (value?.trim().length ?? 0) < length) {
       return '$slug must be at least $length characters long';
     }
     return null;
