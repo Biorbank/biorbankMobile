@@ -7,7 +7,6 @@ import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:solana/solana.dart';
 
-
 import 'crypto_db_repository/crypto_db_repository_impl.dart';
 
 class CryptoAssetRepositorySolanaImpl extends CryptoAssetRepositoryImpl {
@@ -17,15 +16,13 @@ class CryptoAssetRepositorySolanaImpl extends CryptoAssetRepositoryImpl {
   late RpcClient _rpcClient;
   late Ed25519HDKeyPair _keyPair;
 
-
   CryptoAssetRepositorySolanaImpl({
     required WalletAddress walletAddress,
     required this.asset,
     required this.network,
   })  : _wallet = walletAddress,
-        _rpcClient = RpcClient('https://api.devnet.solana.com'),
+        _rpcClient = RpcClient(network.rpcUrl),
         super(state: const CryptoAssetRepositoryState());
-
 
   @override
   Future<double> updateBalance() async {
@@ -88,7 +85,6 @@ class CryptoAssetRepositorySolanaImpl extends CryptoAssetRepositoryImpl {
     }
   }
 
-
   @override
   Future<FunctionResponse> sendBalanceEstimateGas(
       double amount, String toAddress) async {
@@ -107,7 +103,6 @@ class CryptoAssetRepositorySolanaImpl extends CryptoAssetRepositoryImpl {
     }
   }
 
-
   @override
   Future<double> getBalanceForExternalAddress(String address) async {
     try {
@@ -119,8 +114,7 @@ class CryptoAssetRepositorySolanaImpl extends CryptoAssetRepositoryImpl {
     }
   }
 
-  void dispose() {
-  }
+  void dispose() {}
 
   @override
   String toString() {

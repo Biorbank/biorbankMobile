@@ -94,6 +94,7 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
     await DatabaseService.instance.initDB();
     await initCryptoAsset();
     updateTransactionHistory();
+    updateAllTotalAmountHistory();
     LogService.logger.i('Init repo');
   }
 
@@ -241,7 +242,14 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
     AppHelper.walletService.currentWallet.totalAmount = totalBalance;
     await updateWalletForTotalBalance(
         AppHelper.walletService.currentIndex, totalBalance);
-    emit(state.copyWith(totalPrice: totalBalance));
+    if (await DatabaseService.instance
+            .insertOrUpdateTotalAmount(totalBalance) ==
+        true) {
+      await updateAllTotalAmountHistory();
+    }
+    emit(state.copyWith(
+      totalPrice: totalBalance,
+    ));
   }
 
   Future<void> updateState() async {
@@ -405,5 +413,17 @@ class CryptoDBRepositoryImpl extends Cubit<CryptoDBRepositoryState> {
       LogService.logger.i("Get Token: $e");
     }
     return null;
+  }
+
+  Future<List<TotalAmountHistory>> updateAllTotalAmountHistory() async {
+    try {
+      final totalAmountHistoryList =
+          await DatabaseService.instance.getAllTotalAmountHistory();
+      emit(state.copyWith(totalAmountHistoryList: totalAmountHistoryList));
+      return totalAmountHistoryList;
+    } catch (e) {
+      LogService.logger.i("updateAllTotalAmountHistory: $e");
+    }
+    return [];
   }
 }

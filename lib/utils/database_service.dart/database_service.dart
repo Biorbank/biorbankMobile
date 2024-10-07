@@ -1,5 +1,4 @@
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
-import 'package:biorbank/utils/constants/constants.dart';
 import 'package:biorbank/utils/env/env.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/transaction_detail_model.dart';
@@ -158,6 +157,8 @@ class DatabaseService {
         batch.commit();
         _createTransactionHistoryTable(batch);
         batch.commit();
+        _createTotalAmountHistory(batch);
+        batch.commit();
       }, onOpen: (db) async {
         // var batch = db.batch();
         // _createNetworkTable(batch);
@@ -168,11 +169,11 @@ class DatabaseService {
         // batch.commit();
       });
     } catch (e) {
-      LogService.logger.e('Database init error ${e}');
+      LogService.logger.e('Database init error $e');
     }
   }
 
-// TODO legacy wallet
+  // TODO legacy wallet
   Future<void> _createNetworkTable(Batch db) async {
     db.execute('DROP TABLE IF EXISTS Network');
     db.execute('''CREATE TABLE Network (
@@ -238,5 +239,84 @@ class DatabaseService {
     networkFee REAL,
     timeStamp TEXT,
     FOREIGN KEY (assetIndex) REFERENCES Asset(id) ON DELETE CASCADE)''');
+  }
+
+  Future<void> _createTotalAmountHistory(Batch db) async {
+    db.execute('DROP TABLE IF EXISTS TotalAmountHistory');
+    db.execute('''CREATE TABLE TotalAmountHistory (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      wallet_index INTEGER, 
+      amount REAL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )''');
+  }
+
+  Future<bool> insertOrUpdateTotalAmount(double currentTotalAmount) async {
+    if (!AppHelper.walletService.isWalletExist) return false;
+    final walletIndex = AppHelper.walletService.currentIndex;
+    // Get the current date
+    DateTime today = DateTime.now();
+    String todayDateString = '${today.year}-${today.month}-${today.day}';
+
+    // Query the last amount and timestamp saved in the TotalAmountHistory table
+    List<Map<String, dynamic>> result = await database.rawQuery(
+        'SELECT * FROM TotalAmountHistory WHERE wallet_index = ? ORDER BY created_at DESC LIMIT 1',
+        [walletIndex]);
+
+    double? lastSavedAmount;
+    DateTime? lastSavedDate;
+
+    if (result.isNotEmpty) {
+      lastSavedAmount = result.first['amount'] as double?;
+      lastSavedDate = DateTime.parse(result.first['created_at']);
+    }
+
+    String lastSavedDateString = lastSavedDate != null
+        ? '${lastSavedDate.year}-${lastSavedDate.month}-${lastSavedDate.day}'
+        : '';
+
+    if (result.isNotEmpty && lastSavedDateString == todayDateString) {
+      // If the last entry is from today, update it
+      await database.update(
+        'TotalAmountHistory',
+        {
+          'amount': currentTotalAmount,
+          'created_at': today.toIso8601String(),
+        },
+        where: 'id = ?',
+        whereArgs: [result.first['id']],
+        conflictAlgorithm: ConflictAlgorithm.ignore,
+      );
+      return true;
+    } else if ((result.isNotEmpty && lastSavedAmount != currentTotalAmount) ||
+        result.isEmpty) {
+      // If the last entry is not from today, insert a new one
+      await database.insert(
+        'TotalAmountHistory',
+        {
+          'wallet_index': walletIndex,
+          'amount': currentTotalAmount,
+        },
+        conflictAlgorithm: ConflictAlgorithm.ignore,
+      );
+      return true;
+    }
+    return false;
+  }
+
+  Future<List<TotalAmountHistory>> getAllTotalAmountHistory() async {
+    if (!AppHelper.walletService.isWalletExist) return [];
+    final walletIndex = AppHelper.walletService.currentIndex;
+    final List<Map<String, dynamic>> result = await database.query(
+      'TotalAmountHistory',
+      where: 'wallet_index = ?',
+      whereArgs: [walletIndex],
+      orderBy: 'created_at ASC', // Order by creation date
+    );
+    return List.generate(result.length, (i) {
+      return TotalAmountHistory(
+          createdAt: DateTime.parse(result[i]['created_at']),
+          totalAmount: result[i]['amount']);
+    });
   }
 }

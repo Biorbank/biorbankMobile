@@ -8,11 +8,10 @@ import 'package:http/http.dart' as http;
 
 class SolanaHelper extends BlockchainHelper {
   final RpcClient client;
-  final String rpcUrl = 'https://api.devnet.solana.com';
-
+  final String rpcUrl = Env.solanaRpcUrl;
 
   SolanaHelper(super.model)
-      : client = RpcClient('https://api.devnet.solana.com'); // Use Solana Devnet by default
+      : client = RpcClient(Env.solanaRpcUrl); // Use Solana Devnet by default
   @override
   Future<int> getCurrentBlockNumber() async {
     try {
@@ -37,7 +36,8 @@ class SolanaHelper extends BlockchainHelper {
   }
 
   @override
-  Future<List<Map<String, dynamic>>> getNewTransactions(int startBlock, int endBlock) async {
+  Future<List<Map<String, dynamic>>> getNewTransactions(
+      int startBlock, int endBlock) async {
     List<Map<String, dynamic>> newTxList = [];
 
     try {
@@ -76,7 +76,8 @@ class SolanaHelper extends BlockchainHelper {
           );
 
           if (transactionResponse.statusCode == 200) {
-            final transactionResult = jsonDecode(transactionResponse.body)['result'];
+            final transactionResult =
+                jsonDecode(transactionResponse.body)['result'];
             if (transactionResult != null) {
               final tx = transactionResult['transaction'];
 
@@ -85,8 +86,10 @@ class SolanaHelper extends BlockchainHelper {
                 'txHash': signature,
                 'timeStamp': DateTime.fromMillisecondsSinceEpoch(
                     transactionResult['blockTime'] * 1000),
-                'networkFee': transactionResult['meta']['fee'] / 1e9, // Convert lamports to SOL
-                'amount': tx['message']['instructions'][0]['data'], // Instruction data
+                'networkFee': transactionResult['meta']['fee'] /
+                    1e9, // Convert lamports to SOL
+                'amount': tx['message']['instructions'][0]
+                    ['data'], // Instruction data
                 'from': tx['message']['accountKeys'][0],
                 'to': tx['message']['accountKeys'][1],
               });
@@ -126,7 +129,10 @@ class SolanaHelper extends BlockchainHelper {
             return {"status": TransactionStatus.failed};
           }
 
-          return {"status": TransactionStatus.completed, "networkFee": meta['fee'] / 1e9};
+          return {
+            "status": TransactionStatus.completed,
+            "networkFee": meta['fee'] / 1e9
+          };
         }
       }
     } catch (err) {
@@ -149,7 +155,9 @@ class SolanaHelper extends BlockchainHelper {
           "method": "getTokenAccountsByOwner",
           "params": [
             tokenAddress,
-            {"programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"} // Token Program ID
+            {
+              "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+            } // Token Program ID
           ]
         }),
       );
@@ -178,7 +186,6 @@ class SolanaHelper extends BlockchainHelper {
     };
   }
 
-
   @override
-  int get networkId => 2; // Solana Devnet
+  int get networkId => 6; // Solana Devnet
 }

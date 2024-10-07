@@ -23,6 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
   int tabIndex = 0;
 
   void onChangeChartTimePeriod({required String value}) {
+    selectedChartTimePeriod = value;
     emit(ChartTimePeriodState(value: value));
   }
 

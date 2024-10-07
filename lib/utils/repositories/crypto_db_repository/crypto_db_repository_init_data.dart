@@ -119,3 +119,13 @@ class CryptoQuote {
     this.dilutedMarketCap = 0,
   });
 }
+
+class TotalAmountHistory {
+  final DateTime createdAt;
+  final double totalAmount;
+
+  TotalAmountHistory({
+    DateTime? createdAt,
+    this.totalAmount = 0.0,
+  }) : createdAt = createdAt ?? DateTime.now();
+}

@@ -35,20 +35,20 @@ NetworkInformation hedera = NetworkInformation(
   chainId: 0,
   name: "Hedera",
 );
-NetworkInformation solana = NetworkInformation(
-  id: 6,
-  rpcUrl: Env.solanaRpcUrl,
-  explorerUrl: "https://solscan.io/tx",
-  chainId: 0,
-  name: "Solana",
-);
 NetworkInformation sepolia = NetworkInformation(
   // sepolia
   id: 5,
   rpcUrl: Env.sepoliaRpcUrl, // sepolia Ethereum rpcURL
-  explorerUrl: "https://sepolia.etherscan.io/",
+  explorerUrl: "https://sepolia.etherscan.io/tx",
   chainId: 11155111,
   name: 'Sepolia Ethereum',
+);
+NetworkInformation solana = NetworkInformation(
+  id: 6,
+  rpcUrl: Env.solanaRpcUrl,
+  explorerUrl: "https://solscan.io/tx",
+  chainId: 901,
+  name: "Solana",
 );
 CryptoAssetInformation btccoin = CryptoAssetInformation(
     networkId: 0,

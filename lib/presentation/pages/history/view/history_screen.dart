@@ -64,7 +64,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               .onSecondaryContainer,
                         ),
                         AppConstant.commonText(
-                          "\$${AppHelper.walletService.currentWallet.totalAmount}",
+                          "\$${AppHelper.walletService.currentWallet.totalAmount <= 0.0001 ? 0 : AppHelper.walletService.currentWallet.totalAmount}",
                           fontSize: 32,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).colorScheme.onSurface,

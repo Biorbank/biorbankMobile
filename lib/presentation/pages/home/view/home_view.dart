@@ -88,7 +88,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             height(28.h),
-                            const ChartWidget(),
+                            ChartWidget(
+                              timePeriod: cubit.selectedChartTimePeriod,
+                            ),
                             height(14.h),
                             ChartTimePeriodWidget(
                               onTap: (index) {
