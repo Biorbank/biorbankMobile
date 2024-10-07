@@ -1,9 +1,12 @@
 import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/pages/deposit/cubit/deposit_cubit.dart';
 import 'package:biorbank/presentation/pages/deposit/view/widget/crypto_tab_widget.dart';
-import 'package:biorbank/presentation/pages/deposit/view/widget/usdt_address_dialog.dart';
+import 'package:biorbank/presentation/pages/deposit/view/widget/token_address_dialog.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/database_service.dart/database_service.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,6 +27,15 @@ class _DepositViewState extends State<DepositView>
       context.read<DepositCubit>().onChangeTabIndex(index: tabController.index);
     });
     super.initState();
+    updateState();
+  }
+
+  void updateState() async {
+    final cubit = context.read<DepositCubit>();
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    cubit.onChangeAssetList(value: db.state.assetList);
+    cubit.onChangeNetworkList(
+        value: await DatabaseService.instance.getAllNetworks);
   }
 
   @override
@@ -39,15 +51,7 @@ class _DepositViewState extends State<DepositView>
       child: BlocBuilder<DepositCubit, DepositState>(
         builder: (context, state) {
           var cubit = context.read<DepositCubit>();
-          if (state is DepositTabIndexState) {
-            cubit.depositTabIndex = state.index;
-          } else if (state is NetworkSelectedState) {
-            cubit.selectedNetwork = state.network;
-          } else if (state is CoinSelectedState) {
-            cubit.selectedCoin = state.coin;
-          } else if (state is QrCodeValueState) {
-            cubit.selectedQr = state.qrValue;
-          }
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,29 +71,46 @@ class _DepositViewState extends State<DepositView>
                   tabController: tabController,
                   tabList: const ['Crypto', 'Cash']),
               Expanded(
-                child: TabBarView(controller: tabController, children: [
-                  CryptoTabWidget(
-                      onChangedAccount: (p0) {},
-                      onChangedNetwork: (network) {
-                        cubit.onChangeNetwork(value: network);
-                      },
-                      onChangedCoin: (coin) {
-                        cubit.onChangeCoin(value: coin);
-                      },
-                      imageUrl:
-                          'https://public.bnbstatic.com/static/academy/uploads/2fd4345d8c3a46278941afd9ab7ad225.png',
-                      onChangedUSDTaddress: (value) {
-                        cubit.onChangeQRcodeValue(value: value);
-                      },
-                      onTapCopyAddress: () {},
-                      onTapShowQRcode: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) =>const UsdtAddressDialog(),
-                        );
-                      }),
-                  const SizedBox()
-                ]),
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
+                    CryptoTabWidget(
+                        onChangedAccount: (p0) {},
+                        onChangedNetwork: (network) {
+                          cubit.onChangeNetwork(value: network);
+                        },
+                        onChangedCoin: (coin) {
+                          cubit.onChangeCoin(value: coin);
+                        },
+                        onChangedUSDTaddress: (value) {
+                          cubit.onChangeQRcodeValue(value: value);
+                        },
+                        onTapCopyAddress: () {
+                          if (cubit.selectedQr != null) {
+                            Clipboard.setData(
+                              ClipboardData(
+                                text: cubit.selectedQr!,
+                              ),
+                            );
+                          }
+                        },
+                        onTapShowQRcode: () {
+                          if (cubit.selectedCoin != null &&
+                              cubit.selectedQr != null) {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return TokenAddressDialog(
+                                  selectedCoin: cubit.selectedCoin!,
+                                  selectedQr: cubit.selectedQr!,
+                                );
+                              },
+                            );
+                          }
+                        }),
+                    const SizedBox()
+                  ],
+                ),
               ),
             ],
           );

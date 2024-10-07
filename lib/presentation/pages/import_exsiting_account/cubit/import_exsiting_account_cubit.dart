@@ -17,6 +17,9 @@ class ImportExsitingAccountCubit extends Cubit<ImportExsitingAccountState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   int tabIndex = 0;
   int selectedChainIndex = -1;
+
+  ValueNotifier<bool> isLoadingNotifier = ValueNotifier(false);
+
   void togglePasswordVisibility() {
     emit(ImportExsitingAccountInitialState());
     isObscurePassword = !isObscurePassword;
@@ -32,6 +35,7 @@ class ImportExsitingAccountCubit extends Cubit<ImportExsitingAccountState> {
   void changeTabIndex({required int index}) {
     emit(TabIndexChangeState(index: index));
   }
+
   void changeChainIndex({required int index}) {
     emit(ChainChangeState(index: index));
   }
