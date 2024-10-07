@@ -1,9 +1,4 @@
 import 'package:biorbank/generated/assets.dart';
-import 'package:biorbank/presentation/pages/browser/view/browser_view.dart';
-import 'package:biorbank/presentation/pages/chat/view/chat_view.dart';
-import 'package:biorbank/presentation/pages/defi/view/defi_view.dart';
-import 'package:biorbank/presentation/pages/home/view/home_view.dart';
-import 'package:biorbank/presentation/pages/market/view/market_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,16 +9,17 @@ class DashboardCubit extends Cubit<DashboardState> {
 
   int selectedBottomTabIndex = 4;
 
-  List<Widget> bottomTabViews = [
-    const DefiScreen(),
-    const MarketScreen(),
-    const BrowserScreen(),
-    const ChatScreen(),
-    const HomeScreen(),
-  ];
+  int selectItem = 1;
+
+  // List<Widget> bottomTabViews = [
+  //   const DefiScreen(),
+  //   const MarketScreen(),
+  //   const BrowserScreen(),
+  //   const ChatScreen(),
+  //   const HomeScreen(),
+  // ];
 
   bool isBackUp = true;
-
 
   void toggleBackUp({required bool value}) {
     isBackUp = value;

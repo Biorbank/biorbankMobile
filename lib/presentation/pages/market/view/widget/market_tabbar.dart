@@ -11,24 +11,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MarketTabbar extends StatefulWidget {
-  const MarketTabbar({super.key});
+  final TabController tabController;
+
+  const MarketTabbar({super.key, required this.tabController});
 
   @override
   State<MarketTabbar> createState() => _MarketTabbarState();
 }
 
-class _MarketTabbarState extends State<MarketTabbar>
-    with SingleTickerProviderStateMixin {
-  late TabController tabController;
-  @override
-  void initState() {
-    tabController = TabController(length: 3, vsync: this);
-    tabController.addListener(() {
-      context.read<MarketCubit>().onChangeTabIndex(index: tabController.index);
-    });
-    super.initState();
-  }
-
+class _MarketTabbarState extends State<MarketTabbar> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MarketCubit, MarketState>(
@@ -44,50 +35,59 @@ class _MarketTabbarState extends State<MarketTabbar>
               children: [
                 Expanded(
                   child: CommonTabbar(
-                      isShowBackground: true,
-                      indicatorColor: Theme.of(context).colorScheme.onPrimary,
-                      labelPadding:
-                          const EdgeInsets.only(bottom: 10, top: 6, right: 30),
-                      isScrollable: true,
-                      padding: const EdgeInsets.only(left: 20),
-                      tabBarIndicatorSize: TabBarIndicatorSize.label,
-                      tabAlignment: TabAlignment.start,
-                      selectedIndex: cubit.selectedTabIndex,
-                      labelFontWight: FontWeight.w500,
-                      length: 3,
-                      onTap: (index) {},
-                      tabController: tabController,
-                      tabList: const ['Overview', 'Coins', 'Swap']),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      shape: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12))),
-                      backgroundColor: Theme.of(context).colorScheme.onSurface,
-                      context: context,
-                      builder: (context) => const OverviewFilters(),
-                    );
-                  },
-                  child: Image.asset(
-                    Assets.imagesFilter,
-                    height: 20.h,
-                    width: 20.w,
+                    isShowBackground: true,
+                    indicatorColor: Theme.of(context).colorScheme.onPrimary,
+                    labelPadding:
+                        const EdgeInsets.only(bottom: 10, top: 6, right: 30),
+                    isScrollable: true,
+                    padding: const EdgeInsets.only(left: 20),
+                    tabBarIndicatorSize: TabBarIndicatorSize.label,
+                    tabAlignment: TabAlignment.start,
+                    selectedIndex: cubit.selectedTabIndex,
+                    labelFontWight: FontWeight.w500,
+                    length: 3,
+                    onTap: (index) {},
+                    tabController: widget.tabController,
+                    tabList: const ['Overview', 'Coins', 'Swap'],
                   ),
                 ),
+                cubit.selectedTabIndex == 1
+                    ? GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                            ),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                            context: context,
+                            builder: (context) => const OverviewFilters(),
+                          );
+                        },
+                        child: Image.asset(
+                          Assets.imagesFilter,
+                          height: 20.h,
+                          width: 20.w,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
                 width(20.w)
               ],
             ),
             Expanded(
-              child: TabBarView(controller: tabController, children: const [
-                OverviewWidget(),
-                CoinsTabWidget(),
-                SwapTabWidget()
-              ]),
+              child: TabBarView(
+                controller: widget.tabController,
+                children: const [
+                  OverviewWidget(),
+                  CoinsTabWidget(),
+                  SwapTabWidget()
+                ],
+              ),
             )
           ],
         );

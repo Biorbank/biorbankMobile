@@ -20,116 +20,115 @@ class P2pMarketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<P2pMarketCubit, P2pMarketState>(
-        builder: (context, state) {
-          var cubit = context.read<P2pMarketCubit>();
-          if (state is CurrencySelectedState) {
-            cubit.selectedCurrency = state.currency;
-          } else if (state is CountrySelectedState) {
-            cubit.selectedCountry = state.country;
-          } else if (state is PaymentMethodSheetStatusState) {
-            cubit.isOpenPaymentMethodSheet = state.isOpen;
-          } else if (state is LimitSheetStatus) {
-            cubit.isOpenLimitSheet = state.isOpen;
-          }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CommonBlueContainer(
-                  height: 151.h,
-                  child: P2PHeader(
-                    selectedCountry: cubit.selectedCountry,
-                    selectedCurrency: cubit.selectedCurrency,
-                    onChangedCountry: (value) {
-                      cubit.onChangeCountry(country: value);
-                    },
-                    onChangedCurrency: (value) {
-                      cubit.onChangeCurrency(currency: value);
-                    },
-                  )),
-              height(22.h),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          buttonTile(
-                              context: context,
-                              isOpen: cubit.isOpenLimitSheet,
-                              onTap: () async {
-                                cubit.onTapLimitButton(value: true);
-                                await showModalBottomSheet(
-                                  isScrollControlled: false,
-                                  shape: const OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(12),
-                                          topRight: Radius.circular(12))),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  context: context,
-                                  builder: (context) =>
-                                      const LimitBottomsheetWidget(),
-                                ).then((value) =>
-                                    cubit.onTapLimitButton(value: false));
-                              },
-                              title: 'Limit'),
-                          width(15.w),
-                          buttonTile(
-                              context: context,
-                              isOpen: cubit.isOpenPaymentMethodSheet,
-                              onTap: () async {
-                                cubit.onTapPaymentMethodButton(value: true);
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  shape: const OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(12),
-                                          topRight: Radius.circular(12))),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  context: context,
-                                  builder: (context) =>
-                                      const PaymentMethodSheet(),
-                                ).then((value) => cubit
-                                    .onTapPaymentMethodButton(value: false));
-                              },
-                              title: 'Payment method'),
-                        ],
+    return BlocBuilder<P2pMarketCubit, P2pMarketState>(
+      builder: (context, state) {
+        var cubit = context.read<P2pMarketCubit>();
+        if (state is CurrencySelectedState) {
+          cubit.selectedCurrency = state.currency;
+        } else if (state is CountrySelectedState) {
+          cubit.selectedCountry = state.country;
+        } else if (state is PaymentMethodSheetStatusState) {
+          cubit.isOpenPaymentMethodSheet = state.isOpen;
+        } else if (state is LimitSheetStatus) {
+          cubit.isOpenLimitSheet = state.isOpen;
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CommonBlueContainer(
+                height: 151.h,
+                child: P2PHeader(
+                  selectedCountry: cubit.selectedCountry,
+                  selectedCurrency: cubit.selectedCurrency,
+                  onChangedCountry: (value) {
+                    cubit.onChangeCountry(country: value);
+                  },
+                  onChangedCurrency: (value) {
+                    cubit.onChangeCurrency(currency: value);
+                  },
+                )),
+            height(22.h),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        buttonTile(
+                            context: context,
+                            isOpen: cubit.isOpenLimitSheet,
+                            onTap: () async {
+                              cubit.onTapLimitButton(value: true);
+                              await showModalBottomSheet(
+                                isScrollControlled: false,
+                                shape: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12))),
+                                backgroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                                context: context,
+                                builder: (context) =>
+                                const LimitBottomsheetWidget(),
+                              ).then((value) =>
+                                  cubit.onTapLimitButton(value: false));
+                            },
+                            title: 'Limit'),
+                        width(15.w),
+                        buttonTile(
+                            context: context,
+                            isOpen: cubit.isOpenPaymentMethodSheet,
+                            onTap: () async {
+                              cubit.onTapPaymentMethodButton(value: true);
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                shape: const OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12))),
+                                backgroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                                context: context,
+                                builder: (context) =>
+                                const PaymentMethodSheet(),
+                              ).then((value) => cubit
+                                  .onTapPaymentMethodButton(value: false));
+                            },
+                            title: 'Payment method'),
+                      ],
+                    ),
+                    height(15.h),
+                    Expanded(
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        separatorBuilder: (context, index) => height(25.h),
+                        itemCount: 8,
+                        itemBuilder: (context, index) => p2pCardWidget(
+                            context: context,
+                            title: 'Fabulous',
+                            orders: '9 Order(s) 82%',
+                            imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXuK2UbHTHM865f4E_lsWnqysgdXrpHg62g&s',
+                            cs: '1.33',
+                            limit: 'cs 13 - 50',
+                            quantity: '260.4 USDT',
+                            status: 'Online',
+                            onTapBuy: () {
+                              context.router.push(const BuyUsdtRoute());
+                            }),
                       ),
-                      height(15.h),
-                      Expanded(
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          separatorBuilder: (context, index) => height(25.h),
-                          itemCount: 8,
-                          itemBuilder: (context, index) => p2pCardWidget(
-                              context: context,
-                              title: 'Fabulous',
-                              orders: '9 Order(s) 82%',
-                              imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYXuK2UbHTHM865f4E_lsWnqysgdXrpHg62g&s',
-                              cs: '1.33',
-                              limit: 'cs 13 - 50',
-                              quantity: '260.4 USDT',
-                              status: 'Online',
-                              onTapBuy: () {
-                                context.router.push(const BuyUsdtRoute());
-                              }),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 

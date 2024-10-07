@@ -53,12 +53,12 @@ final   String? selectedChartTimePeriod;
                   ),
                 ),
               ),
-              width(14.w),
-              Image.asset(
-                Assets.imagesScanOutline,
-                height: 20.h,
-                width: 20.w,
-              ),
+              // width(14.w),
+              // Image.asset(
+              //   Assets.imagesScanOutline,
+              //   height: 20.h,
+              //   width: 20.w,
+              // ),
             ],
           )
        

@@ -65,6 +65,7 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
             itemCount: wallets.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => InkWell(
+              borderRadius: BorderRadius.circular(12),
               onTap: () {
                 Navigator.push(
                   context,

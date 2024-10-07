@@ -34,34 +34,37 @@ class UnlockTokenDialog extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     height(15.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const Spacer(),
-                        AppConstant.commonText(AppStrings.unlockToken,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.shadow),
-                        const Spacer(),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Align(
-                              alignment: Alignment.topRight,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 12, bottom: 12, top: 12),
-                                child: Image.asset(
-                                  Assets.imagesClose,
-                                  height: 12.w,
-                                  width: 12.w,
-                                ),
-                              )),
-                        )
-                      ],
+                    Visibility(
+                      visible: cubit.transactionStatusID != 1,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Spacer(),
+                          AppConstant.commonText(AppStrings.unlockToken,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).colorScheme.shadow),
+                          const Spacer(),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Align(
+                                alignment: Alignment.topRight,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12, bottom: 12, top: 12),
+                                  child: Image.asset(
+                                    Assets.imagesClose,
+                                    height: 12.w,
+                                    width: 12.w,
+                                  ),
+                                )),
+                          )
+                        ],
+                      ),
                     ),
-                    height(14.h),
+                    height(cubit.transactionStatusID != 1 ? 14.h : 0),
                     Visibility(
                         visible: cubit.transactionStatusID == 0,
                         child: currencyExchangeWidget(context: context)),
@@ -198,6 +201,8 @@ class UnlockTokenDialog extends StatelessWidget {
           onTap: () {
             if (statusId == 0) {
               context.read<MarketCubit>().onChangeTransactionStatus(index: 2);
+            } else if (statusId == 1) {
+              Navigator.of(context).pop();
             } else {
               context.read<MarketCubit>().onChangeTransactionStatus(index: 1);
             }
