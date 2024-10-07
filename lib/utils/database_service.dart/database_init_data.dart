@@ -8,6 +8,7 @@ NetworkInformation bitcoin = NetworkInformation(
   name: 'Bitcoin',
   logo: "assets/img/cryptoicon/1.png",
 );
+
 NetworkInformation ethereum = NetworkInformation(
   id: 1,
   rpcUrl: Env.ethereumRpcUrl,
@@ -38,15 +39,51 @@ NetworkInformation polygon = NetworkInformation(
   explorerUrl: "https://hederaexplorer.io/search-details/transaction",
   chainId: 0,
   name: "Hedera",
-); */
-/* NetworkInformation sepolia = NetworkInformation(
+
+);*/
+NetworkInformation injective = NetworkInformation(
+  id: 7,
+  rpcUrl: "https://sentry.tm.injective.network:443",
+  explorerUrl: "https://testnet.explorer.injective.network/transaction/",
+  chainId: 0,
+  name: "Injective",
+);
+NetworkInformation thorchain = NetworkInformation(
+  id: 9,
+  rpcUrl: Env.injectiveRpcUrl,
+  explorerUrl: "https://thorchain.net/tx/",
+  chainId: 0,
+  name: "Thorchain",
+);
+NetworkInformation cosmos = NetworkInformation(
+  id: 10,
+  rpcUrl: "https://cosmos-rpc.publicnode.com:443",
+  explorerUrl: "https://www.mintscan.io/cosmos/tx/",
+  chainId: 0,
+  name: "Cosmos",
+);
+NetworkInformation kujira = NetworkInformation(
+  id: 11,
+  rpcUrl: "https://kujira-rpc.publicnode.com:443",
+  explorerUrl: "https://finder.kujira.network/kaiyo-1/tx/",
+  chainId: 0,
+  name: "Kujira",
+);
+NetworkInformation litecoin = NetworkInformation(
+  id: 8,
+  rpcUrl: "",
+  explorerUrl: "https://blockchair.com/litecoin/transactions",
+  chainId: 2,
+  name: 'Litecoin',
+);
+NetworkInformation sepolia = NetworkInformation(
   // sepolia
   id: 5,
   rpcUrl: Env.sepoliaRpcUrl, // sepolia Ethereum rpcURL
   explorerUrl: "https://sepolia.etherscan.io/tx",
   chainId: 11155111,
   name: 'Sepolia Ethereum',
-); */
+);
 NetworkInformation solana = NetworkInformation(
   id: 6,
   rpcUrl: Env.solanaRpcUrl,
@@ -64,6 +101,7 @@ CryptoAssetInformation btccoin = CryptoAssetInformation(
     decimal: 8,
     cmcId: 1,
     logo: "assets/img/cryptoicon/1.png");
+
 CryptoAssetInformation ethcoin = CryptoAssetInformation(
     networkId: 1,
     type: AssetType.coin,
@@ -128,5 +166,52 @@ CryptoAssetInformation solanacoin = CryptoAssetInformation(
     name: "SOL",
     symbol: "SOL",
     decimal: 8,
-    cmcId: 4646,
-    logo: "assets/img/cryptoicon/4646.png");
+    cmcId: 5426,
+    logo: "assets/img/cryptoicon/5426.png");
+
+CryptoAssetInformation injectivecoin = CryptoAssetInformation(
+    networkId: 7,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "INJ",
+    symbol: "INJ",
+    decimal: 8,
+    cmcId: 7226,
+    logo: "assets/img/cryptoicon/7226.png");
+CryptoAssetInformation ltccoin = CryptoAssetInformation(
+    networkId: 8,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "LTC",
+    symbol: "LTC",
+    decimal: 8,
+    cmcId: 2,
+    logo: "assets/img/cryptoicon/2.png");
+CryptoAssetInformation thorcoin = CryptoAssetInformation(
+    networkId: 9,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "Thorchain",
+    symbol: "RUNE",
+    decimal: 8,
+    cmcId: 4157,
+    logo: "assets/img/cryptoicon/4157.png");
+
+CryptoAssetInformation cosomoscoin = CryptoAssetInformation(
+    networkId: 10,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "Cosmos",
+    symbol: "ATOM",
+    decimal: 8,
+    cmcId: 3794,
+    logo: "assets/img/cryptoicon/3794.png");
+CryptoAssetInformation kujiracoin = CryptoAssetInformation(
+    networkId: 11,
+    type: AssetType.coin,
+    tokenId: "",
+    name: "Kujira",
+    symbol: "KUJI",
+    decimal: 8,
+    cmcId: 15185,
+    logo: "assets/img/cryptoicon/15185.png");

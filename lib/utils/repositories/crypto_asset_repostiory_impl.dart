@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/response_model.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repository_inj_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_btc_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_evm_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_asset_repository_sol_impl.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repository_cosmos_impl.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'crypto_asset_repository_ltc_impl.dart';
 part 'crypto_asset_repository_state.dart';
 
 abstract class CryptoAssetRepositoryImpl
@@ -64,7 +68,41 @@ abstract class CryptoAssetRepositoryImpl
         network: network,
         walletAddress: currentWallet.solanawallet!,
       );
-    }else {
+    }
+    else if(networkId == 7) {
+      repo = CryptoAssetRepositoryCosmoschainImpl(
+        asset: asset,
+        network: network,
+        denom: 'inj',
+        decimal: 1e18,
+        walletAddress: currentWallet.injectivewallet!,
+      );
+    }
+    else if (networkId == 8) {
+      repo = CryptoAssetRepositoryLtcTestnetImpl(
+          walletAddress: currentWallet.ltcwallet!,
+          asset: asset,
+          network: network);
+    }
+    else if(networkId == 10) {
+      repo = CryptoAssetRepositoryCosmoschainImpl(
+        asset: asset,
+        network: network,
+        denom: 'uatom',
+        decimal: 1e6,
+        walletAddress: currentWallet.cosmoswallet!,
+      );
+    }
+    else if(networkId == 11) {
+      repo = CryptoAssetRepositoryCosmoschainImpl(
+        asset: asset,
+        network: network,
+        denom: 'ukuji',
+        decimal: 1e6,
+        walletAddress: currentWallet.kujirawallet!,
+      );
+    }
+    else {
       repo = CryptoAssetRepositoryEvmImpl(
         asset: asset,
         network: network,
