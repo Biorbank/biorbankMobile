@@ -1,4 +1,5 @@
-import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -8,36 +9,64 @@ class DepositCubit extends Cubit<DepositState> {
   DepositCubit() : super(DepositInitial());
 
   int depositTabIndex = 0;
-CurrencyModel? selectedNetwork;
-CurrencyModel? selectedCoin;
-String? selectedQr;
+  NetworkInformation? selectedNetwork;
+  CryptoAssetRepositoryImpl? selectedCoin;
+  String? selectedQr;
+
   void onChangeTabIndex({required int index}) {
+    depositTabIndex = index;
     emit(DepositTabIndexState(index: index));
   }
 
-   List<CurrencyModel> networkList = [
-    CurrencyModel(
-        name: 'BTC',
-        url:
-            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
-    CurrencyModel(
-        name: 'ETH',
-        url:
-            'https://w7.pngwing.com/pngs/268/1013/png-transparent-ethereum-eth-hd-logo-thumbnail.png'),
-  ];
-   List<String> qrCodeList = [
-    '0z1x9c2v8b3n7m4a6s5d0f1g',
-    '0z1x9c2v8dksn7m4a6s5d0f1g',
-    '0z1x9c2itde3n7m4a6s5d0f1g',
-  ];
+  List<NetworkInformation> networkList = [];
+  List<CryptoAssetRepositoryImpl> assetList = [], fetchedAssetList = [];
+  List<String> qrCodeList = [];
 
-  void onChangeNetwork({required CurrencyModel value}){
+  void onChangeNetworkList({required List<NetworkInformation> value}) {
+    networkList = value;
+    if (networkList.isNotEmpty) {
+      onChangeNetwork(value: networkList.first);
+    }
+    emit(ChangeNetworkListState(networkList: value));
+  }
+
+  void onChangeAssetList({required List<CryptoAssetRepositoryImpl> value}) {
+    assetList = value;
+    emit(ChangeAssetListState(assetList: value));
+  }
+
+  void onChangeNetwork({required NetworkInformation value}) {
+    selectedNetwork = value;
+    selectedCoin = null;
+    if (selectedNetwork == null) {
+      return;
+    }
+    print(selectedNetwork!.id);
+    fetchedAssetList = assetList.where((e) {
+      if (e.getAsset().networkId != selectedNetwork!.id) {
+        return false;
+      }
+      return true;
+    }).toList();
+    if (fetchedAssetList.isNotEmpty) {
+      onChangeCoin(value: fetchedAssetList.first);
+    }
     emit(NetworkSelectedState(network: value));
   }
-  void onChangeCoin({required CurrencyModel value}){
+
+  void onChangeCoin({required CryptoAssetRepositoryImpl value}) {
+    selectedCoin = value;
+    qrCodeList.clear();
+    if (selectedCoin != null) {
+      String tokenAddress = selectedCoin!.getPublicKey();
+      qrCodeList.add(tokenAddress);
+      onChangeQRcodeValue(value: tokenAddress);
+    }
     emit(CoinSelectedState(coin: value));
   }
-  void onChangeQRcodeValue({required String value}){
+
+  void onChangeQRcodeValue({required String value}) {
+    selectedQr = value;
     emit(QrCodeValueState(qrValue: value));
   }
 }

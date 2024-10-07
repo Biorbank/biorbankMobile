@@ -90,15 +90,16 @@ class DatabaseService {
     final List<Map<String, dynamic>> result = await database.query('Asset');
     return List.generate(result.length, (i) {
       return CryptoAssetInformation(
-          networkId: result[i]['networkId'],
-          type: result[i]['type'] == 0 ? AssetType.coin : AssetType.token,
-          tokenId: result[i]['tokenId'],
-          hidden: result[i]['hidden'],
-          name: result[i]['name'],
-          symbol: result[i]['symbol'],
-          decimal: result[i]['decimal'],
-          cmcId: result[i]['cmcId'],
-          logo: result[i]['logo']);
+        networkId: result[i]['networkId'],
+        type: result[i]['type'] == 0 ? AssetType.coin : AssetType.token,
+        tokenId: result[i]['tokenId'],
+        hidden: result[i]['hidden'],
+        name: result[i]['name'],
+        symbol: result[i]['symbol'],
+        decimal: result[i]['decimal'],
+        cmcId: result[i]['cmcId'],
+        logo: result[i]['logo'],
+      );
     });
   }
 
@@ -106,11 +107,13 @@ class DatabaseService {
     final List<Map<String, dynamic>> result = await database.query('Network');
     return List.generate(result.length, (i) {
       return NetworkInformation(
-          id: result[i]['id'],
-          chainId: result[i]['chainId'],
-          name: result[i]['name'],
-          rpcUrl: result[i]['rpcUrl'],
-          explorerUrl: result[i]['explorerUrl']);
+        id: result[i]['id'],
+        chainId: result[i]['chainId'],
+        name: result[i]['name'],
+        rpcUrl: result[i]['rpcUrl'],
+        explorerUrl: result[i]['explorerUrl'],
+        logo: result[i]['logo'],
+      );
     });
   }
 
@@ -129,11 +132,13 @@ class DatabaseService {
         await database.query('Network', where: 'id=?', whereArgs: [index]);
     Map<String, dynamic> result = maps.first;
     NetworkInformation asset = NetworkInformation(
-        id: result['id'],
-        chainId: result['chainId'],
-        name: result['name'],
-        rpcUrl: result['rpcUrl'],
-        explorerUrl: result['explorerUrl']);
+      id: result['id'],
+      chainId: result['chainId'],
+      name: result['name'],
+      rpcUrl: result['rpcUrl'],
+      explorerUrl: result['explorerUrl'],
+      logo: result['logo'],
+    );
 
     return asset;
   }
@@ -182,6 +187,7 @@ class DatabaseService {
           explorerUrl TEXT,
           chainId INTEGER,
           name TEXT,
+          logo TEXT,
           blockHeight INT DEFAULT 0
           )''');
 
@@ -189,7 +195,7 @@ class DatabaseService {
     db.insert('Network', ethereum.toMap());
     db.insert('Network', binance.toMap());
     db.insert('Network', polygon.toMap());
-    db.insert('Network', hedera.toMap());
+    // db.insert('Network', hedera.toMap());
     db.insert('Network', solana.toMap());
   }
 
@@ -296,6 +302,7 @@ class DatabaseService {
         {
           'wallet_index': walletIndex,
           'amount': currentTotalAmount,
+          'created_at': today.toIso8601String(),
         },
         conflictAlgorithm: ConflictAlgorithm.ignore,
       );
