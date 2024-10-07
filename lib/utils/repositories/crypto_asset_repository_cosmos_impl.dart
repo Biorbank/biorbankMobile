@@ -25,8 +25,6 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
   static const String _pathForInjectivePrivateKey = "m/44'/60'/0'/0/0";
   static const String _pathForKujiraPrivateKey = "m/44'/118'/0'/0/0";
 
-
-
   CryptoAssetRepositoryCosmoschainImpl({
     required WalletAddress walletAddress,
     required this.asset,
@@ -34,7 +32,8 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
     required this.denom,
     required this.decimal,
   })  : _wallet = walletAddress,
-        _provider = TendermintProvider(TendermintHTTPProvider(url: network.rpcUrl)),
+        _provider =
+            TendermintProvider(TendermintHTTPProvider(url: network.rpcUrl)),
         super(state: const CryptoAssetRepositoryState());
 
   @override
@@ -52,8 +51,7 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
       _privateKey = CosmosSecp256K1PrivateKey.fromBytes(privateKeyBytes);
       _publicKey = CosmosSecp256K1PublicKey.fromBytes(derivedKey.publicKey);
       updateBalance();
-    }
-    catch(error) {
+    } catch (error) {
       LogService.logger.e('initialize $error');
     }
   }
@@ -75,7 +73,8 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
     try {
       final wallet = CosmosBaseAddress(_wallet.publicKey);
       final request = QueryBalanceRequest(address: wallet, denom: denom);
-      final response = await _provider.request(TendermintRequestAbciQuery(request: request));
+      final response =
+          await _provider.request(TendermintRequestAbciQuery(request: request));
 
       return response.balance.amount.toDouble() / decimal;
     } catch (error) {
@@ -92,15 +91,23 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
           toAddress: CosmosBaseAddress(toAddress),
           amount: [Coin(denom: denom, amount: BigInt.from(amount * decimal))]);
       final accountInfo = await _provider.request(TendermintRequestAbciQuery(
-          request: QueryAccountInfoRequest(_publicKey.toAddresss(hrp: asset.name.toLowerCase()))));
-      final latestBlock = await _provider.request(TendermintRequestAbciQuery(request: const GetLatestBlockRequest()));
-      final requiredFeeAmount = getGassFee(denom); // Replace this with actual required fee
+          request: QueryAccountInfoRequest(
+              _publicKey.toAddresss(hrp: asset.name.toLowerCase()))));
+      final latestBlock = await _provider.request(
+          TendermintRequestAbciQuery(request: const GetLatestBlockRequest()));
+      final requiredFeeAmount =
+          getGassFee(denom); // Replace this with actual required fee
       final authInfo = AuthInfo(
-          signerInfos: [SignerInfo(
-              publicKey: _publicKey,
-              modeInfo: const ModeInfo(ModeInfoSignle(SignMode.signModeDirect)),
-              sequence: accountInfo.info.sequence)],
-          fee: Fee(amount: [Coin(denom: denom, amount: BigInt.from(requiredFeeAmount))], gasLimit: BigInt.from(200000)));
+          signerInfos: [
+            SignerInfo(
+                publicKey: _publicKey,
+                modeInfo:
+                    const ModeInfo(ModeInfoSignle(SignMode.signModeDirect)),
+                sequence: accountInfo.info.sequence)
+          ],
+          fee: Fee(amount: [
+            Coin(denom: denom, amount: BigInt.from(requiredFeeAmount))
+          ], gasLimit: BigInt.from(200000)));
 
       final txBody = TXBody(messages: [message]);
       final signDoc = SignDoc(
@@ -111,7 +118,10 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
       );
 
       final sign = _privateKey.sign(signDoc.toBuffer());
-      final txRaw = TxRaw(bodyBytes: txBody.toBuffer(), authInfoBytes: authInfo.toBuffer(), signatures: [sign]);
+      final txRaw = TxRaw(
+          bodyBytes: txBody.toBuffer(),
+          authInfoBytes: authInfo.toBuffer(),
+          signatures: [sign]);
 
       final result = await _provider.request(TendermintRequestBroadcastTxCommit(
           BytesUtils.toHexString(txRaw.toBuffer(), prefix: "0x")));
@@ -125,7 +135,8 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
   }
 
   @override
-  Future<FunctionResponse> sendBalanceEstimateGas(double amount, String toAddress) async {
+  Future<FunctionResponse> sendBalanceEstimateGas(
+      double amount, String toAddress) async {
     return FunctionResponse(message: "0.0001 ${asset.symbol}", statusCode: 1);
   }
 
@@ -144,7 +155,8 @@ class CryptoAssetRepositoryCosmoschainImpl extends CryptoAssetRepositoryImpl {
     try {
       final fromAddress = CosmosBaseAddress(address);
       final request = QueryBalanceRequest(address: fromAddress, denom: denom);
-      final response = await _provider.request(TendermintRequestAbciQuery(request: request));
+      final response =
+          await _provider.request(TendermintRequestAbciQuery(request: request));
 
       return response.balance.amount.toDouble() / decimal;
     } catch (error) {
