@@ -52,18 +52,6 @@ class BiorBankWallet {
         this.totalAmount = 0.0,
         this.walletType = WalletType.multiChainWallet
       });
-  BiorBankWallet({
-    this.btcwallet,
-    this.ltcwallet,
-    this.solanawallet,
-    this.cosmoswallet,
-    required this.ethwallet,
-    this.seedPhrase = "",
-    required this.id,
-    required this.name,
-    this.totalAmount = 0.0,
-    this.walletType = WalletType.multiChainWallet,
-  });
   Map<String, dynamic> toJson() => walletType == WalletType.multiChainWallet
       ? {
           'id': id,

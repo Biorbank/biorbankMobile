@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   CryptoDBRepositoryState>(
                                 builder: (context, state) {
                                   return CommonBalanceWidget(
-                                    amount: '\$ ${state.totalPrice}',
+                                    amount: '\$ ${state.totalPrice.toStringAsFixed(4)}',
                                     currentRate: 'CA \$0.00 (0.00%)',
                                     isShowBalanceWidget: false,
                                   );
