@@ -10,7 +10,8 @@ class AuthCubit extends Cubit<AuthState> {
   bool isUnlockFaceId = true;
   TextEditingController pinCodeTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
-  GlobalKey<FormState> formKey=GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  ValueNotifier<bool> isLoadingNotifier = ValueNotifier(false);
 
   void togglePasswordVisibility() {
     emit(AuthInitial());
