@@ -8,6 +8,7 @@ enum WalletAddressType {
   injective,
   kujira,
   cosmos,
+  polkadot,
   thorchain,
   hedera,
 }
@@ -24,6 +25,7 @@ class BiorBankWallet {
   final WalletAddress? injectivewallet;
   final WalletAddress? kujirawallet;
   final WalletAddress? cosmoswallet;
+  final WalletAddress? polkadotwallet;
   final WalletAddress? thorchainwallet;
   final WalletAddress ethwallet;
   final String seedPhrase; // we use the same seedPhrase for 3 wallets.
@@ -41,6 +43,7 @@ class BiorBankWallet {
         this.injectivewallet,
         this.kujirawallet,
         this.cosmoswallet,
+        this.polkadotwallet,
         this.thorchainwallet,
         required this.ethwallet,
         this.seedPhrase = "",
@@ -58,6 +61,7 @@ class BiorBankWallet {
           'injectivewallet': injectivewallet!.toJson(),
           'kujirawallet': kujirawallet!.toJson(),
           'cosmoswallet': cosmoswallet!.toJson(),
+          'polkadotwallet': polkadotwallet!.toJson(),
           'thorchainwallet': thorchainwallet!.toJson(),
           'ethwallet': ethwallet.toJson(),
           'seedPhrase': seedPhrase,
@@ -85,6 +89,7 @@ class BiorBankWallet {
             injectivewallet: WalletAddress.fromJson(wallet['injectivewallet']),
             kujirawallet: WalletAddress.fromJson(wallet['kujirawallet']),
             cosmoswallet: WalletAddress.fromJson(wallet['cosmoswallet']),
+            polkadotwallet: WalletAddress.fromJson(wallet['polkadotwallet']),
             thorchainwallet: WalletAddress.fromJson(wallet['thorchainwallet']),
             ethwallet: WalletAddress.fromJson(wallet['ethwallet']),
             seedPhrase: wallet['seedPhrase'],
@@ -131,6 +136,8 @@ class BiorBankWallet {
           return thorchainwallet!.publicKey;
         case "ATOM":
           return cosmoswallet!.publicKey;
+        case "DOT":
+          return polkadotwallet!.publicKey;
         case "ETH":
           return ethwallet.publicKey;
         case "BSLETH":

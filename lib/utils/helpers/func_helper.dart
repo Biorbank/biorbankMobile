@@ -117,7 +117,15 @@ class ValidateWalletAddress {
   static bool validateBTC(String str) {
     return Address.validateAddress(str);
   }
+  static bool validatePolkadot(String address) {
+    return Address.validateAddress(address);
+  }
+  static bool validateLTC(String address) {
+    final legacyPattern = RegExp(r'^[LM][a-km-zA-HJ-NP-Z1-9]{25,34}$');
+    final segwitPattern = RegExp(r'^ltc1[a-zA-HJ-NP-Z0-9]{39,59}$');
 
+    return legacyPattern.hasMatch(address) || segwitPattern.hasMatch(address);
+  }
   static bool validateEVM(String str) {
     try {
       EthereumAddress.fromHex(str);
@@ -155,6 +163,10 @@ class ValidateWalletAddress {
     } else {
       return false;
     }
+  }
+
+  static bool validateCosmos(String value) {
+    return true;
   }
 }
 
