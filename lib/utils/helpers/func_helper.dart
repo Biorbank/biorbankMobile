@@ -7,7 +7,6 @@ import 'package:biorbank/utils/helpers/helper_bitcoin.dart';
 import 'package:biorbank/utils/helpers/helper_ethereum.dart';
 import 'package:biorbank/utils/helpers/helper_polygon.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
-import 'package:flutter/material.dart';
 import 'package:hex/hex.dart';
 
 import 'package:flutter_bitcoin/flutter_bitcoin.dart';
@@ -15,6 +14,8 @@ import 'package:web3dart/web3dart.dart';
 
 import 'package:convert/convert.dart';
 import 'package:solana/solana.dart';
+import 'package:bech32/bech32.dart';
+
 
 
 String addCommas(String input) {
@@ -116,11 +117,30 @@ class ValidateWalletAddress {
   static bool validateBTC(String str) {
     return Address.validateAddress(str);
   }
+  static bool validatePolkadot(String address) {
+    return Address.validateAddress(address);
+  }
+  static bool validateLTC(String address) {
+    final legacyPattern = RegExp(r'^[LM][a-km-zA-HJ-NP-Z1-9]{25,34}$');
+    final segwitPattern = RegExp(r'^ltc1[a-zA-HJ-NP-Z0-9]{39,59}$');
 
+    return legacyPattern.hasMatch(address) || segwitPattern.hasMatch(address);
+  }
   static bool validateEVM(String str) {
     try {
       EthereumAddress.fromHex(str);
       return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool validateBech32(String str) {
+    try {
+      final decoded = Bech32Codec().decode(str);
+      // Optionally, you can also validate the HRP (Human-Readable Part)
+      // For example, check for "bc" (Bitcoin) or "cosmos" (Cosmos)
+      return decoded.hrp.isNotEmpty && decoded.data.isNotEmpty;
     } catch (e) {
       return false;
     }
@@ -143,6 +163,10 @@ class ValidateWalletAddress {
     } else {
       return false;
     }
+  }
+
+  static bool validateCosmos(String value) {
+    return true;
   }
 }
 
