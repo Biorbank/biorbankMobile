@@ -21,6 +21,12 @@ class _ChartWidgetState extends State<ChartWidget> {
   @override
   void initState() {
     super.initState();
+    updatePoints();
+  }
+
+  void updatePoints() async {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    // db.updateAllTotalAmountHistory();
 
     print(widget.timePeriod);
     const List<FlSpot> tempPoints = [
@@ -31,12 +37,7 @@ class _ChartWidgetState extends State<ChartWidget> {
     setState(() {
       points = tempPoints;
     });
-    updatePoints();
-  }
-
-  void updatePoints() async {
-    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
-    // db.updateAllTotalAmountHistory();
+    // print(points.length);
   }
 
   @override
@@ -47,7 +48,7 @@ class _ChartWidgetState extends State<ChartWidget> {
           if (!context.mounted) return [];
           print("getFilteredPoints");
           DateTime now = DateTime.now();
-          DateTime startDate;
+          DateTime startDate = now.subtract(const Duration(days: 7));
 
           switch (widget.timePeriod) {
             case "1W":
@@ -67,11 +68,13 @@ class _ChartWidgetState extends State<ChartWidget> {
               break;
             case "ALL":
             default:
-              return state.totalAmountHistoryList
-                  .map((dataPoint) => FlSpot(
-                      dataPoint.createdAt.millisecondsSinceEpoch.toDouble(),
-                      dataPoint.totalAmount))
-                  .toList();
+              if (state.totalAmountHistoryList.length >= 2) {
+                return state.totalAmountHistoryList
+                    .map((dataPoint) => FlSpot(
+                        dataPoint.createdAt.millisecondsSinceEpoch.toDouble(),
+                        dataPoint.totalAmount))
+                    .toList();
+              }
           }
 
           final List<FlSpot> totalAmountHistory = state.totalAmountHistoryList

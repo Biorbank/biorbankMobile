@@ -48,12 +48,15 @@ class NetworkInformation {
   //only useful for evm chains
   final int chainId;
   final String name;
+  final String logo;
+
   NetworkInformation({
     required this.id,
     required this.rpcUrl,
     required this.explorerUrl,
     required this.chainId,
     required this.name,
+    required this.logo,
   });
   Map<String, dynamic> toMap() {
     return {
@@ -62,6 +65,7 @@ class NetworkInformation {
       'explorerUrl': explorerUrl,
       'chainId': chainId,
       'name': name,
+      'logo': logo,
     };
   }
 

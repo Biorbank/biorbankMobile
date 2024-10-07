@@ -1,34 +1,49 @@
+import 'dart:io';
+
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_text_button.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/presentation/pages/deposit/cubit/deposit_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CryptoTabWidget extends StatelessWidget {
-  const CryptoTabWidget(
-      {super.key,
-      required this.onChangedAccount,
-      required this.onChangedNetwork,
-      required this.onChangedCoin,
-      required this.imageUrl,
-      required this.onChangedUSDTaddress,
-      required this.onTapCopyAddress,
-      required this.onTapShowQRcode});
+class CryptoTabWidget extends StatefulWidget {
+  const CryptoTabWidget({
+    super.key,
+    required this.onChangedAccount,
+    required this.onChangedNetwork,
+    required this.onChangedCoin,
+    required this.onChangedUSDTaddress,
+    required this.onTapCopyAddress,
+    required this.onTapShowQRcode,
+  });
   final Function(dynamic) onChangedAccount;
   final Function(dynamic) onChangedNetwork;
   final Function(dynamic) onChangedCoin;
   final Function(dynamic) onChangedUSDTaddress;
   final VoidCallback onTapCopyAddress;
   final VoidCallback onTapShowQRcode;
-  final String imageUrl;
+
+  @override
+  State<CryptoTabWidget> createState() => _CryptoTabWidgetState();
+}
+
+class _CryptoTabWidgetState extends State<CryptoTabWidget> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<DepositCubit>();
+    final cubit = context.read<DepositCubit>();
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +56,7 @@ class CryptoTabWidget extends StatelessWidget {
             title: 'Form an account',
             items: const [],
             backGroundColor: Theme.of(context).colorScheme.errorContainer,
-            onChanged: onChangedAccount,
+            onChanged: widget.onChangedAccount,
           ),
           height(18.h),
           CommonDropdownWidget(
@@ -55,8 +70,8 @@ class CryptoTabWidget extends StatelessWidget {
                     value: e,
                     child: Row(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: e.url,
+                        Image.file(
+                          File("${AppHelper.appDir}/${e.logo}"),
                           height: 22.h,
                           width: 22.w,
                           fit: BoxFit.cover,
@@ -69,7 +84,7 @@ class CryptoTabWidget extends StatelessWidget {
                     )))
                 .toList(),
             backGroundColor: Theme.of(context).colorScheme.errorContainer,
-            onChanged: onChangedNetwork,
+            onChanged: widget.onChangedNetwork,
           ),
           height(18.h),
           CommonDropdownWidget(
@@ -78,26 +93,26 @@ class CryptoTabWidget extends StatelessWidget {
             value: cubit.selectedCoin,
             labelText: '',
             title: 'Select a coin',
-            items: cubit.networkList
+            items: cubit.fetchedAssetList
                 .map((e) => DropdownMenuItem(
                     value: e,
                     child: Row(
                       children: [
-                        CachedNetworkImage(
-                          imageUrl: e.url,
+                        Image.file(
+                          File("${AppHelper.appDir}/${e.getAsset().logo}"),
                           height: 22.h,
                           width: 22.w,
                           fit: BoxFit.cover,
                         ),
                         width(8.w),
-                        AppConstant.commonText(e.name,
+                        AppConstant.commonText(e.getAsset().name,
                             fontSize: 14.sp,
                             color: Theme.of(context).colorScheme.shadow),
                       ],
                     )))
                 .toList(),
             backGroundColor: Theme.of(context).colorScheme.errorContainer,
-            onChanged: onChangedCoin,
+            onChanged: widget.onChangedCoin,
           ),
           height(18.h),
           Row(
@@ -138,19 +153,23 @@ class CryptoTabWidget extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12.r),
-                      child: CachedNetworkImage(
-                        imageUrl: imageUrl,
-                        height: 50.h,
-                        width: 50.w,
-                        fit: BoxFit.cover,
-                      ),
+                      child: cubit.selectedCoin != null
+                          ? Image.file(
+                              File(
+                                  "${AppHelper.appDir}/${cubit.selectedCoin?.getAsset().logo}"),
+                              height: 50.h,
+                              width: 50.w,
+                              fit: BoxFit.cover,
+                            )
+                          : Container(),
                     ),
                     width(15.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AppConstant.commonText('USDT address',
+                          AppConstant.commonText(
+                              '${cubit.selectedCoin?.getAsset().symbol} address',
                               fontWeight: FontWeight.w500,
                               color: Theme.of(context).colorScheme.shadow),
                           height(8.h),
@@ -171,7 +190,7 @@ class CryptoTabWidget extends StatelessWidget {
                                 .toList(),
                             backGroundColor:
                                 Theme.of(context).colorScheme.errorContainer,
-                            onChanged: onChangedUSDTaddress,
+                            onChanged: widget.onChangedUSDTaddress,
                           ),
                           height(8.h),
                           Row(
@@ -190,7 +209,7 @@ class CryptoTabWidget extends StatelessWidget {
                                 ),
                                 textColor:
                                     Theme.of(context).colorScheme.onPrimary,
-                                onTap: onTapCopyAddress,
+                                onTap: widget.onTapCopyAddress,
                               ),
                               CommonTextButton(
                                 name: 'Show QR Code',
@@ -203,7 +222,7 @@ class CryptoTabWidget extends StatelessWidget {
                                 ),
                                 textColor:
                                     Theme.of(context).colorScheme.onPrimary,
-                                onTap: onTapShowQRcode,
+                                onTap: widget.onTapShowQRcode,
                               ),
                             ],
                           )

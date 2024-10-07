@@ -6,6 +6,7 @@ NetworkInformation bitcoin = NetworkInformation(
   explorerUrl: "https://www.blockchain.com/explorer/transactions/btc",
   chainId: 0,
   name: 'Bitcoin',
+  logo: "assets/img/cryptoicon/1.png",
 );
 
 NetworkInformation ethereum = NetworkInformation(
@@ -14,6 +15,7 @@ NetworkInformation ethereum = NetworkInformation(
   explorerUrl: "https://etherscan.io/tx",
   chainId: 1,
   name: 'Ethereum',
+  logo: "assets/img/cryptoicon/1027.png",
 );
 NetworkInformation binance = NetworkInformation(
   id: 2,
@@ -21,6 +23,7 @@ NetworkInformation binance = NetworkInformation(
   explorerUrl: "https://bscscan.com/tx",
   chainId: 56,
   name: 'Binance',
+  logo: "assets/img/cryptoicon/1839.png",
 );
 NetworkInformation polygon = NetworkInformation(
   id: 3,
@@ -28,14 +31,16 @@ NetworkInformation polygon = NetworkInformation(
   explorerUrl: "https://polygonscan.com/tx",
   chainId: 137,
   name: 'Polygon',
+  logo: "assets/img/cryptoicon/3890.png",
 );
-NetworkInformation hedera = NetworkInformation(
+/* NetworkInformation hedera = NetworkInformation(
   id: 4,
   rpcUrl: Env.hederaRpcUrl,
   explorerUrl: "https://hederaexplorer.io/search-details/transaction",
   chainId: 0,
   name: "Hedera",
-);
+
+);*/
 NetworkInformation injective = NetworkInformation(
   id: 7,
   rpcUrl: "https://sentry.tm.injective.network:443",
@@ -85,6 +90,7 @@ NetworkInformation solana = NetworkInformation(
   explorerUrl: "https://solscan.io/tx",
   chainId: 901,
   name: "Solana",
+  logo: "assets/img/cryptoicon/4646.png",
 );
 CryptoAssetInformation btccoin = CryptoAssetInformation(
     networkId: 0,
