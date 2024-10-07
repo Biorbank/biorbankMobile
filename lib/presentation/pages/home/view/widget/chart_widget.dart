@@ -24,22 +24,8 @@ class _ChartWidgetState extends State<ChartWidget> {
 
     print(widget.timePeriod);
     const List<FlSpot> tempPoints = [
-      FlSpot(
-        1,
-        2,
-      ),
-      FlSpot(
-        2,
-        2.6,
-      ),
-      FlSpot(
-        4,
-        5,
-      ),
-      FlSpot(
-        5,
-        3,
-      ),
+      FlSpot(0, 0),
+      FlSpot(1, 0),
     ];
 
     setState(() {
@@ -55,9 +41,10 @@ class _ChartWidgetState extends State<ChartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CryptoDBRepositoryImpl, CryptoDBRepositoryState>(
-      builder: (context, state) {
+    return BlocConsumer<CryptoDBRepositoryImpl, CryptoDBRepositoryState>(
+      listener: (context, state) {
         List<FlSpot> getFilteredPoints() {
+          if (!context.mounted) return [];
           print("getFilteredPoints");
           DateTime now = DateTime.now();
           DateTime startDate;
@@ -111,23 +98,30 @@ class _ChartWidgetState extends State<ChartWidget> {
             totalAmountHistory.add(const FlSpot(0, 0));
             totalAmountHistory.add(const FlSpot(1, 0));
           }
+          setState(() {
+            points = totalAmountHistory;
+          });
           return totalAmountHistory;
         }
 
-        return SizedBox(
+        getFilteredPoints();
+      },
+      builder: (context, state) {
+        return Container(
           height: 92.h,
+          padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.w),
           child: LineChart(
             LineChartData(
               lineBarsData: [
                 LineChartBarData(
-                  spots: getFilteredPoints(),
+                  spots: points,
                   isCurved: true,
                   barWidth: 2,
                   color: Theme.of(context).colorScheme.onSurface,
                   dotData: FlDotData(
                     show: true,
                     getDotPainter: (spot, percent, bar, index) {
-                      if (index == 2) {
+                      if (index == points.length - 1) {
                         return FlDotCirclePainter(
                           radius: 8,
                           color: Theme.of(context).colorScheme.onPrimary,
@@ -180,6 +174,7 @@ class _ChartWidgetState extends State<ChartWidget> {
                       );
                     }).toList();
                   },
+                  fitInsideHorizontally: true,
                 ),
                 handleBuiltInTouches: true,
               ),
