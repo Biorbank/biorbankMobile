@@ -62,163 +62,167 @@ class _AssetPageWidgetState extends State<AssetPageWidget> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<HomeCubit>();
-    return Stack(
-      children: [
-        CommonBlueContainer(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                height(40.h),
-                CommonSearchAppbar(
-                  hintText: 'ID/USDT',
-                  textController: TextEditingController(),
-                  onTapTextField: () {
-                    context.router.push(const CommonSearchRoute());
-                    //  Navigator.pushNamed(context, Routes.serachViewRoute);
-                  },
-                ),
-                height(10.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildArrow(context: context, icon: Assets.imagesBackArrow),
-                    const Spacer(),
-                    Column(
-                      children: [
-                        AppConstant.commonText(
-                          "Balance",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
-                        AppConstant.commonText(
-                          "\$75,630.90",
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        Row(
-                          children: [
-                            AppConstant.commonText(
-                              "All Account",
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            width(4),
-                            _buildArrow(
-                              context: context,
-                              icon: Assets.imagesArrowDownOutline,
-                              height: 16.h,
-                              width: 16.w,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    _buildArrow(
-                        context: context, icon: Assets.imagesArrowRight),
-                  ],
-                ),
-                height(28),
-              ],
-            ),
-          ),
-        ),
-        DraggableScrollableSheet(
-          initialChildSize: 0.68,
-          minChildSize: 0.6,
-          maxChildSize: 0.68,
-          builder: (context, scrollController) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(24),
-                  topRight: Radius.circular(24),
-                ),
-                color: Theme.of(context).colorScheme.onSurface,
-              ),
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      return Stack(
+        children: [
+          CommonBlueContainer(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  height(40.h),
+                  CommonSearchAppbar(
+                    hintText: 'ID/USDT',
+                    textController: TextEditingController(),
+                    onTapTextField: () {
+                      context.router.push(const CommonSearchRoute());
+                      //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                    },
+                  ),
                   height(10.h),
-                  Container(
-                    height: 4.h,
-                    width: 50.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildArrow(
+                          context: context, icon: Assets.imagesBackArrow),
+                      const Spacer(),
+                      Column(
+                        children: [
+                          AppConstant.commonText(
+                            "Balance",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                          AppConstant.commonText(
+                            "\$75,630.90",
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                          Row(
+                            children: [
+                              AppConstant.commonText(
+                                "All Account",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              width(4),
+                              _buildArrow(
+                                context: context,
+                                icon: Assets.imagesArrowDownOutline,
+                                height: 16.h,
+                                width: 16.w,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      _buildArrow(
+                          context: context, icon: Assets.imagesArrowRight),
+                    ],
                   ),
-                  height(20.h),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        AppConstant.commonText(
-                          "Tokens",
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.shadow,
-                        ),
-                        width(4),
-                        AppConstant.commonText(
-                          "(${cubit.myActTokenData.length})",
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: Theme.of(context).colorScheme.shadow,
-                        ),
-                        const Spacer(),
-                        Icon(
-                          Icons.add_circle_outline,
-                          size: 20,
-                          color: Theme.of(context).colorScheme.shadow,
-                        ),
-                        width(4),
-                        Image.asset(
-                          Assets.imagesFilter,
-                          color: Theme.of(context).colorScheme.tertiary,
-                          height: 20,
-                          width: 20,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: cubit.myActTokenData.length,
-                      controller: scrollController,
-                      itemBuilder: (context, index) {
-                        final data = cubit.myActTokenData[index];
-                        return _buildContainerData(
-                          context: context,
-                          img: data.img,
-                          title: data.title,
-                          title2: data.title2,
-                          amt:
-                              "${data.amount.toStringAsFixed(2)} | \$${data.priceInUSD.toStringAsFixed(2)}",
-                          currentAmt:
-                              "\$${(data.amount * data.priceInUSD).toStringAsFixed(2)}",
-                          differentAmt:
-                              "+${(data.percentChangeday * data.priceInUSD * data.amount).toStringAsFixed(2)}",
-                          totalDifferentInPercentage:
-                              "+${(data.percentChangeday * data.amount).toStringAsFixed(2)}%",
-                          isProfit: data.isProfit,
-                        );
-                      },
-                    ),
-                  ),
+                  height(28),
                 ],
               ),
-            );
-          },
-        ),
-      ],
-    );
+            ),
+          ),
+          DraggableScrollableSheet(
+            initialChildSize: 0.68,
+            minChildSize: 0.6,
+            maxChildSize: 0.68,
+            builder: (context, scrollController) {
+              return Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24),
+                    topRight: Radius.circular(24),
+                  ),
+                  color: Theme.of(context).colorScheme.onSurface,
+                ),
+                child: Column(
+                  children: [
+                    height(10.h),
+                    Container(
+                      height: 4.h,
+                      width: 50.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
+                    ),
+                    height(20.h),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          AppConstant.commonText(
+                            "Tokens",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Theme.of(context).colorScheme.shadow,
+                          ),
+                          width(4),
+                          AppConstant.commonText(
+                            "(${cubit.myActTokenData.length})",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: Theme.of(context).colorScheme.shadow,
+                          ),
+                          const Spacer(),
+                          Icon(
+                            Icons.add_circle_outline,
+                            size: 20,
+                            color: Theme.of(context).colorScheme.shadow,
+                          ),
+                          width(4),
+                          Image.asset(
+                            Assets.imagesFilter,
+                            color: Theme.of(context).colorScheme.tertiary,
+                            height: 20,
+                            width: 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: cubit.myActTokenData.length,
+                        controller: scrollController,
+                        itemBuilder: (context, index) {
+                          final data = cubit.myActTokenData[index];
+                          return _buildContainerData(
+                            context: context,
+                            img: data.img,
+                            title: data.title,
+                            title2: data.title2,
+                            amt:
+                                "${data.amount.toStringAsFixed(2)} | \$${data.priceInUSD.toStringAsFixed(2)}",
+                            currentAmt:
+                                "\$${(data.amount * data.priceInUSD).toStringAsFixed(2)}",
+                            differentAmt:
+                                "+${(data.percentChangeday * data.priceInUSD * data.amount).toStringAsFixed(2)}",
+                            totalDifferentInPercentage:
+                                "+${(data.percentChangeday * data.amount).toStringAsFixed(2)}%",
+                            isProfit: data.isProfit,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      );
+    });
   }
 
   _buildArrow(
