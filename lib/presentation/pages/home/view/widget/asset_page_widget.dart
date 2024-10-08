@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
+import 'package:biorbank/presentation/pages/home/model/my_account_token_model.dart';
 import 'package:biorbank/utils/app_widgets.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +17,51 @@ import '../../../../common/common_blue_container.dart';
 import '../../../../common/common_search_appbar.dart';
 import '../../cubit/home_cubit.dart';
 
-class AssetPageWidget extends StatelessWidget {
+class AssetPageWidget extends StatefulWidget {
   const AssetPageWidget({super.key});
 
   @override
+  State<AssetPageWidget> createState() => _AssetPageWidgetState();
+}
+
+class _AssetPageWidgetState extends State<AssetPageWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    updateState();
+  }
+
+  void updateState() async {
+    final db = context.read<CryptoDBRepositoryImpl>();
+    final cubit = context.read<HomeCubit>();
+
+    // Create a list of futures
+    List<Future<MyAccountTokenModel>> futures =
+        db.state.assetList.map((e) async {
+      return MyAccountTokenModel(
+        img: e.getAsset().logo,
+        title: e.getAsset().name,
+        title2: e.getAsset().symbol,
+        amount: e.state.balance, // Await the balance retrieval
+        priceInUSD: e.state.quote.priceInUSD, // Ensure this variable is defined
+        percentChangeday:
+            e.state.quote.percentChangeday, // Ensure this variable is defined
+        isProfit: true, // Ensure this variable is defined
+      );
+    }).toList();
+
+    // Wait for all futures to complete
+    List<MyAccountTokenModel> accountTokenModels = await Future.wait(futures);
+
+    // Call the cubit's function with the completed list
+    cubit.onChangeMyActTokenData(value: accountTokenModels);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var cubit = context.read<HomeCubit>();
+    final cubit = context.read<HomeCubit>();
     return Stack(
       children: [
         CommonBlueContainer(
@@ -123,7 +167,7 @@ class AssetPageWidget extends StatelessWidget {
                         ),
                         width(4),
                         AppConstant.commonText(
-                          "(8)",
+                          "(${cubit.myActTokenData.length})",
                           fontWeight: FontWeight.w500,
                           fontSize: 12,
                           color: Theme.of(context).colorScheme.shadow,
@@ -152,15 +196,18 @@ class AssetPageWidget extends StatelessWidget {
                         final data = cubit.myActTokenData[index];
                         return _buildContainerData(
                           context: context,
-                          img: data.img ?? "",
-                          title: data.title ?? "",
-                          title2: data.title2 ?? "",
-                          amt: data.amt ?? "",
-                          currentAmt: data.currentAmt ?? "",
-                          differentAmt: data.differentAmt ?? "",
+                          img: data.img,
+                          title: data.title,
+                          title2: data.title2,
+                          amt:
+                              "${data.amount.toStringAsFixed(2)} | \$${data.priceInUSD.toStringAsFixed(2)}",
+                          currentAmt:
+                              "\$${(data.amount * data.priceInUSD).toStringAsFixed(2)}",
+                          differentAmt:
+                              "+${(data.percentChangeday * data.priceInUSD * data.amount).toStringAsFixed(2)}",
                           totalDifferentInPercentage:
-                              data.totalDifferentInPercentage ?? "",
-                          isProfit: data.isProfit ?? false,
+                              "+${(data.percentChangeday * data.amount).toStringAsFixed(2)}%",
+                          isProfit: data.isProfit,
                         );
                       },
                     ),
@@ -204,8 +251,10 @@ class AssetPageWidget extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: CachedNetworkImage(
-              imageUrl: img,
+            child: Image.file(
+              File(
+                "${AppHelper.appDir}/$img",
+              ),
               height: 44.h,
               width: 44.w,
               fit: BoxFit.fill,

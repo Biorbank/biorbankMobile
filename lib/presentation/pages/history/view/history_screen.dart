@@ -63,12 +63,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               .colorScheme
                               .onSecondaryContainer,
                         ),
-                        AppConstant.commonText(
-                          "\$${AppHelper.walletService.currentWallet.totalAmount <= 0.0001 ? 0 : AppHelper.walletService.currentWallet.totalAmount}",
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
+                        BlocBuilder<CryptoDBRepositoryImpl,
+                            CryptoDBRepositoryState>(builder: (context, state) {
+                          return AppConstant.commonText(
+                            "\$${AppHelper.walletService.currentWallet.totalAmount <= 0.0001 ? 0 : AppHelper.walletService.currentWallet.totalAmount.toStringAsFixed(4)}",
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          );
+                        }),
                         Row(
                           children: [
                             AppConstant.commonText(

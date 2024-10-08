@@ -1,7 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
+import 'package:biorbank/presentation/pages/home/model/my_account_model.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/asset_page_widget.dart';
+import 'package:biorbank/presentation/pages/home/view/widget/price_detail_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/models/BiorBankWallet.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,138 +17,161 @@ import '../../../../../utils/common_spacer.dart';
 import '../../../../common/common_blue_container.dart';
 import '../../cubit/home_cubit.dart';
 
-class MyAccountsWidget extends StatelessWidget {
+class MyAccountsWidget extends StatefulWidget {
   const MyAccountsWidget({super.key});
+
+  @override
+  State<MyAccountsWidget> createState() => _MyAccountsWidgetState();
+}
+
+class _MyAccountsWidgetState extends State<MyAccountsWidget> {
+  List<BiorBankWallet> wallets = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAccounts();
+  }
+
+  Future<void> _loadAccounts() async {
+    var cubit = context.read<HomeCubit>();
+    setState(
+      () {
+        cubit.onChangeMyAccountData(
+          value: AppHelper.walletService.wallets
+              .map(
+                (e) => MyAccountModel(
+                  title: e.name,
+                  currentAmt: e.totalAmount,
+                  differentAmt: 0.0,
+                  totalDifferentInPercentage: 0.0,
+                  isProfit: true,
+                  percent: 0.2,
+                ),
+              )
+              .toList(),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<HomeCubit>();
 
-    return Column(
-      children: [
-        CommonBlueContainer(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                height(40.h),
-                CommonSearchAppbar(
-                  hintText: 'ID/USDT',
-                  textController: TextEditingController(),
-                  onTapTextField: () {
-                    context.router.push(const CommonSearchRoute());
-                    //  Navigator.pushNamed(context, Routes.serachViewRoute);
-                  },
-                ),
-                height(10.h),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              height(10.h),
-              Row(
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      return Column(
+        children: [
+          CommonBlueContainer(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppConstant.commonText(
-                    "My Accounts",
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).colorScheme.shadow,
+                  height(40.h),
+                  CommonSearchAppbar(
+                    hintText: 'ID/USDT',
+                    textController: TextEditingController(),
+                    onTapTextField: () {
+                      context.router.push(const CommonSearchRoute());
+                      //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                    },
                   ),
+                  height(10.h),
                 ],
               ),
-              height(10.h),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AssetPageWidget(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                height(10.h),
+                Row(
+                  children: [
+                    AppConstant.commonText(
+                      "My Accounts",
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).colorScheme.shadow,
                     ),
-                  );
-                },
-                child: _buildContainer(
-                  context: context,
-                  child: _buildContainerData(
+                  ],
+                ),
+                height(10.h),
+                InkWell(
+                  onTap: () {},
+                  child: _buildContainer(
                     context: context,
-                    percent: cubit.percent,
-                    title: "All Accounts",
-                    currentAmt: "USD \$53,186.00",
-                    differentAmt: "+643.67",
-                    totalDifferentInPercentage: "+1.23%",
-                    isProfit: true,
+                    child: _buildContainerData(
+                      context: context,
+                      percent: cubit.percent,
+                      title: cubit.totalAccountData.title,
+                      currentAmt:
+                          "USD ${cubit.totalAccountData.currentAmt.toStringAsFixed(2)}",
+                      differentAmt:
+                          "+${cubit.totalAccountData.differentAmt.toStringAsFixed(2)}",
+                      totalDifferentInPercentage:
+                          "+${cubit.totalAccountData.totalDifferentInPercentage.toStringAsFixed(2)}%",
+                      isProfit: true,
+                    ),
                   ),
                 ),
-              ),
-              height(26),
-              _buildContainer(
-                context: context,
-                child: Column(
-                  children: [
-                    _buildContainerData(
-                      context: context,
-                      percent: cubit.myAccountData[0].percent ?? 0.0,
-                      title: cubit.myAccountData[0].title ?? "",
-                      currentAmt: cubit.myAccountData[0].currentAmt ?? "",
-                      differentAmt: cubit.myAccountData[0].differentAmt ?? "",
-                      totalDifferentInPercentage:
-                          cubit.myAccountData[0].totalDifferentInPercentage ??
-                              "",
-                      isProfit: cubit.myAccountData[0].isProfit ?? false,
-                      arrowWidget: Row(
-                        children: [
-                          width(10),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 15,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
+                height(26),
+                _buildContainer(
+                  context: context,
+                  child: ListView.separated(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: AppConstant.commonDivider(
                         color: Theme.of(context).colorScheme.onSecondaryFixed,
                       ),
                     ),
-                    _buildContainerData(
-                      context: context,
-                      percent: cubit.myAccountData[1].percent ?? 0.0,
-                      title: cubit.myAccountData[1].title ?? "",
-                      currentAmt: cubit.myAccountData[1].currentAmt ?? "",
-                      differentAmt: cubit.myAccountData[1].differentAmt ?? "",
-                      totalDifferentInPercentage:
-                          cubit.myAccountData[1].totalDifferentInPercentage ??
-                              "",
-                      isProfit: cubit.myAccountData[1].isProfit ?? false,
-                      arrowWidget: Row(
-                        children: [
-                          width(10),
-                          Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 15,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer,
+                    itemCount: cubit.myAccountData.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AssetPageWidget(),
                           ),
-                        ],
+                        );
+                      },
+                      child: _buildContainerData(
+                        context: context,
+                        percent: cubit.myAccountData[index].percent,
+                        title: cubit.myAccountData[index].title,
+                        currentAmt:
+                            "USD ${cubit.myAccountData[index].currentAmt.toStringAsFixed(2)}",
+                        differentAmt:
+                            "+${cubit.myAccountData[index].differentAmt.toStringAsFixed(2)}",
+                        totalDifferentInPercentage:
+                            "+${cubit.myAccountData[index].totalDifferentInPercentage.toStringAsFixed(2)}%",
+                        isProfit: cubit.myAccountData[index].isProfit,
+                        arrowWidget: Row(
+                          children: [
+                            width(10),
+                            Icon(
+                              Icons.arrow_forward_ios_rounded,
+                              size: 15,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSecondaryContainer,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   _buildContainerData({

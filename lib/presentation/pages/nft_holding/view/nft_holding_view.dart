@@ -28,7 +28,8 @@ class NftHoldingScreen extends StatelessWidget {
     'https://i.pinimg.com/736x/cd/58/c4/cd58c47e34804456c14fd2343c42ca78.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvbTcEQ002VxZLWOU4RIgIPpSDFXhsVvqQIIFKqA-CO_sx3HO1gLotwhB9zuaKROsZiQ&usqp=CAU'
   ];
-  static CarouselSliderController carouselController = CarouselSliderController();
+  static CarouselSliderController carouselController =
+      CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,7 +173,12 @@ class NftHoldingScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const AddAddressDialog(),
+                            );
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -192,15 +198,11 @@ class NftHoldingScreen extends StatelessWidget {
                         ),
                         width(20.w),
                         Expanded(
-                            child: CommonButton(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => const AddAddressDialog(),
-                            );
-                          },
-                          name: 'Sell',
-                        ))
+                          child: CommonButton(
+                            onTap: () {},
+                            name: 'Sell',
+                          ),
+                        ),
                       ],
                     ),
                   ),

@@ -57,7 +57,11 @@ class _MarketTabbarState extends State<MarketTabbar>
                       length: 3,
                       onTap: (index) {},
                       tabController: tabController,
-                      tabList: const ['Overview', 'Coins', 'Swap']),
+                      tabList: const [
+                        'Coins',
+                        'Swap',
+                        'Overview',
+                      ]),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -84,9 +88,9 @@ class _MarketTabbarState extends State<MarketTabbar>
             ),
             Expanded(
               child: TabBarView(controller: tabController, children: const [
-                OverviewWidget(),
                 CoinsTabWidget(),
-                SwapTabWidget()
+                SwapTabWidget(),
+                OverviewWidget(),
               ]),
             )
           ],

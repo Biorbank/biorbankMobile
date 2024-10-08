@@ -5,6 +5,7 @@ import 'package:biorbank/presentation/common/common_crypto_detail_tile.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
+import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/database_service.dart/database_service.dart';
@@ -29,6 +30,8 @@ class CommonSearchScreen extends StatefulWidget {
 class _CommonSearchViewState extends State<CommonSearchScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
+  int selectedIndex = 0;
+  String searchText = "";
 
   @override
   void initState() {
@@ -58,31 +61,44 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
                       )),
                   width(16.w),
                   Expanded(
-                      child: CommonTextfield(
-                    isShowSpaceAfterTitle: false,
-                    borderRadius: 30,
-                    title: '',
-                    autoFocus: true,
-                    prefixWidget: Padding(
-                      padding: const EdgeInsets.all(14.0),
-                      child: Image.asset(
-                        Assets.imagesSearch,
-                        height: 20.h,
-                        width: 20.w,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
+                    child: CommonTextfield(
+                      isShowSpaceAfterTitle: false,
+                      borderRadius: 30,
+                      title: '',
+                      autoFocus: true,
+                      prefixWidget: Padding(
+                        padding: const EdgeInsets.all(14.0),
+                        child: Image.asset(
+                          Assets.imagesSearch,
+                          height: 20.h,
+                          width: 20.w,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
+                        ),
                       ),
+                      hintText: AppStrings.searchTokenName,
+                      onChanged: (value) {
+                        setState(() {
+                          if (value != null) {
+                            searchText = value;
+                          }
+                        });
+                      },
                     ),
-                    hintText: 'Search token name..',
-                  )),
+                  ),
                 ],
               ),
               height(10.h),
               CommonTabbar(
                 padding: const EdgeInsets.only(left: 8),
-                selectedIndex: 0,
+                selectedIndex: selectedIndex,
                 length: 5,
-                onTap: (index) {},
+                onTap: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
                 tabController: tabController,
                 tabList: const ['All', 'Native', 'ETH', 'BRC-20', 'Cosmos'],
               ),
@@ -91,7 +107,47 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
                 child: BlocBuilder<CryptoDBRepositoryImpl,
                     CryptoDBRepositoryState>(
                   builder: (context, state) {
-                    List<CryptoAssetRepositoryImpl> assetList = state.assetList;
+                    bool containText(String name, String symbol) {
+                      name = name.toLowerCase();
+                      symbol = symbol.toLowerCase();
+                      if (searchText == "") {
+                        return true;
+                      }
+                      if (name.contains(searchText.toLowerCase()) ||
+                          symbol.contains(searchText.toLowerCase())) {
+                        return true;
+                      }
+                      return false;
+                    }
+
+                    List<CryptoAssetRepositoryImpl> assetList = [];
+                    assetList.addAll(state.assetList.where((e) {
+                      if (selectedIndex == 0) {
+                        return containText(
+                            e.getAsset().name, e.getAsset().symbol);
+                      } else if (selectedIndex == 1) {
+                        if (e.getAsset().type == AssetType.coin) {
+                          return containText(
+                              e.getAsset().name, e.getAsset().symbol);
+                        }
+                      } else if (selectedIndex == 2) {
+                        if (e.getAsset().networkId == 1) {
+                          return containText(
+                              e.getAsset().name, e.getAsset().symbol);
+                        }
+                      } else if (selectedIndex == 3) {
+                        if (e.getAsset().networkId == 0) {
+                          return containText(
+                              e.getAsset().name, e.getAsset().symbol);
+                        }
+                      } else if (selectedIndex == 4) {
+                        if (e.getAsset().networkId == 10) {
+                          return containText(
+                              e.getAsset().name, e.getAsset().symbol);
+                        }
+                      }
+                      return false;
+                    }));
                     return ListView.separated(
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,

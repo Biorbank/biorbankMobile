@@ -55,7 +55,7 @@ NetworkInformation solana = NetworkInformation(
   explorerUrl: "https://solscan.io/tx",
   chainId: 901,
   name: "Solana",
-  logo: "assets/img/cryptoicon/4646.png",
+  logo: "assets/img/cryptoicon/5426.png",
 );
 NetworkInformation injective = NetworkInformation(
   id: 7,

@@ -5,6 +5,7 @@ class AppStrings {
   static String password = "Password";
   static String fillYourPassword = "Fill your password";
   static String unlock = "Unlock";
+  static String back = "Back";
   static String resetWallet = "Reset Wallet";
   static String walletDesc =
       "Unable to unlock your wallet? You have the option to clear your current wallet and configure a new one.";

@@ -19,7 +19,7 @@ import 'package:biorbank/presentation/pages/feedback/view/feedback_screen.dart';
 import 'package:biorbank/presentation/pages/help_center/view/help_center_screen.dart';
 import 'package:biorbank/presentation/pages/home/view/home_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_exsiting_account_view.dart';
+import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_existing_account_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
 import 'package:biorbank/presentation/pages/market/view/market_view.dart';
 import 'package:biorbank/presentation/pages/nft/view/nft_screen.dart';
@@ -53,21 +53,22 @@ class AppRouter extends _$AppRouter {
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
           AutoRoute(page: DefiRoute.page),
           AutoRoute(page: MarketRoute.page),
-          AutoRoute(page: DefiNavigationRoute.page,
-          initial: true,
-          maintainState: false,
-           children: [
-            AutoRoute(
-              path: 'home',
-              page: HomeRoute.page,
+          AutoRoute(
+              page: DefiNavigationRoute.page,
               initial: true,
-              maintainState: true
-            ),
-            AutoRoute(
-              page: DefiDetailRoute.page,
               maintainState: false,
-            ),
-          ]),
+              children: [
+                AutoRoute(
+                  path: 'home',
+                  page: HomeRoute.page,
+                  initial: true,
+                  maintainState: true,
+                ),
+                AutoRoute(
+                  page: DefiDetailRoute.page,
+                  maintainState: false,
+                ),
+              ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),
           AutoRoute(page: ContactRoute.page, maintainState: false),
@@ -75,7 +76,6 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
           AutoRoute(page: HelpCenterRoute.page, maintainState: false),
           AutoRoute(page: HistoryRoute.page, maintainState: false),
-          
         ]),
         AutoRoute(page: ImportExistingAccountRoute.page),
         AutoRoute(page: ConnectHardwareWalletRoute.page),
@@ -94,6 +94,5 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: TokenRoute.page),
-
       ];
 }
