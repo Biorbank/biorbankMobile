@@ -26,7 +26,6 @@ class HelpCenterScreen extends StatelessWidget {
                 height(45.h),
                 CommonSearchAppbar(
                   hintText: 'Help Center',
-                  onTapBellIcon: () {},
                   textController: TextEditingController(),
                 ),
               ],

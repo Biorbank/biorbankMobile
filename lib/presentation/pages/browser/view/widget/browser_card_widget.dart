@@ -3,6 +3,7 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BrowserCardWidget extends StatelessWidget {
   const BrowserCardWidget(
@@ -10,9 +11,11 @@ class BrowserCardWidget extends StatelessWidget {
       required this.data,
       required this.title,
       this.isVisibleBookMark = false});
+
   final String title;
   final List<dynamic> data;
   final bool isVisibleBookMark;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -65,28 +68,35 @@ class BrowserCardWidget extends StatelessWidget {
               children: List.generate(
                 data.length,
                 (index) => Expanded(
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(26),
-                        child: CachedNetworkImage(
-                          imageUrl: data[index]['image_url'],
-                          height: 50.h,
-                          width: 50.w,
-                          placeholder: (context, url) =>
-                              const SizedBox.shrink(),
+                  child: InkWell(
+                    onTap: () async {
+                      if (data[index]['name'] == "AAVE") {
+                        await launchUrl(Uri.parse("https://app.aave.com/"));
+                      }
+                    },
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(26),
+                          child: CachedNetworkImage(
+                            imageUrl: data[index]['image_url'],
+                            height: 50.h,
+                            width: 50.w,
+                            placeholder: (context, url) =>
+                                const SizedBox.shrink(),
+                          ),
                         ),
-                      ),
-                      height(10.h),
-                      AppConstant.commonText(data[index]['name'],
-                          fontSize: 14.sp,
-                          maxLines: 1,
-                          textOverflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer)
-                    ],
+                        height(10.h),
+                        AppConstant.commonText(data[index]['name'],
+                            fontSize: 14.sp,
+                            maxLines: 1,
+                            textOverflow: TextOverflow.ellipsis,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer)
+                      ],
+                    ),
                   ),
                 ),
               ),

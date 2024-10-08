@@ -33,9 +33,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
   }
 
   buildScreenByStep(int step) {
-    if (step == 0) {
-      return const ImportantView();
-    } else if (step == 1) {
+     if (step == 0) {
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,8 +74,6 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                           CommonAppbar(
                             onTapBack: () {
                               if (cubit.step == 0) {
-                                Navigator.pop(context);
-                              } else if (cubit.step == 1) {
                                 cubit.updateStep(value: 0);
                               }
                             },
@@ -87,47 +83,43 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                             child: buildScreenByStep(cubit.step),
                           ),
                           CommonButton(
-                            name: cubit.step == 0 ? "I understand" : 'Next',
+                            name: cubit.step == 0 ? "Next" : '',
                             onTap: () async {
                               cubit.isLoadingNotifier.value = true;
-                              if (cubit.step == 0) {
-                                cubit.updateStep(value: 1);
-                              } else {
-                                if (cubit.formKey.currentState?.validate() ??
-                                    false) {
-                                  UserPreferences.setUserData(
-                                      value:
-                                          cubit.createPasswordController.text);
+                              if (cubit.formKey.currentState?.validate() ??
+                                  false) {
+                                UserPreferences.setUserData(
+                                    value:
+                                    cubit.createPasswordController.text);
 
-                                  Map map = {};
-                                  map['seed_phrase'] = cubit.mnemonic;
-                                  map['wallet_name'] =
-                                      cubit.accountNameTextController.text;
+                                Map map = {};
+                                map['seed_phrase'] = cubit.mnemonic;
+                                map['wallet_name'] =
+                                    cubit.accountNameTextController.text;
 
-                                  try {
-                                    BiorBankWallet newWallet =
-                                        await compute(generateNewWallet, map);
-                                    await context
-                                        .read<CryptoDBRepositoryImpl>()
-                                        .storeWallet(newWallet);
-                                  } catch (e) {
-                                    LogService.logger.e(
-                                        "==========GenerateNewWallet Error=========== ${e}");
-                                  }
-                                  // BiorbankAccounts.insertAccount(Account(
-                                  //     id: 0,
-                                  //     name: cubit.accountNameTextController.text,
-                                  //     mnemonic: cubit.mnemonic));
-                                  context.router.pushAndPopUntil(
-                                    const DashboardRoute(),
-                                    predicate: (route) => false,
-                                  );
-                                  // Navigator.pushNamedAndRemoveUntil(
-                                  //   context,
-                                  //   Routes.dashboardRoute,
-                                  //   (route) => false,
-                                  // );
+                                try {
+                                  BiorBankWallet newWallet =
+                                  await compute(generateNewWallet, map);
+                                  await context
+                                      .read<CryptoDBRepositoryImpl>()
+                                      .storeWallet(newWallet);
+                                } catch (e) {
+                                  LogService.logger.e(
+                                      "==========GenerateNewWallet Error=========== ${e}");
                                 }
+                                // BiorbankAccounts.insertAccount(Account(
+                                //     id: 0,
+                                //     name: cubit.accountNameTextController.text,
+                                //     mnemonic: cubit.mnemonic));
+                                context.router.pushAndPopUntil(
+                                  const DashboardRoute(),
+                                  predicate: (route) => false,
+                                );
+                                // Navigator.pushNamedAndRemoveUntil(
+                                //   context,
+                                //   Routes.dashboardRoute,
+                                //   (route) => false,
+                                // );
                               }
                               cubit.isLoadingNotifier.value = false;
                             },

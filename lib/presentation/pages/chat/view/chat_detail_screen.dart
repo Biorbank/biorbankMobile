@@ -4,10 +4,10 @@ import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/pages/chat/cubit/chat_cubit.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/message_bubble_widget.dart';
+import 'package:biorbank/presentation/pages/chat/view/widget/send_money_bottom_sheet.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +19,8 @@ class ChatDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ChatCubit>();
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
       appBar: AppBar(
@@ -82,69 +84,99 @@ class ChatDetailScreen extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
             child: Column(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                        child: CommonOutlinedButton(
-                            height: 50.h,
-                            borderColor:
-                                Theme.of(context).colorScheme.onPrimary,
-                            textColor: Theme.of(context).colorScheme.onPrimary,
-                            onTap: () {},
-                            borderRadius: 16,
-                            fontSize: 14.sp,
-                            icon: Image.asset(
-                              Assets.imagesArrowDown,
-                              height: 18.h,
-                              width: 18.w,
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                            title: 'Request')),
-                    width(8.w),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          context.router.push(const SendMoneyRoute());
-
-                          // Navigator.pushNamed(
-                          // context,
-                          // Routes.sendMoneyRoute);
-                        },
-                        child: Container(
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16.r),
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                spreadRadius: -2,
-                                blurRadius: 12,
-                                offset: const Offset(0, 0),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: cubit.chatController,
+                  builder: (context, value, child) {
+                    return value.text.isEmpty
+                        ? Row(
                             children: [
-                              AppConstant.commonText("Send",
-                                  fontSize: 14.sp, fontWeight: FontWeight.w500),
-                              width(10.w),
-                              Image.asset(
-                                Assets.imagesArrowUp,
-                                height: 18.h,
-                                width: 18.w,
-                              ),
+                              Expanded(
+                                  child: CommonOutlinedButton(
+                                      height: 50.h,
+                                      borderColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      textColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      onTap: () {},
+                                      borderRadius: 16,
+                                      fontSize: 14.sp,
+                                      icon: Image.asset(
+                                        Assets.imagesArrowDown,
+                                        height: 18.h,
+                                        width: 18.w,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary,
+                                      ),
+                                      title: 'Request')),
+                              width(8.w),
+                              Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // context.router.push(const SendMoneyRoute());
+                                    showModalBottomSheet(
+                                      context: context,
+                                      scrollControlDisabledMaxHeightRatio: 3/8,
+                                      backgroundColor: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(12),
+                                          topRight: Radius.circular(12),
+                                        ),
+                                      ),
+                                      builder: (context) =>
+                                          const SendMoneyBottomSheet(),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 50.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                          spreadRadius: -2,
+                                          blurRadius: 12,
+                                          offset: const Offset(0, 0),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        AppConstant.commonText("Send",
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500),
+                                        width(10.w),
+                                        Image.asset(
+                                          Assets.imagesArrowUp,
+                                          height: 18.h,
+                                          width: 18.w,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
                             ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
+                          )
+                        : const SizedBox.shrink();
+                  },
                 ),
                 height(1.h),
                 CommonTextfield(
                   title: '',
+                  controller: cubit.chatController,
                   borderRadius: 12.r,
                   hintText: 'Write a message..',
                   suffixWidget: Padding(

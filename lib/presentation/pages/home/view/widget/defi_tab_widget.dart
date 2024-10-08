@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeFiTabWidget extends StatelessWidget {
   const DeFiTabWidget({super.key, required this.scrollController});
+
   final ScrollController scrollController;
 
   @override

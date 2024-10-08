@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MarketTabbar extends StatefulWidget {
-  const MarketTabbar({super.key});
+  final TabController tabController;
+
+  const MarketTabbar({super.key, required this.tabController});
 
   @override
   State<MarketTabbar> createState() => _MarketTabbarState();
@@ -63,26 +65,31 @@ class _MarketTabbarState extends State<MarketTabbar>
                         'Overview',
                       ]),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                      isScrollControlled: true,
-                      shape: const OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(12),
-                              topRight: Radius.circular(12))),
-                      backgroundColor: Theme.of(context).colorScheme.onSurface,
-                      context: context,
-                      builder: (context) => const OverviewFilters(),
-                    );
-                  },
-                  child: Image.asset(
-                    Assets.imagesFilter,
-                    height: 20.h,
-                    width: 20.w,
-                  ),
-                ),
+                cubit.selectedTabIndex == 1
+                    ? GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                            ),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                            context: context,
+                            builder: (context) => const OverviewFilters(),
+                          );
+                        },
+                        child: Image.asset(
+                          Assets.imagesFilter,
+                          height: 20.h,
+                          width: 20.w,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
                 width(20.w)
               ],
             ),

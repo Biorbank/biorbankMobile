@@ -75,7 +75,15 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
             itemCount: wallets.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => InkWell(
-              onTap: () {},
+              borderRadius: BorderRadius.circular(12),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyAccountsWidget(),
+                  ),
+                );
+              },
               child: PriceDetailWidget(
                 title: wallets[index].name,
                 currentAmt:

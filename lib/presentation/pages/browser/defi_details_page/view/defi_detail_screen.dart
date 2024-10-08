@@ -27,21 +27,19 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
   late TabController tabController;
   @override
   void initState() {
-    tabController =
-        TabController(length: 3, vsync: this, initialIndex: widget.index);
+    final cubit = context.read<DefiDetailCubit>();
+    tabController = TabController(
+        length: 3, vsync: this, initialIndex: cubit.selectedTabIndex);
     tabController.addListener(() {
-      context
-          .read<DefiDetailCubit>()
-          .onChangeTabIndex(index: tabController.index);
+      cubit.onChangeTabIndex(index: tabController.index);
 
-      if (tabController.index == 2 &&
-          context.read<DefiDetailCubit>().selectedLoanTabIndex == 1) {
-        context.read<DefiDetailCubit>().onChangeLoanTabIndex(index: 0);
+      if (tabController.index == 2 && cubit.selectedLoanTabIndex == 1) {
+        cubit.onChangeLoanTabIndex(index: 0);
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((t) {
-      context.read<DefiDetailCubit>().onChangeTabIndex(index: widget.index);
-      context.read<DefiDetailCubit>().onChangeLoanTabIndex(index: 0);
+      cubit.onChangeTabIndex(index: cubit.selectedTabIndex);
+      cubit.onChangeLoanTabIndex(index: 0);
     });
     super.initState();
   }

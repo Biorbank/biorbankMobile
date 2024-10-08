@@ -8,6 +8,7 @@ NetworkInformation bitcoin = NetworkInformation(
   name: 'Bitcoin',
   logo: "assets/img/cryptoicon/1.png",
 );
+
 NetworkInformation ethereum = NetworkInformation(
   id: 1,
   rpcUrl: Env.ethereumRpcUrl,

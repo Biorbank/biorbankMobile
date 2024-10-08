@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
+
 part 'market_state.dart';
 
 class MarketCubit extends Cubit<MarketState> {
@@ -15,8 +16,10 @@ class MarketCubit extends Cubit<MarketState> {
   String selectedTime = '1h';
   CurrencyModel? selectedCurrency;
   CurrencyModel? selectedReceiveCurrency;
+
   int transactionStatusID = 0;
-  bool isSwapInfiniteApproval=true;
+  bool isSwapInfiniteApproval = true;
+
   void onChangeTabIndex({required int index}) {
     emit(ChangeTabBarIndexState(index: index));
   }
@@ -49,6 +52,7 @@ class MarketCubit extends Cubit<MarketState> {
   }
 
   List<String> coinsTabList = ['All', 'Top Rated', 'Top Gainers', 'Top Coins'];
+
   void onChangeCoinsTabIndex({required int index}) {
     emit(ChangeCoinsTabBarIndexState(index: index));
   }

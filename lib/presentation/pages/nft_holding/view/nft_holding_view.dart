@@ -3,8 +3,8 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
-import 'package:biorbank/presentation/pages/nft_holding/view/widget/choose_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_control.dart';
+import 'package:biorbank/presentation/pages/nft_holding/view/widget/choose_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_widget.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
 import 'package:biorbank/utils/app_widgets.dart';
@@ -20,6 +20,7 @@ import 'widget/carousel_images.dart';
 class NftHoldingScreen extends StatelessWidget {
   const NftHoldingScreen(
       {super.key, required this.imageUrl, required this.title});
+
   final String title;
   final String imageUrl;
 
@@ -96,122 +97,117 @@ class NftHoldingScreen extends StatelessWidget {
                                       carouselController: carouselController,
                                       images: images),
 
-                                  /// description widget
-                                  DescriptionWidget(
-                                    title: 'Hooligan #7459',
-                                    chain: 'Polygon',
-                                    description:
-                                        'A CNS or UNS blockchain domain. Use it to resolve your cryptocurrency address and decentralized websites',
-                                    contactAddress: 'Oxa9a6a36269932',
-                                    tokenId: '2955844746...34016',
-                                    tokenStandard: 'ERC721',
-                                    onTapExploreButton: () {},
-                                  ),
-                                  height(20.h),
+                                /// description widget
+                                DescriptionWidget(
+                                  title: 'Hooligan #7459',
+                                  chain: 'Polygon',
+                                  description:
+                                      'A CNS or UNS blockchain domain. Use it to resolve your cryptocurrency address and decentralized websites',
+                                  contactAddress: 'Oxa9a6a36269932',
+                                  tokenId: '2955844746...34016',
+                                  tokenStandard: 'ERC721',
+                                  onTapExploreButton: () {},
+                                ),
+                                height(20.h),
 
-                                  /// price history chart
-                                  const PriceHistoryChart(),
-                                  height(20.h)
-                                ],
+                                /// price history chart
+                                const PriceHistoryChart(),
+                                height(20.h)
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 150.h,
+                            left: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 4),
+                              child: CarouselControl(
+                                onPressed: () {
+                                  carouselController.previousPage();
+                                },
+                                child: Icon(Icons.arrow_back_ios_new,
+                                    size: 18,
+                                    color:
+                                        Theme.of(context).colorScheme.shadow),
                               ),
                             ),
-                            Positioned(
-                              top: 150.h,
-                              left: 0,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 4),
+                          ),
+                          Positioned(
+                            top: 150.h,
+                            right: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 4),
+                              child: Align(
+                                alignment: Alignment.centerRight,
                                 child: CarouselControl(
-                                  onPressed: () {
-                                    carouselController.previousPage();
-                                  },
-                                  child: Icon(Icons.arrow_back_ios_new,
+                                  onPressed: () =>
+                                      carouselController.nextPage(),
+                                  child: Icon(Icons.arrow_forward_ios_outlined,
                                       size: 18,
                                       color:
                                           Theme.of(context).colorScheme.shadow),
                                 ),
                               ),
                             ),
-                            Positioned(
-                              top: 150.h,
-                              right: 0,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 4),
-                                child: Align(
-                                  alignment: Alignment.centerRight,
-                                  child: CarouselControl(
-                                    onPressed: () =>
-                                        carouselController.nextPage(),
-                                    child: Icon(
-                                        Icons.arrow_forward_ios_outlined,
-                                        size: 18,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .shadow),
-                                  ),
-                                ),
-                              ),
+                          ),
+                        ],
+                      ),
+                      height(20.h)
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: 90.h,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 20,
+                          color: const Color(0xFF000000).withOpacity(0.12),
+                          offset: const Offset(0, -4))
+                    ]),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 22, right: 16),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              Assets.imagesShare,
+                              height: 21.h,
+                              width: 21.w,
                             ),
+                            height(6.h),
+                            AppConstant.commonText('Transfer',
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500)
                           ],
                         ),
-                        height(20.h)
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 90.h,
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSurface,
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 20,
-                            color: const Color(0xFF000000).withOpacity(0.12),
-                            offset: const Offset(0, -4))
-                      ]),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 22, right: 16),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => const AddAddressDialog(),
-                            );
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                Assets.imagesShare,
-                                height: 21.h,
-                                width: 21.w,
-                              ),
-                              height(6.h),
-                              AppConstant.commonText('Transfer',
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500)
-                            ],
-                          ),
-                        ),
-                        width(20.w),
-                        Expanded(
+                      ),
+                      width(20.w),
+                      Expanded(
                           child: CommonButton(
-                            onTap: () {},
-                            name: 'Sell',
-                          ),
-                        ),
-                      ],
-                    ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const AddAddressDialog(),
+                          );
+                        },
+                        name: 'Sell',
+                      ))
+                    ],
                   ),
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

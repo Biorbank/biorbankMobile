@@ -12,6 +12,8 @@ import 'package:biorbank/utils/service/logger_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../generated/assets.dart';
+
 @RoutePage()
 class NFTScreen extends StatefulWidget {
   const NFTScreen({super.key});
@@ -64,6 +66,15 @@ class _NFTScreenState extends State<NFTScreen>
                 children: [
                   height(45.h),
                   CommonSearchAppbar(
+                    drawerReplace: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        Assets.imagesBackArrow,
+                        height: 22,
+                        width: 22,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
                     hintText: 'ID/USDT',
                     textController: TextEditingController(),
                     onTapTextField: () {
