@@ -88,22 +88,6 @@ class CommonCryptoDetailTile extends StatelessWidget {
         fontSize: 14.sp,
         color: Theme.of(context).colorScheme.onSecondaryContainer,
       ),
-      trailing: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          AppConstant.commonText(
-            coinBalance.toStringAsFixed(2),
-            fontWeight: FontWeight.w400,
-            fontSize: 14.sp,
-            color: Theme.of(context).colorScheme.shadow,
-          ),
-          AppConstant.commonText(
-            "\$${coinPriceInUSD.toStringAsFixed(2)}",
-            fontSize: 14.sp,
-            color: Theme.of(context).colorScheme.onSecondaryContainer,
-          ),
-        ],
-      ),
     );
   }
 }
