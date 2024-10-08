@@ -208,6 +208,7 @@ class NftHoldingScreen extends StatelessWidget {
           ),
         )
       ],
+    ),
     );
   }
 }

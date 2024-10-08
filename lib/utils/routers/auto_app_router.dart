@@ -52,7 +52,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: UnlockPinRoute.page),
         AutoRoute(page: CreateAccountRoute.page),
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
-          // AutoRoute(page: DefiRoute.page),
+          AutoRoute(page: DefiRoute.page),
           AutoRoute(page: DefiDetailRoute.page,maintainState: false),
           AutoRoute(page: MarketRoute.page,maintainState: false),
           AutoRoute(page: DefiNavigationRoute.page,

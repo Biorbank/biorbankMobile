@@ -104,8 +104,8 @@ class _NFTsFilterWidgetState extends State<NFTsFilterWidget> {
                         value: data["value"],
                         onChanged: (newValue) {
                           setState(() {
-                            homeCubit.updateMarketStatusList(
-                                index: index, value: newValue ?? false);
+                            // homeCubit.updateMarketStatusList(
+                            //     index: index, value: newValue ?? false);
                           });
                         },
                       );
