@@ -43,18 +43,28 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
           height(15.h),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              children: [
-                AppConstant.commonText('My Accounts',
-                    color: Theme.of(context).colorScheme.shadow,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
-                width(15.h),
-                const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 18,
-                )
-              ],
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyAccountsWidget(),
+                  ),
+                );
+              },
+              child: Row(
+                children: [
+                  AppConstant.commonText('My Accounts',
+                      color: Theme.of(context).colorScheme.shadow,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                  width(15.h),
+                  const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 18,
+                  )
+                ],
+              ),
             ),
           ),
           height(14.h),
@@ -65,17 +75,11 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
             itemCount: wallets.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) => InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyAccountsWidget(),
-                  ),
-                );
-              },
+              onTap: () {},
               child: PriceDetailWidget(
                 title: wallets[index].name,
-                currentAmt: '\$${wallets[index].totalAmount}',
+                currentAmt:
+                    '\$${wallets[index].totalAmount.toStringAsFixed(2)}',
                 differentAmt: '+0',
                 isProfit: true,
                 totalDifferentInPercentage: '+0%',

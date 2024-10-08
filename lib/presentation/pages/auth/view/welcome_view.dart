@@ -3,6 +3,7 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/auth/widgets/common_topview.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
+import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
@@ -59,7 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       children: [
                         Image.asset(Assets.imagesWelcomeImage),
                         CommonButton(
-                          name: "Create New Account",
+                          name: AppStrings.createNewAccount,
                           onTap: () {
                             generateMnemonic(cubit: cubit, context: context);
                             context.router.push(const CreateAccountRoute());
@@ -71,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     height(15),
                     CommonButton(
-                      name: "Import an Existing Account",
+                      name: AppStrings.importExsitingAccount,
                       buttonColor: Theme.of(context).colorScheme.errorContainer,
                       textColor: Theme.of(context).colorScheme.shadow,
                       onTap: () {
@@ -87,7 +88,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       buttonColor: Theme.of(context).colorScheme.errorContainer,
                       textColor: Theme.of(context).colorScheme.shadow,
                       onTap: () {
-                        context.router.push(const TokenRoute());
+                        context.router.push(const ConnectHardwareWalletRoute());
                       },
                     ),
                     height(10),

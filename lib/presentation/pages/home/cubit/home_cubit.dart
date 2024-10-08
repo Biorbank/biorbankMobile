@@ -74,89 +74,51 @@ class HomeCubit extends Cubit<HomeState> {
 
   final double percent = 0.7;
 
-  List<MyAccountModel> myAccountData = [
-    MyAccountModel(
-      title: "Main",
-      currentAmt: "\$0.00",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-      percent: 0.3,
-    ),
-    MyAccountModel(
-      title: "Monero",
-      currentAmt: "\$0.00",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-      percent: 0.2,
-    ),
-  ];
+  List<MyAccountModel> myAccountData = [];
+  MyAccountModel totalAccountData = MyAccountModel(
+    title: "All Accounts",
+    isProfit: true,
+    percent: 0.2,
+  );
 
-  List<MyAccountTokenModel> myActTokenData = [
-    MyAccountTokenModel(
-      img:
-          "https://genomicsengland.imgix.net/logos/logos-biobank.png?auto=format%2Ccompress&fit=max&q=80&w=400&s=17728bfb82610a551ca18b2f7b8aad18",
-      title: "\$BYB",
-      title2: "BiorBank",
-      amt: "49,162 | \$1.04",
-      currentAmt: "\$12,568",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-    ),
-    MyAccountTokenModel(
-      img:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png",
-      title: "\$BTC",
-      title2: "Bitcoin",
-      amt: "49,162 | \$1.04",
-      currentAmt: "\$12,568",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-    ),
-    MyAccountTokenModel(
-      img:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJwbSX590v63Kjf-AHNo7HVF4k03aNmyt0Pw&s",
-      title: "\$XMR",
-      title2: "Monero",
-      amt: "49,162 | \$1.04",
-      currentAmt: "\$12,568",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-    ),
-    MyAccountTokenModel(
-      img: "https://s2.coinmarketcap.com/static/img/coins/200x200/1027.png",
-      title: "\$ETH",
-      title2: "Etherium",
-      amt: "49,162 | \$1.04",
-      currentAmt: "\$12,568",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-    ),
-    MyAccountTokenModel(
-      img: "https://cdn.iconscout.com/icon/free/png-256/free-dash-2-441957.png",
-      title: "\$DASH",
-      title2: "DASH",
-      amt: "49,162 | \$1.04",
-      currentAmt: "\$12,568",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-    ),
-    MyAccountTokenModel(
-      img:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLdd9WfS3QIH6smKyelNNojxodAJk9w03ZmA&s",
-      title: "\$ADA",
-      title2: "Cardano",
-      amt: "49,162 | \$1.04",
-      currentAmt: "\$12,568",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-    ),
-  ];
+  void onChangeMyAccountData({required List<MyAccountModel> value}) {
+    myAccountData.clear();
+    myAccountData.addAll(value);
+    List<MyAccountModel> tempAccountModels = [
+      MyAccountModel(
+        title: "All Accounts",
+      )
+    ];
+    tempAccountModels.addAll(value);
+    totalAccountData = tempAccountModels.reduce(
+      (acc, e) {
+        // Calculate sum of amounts and percentages
+        double totalCurrentAmt = acc.currentAmt + e.currentAmt;
+        double totalDifferentAmt = acc.differentAmt + e.differentAmt;
+        double totalPercent = acc.percent + e.percent;
+
+        // Calculate average percentage
+        double averagePercent = totalPercent / tempAccountModels.length;
+
+        return MyAccountModel(
+          title: "All Accounts",
+          currentAmt: totalCurrentAmt,
+          differentAmt: totalDifferentAmt,
+          totalDifferentInPercentage:
+              acc.totalDifferentInPercentage + e.totalDifferentInPercentage,
+          isProfit: totalDifferentAmt >= 0, // Logic for profit
+          percent: averagePercent, // Use average percent
+        );
+      },
+    );
+    emit(ChangeMyAccountData(accountData: value));
+  }
+
+  List<MyAccountTokenModel> myActTokenData = [];
+
+  void onChangeMyActTokenData({required List<MyAccountTokenModel> value}) {
+    myActTokenData.clear();
+    myActTokenData.addAll(value);
+    emit(ChangeMyActTokenData(accountData: value));
+  }
 }

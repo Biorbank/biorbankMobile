@@ -134,6 +134,14 @@ class _LoginViewState extends State<LoginScreen> with Validation {
                           },
                         ),
                         height(20.h),
+                        CommonButton(
+                          name: AppStrings.back,
+                          buttonColor:
+                              Theme.of(context).colorScheme.errorContainer,
+                          textColor: Theme.of(context).colorScheme.shadow,
+                          onTap: () {},
+                        ),
+                        height(20.h),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: AppConstant.commonText(AppStrings.walletDesc,

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:biorbank/presentation/pages/history/view/history_screen.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
@@ -11,7 +10,6 @@ import 'package:flutter_switch/flutter_switch.dart';
 import '../../../../../generated/assets.dart';
 import '../../../../../utils/Theme/app_colors.dart';
 import '../../../../../utils/global.dart';
-import '../../../../../utils/preferences.dart';
 import '../../../../../utils/routers/auto_app_router.dart';
 import '../../cubit/dashboard_cubit.dart';
 
