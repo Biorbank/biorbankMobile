@@ -22,9 +22,9 @@ class NFTDetailsPage extends StatelessWidget {
     super.key,
   });
   static List<String> images = [
-    'https://img.decrypt.co/insecure/rs:fit:3840:0:0:0/plain/https://cdn.decrypt.co/wp-content/uploads/2023/07/MPH-2-gID_7.jpg@webp',
-    'https://cdn.publish0x.com/prod/fs/images/89d99afdbfa537b3e108e202d9524189ffa3c74302d42815e72dc2fc4160ce3b.png',
-    'https://pbs.twimg.com/ext_tw_video_thumb/1466059844327247877/pu/img/Fp28ApEpaa4ogvM6?format=jpg&name=4096x4096'
+    'https://i.seadn.io/s/raw/files/b9e7db073eb5c104232c306aa3accd91.png?auto=format&dpr=1&w=750',
+    'https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750',
+    'https://i.seadn.io/s/raw/files/c66c3e92322c8044504b79226d7ca5e9.png?auto=format&dpr=1&w=750'
   ];
   static CarouselSliderController carouselController = CarouselSliderController();
   @override

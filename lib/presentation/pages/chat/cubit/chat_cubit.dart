@@ -105,4 +105,32 @@ class ChatCubit extends Cubit<ChatState> {
       "status": "",
     },
   ];
+
+  List<Map<String, String>> blockchainList = [
+    {
+      "img": "assets/img/cryptoicon/1.png",
+      "name": "Bitcoin",
+      "address": "bc1qxy2kgdygjrsqtzq2n0yrAd...0wlh",
+    },
+    {
+      "img": "assets/img/cryptoicon/2.png",
+      "name": "Litecoin",
+      "address": "ltc1qxy2kgdygjrsqtzq2n0yrAd...0wlh",
+    },
+    {
+      "img": "assets/img/cryptoicon/1027.png",
+      "name": "Ethereum",
+      "address": "0x32Be343B94f860124dC...102D88",
+    },
+    {
+      "img": "assets/img/cryptoicon/1839.png",
+      "name": "Binance",
+      "address": "0x32Be343B94f860124dC...102D88",
+    },
+    {
+      "img": "assets/img/cryptoicon/3794.png",
+      "name": "Cosmos",
+      "address": "cosmos1xy2kgdygjrsqtzq2n...0wlh",
+    },
+  ];
 }

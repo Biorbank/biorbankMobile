@@ -80,6 +80,7 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
                 differentAmt: '+0',
                 isProfit: true,
                 totalDifferentInPercentage: '+0%',
+                isCollateral: false,
               ),
             ),
           ),

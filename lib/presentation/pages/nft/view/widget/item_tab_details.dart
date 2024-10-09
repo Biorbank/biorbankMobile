@@ -87,8 +87,8 @@ class ItemTabDetails extends StatelessWidget {
                 child: nftCardWidget(
                     context: context,
                     imageUrl:
-                        'https://lh3.googleusercontent.com/IKACYcRzfRafyywq-i3QKWM3CALwdOTVC3q5Ka8WrrOgDp0Oq2OIhz2OwNMTZGkQWihNNjImu0r9KraSaWpVlhqGJ-l4NtTReol-Zg',
-                    title: 'Hooligan #7459'),
+                        'https://i.seadn.io/s/raw/files/9430aa2a14a4130dd98b9599df3b33eb.png?auto=format&dpr=1&w=750',
+                    title: 'Hooligan #3599'),
               );
             },
           ),

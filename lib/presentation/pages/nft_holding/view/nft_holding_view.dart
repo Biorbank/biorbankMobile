@@ -25,9 +25,9 @@ class NftHoldingScreen extends StatelessWidget {
   final String imageUrl;
 
   static List<String> images = [
-    'https://wallpapers.com/images/hd/emotional-sad-boy-cartoon-yuu-otosaka-jc0qmd6njgzk6x90.jpg',
-    'https://i.pinimg.com/736x/cd/58/c4/cd58c47e34804456c14fd2343c42ca78.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVvbTcEQ002VxZLWOU4RIgIPpSDFXhsVvqQIIFKqA-CO_sx3HO1gLotwhB9zuaKROsZiQ&usqp=CAU'
+    'https://i.seadn.io/s/raw/files/b9e7db073eb5c104232c306aa3accd91.png?auto=format&dpr=1&w=750',
+    'https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750',
+    'https://i.seadn.io/s/raw/files/c66c3e92322c8044504b79226d7ca5e9.png?auto=format&dpr=1&w=750'
   ];
   static CarouselSliderController carouselController = CarouselSliderController();
   @override

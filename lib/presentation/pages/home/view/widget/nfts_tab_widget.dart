@@ -23,6 +23,33 @@ class _NFTsTabWidgetState extends State<NFTsTabWidget> {
   bool gridColor = true;
   bool listColor = false;
 
+  List<Map<String, String>> hooliganCollection = [
+    {
+      "title": "Hooligan #8190",
+      "imageUrl": "https://i.seadn.io/s/raw/files/b9e7db073eb5c104232c306aa3accd91.png?auto=format&dpr=1&w=750"
+    },
+    {
+      "title": "Hooligan #2180",
+      "imageUrl": "https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750"
+    },
+    {
+      "title": "Hooligan #6539",
+      "imageUrl": "https://i.seadn.io/s/raw/files/c66c3e92322c8044504b79226d7ca5e9.png?auto=format&dpr=1&w=750"
+    },
+    {
+      "title": "Hooligan #4120",
+      "imageUrl": "https://i.seadn.io/s/raw/files/beac1f64192aa51674d2c224c746c739.png?auto=format&dpr=1&w=750"
+    },
+    {
+      "title": "Hooligan #5692",
+      "imageUrl": "https://i.seadn.io/s/raw/files/c2d8d3bd88df96dee357dbdfe645a1ec.png?auto=format&dpr=1&w=750"
+    },
+    {
+      "title": "Hooligan #3599",
+      "imageUrl": "https://i.seadn.io/s/raw/files/9430aa2a14a4130dd98b9599df3b33eb.png?auto=format&dpr=1&w=750"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -146,7 +173,7 @@ class _NFTsTabWidgetState extends State<NFTsTabWidget> {
                 ? GridView.builder(
                     shrinkWrap: true,
                     padding: EdgeInsets.zero,
-                    itemCount: 6,
+                    itemCount: hooliganCollection.length,
                     physics: const NeverScrollableScrollPhysics(),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -155,12 +182,14 @@ class _NFTsTabWidgetState extends State<NFTsTabWidget> {
                             mainAxisSpacing: 15,
                             crossAxisSpacing: 15),
                     itemBuilder: (context, index) {
+                      final hooligan = hooliganCollection[index];
                       return GestureDetector(
                         onTap: () {
                           context.pushRoute(NftHoldingRoute(
-                              imageUrl:
-                                  'https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg',
-                              title: 'Hooligan #7459'));
+                              imageUrl: hooligan['imageUrl']!,
+                              title: hooligan['title']!
+                          )
+                          );
                           // Navigator.pushNamed(context, Routes.nftHoldingRoute,
                           //     arguments: {
                           //       "title": "Hooligan #7459",
@@ -170,9 +199,9 @@ class _NFTsTabWidgetState extends State<NFTsTabWidget> {
                         },
                         child: nftCardWidget(
                             context: context,
-                            imageUrl:
-                                'https://static.vecteezy.com/system/resources/previews/028/646/618/non_2x/anime-cartoon-character-illustration-manually-created-free-vector.jpg',
-                            title: 'Hooligan #7459'),
+                            imageUrl: hooligan['imageUrl']!,
+                            title: hooligan['title']!
+                        ),
                       );
                     },
                   )
@@ -184,8 +213,8 @@ class _NFTsTabWidgetState extends State<NFTsTabWidget> {
                     itemBuilder: (context, index) {
                       return const NftListWidget(
                         img:
-                            "https://i.seadn.io/s/raw/files/4ee7ead8ab3941cad1e94f080ce27d56.png?auto=format&dpr=1&w=1000",
-                        title: 'Hooligan #7459',
+                            "https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750",
+                        title: 'Hooligan #2180',
                         floorPrice: "0.019",
                         listed: "0/2",
                         cost: "0",

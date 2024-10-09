@@ -179,7 +179,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<MyAccountTokenModel> myActTokenData = [
     MyAccountTokenModel(
       img:
-          "https://genomicsengland.imgix.net/logos/logos-biobank.png?auto=format%2Ccompress&fit=max&q=80&w=400&s=17728bfb82610a551ca18b2f7b8aad18",
+          "https://i.imghippo.com/files/ILfFf1728424742.png",
       title: "\$BYB",
       title2: "BiorBank",
       amt: "49,162 | \$1.04",

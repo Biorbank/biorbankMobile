@@ -119,6 +119,7 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
                 ),
               ),
               CommonButton(
+                margin: EdgeInsets.all(10.h),
                 name: 'Import Token',
                 onTap: () {
                   showImportTokenDialog();

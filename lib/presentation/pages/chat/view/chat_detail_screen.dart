@@ -3,6 +3,7 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/pages/chat/cubit/chat_cubit.dart';
+import 'package:biorbank/presentation/pages/chat/view/widget/blockchain_picker_bottom_sheet.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/message_bubble_widget.dart';
 import 'package:biorbank/presentation/pages/chat/view/widget/send_money_bottom_sheet.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
@@ -99,7 +100,24 @@ class ChatDetailScreen extends StatelessWidget {
                                       textColor: Theme.of(context)
                                           .colorScheme
                                           .onPrimary,
-                                      onTap: () {},
+                                      onTap: () {
+                                        // context.router.push(const SendMoneyRoute());
+                                        showModalBottomSheet(
+                                          context: context,
+                                          scrollControlDisabledMaxHeightRatio: 4/8,
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(12),
+                                              topRight: Radius.circular(12),
+                                            ),
+                                          ),
+                                          builder: (context) =>
+                                          const BlockchainPickerBottomSheet(),
+                                        );
+                                      },
                                       borderRadius: 16,
                                       fontSize: 14.sp,
                                       icon: Image.asset(

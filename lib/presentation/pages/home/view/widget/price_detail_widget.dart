@@ -10,6 +10,7 @@ class PriceDetailWidget extends StatelessWidget {
       required this.currentAmt,
       required this.differentAmt,
       required this.totalDifferentInPercentage,
+      required this.isCollateral,
       required this.isProfit});
 
   final String title;
@@ -17,6 +18,7 @@ class PriceDetailWidget extends StatelessWidget {
   final String differentAmt;
   final String totalDifferentInPercentage;
   final bool isProfit;
+  final bool isCollateral;
 
   @override
   Widget build(BuildContext context) {
@@ -50,10 +52,12 @@ class PriceDetailWidget extends StatelessWidget {
                 children: [
                   AppConstant.commonText(differentAmt,
                       color: isProfit
-                          ? Theme.of(context).colorScheme.onInverseSurface
-                          : Theme.of(context).colorScheme.error,
-                      fontSize: 11.sp),
+                          ? isCollateral ? Theme.of(context).colorScheme.shadow : Theme.of(context).colorScheme.onInverseSurface
+                          : isCollateral ? Theme.of(context).colorScheme.shadow : Theme.of(context).colorScheme.error,
+                      fontSize: isCollateral ? 14.sp : 11.sp,
+                      fontWeight: isCollateral ? FontWeight.w600 : FontWeight.normal),
                   width(6.w),
+                  if (!isCollateral)
                   Container(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
