@@ -63,18 +63,18 @@ class GreedIndexWidget extends StatelessWidget {
               Expanded(
                 child: commonWidget(
                     context: context,
-                    title: 'Volume',
+                    title: 'Total Volume',
                     child: Stack(
-                      //alignment: Alignment.bottomCenter,
+                      alignment: Alignment.bottomLeft,
                       //crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             AppConstant.commonText('\$100B',
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w500,
                                 color: Theme.of(context).colorScheme.shadow),
+                            width(5),
                             Row(
                               children: [
                                 Icon(

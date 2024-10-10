@@ -5,14 +5,38 @@ import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/market_detail_widget.dart';
 import 'package:biorbank/presentation/pages/market/view/widget/market_tabbar.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-@RoutePage()
 
-class MarketScreen extends StatelessWidget {
+@RoutePage()
+class MarketScreen extends StatefulWidget {
   const MarketScreen({super.key});
+
+  @override
+  State<MarketScreen> createState() => _MarketScreenState();
+}
+
+class _MarketScreenState extends State<MarketScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+
+  @override
+  void initState() {
+    final cubit = context.read<MarketCubit>();
+    tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: cubit.selectedTabIndex,
+    );
+
+    tabController.addListener(() {
+      if (tabController.indexIsChanging) {
+        cubit.onChangeTabIndex(index: tabController.index);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +60,10 @@ class MarketScreen extends StatelessWidget {
                             textController: context
                                 .read<MarketCubit>()
                                 .searchTextController,
-                                onTapTextField: (){
-                                  context.router.push(const CommonSearchRoute());
-                                 // Navigator.pushNamed(context, Routes.serachViewRoute);
-                                },
+                            // onTapTextField: (){
+                            //   context.router.push(const CommonSearchRoute());
+                            //  // Navigator.pushNamed(context, Routes.serachViewRoute);
+                            // },
                           ),
                           height(76.h),
                         ],
@@ -60,7 +84,9 @@ class MarketScreen extends StatelessWidget {
             ],
           ),
         ),
-        const Expanded(child: MarketTabbar()),
+        Expanded(
+          child: MarketTabbar(tabController: tabController),
+        ),
       ],
     );
   }

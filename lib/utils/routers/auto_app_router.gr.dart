@@ -88,13 +88,9 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     DefiDetailRoute.name: (routeData) {
-      final args = routeData.argsAs<DefiDetailRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: DefiDetailScreen(
-          key: args.key,
-          index: args.index,
-        ),
+        child: const DefiDetailScreen(index: 0,),
       );
     },
     DefiNavigationRoute.name: (routeData) {
@@ -202,6 +198,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const PaymentProcessScreen(),
+      );
+    },
+    PriceAlertRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PriceAlertScreen(),
       );
     },
     SendMoneyRoute.name: (routeData) {
@@ -413,40 +415,16 @@ class DebitCardRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [DefiDetailScreen]
-class DefiDetailRoute extends PageRouteInfo<DefiDetailRouteArgs> {
-  DefiDetailRoute({
-    Key? key,
-    required int index,
-    List<PageRouteInfo>? children,
-  }) : super(
+class DefiDetailRoute extends PageRouteInfo<void> {
+  const DefiDetailRoute({List<PageRouteInfo>? children, required int index})
+      : super(
           DefiDetailRoute.name,
-          args: DefiDetailRouteArgs(
-            key: key,
-            index: index,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'DefiDetailRoute';
 
-  static const PageInfo<DefiDetailRouteArgs> page =
-      PageInfo<DefiDetailRouteArgs>(name);
-}
-
-class DefiDetailRouteArgs {
-  const DefiDetailRouteArgs({
-    this.key,
-    required this.index,
-  });
-
-  final Key? key;
-
-  final int index;
-
-  @override
-  String toString() {
-    return 'DefiDetailRouteArgs{key: $key, index: $index}';
-  }
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -712,6 +690,20 @@ class PaymentProcessRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'PaymentProcessRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [PriceAlertScreen]
+class PriceAlertRoute extends PageRouteInfo<void> {
+  const PriceAlertRoute({List<PageRouteInfo>? children})
+      : super(
+          PriceAlertRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PriceAlertRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

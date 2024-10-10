@@ -1,13 +1,18 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
+import 'package:biorbank/presentation/common/common_bell_bottom_sheet.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/global.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../utils/routers/auto_app_router.dart';
+
 class CommonSearchAppbar extends StatelessWidget {
   const CommonSearchAppbar(
       {super.key,
+      this.drawerReplace,
       this.hintText,
       this.textController,
       this.onTapBellIcon,
@@ -15,6 +20,7 @@ class CommonSearchAppbar extends StatelessWidget {
       this.isVisibleTextField = true,
       this.onTapScan});
 
+  final Widget? drawerReplace;
   final String? hintText;
   final TextEditingController? textController;
   final VoidCallback? onTapScan;
@@ -31,39 +37,42 @@ class CommonSearchAppbar extends StatelessWidget {
         Expanded(
           child: Row(
             children: [
-              InkWell(
-                onTap: () {
-                  Global.controller.showDrawer();
-                  Global.scaffoldKey.currentState?.openDrawer();
-                },
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 50),
-                  child: Icon(
-                    Icons.sort,
-                    color: Theme.of(context).colorScheme.onSurface,
+              drawerReplace ??
+                  InkWell(
+                    onTap: () {
+                      Global.controller.showDrawer();
+                      Global.scaffoldKey.currentState?.openDrawer();
+                    },
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 50),
+                      child: Icon(
+                        Icons.sort,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    //     ValueListenableBuilder<AdvancedDrawerValue>(
+                    //   valueListenable: Global.controller,
+                    //   builder: (_, value, __) {
+                    //     return AnimatedSwitcher(
+                    //       duration: const Duration(milliseconds: 50),
+                    //       child: Icon(
+                    //         Icons.sort,
+                    //         color: Theme.of(context).colorScheme.onSurface,
+                    //         key: ValueKey<bool>(value.visible),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   ),
-                ),
-
-                //     ValueListenableBuilder<AdvancedDrawerValue>(
-                //   valueListenable: Global.controller,
-                //   builder: (_, value, __) {
-                //     return AnimatedSwitcher(
-                //       duration: const Duration(milliseconds: 50),
-                //       child: Icon(
-                //         Icons.sort,
-                //         color: Theme.of(context).colorScheme.onSurface,
-                //         key: ValueKey<bool>(value.visible),
-                //       ),
-                //     );
-                //   },
-                // ),
-              ),
               width(20.w),
               Visibility(
                 visible: isVisibleTextField,
                 child: Expanded(
                   child: GestureDetector(
-                    onTap: onTapTextField,
+                    onTap: onTapTextField ??
+                        () {
+                          context.router.push(const CommonSearchRoute());
+                        },
                     child: AbsorbPointer(
                       absorbing: true,
                       child: CommonTextfield(
@@ -109,7 +118,25 @@ class CommonSearchAppbar extends StatelessWidget {
             ),
             width(15.w),
             GestureDetector(
-              onTap: onTapBellIcon,
+              onTap: onTapBellIcon ??
+                  () {
+                    showModalBottomSheet(
+                      context: context,
+                      useRootNavigator: true,
+                      scrollControlDisabledMaxHeightRatio: 2 / 5,
+                      shape: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(12),
+                          topLeft: Radius.circular(12),
+                        ),
+                      ),
+                      backgroundColor: Theme.of(context).colorScheme.onSurface,
+                      builder: (context) {
+                        return const CommonBellBottomSheet();
+                      },
+                    );
+                  },
               child: Image.asset(Assets.imagesNotification,
                   height: 24.h,
                   width: 24.w,

@@ -36,6 +36,7 @@ import 'package:biorbank/presentation/pages/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/pages/history/view/history_screen.dart';
+import '../../presentation/pages/price_alert/view/price_alert_screen.dart';
 import '../../presentation/pages/token_page/view/token_screen.dart';
 
 part 'auto_app_router.gr.dart';
@@ -53,34 +54,40 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: UnlockPinRoute.page),
         AutoRoute(page: CreateAccountRoute.page),
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
-          AutoRoute(page: DefiRoute.page),
-          AutoRoute(page: MarketRoute.page),
-          AutoRoute(
-              page: DefiNavigationRoute.page,
+          // AutoRoute(page: DefiRoute.page),
+          AutoRoute(page: DefiDetailRoute.page,maintainState: false),
+          AutoRoute(page: MarketRoute.page,maintainState: false),
+          AutoRoute(page: DefiNavigationRoute.page,
+          initial: true,
+          maintainState: false,
+           children: [
+            AutoRoute(
+              path: 'home',
+              page: HomeRoute.page,
               initial: true,
+              maintainState: true
+            ),
+            AutoRoute(
+              page: DefiDetailRoute.page,
               maintainState: false,
-              children: [
-                AutoRoute(
-                  path: 'home',
-                  page: HomeRoute.page,
-                  initial: true,
-                  maintainState: true,
-                ),
-                AutoRoute(
-                  page: DefiDetailRoute.page,
-                  maintainState: false,
-                ),
-              ]),
+            ),
+             AutoRoute(
+              page: NftHoldingRoute.page,
+              maintainState: false,
+            ),
+
+          ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),
           AutoRoute(page: ContactRoute.page, maintainState: false),
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
+          AutoRoute(page: PriceAlertRoute.page, maintainState: false),
           AutoRoute(page: HelpCenterRoute.page, maintainState: false),
+          AutoRoute(page: P2pMarketRoute.page, maintainState: false),
           AutoRoute(page: HistoryRoute.page, maintainState: false),
-          AutoRoute(page: MyAccountsRoute.page, maintainState: false),
-          AutoRoute(page: AssetRoute.page, maintainState: false),
         ]),
+
         AutoRoute(page: ImportExistingAccountRoute.page),
         AutoRoute(page: ConnectHardwareWalletRoute.page),
         AutoRoute(page: NewAccountCreateRoute.page),
@@ -92,11 +99,12 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: StakingDefiRoute.page),
         AutoRoute(page: NFTRoute.page),
         AutoRoute(page: NFTDetailsRoute.page),
-        AutoRoute(page: P2pMarketRoute.page),
+        // AutoRoute(page: P2pMarketRoute.page),
         AutoRoute(page: MyOrderRoute.page),
         AutoRoute(page: BuyUsdtRoute.page),
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: TokenRoute.page),
+
       ];
 }

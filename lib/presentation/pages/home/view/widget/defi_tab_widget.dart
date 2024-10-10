@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeFiTabWidget extends StatelessWidget {
   const DeFiTabWidget({super.key, required this.scrollController});
+
   final ScrollController scrollController;
 
   @override
@@ -40,20 +41,53 @@ class DeFiTabWidget extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => height(10.h),
-            itemCount: 2,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                context.router.push(DefiDetailRoute(index: index + 1));
-                // AutoTabsRouter.of(context).setActiveIndex(6);
-              },
-              child: PriceDetailWidget(
-                title: index == 0 ? 'Staking' : 'Liquidity Providing (LP)',
-                currentAmt: '\$74,200.00',
-                differentAmt: index == 0 ? '+643.67' : '-643.67',
-                isProfit: index == 0,
-                totalDifferentInPercentage: index == 0 ? '+1.23%' : '-1.23%',
-              ),
-            ),
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              String title;
+              String currentAmt;
+              String differentAmt;
+              bool isProfit;
+              bool isCollateral;
+              String totalDifferentInPercentage;
+
+              // Define values for each index
+              if (index == 0) {
+                title = 'Staking';
+                currentAmt = '\$25,384.00';
+                differentAmt = '+643.67';
+                isProfit = true;
+                totalDifferentInPercentage = '+1.23%';
+                isCollateral = false;
+              } else if (index == 1) {
+                title = 'Loans';
+                currentAmt = 'Collateral : \$1,200';
+                differentAmt = 'Debit : \$400';
+                isProfit = false;
+                totalDifferentInPercentage = '';
+                isCollateral = true;
+              } else {
+                title = 'Liquidity Providing (LP)';
+                currentAmt = '\$34,030.00';
+                differentAmt = '-643.67';
+                isProfit = false;
+                totalDifferentInPercentage = '-1.23%';
+                isCollateral = false;
+              }
+              return GestureDetector(
+                onTap: () {
+                  context.router.push(DefiDetailRoute(index: index + 1));
+                  // AutoTabsRouter.of(context).setActiveIndex(6);
+                },
+                child: PriceDetailWidget(
+                  title: title,
+                  currentAmt: currentAmt,
+                  differentAmt: differentAmt,
+                  isProfit: isProfit,
+                  totalDifferentInPercentage: totalDifferentInPercentage,
+                  isCollateral: isCollateral,
+                ),
+              );
+            }
           ),
           height(15.h),
           AddAccountWidget(

@@ -15,17 +15,21 @@ class CommonOutlinedButton extends StatelessWidget {
       this.fontWeight,
       this.borderRadius,
       this.borderColor,
+      this.bgColor,
       this.isShowIconInPrefix = false});
+
   final String title;
   final VoidCallback onTap;
   final Color? textColor;
   final Color? borderColor;
+  final Color? bgColor;
   final double? height;
   final Widget? icon;
   final double? borderRadius;
   final double? fontSize;
   final FontWeight? fontWeight;
   final bool isShowIconInPrefix;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,6 +39,7 @@ class CommonOutlinedButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius ?? 12),
+            color: bgColor ?? Theme.of(context).colorScheme.scrim,
             border: Border.all(
                 color: borderColor ??
                     Theme.of(context).colorScheme.onSecondaryContainer)),
@@ -51,7 +56,7 @@ class CommonOutlinedButton extends StatelessWidget {
                       Theme.of(context).colorScheme.onSecondaryContainer,
                   fontSize: fontSize ?? 16.sp,
                   fontWeight: fontWeight ?? FontWeight.w500),
-               if (icon != null && !isShowIconInPrefix) ...[
+              if (icon != null && !isShowIconInPrefix) ...[
                 width(10.w),
                 icon ?? const SizedBox.shrink(),
               ],

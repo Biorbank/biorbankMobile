@@ -78,11 +78,11 @@ class CategoriesDialog extends StatelessWidget {
                     );
                     }
                   ),
-                  height(20.h),
-                  CommonButton(
-                    name: 'Add Paye',
-                    onTap: () {},
-                  ),
+                  // height(20.h),
+                  // CommonButton(
+                  //   name: 'Add Paye',
+                  //   onTap: () {},
+                  // ),
                   height(15.h),
                 ]))));
   }

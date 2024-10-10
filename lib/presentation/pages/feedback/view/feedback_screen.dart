@@ -7,6 +7,7 @@ import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/feedback/cubit/feedback_cubit_cubit.dart';
 import 'package:biorbank/presentation/pages/feedback/view/widget/bug_report_tab.dart';
 import 'package:biorbank/presentation/pages/feedback/view/widget/do_not_like_tab.dart';
+import 'package:biorbank/presentation/pages/feedback/view/widget/have_suggestion_tab.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
@@ -139,61 +140,73 @@ class _FeedbackScreenState extends State<FeedbackScreen>
             ),
             height(15.h),
             Expanded(
-                child: TabBarView(controller: tabController, children: [
-              const SizedBox(),
-              const BugReportTab(),
-              DoNotLikeTab(
-                tabIndex: cubit.notLikeTabIndex,
-              ),
-            ])),
-            height(15.h),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: TabBarView(
+                controller: tabController,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppConstant.commonText('Included Screenshot',
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).colorScheme.shadow),
-                      FlutterSwitch(
-                        width: 33.0,
-                        height: 18.0,
-                        toggleSize: 14.0,
-                        activeColor: AppColors.green,
-                        value: cubit.isIncludedScreenshot,
-                        borderRadius: 22.0,
-                        padding: 2,
-                        showOnOff: false,
-                        onToggle: (val) {
-                          cubit.toggleIncludedScreenshotSwitch(value: val);
-                        },
-                      )
-                    ],
-                  ),
-                  height(12.h),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: CommonOutlinedButton(
-                              borderColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              textColor:
-                                  Theme.of(context).colorScheme.onPrimary,
-                              height: 48.h,
-                              onTap: () {},
-                              title: 'Cancel')),
-                      width(20.w),
-                      Expanded(child: CommonButton(onTap: () {}, name: 'Send')),
-                    ],
-                  ),
-                  height(20.h),
+                  HaveSuggestionTab(tabIndex: cubit.notLikeTabIndex),
+                  const BugReportTab(),
+                  const DoNotLikeTab(),
                 ],
               ),
-            )
+            ),
+            height(15.h),
+            AnimatedBuilder(
+              animation: tabController.animation!,
+              builder: (context, child) => tabController.index == 0
+                  ? const SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppConstant.commonText('Included Screenshot',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).colorScheme.shadow),
+                              FlutterSwitch(
+                                width: 33.0,
+                                height: 18.0,
+                                toggleSize: 14.0,
+                                activeColor: AppColors.green,
+                                value: cubit.isIncludedScreenshot,
+                                borderRadius: 22.0,
+                                padding: 2,
+                                showOnOff: false,
+                                onToggle: (val) {
+                                  cubit.toggleIncludedScreenshotSwitch(
+                                      value: val);
+                                },
+                              )
+                            ],
+                          ),
+                          height(12.h),
+                          Row(
+                            children: [
+                              Expanded(
+                                  child: CommonOutlinedButton(
+                                      borderColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      textColor: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                      height: 48.h,
+                                      onTap: () {},
+                                      title: 'Cancel')),
+                              width(20.w),
+                              Expanded(
+                                  child:
+                                      CommonButton(onTap: () {}, name: 'Send')),
+                            ],
+                          ),
+                          height(20.h),
+                        ],
+                      ),
+                    ),
+            ),
           ],
         );
       },
