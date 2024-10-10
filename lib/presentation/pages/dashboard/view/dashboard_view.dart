@@ -48,6 +48,8 @@ class _DashboardScreenState extends State<DashboardScreen>
             DebitCardRoute(),
             HelpCenterRoute(),
             HistoryRoute(),
+            MyAccountsRoute(),
+            AssetRoute(),
             //history section
           ],
           //  transitionBuilder:_customTransitionBuilder ,

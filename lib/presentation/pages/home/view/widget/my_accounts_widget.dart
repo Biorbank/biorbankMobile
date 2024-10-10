@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/home/model/my_account_model.dart';
-import 'package:biorbank/presentation/pages/home/view/widget/asset_page_widget.dart';
-import 'package:biorbank/presentation/pages/home/view/widget/price_detail_widget.dart';
+import 'package:biorbank/presentation/pages/home/view/widget/asset_page.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
-import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +15,7 @@ import '../../../../../utils/common_spacer.dart';
 import '../../../../common/common_blue_container.dart';
 import '../../cubit/home_cubit.dart';
 
+@RoutePage()
 class MyAccountsWidget extends StatefulWidget {
   const MyAccountsWidget({super.key});
 
@@ -135,7 +134,7 @@ class _MyAccountsWidgetState extends State<MyAccountsWidget> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const AssetPageWidget(),
+                            builder: (context) => const AssetPage(),
                           ),
                         );
                       },

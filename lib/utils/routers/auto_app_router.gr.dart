@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AssetRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AssetPage(),
+      );
+    },
     BrowserRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -145,6 +151,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MarketScreen(),
       );
     },
+    MyAccountsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const MyAccountsWidget(),
+      );
+    },
     MyOrderRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -229,6 +241,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AssetPage]
+class AssetRoute extends PageRouteInfo<void> {
+  const AssetRoute({List<PageRouteInfo>? children})
+      : super(
+          AssetRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AssetRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -545,6 +571,20 @@ class MarketRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'MarketRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [MyAccountsWidget]
+class MyAccountsRoute extends PageRouteInfo<void> {
+  const MyAccountsRoute({List<PageRouteInfo>? children})
+      : super(
+          MyAccountsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'MyAccountsRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

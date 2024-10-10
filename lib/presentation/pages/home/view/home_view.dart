@@ -32,6 +32,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = context.read<HomeCubit>();
@@ -72,7 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   CryptoDBRepositoryState>(
                                 builder: (context, state) {
                                   return CommonBalanceWidget(
-                                    amount: '\$ ${state.totalPrice.toStringAsFixed(4)}',
+                                    amount:
+                                        '\$ ${db.state.totalPrice.toStringAsFixed(4)}',
                                     currentRate: 'CA \$0.00 (0.00%)',
                                     isShowBalanceWidget: false,
                                   );
@@ -125,8 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Visibility(
               visible: cubit.selectedOption == null,
               child: DraggableScrollableSheet(
-                initialChildSize: 0.3,
-                minChildSize: 0.3,
+                initialChildSize: 0.35,
+                minChildSize: 0.35,
                 maxChildSize: 0.7,
                 builder: (context, scrollController) => Container(
                   decoration: BoxDecoration(
