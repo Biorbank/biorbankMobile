@@ -21,7 +21,8 @@ class _ChartWidgetState extends State<ChartWidget> {
   @override
   void initState() {
     super.initState();
-    updatePoints();
+    // updatePoints();
+    getFilteredPoints();
   }
 
   void updatePoints() async {
@@ -40,73 +41,72 @@ class _ChartWidgetState extends State<ChartWidget> {
     // print(points.length);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<CryptoDBRepositoryImpl, CryptoDBRepositoryState>(
-      listener: (context, state) {
-        List<FlSpot> getFilteredPoints() {
-          if (!context.mounted) return [];
-          print("getFilteredPoints");
-          DateTime now = DateTime.now();
-          DateTime startDate = now.subtract(const Duration(days: 7));
+  List<FlSpot> getFilteredPoints() {
+    print("getFilteredPoints");
+    DateTime now = DateTime.now();
+    DateTime startDate = now.subtract(const Duration(days: 7));
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
 
-          switch (widget.timePeriod) {
-            case "1W":
-              startDate = now.subtract(const Duration(days: 7));
-              break;
-            case "MTD":
-              startDate = DateTime(now.year, now.month, 1);
-              break;
-            case "1M":
-              startDate = now.subtract(const Duration(days: 30));
-              break;
-            case "YTD":
-              startDate = DateTime(now.year, 1, 1);
-              break;
-            case "1Y":
-              startDate = now.subtract(const Duration(days: 365));
-              break;
-            case "ALL":
-            default:
-              if (state.totalAmountHistoryList.length >= 2) {
-                return state.totalAmountHistoryList
-                    .map((dataPoint) => FlSpot(
-                        dataPoint.createdAt.millisecondsSinceEpoch.toDouble(),
-                        dataPoint.totalAmount))
-                    .toList();
-              }
-          }
-
-          final List<FlSpot> totalAmountHistory = state.totalAmountHistoryList
-              .where((dataPoint) => dataPoint.createdAt.isAfter(startDate))
+    switch (widget.timePeriod) {
+      case "1W":
+        startDate = now.subtract(const Duration(days: 7));
+        break;
+      case "MTD":
+        startDate = DateTime(now.year, now.month, 1);
+        break;
+      case "1M":
+        startDate = now.subtract(const Duration(days: 30));
+        break;
+      case "YTD":
+        startDate = DateTime(now.year, 1, 1);
+        break;
+      case "1Y":
+        startDate = now.subtract(const Duration(days: 365));
+        break;
+      case "ALL":
+      default:
+        if (db.state.totalAmountHistoryList.length >= 2) {
+          return db.state.totalAmountHistoryList
               .map((dataPoint) => FlSpot(
                   dataPoint.createdAt.millisecondsSinceEpoch.toDouble(),
                   dataPoint.totalAmount))
               .toList();
-
-          if (totalAmountHistory.isEmpty &&
-              state.totalAmountHistoryList.isNotEmpty) {
-            totalAmountHistory.add(FlSpot(
-                state.totalAmountHistoryList.last.createdAt
-                    .millisecondsSinceEpoch
-                    .toDouble(),
-                state.totalAmountHistoryList.last.totalAmount));
-          }
-          if (totalAmountHistory.length == 1 &&
-              state.totalAmountHistoryList.isNotEmpty) {
-            totalAmountHistory.add(FlSpot(now.millisecondsSinceEpoch.toDouble(),
-                state.totalAmountHistoryList.last.totalAmount));
-          }
-          if (totalAmountHistory.isEmpty) {
-            totalAmountHistory.add(const FlSpot(0, 0));
-            totalAmountHistory.add(const FlSpot(1, 0));
-          }
-          setState(() {
-            points = totalAmountHistory;
-          });
-          return totalAmountHistory;
         }
+    }
 
+    final List<FlSpot> totalAmountHistory = db.state.totalAmountHistoryList
+        .where((dataPoint) => dataPoint.createdAt.isAfter(startDate))
+        .map((dataPoint) => FlSpot(
+            dataPoint.createdAt.millisecondsSinceEpoch.toDouble(),
+            dataPoint.totalAmount))
+        .toList();
+
+    if (totalAmountHistory.isEmpty &&
+        db.state.totalAmountHistoryList.isNotEmpty) {
+      totalAmountHistory.add(FlSpot(
+          db.state.totalAmountHistoryList.last.createdAt.millisecondsSinceEpoch
+              .toDouble(),
+          db.state.totalAmountHistoryList.last.totalAmount));
+    }
+    if (totalAmountHistory.length == 1 &&
+        db.state.totalAmountHistoryList.isNotEmpty) {
+      totalAmountHistory.add(FlSpot(now.millisecondsSinceEpoch.toDouble(),
+          db.state.totalAmountHistoryList.last.totalAmount));
+    }
+    if (totalAmountHistory.isEmpty) {
+      totalAmountHistory.add(const FlSpot(0, 0));
+      totalAmountHistory.add(const FlSpot(1, 0));
+    }
+    setState(() {
+      points = totalAmountHistory;
+    });
+    return totalAmountHistory;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<CryptoDBRepositoryImpl, CryptoDBRepositoryState>(
+      listener: (context, state) {
         getFilteredPoints();
       },
       builder: (context, state) {
@@ -172,7 +172,7 @@ class _ChartWidgetState extends State<ChartWidget> {
                   getTooltipItems: (touchedSpots) {
                     return touchedSpots.map((touchedSpot) {
                       return LineTooltipItem(
-                        '\$${touchedSpot.y.toStringAsFixed(0)}',
+                        '\$${touchedSpot.y.toStringAsFixed(2)}',
                         const TextStyle(color: Colors.white),
                       );
                     }).toList();

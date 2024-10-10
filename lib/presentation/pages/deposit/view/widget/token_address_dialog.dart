@@ -136,9 +136,13 @@ class TokenAddressDialog extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    AppConstant.commonText(selectedQr,
-                        fontSize: 12.sp,
-                        color: Theme.of(context).colorScheme.shadow),
+                    AppConstant.commonText(
+                      selectedQr,
+                      fontSize: 12.sp,
+                      color: Theme.of(context).colorScheme.shadow,
+                      maxLines: 2,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
                     width(10.w),
                     InkWell(
                       onTap: () {

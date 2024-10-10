@@ -157,24 +157,28 @@ class HomeCubit extends Cubit<HomeState> {
 
   final double percent = 0.7;
 
-  List<MyAccountModel> myAccountData = [
-    MyAccountModel(
-      title: "Main",
-      currentAmt: "\$0.00",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-      percent: 0.3,
-    ),
-    MyAccountModel(
-      title: "Monero",
-      currentAmt: "\$0.00",
-      differentAmt: "+643.67",
-      totalDifferentInPercentage: "+1.23%",
-      isProfit: true,
-      percent: 0.2,
-    ),
-  ];
+  List<MyAccountModel> myAccountData = [];
+  MyAccountModel totalAccountData = MyAccountModel(
+    title: "All Accounts",
+    isProfit: true,
+    percent: 0.2,
+  );
+
+  void onChangeMyAccountData({required List<MyAccountModel> value}) {
+    myAccountData.clear();
+    myAccountData.addAll(value);
+    List<MyAccountModel> tempAccountModels = [
+      MyAccountModel(
+        title: "All Accounts",
+      )
+    ];
+    tempAccountModels.addAll(value);
+    totalAccountData = tempAccountModels.reduce(
+      (acc, e) {
+        // Calculate sum of amounts and percentages
+        double totalCurrentAmt = acc.currentAmt + e.currentAmt;
+        double totalDifferentAmt = acc.differentAmt + e.differentAmt;
+        double totalPercent = acc.percent + e.percent;
 
   List<MyAccountTokenModel> myActTokenData = [
     MyAccountTokenModel(
@@ -288,4 +292,28 @@ class HomeCubit extends Cubit<HomeState> {
     }
   ];
 
+        // Calculate average percentage
+        double averagePercent = totalPercent / tempAccountModels.length;
+
+        return MyAccountModel(
+          title: "All Accounts",
+          currentAmt: totalCurrentAmt,
+          differentAmt: totalDifferentAmt,
+          totalDifferentInPercentage:
+              acc.totalDifferentInPercentage + e.totalDifferentInPercentage,
+          isProfit: totalDifferentAmt >= 0, // Logic for profit
+          percent: averagePercent, // Use average percent
+        );
+      },
+    );
+    emit(ChangeMyAccountData(accountData: value));
+  }
+
+  List<MyAccountTokenModel> myActTokenData = [];
+
+  void onChangeMyActTokenData({required List<MyAccountTokenModel> value}) {
+    myActTokenData.clear();
+    myActTokenData.addAll(value);
+    emit(ChangeMyActTokenData(accountData: value));
+  }
 }

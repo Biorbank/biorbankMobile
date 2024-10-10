@@ -17,6 +17,16 @@ final class HomeTabIndexChangeState extends HomeState {
   HomeTabIndexChangeState({required this.index});
 }
 
+final class ChangeMyAccountData extends HomeState {
+  final List<MyAccountModel> accountData;
+  ChangeMyAccountData({required this.accountData});
+}
+
+final class ChangeMyActTokenData extends HomeState {
+  final List<MyAccountTokenModel> accountData;
+  ChangeMyActTokenData({required this.accountData});
+}
+
 final class TradeOptionChnageState extends HomeState {
   final ActionEnum? value;
 

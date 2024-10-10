@@ -104,9 +104,6 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
                                 (cubit.formKey.currentState?.validate() ??
                                     false)) {
                               // tabController.animateTo(1);
-                              UserPreferences.setUserData(
-                                  value: cubit.createPasswordController.text);
-
                               Map map = {};
                               map['seed_phrase'] =
                                   cubit.pharseKeyController.text;
@@ -119,6 +116,9 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
                                 await context
                                     .read<CryptoDBRepositoryImpl>()
                                     .storeWallet(newWallet);
+
+                                UserPreferences.setUserData(
+                                    value: cubit.createPasswordController.text);
 
                                 context.router.pushAndPopUntil(
                                   const DashboardRoute(),

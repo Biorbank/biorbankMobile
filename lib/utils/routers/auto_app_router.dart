@@ -18,8 +18,10 @@ import 'package:biorbank/presentation/pages/defi/view/defi_view.dart';
 import 'package:biorbank/presentation/pages/feedback/view/feedback_screen.dart';
 import 'package:biorbank/presentation/pages/help_center/view/help_center_screen.dart';
 import 'package:biorbank/presentation/pages/home/view/home_view.dart';
+import 'package:biorbank/presentation/pages/home/view/widget/asset_page.dart';
+import 'package:biorbank/presentation/pages/home/view/widget/my_accounts_widget.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_exsiting_account_view.dart';
+import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_existing_account_view.dart';
 import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
 import 'package:biorbank/presentation/pages/market/view/market_view.dart';
 import 'package:biorbank/presentation/pages/nft/view/nft_screen.dart';
@@ -39,7 +41,7 @@ import '../../presentation/pages/token_page/view/token_screen.dart';
 
 part 'auto_app_router.gr.dart';
 
-@AutoRouterConfig()
+@AutoRouterConfig(replaceInRouteName: 'Screen|Page|Widget|View,Route')
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
