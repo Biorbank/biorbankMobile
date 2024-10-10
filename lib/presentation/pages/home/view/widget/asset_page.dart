@@ -24,15 +24,15 @@ import '../../../../common/common_blue_container.dart';
 import '../../../../common/common_search_appbar.dart';
 import '../../cubit/home_cubit.dart';
 
-class AssetPageWidget extends StatefulWidget {
-  const AssetPageWidget({super.key});
+@RoutePage()
+class AssetPage extends StatefulWidget {
+  const AssetPage({super.key});
 
   @override
-  State<AssetPageWidget> createState() => _AssetPageWidgetState();
+  State<AssetPage> createState() => _AssetPageState();
 }
 
-class _AssetPageWidgetState extends State<AssetPageWidget>
-    with TickerProviderStateMixin {
+class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
   @override
   void initState() {
     // TODO: implement initState
