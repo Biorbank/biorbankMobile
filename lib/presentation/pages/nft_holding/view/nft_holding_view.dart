@@ -9,7 +9,6 @@ import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +28,8 @@ class NftHoldingScreen extends StatelessWidget {
     'https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750',
     'https://i.seadn.io/s/raw/files/c66c3e92322c8044504b79226d7ca5e9.png?auto=format&dpr=1&w=750'
   ];
-  static CarouselSliderController carouselController = CarouselSliderController();
+  static CarouselSliderController carouselController =
+      CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,7 +65,8 @@ class NftHoldingScreen extends StatelessWidget {
                         children: [
                           Container(
                             margin: const EdgeInsets.symmetric(horizontal: 16),
-                            padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0, bottom: 8.0),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
                                 color: Theme.of(context)
@@ -78,6 +79,22 @@ class NftHoldingScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Align(
+                                  alignment: Alignment.topRight,
+                                  child: IconButton(
+                                      alignment: Alignment.centerRight,
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: Icon(
+                                        Icons.close,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onSecondaryContainer,
+                                      )),
+                                ),
+                                height(8.0),
+
                                 /// Carousel image slider
                                 CarouselImageWidget(
                                     carouselController: carouselController,

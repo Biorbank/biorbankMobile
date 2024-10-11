@@ -29,9 +29,8 @@ class _ContactViewState extends State<ContactScreen>
     tabController.addListener(() {
       context.read<ContactCubit>().changeTabIndex(index: tabController.index);
     });
-    WidgetsBinding.instance.addPostFrameCallback((t){
-     context.read<ContactCubit>().changeTabIndex(index: 0);
-
+    WidgetsBinding.instance.addPostFrameCallback((t) {
+      context.read<ContactCubit>().changeTabIndex(index: 0);
     });
     super.initState();
   }
@@ -74,11 +73,11 @@ class _ContactViewState extends State<ContactScreen>
             CommonTabbar(
                 selectedIndex: cubit.tabIndex,
                 length: 2,
-                 padding:const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 tabAlignment: TabAlignment.fill,
                 isScrollable: false,
-                  labelTextBackgroundPadding:
-                const EdgeInsets.symmetric( vertical: 10),
+                labelTextBackgroundPadding:
+                    const EdgeInsets.symmetric(vertical: 10),
                 labelColor: Theme.of(context).colorScheme.shadow,
                 isShowBackgroundShadow: true,
                 onTap: (index) {},

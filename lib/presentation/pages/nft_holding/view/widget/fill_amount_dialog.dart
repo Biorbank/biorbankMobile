@@ -44,7 +44,9 @@ class FillAmountDialog extends StatelessWidget {
                               },
                               icon: Icon(
                                 Icons.close,
-                                color:Theme.of(context).colorScheme.onSecondaryContainer,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
                               )),
                         )
                       ],
@@ -100,9 +102,11 @@ class FillAmountDialog extends StatelessWidget {
                                       height: 24.h,
                                       width: 24.w,
                                       padding: const EdgeInsets.all(3),
-                                      decoration:  BoxDecoration(
+                                      decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: Theme.of(context).colorScheme.onPrimaryContainer),
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer),
                                       child: CachedNetworkImage(
                                         imageUrl:
                                             'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/1257px-Ethereum_logo_2014.svg.png',

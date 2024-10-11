@@ -88,9 +88,13 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     DefiDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<DefiDetailRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const DefiDetailScreen(index: 0,),
+        child: DefiDetailScreen(
+          key: args.key,
+          index: args.index,
+        ),
       );
     },
     DefiNavigationRoute.name: (routeData) {
@@ -415,16 +419,40 @@ class DebitCardRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [DefiDetailScreen]
-class DefiDetailRoute extends PageRouteInfo<void> {
-  const DefiDetailRoute({List<PageRouteInfo>? children, required int index})
-      : super(
+class DefiDetailRoute extends PageRouteInfo<DefiDetailRouteArgs> {
+  DefiDetailRoute({
+    Key? key,
+    required int index,
+    List<PageRouteInfo>? children,
+  }) : super(
           DefiDetailRoute.name,
+          args: DefiDetailRouteArgs(
+            key: key,
+            index: index,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'DefiDetailRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<DefiDetailRouteArgs> page =
+      PageInfo<DefiDetailRouteArgs>(name);
+}
+
+class DefiDetailRouteArgs {
+  const DefiDetailRouteArgs({
+    this.key,
+    required this.index,
+  });
+
+  final Key? key;
+
+  final int index;
+
+  @override
+  String toString() {
+    return 'DefiDetailRouteArgs{key: $key, index: $index}';
+  }
 }
 
 /// generated route for
