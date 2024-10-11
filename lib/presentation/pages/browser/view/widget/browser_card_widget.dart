@@ -77,15 +77,14 @@ class BrowserCardWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.circular(26),
-                          child: CachedNetworkImage(
-                            imageUrl: data[index]['image_url'],
-                            height: 50.h,
-                            width: 50.w,
-                            placeholder: (context, url) =>
-                                const SizedBox.shrink(),
-                          ),
-                        ),
+                            borderRadius: BorderRadius.circular(26),
+                            child: Image(
+                              image: AssetImage(
+                                data[index]['image_url'],
+                              ),
+                              height: 50.h,
+                              width: 50.w,
+                            )),
                         height(10.h),
                         AppConstant.commonText(data[index]['name'],
                             fontSize: 14.sp,

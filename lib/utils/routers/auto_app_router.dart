@@ -55,30 +55,31 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: CreateAccountRoute.page),
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
           // AutoRoute(page: DefiRoute.page),
-          AutoRoute(page: DefiDetailRoute.page,maintainState: false),
-          AutoRoute(page: MarketRoute.page,maintainState: false),
-          AutoRoute(page: DefiNavigationRoute.page,
-          initial: true,
-          maintainState: false,
-           children: [
-            AutoRoute(
-              path: 'home',
-              page: HomeRoute.page,
+          AutoRoute(page: DefiDetailRoute.page, maintainState: false),
+          AutoRoute(page: MarketRoute.page, maintainState: false),
+          AutoRoute(
+              page: DefiNavigationRoute.page,
               initial: true,
-              maintainState: true
-            ),
-            AutoRoute(
-              page: DefiDetailRoute.page,
               maintainState: false,
-            ),
-             AutoRoute(
-              page: NftHoldingRoute.page,
-              maintainState: false,
-            ),
-
-          ]),
+              children: [
+                AutoRoute(
+                    path: 'home',
+                    page: HomeRoute.page,
+                    initial: true,
+                    maintainState: true),
+                AutoRoute(
+                  page: DefiDetailRoute.page,
+                  maintainState: false,
+                ),
+                AutoRoute(
+                  page: NftHoldingRoute.page,
+                  maintainState: false,
+                ),
+              ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),
+          AutoRoute(page: MyAccountsRoute.page),
+          AutoRoute(page: AssetRoute.page),
           AutoRoute(page: ContactRoute.page, maintainState: false),
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
@@ -105,6 +106,5 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: TokenRoute.page),
-
       ];
 }
