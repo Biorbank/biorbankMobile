@@ -75,8 +75,12 @@ class PriceAlertScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                padding: EdgeInsets.only(
+                  left: 24.w,
+                  right: 24.w,
+                  top: 16.h,
+                  bottom: 24.h,
+                ),
                 color: Theme.of(context).colorScheme.onSurface,
                 child: CommonButton(
                   name: "Add new price alert",

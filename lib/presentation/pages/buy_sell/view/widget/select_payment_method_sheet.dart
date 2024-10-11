@@ -20,7 +20,7 @@ class SelectPaymentMethodSheet extends StatelessWidget {
           builder: (context, state) {
             var cubit = context.read<BuySellCubit>();
             if (state is SelectedPaymentMethodState) {
-              cubit.paymentMethodSelected=state.paymentMethod;
+              cubit.paymentMethodSelected = state.paymentMethod;
             }
             return Column(
               mainAxisSize: MainAxisSize.min,
@@ -54,11 +54,10 @@ class SelectPaymentMethodSheet extends StatelessWidget {
                       var data = cubit.paymentMethodDataList[index];
                       return paymentCard(
                           onTap: () {
-                            cubit.onSelectPaymentMethods(
-                                payment: {
-                                  'image_url':data['image_url'],
-                                  "payment_name":data['payment_name']
-                                });
+                            cubit.onSelectPaymentMethods(payment: {
+                              'image_url': data['image_url'],
+                              "payment_name": data['payment_name']
+                            });
                           },
                           context: context,
                           imageUrl: data['image_url'],
@@ -66,18 +65,20 @@ class SelectPaymentMethodSheet extends StatelessWidget {
                           subImage1: data['sub_image1'],
                           type: data['type'],
                           limit: data['limit'],
-                          isSelectedMethod:cubit.paymentMethodSelected.values.contains(data['payment_name']),
+                          isSelectedMethod: cubit.paymentMethodSelected.values
+                              .contains(data['payment_name']),
                           subImage2: data['sub_image2']);
                     }),
                 height(14.h),
                 CommonButton(
                   name: 'Confirm',
                   onTap: () {
-                    cubit.onConfirmedPaymentMethod(payment: cubit.paymentMethodSelected);
+                    cubit.onConfirmedPaymentMethod(
+                        payment: cubit.paymentMethodSelected);
                     Navigator.pop(context);
                   },
                 ),
-                height(14.h),
+                height(24.h),
               ],
             );
           },
