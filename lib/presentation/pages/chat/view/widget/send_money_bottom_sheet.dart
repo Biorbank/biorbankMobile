@@ -52,7 +52,11 @@ class SendMoneyBottomSheet extends StatelessWidget {
                   subTitle: data["subTitle"],
                   onTap: () {
                     // context.router.replace(const SendMoneyRoute());
-                    context.router.push(const SendMoneyRoute());
+                    if (index != 2) {
+                      context.router.push(const SendMoneyRoute());
+                      return;
+                    }
+                    context.router.push(const LinkNewAddressRoute());
                   },
                 );
               },

@@ -5,7 +5,8 @@ class Assets {
   static const String imagesAppIcon = 'assets/images/app_icon.png';
   static const String imagesAppIconWhite = 'assets/images/app_icon_white.png';
   static const String imagesArrowDown = 'assets/images/arrow_down.png';
-  static const String imagesArrowDownOutline = 'assets/images/arrow_down_outline.png';
+  static const String imagesArrowDownOutline =
+      'assets/images/arrow_down_outline.png';
   static const String imagesArrowDropdown = 'assets/images/arrow_dropdown.png';
   static const String imagesArrowRight = 'assets/images/arrow_right.png';
   static const String imagesArrowUp = 'assets/images/arrow_up.png';
@@ -14,10 +15,12 @@ class Assets {
   static const String imagesBank = 'assets/images/bank.png';
   static const String imagesBellEmpty = 'assets/images/bell_empty.png';
   static const String imagesBitcoin = 'assets/images/bitcoin.png';
-  static const String imagesBitcoinRefresh = 'assets/images/bitcoin_refresh.png';
+  static const String imagesBitcoinRefresh =
+      'assets/images/bitcoin_refresh.png';
   static const String imagesBook = 'assets/images/book.png';
   static const String imagesBrowser = 'assets/images/browser.png';
-  static const String imagesBrowserSelected = 'assets/images/browser_selected.png';
+  static const String imagesBrowserSelected =
+      'assets/images/browser_selected.png';
   static const String imagesBug = 'assets/images/bug.png';
   static const String imagesCalendar = 'assets/images/calendar.png';
   static const String imagesCard = 'assets/images/card.png';
@@ -45,12 +48,16 @@ class Assets {
   static const String imagesDefi = 'assets/images/defi.png';
   static const String imagesDefiSelected = 'assets/images/defi_selected.png';
   static const String imagesDiscord = 'assets/images/discord.png';
-  static const String imagesDiscordOutline = 'assets/images/discord_outline.png';
+  static const String imagesDiscordOutline =
+      'assets/images/discord_outline.png';
   static const String imagesDollarPrice = 'assets/images/dollar_price.png';
   static const String imagesEdit = 'assets/images/edit.png';
+  static const String imagesEdit1 = 'assets/images/edit1.png';
+  static const String imagesTrash1 = 'assets/images/trash1.png';
   static const String imagesEmptyWallet = 'assets/images/empty_wallet.png';
   static const String imagesExplore = 'assets/images/explore.png';
-  static const String imagesExploreRounded = 'assets/images/explore_rounded.png';
+  static const String imagesExploreRounded =
+      'assets/images/explore_rounded.png';
   static const String imagesEye = 'assets/images/eye.png';
   static const String imagesEyeHide = 'assets/images/eye_hide.png';
   static const String imagesFeedbackLine = 'assets/images/feedback_line.png';
@@ -62,7 +69,8 @@ class Assets {
   static const String imagesGift = 'assets/images/gift.png';
   static const String imagesGoogle = 'assets/images/Google.png';
   static const String imagesHeadphone = 'assets/images/headphone.png';
-  static const String imagesHelpCenterLine = 'assets/images/help_center_line.png';
+  static const String imagesHelpCenterLine =
+      'assets/images/help_center_line.png';
   static const String imagesHolding = 'assets/images/holding.png';
   static const String imagesHoldingLine = 'assets/images/holding_line.png';
   static const String imagesHome = 'assets/images/home.png';
@@ -79,16 +87,20 @@ class Assets {
   static const String imagesMerchent = 'assets/images/merchent.png';
   static const String imagesMessage = 'assets/images/message.png';
   static const String imagesMessageEdit = 'assets/images/message_edit.png';
-  static const String imagesMessageFavorite = 'assets/images/message_favorite.png';
-  static const String imagesMessageQuestion = 'assets/images/message_question.png';
-  static const String imagesMessageSelected = 'assets/images/message_selected.png';
+  static const String imagesMessageFavorite =
+      'assets/images/message_favorite.png';
+  static const String imagesMessageQuestion =
+      'assets/images/message_question.png';
+  static const String imagesMessageSelected =
+      'assets/images/message_selected.png';
   static const String imagesMoon = 'assets/images/moon.png';
   static const String imagesNotification = 'assets/images/notification.png';
   static const String imagesP2pManagement = 'assets/images/p2p_management.png';
   static const String imagesP2pMarketLine = 'assets/images/p2p_market_line.png';
   static const String imagesPhone = 'assets/images/phone.png';
   static const String imagesPostAd = 'assets/images/post_ad.png';
-  static const String imagesPriceAlertLine = 'assets/images/price_alert_line.png';
+  static const String imagesPriceAlertLine =
+      'assets/images/price_alert_line.png';
   static const String imagesQrCode = 'assets/images/qr_code.png';
   static const String imagesQuestion = 'assets/images/question.png';
   static const String imagesScan = 'assets/images/scan.png';
@@ -111,7 +123,8 @@ class Assets {
   static const String imagesSwap = 'assets/images/swap.png';
   static const String imagesSwapArrow = 'assets/images/swap_arrow.png';
   static const String imagesSwapLine = 'assets/images/swap_line.png';
-  static const String imagesTakeALoanLine = 'assets/images/take_a_loan_line.png';
+  static const String imagesTakeALoanLine =
+      'assets/images/take_a_loan_line.png';
   static const String imagesTelegram = 'assets/images/telegram.png';
   static const String imagesTickCircle = 'assets/images/tick_circle.png';
   static const String imagesTimer = 'assets/images/timer.png';
@@ -127,5 +140,4 @@ class Assets {
   static const String svgsSetting = 'assets/svgs/setting.svg';
   static const String svgsSplashIcon = 'assets/svgs/splash_icon.svg';
   static const String imagesPlusCircle = 'assets/images/plus_circle.png';
-
 }

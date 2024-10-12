@@ -139,6 +139,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ImportExistingAccountScreen(),
       );
     },
+    LinkNewAddressRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LinkNewAddressScreen(),
+      );
+    },
     LoginRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -549,6 +555,20 @@ class ImportExistingAccountRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ImportExistingAccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [LinkNewAddressScreen]
+class LinkNewAddressRoute extends PageRouteInfo<void> {
+  const LinkNewAddressRoute({List<PageRouteInfo>? children})
+      : super(
+          LinkNewAddressRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LinkNewAddressRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

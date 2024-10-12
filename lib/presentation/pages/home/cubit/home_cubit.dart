@@ -162,7 +162,7 @@ class HomeCubit extends Cubit<HomeState> {
   MyAccountModel totalAccountData = MyAccountModel(
     title: "All Accounts",
     isProfit: true,
-    percent: 0.2,
+    percent: 1.0,
   );
 
   void onChangeMyAccountData({required List<MyAccountModel> value}) {
@@ -179,9 +179,9 @@ class HomeCubit extends Cubit<HomeState> {
         // Calculate sum of amounts and percentages
         double totalCurrentAmt = acc.currentAmt + e.currentAmt;
         double totalDifferentAmt = acc.differentAmt + e.differentAmt;
-        double totalPercent = acc.percent + e.percent;
+        // double totalPercent = 1;
         // Calculate average percentage
-        double averagePercent = totalPercent / tempAccountModels.length;
+        double averagePercent = 1.0;
 
         return MyAccountModel(
           title: "All Accounts",

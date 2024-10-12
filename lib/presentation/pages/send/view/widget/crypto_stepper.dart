@@ -40,7 +40,9 @@ class _CryptoStepperState extends State<CryptoStepper> {
     CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
     setState(() {
       assetList.addAll(db.state.assetList);
-      selectedAsset = db.state.assetList.first;
+      if (db.state.assetList.isNotEmpty) {
+        selectedAsset = db.state.assetList.first;
+      }
     });
   }
 
@@ -391,17 +393,15 @@ class _CryptoStepperState extends State<CryptoStepper> {
 
                     if (true) {
                       int usdterc20Index = db.state.assetList.indexWhere(
-                              (asset) =>
-                          asset.getAsset().symbol ==
-                              "ATOM");
+                          (asset) => asset.getAsset().symbol == "ATOM");
 
                       if (usdterc20Index != -1) {
                         CryptoAssetRepositoryImpl usdterc20 =
-                        db.state.assetList[usdterc20Index];
+                            db.state.assetList[usdterc20Index];
 
                         String txHash = await usdterc20.sendBalance(
                             sendAmount, recipientAddressString);
-                      /*int usdterc20Index = db.state.assetList.indexWhere(
+                        /*int usdterc20Index = db.state.assetList.indexWhere(
                           (asset) =>
                               asset.getAsset().tokenId ==
                               "0xaA8E23Fb1079EA71e0a56F48a2aA51851D8433D0");

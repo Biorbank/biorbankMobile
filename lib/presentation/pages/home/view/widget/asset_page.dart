@@ -331,7 +331,7 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
             ),
             DraggableScrollableSheet(
               initialChildSize: 0.68,
-              minChildSize: 0.68,
+              minChildSize: 0.6,
               maxChildSize: 0.68,
               builder: (context, scrollController) {
                 return Container(

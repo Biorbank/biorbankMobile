@@ -222,9 +222,14 @@ class CommonTextfield extends StatelessWidget {
               : Container(
                   padding:
                       const EdgeInsets.only(left: 5.0, top: 4.0, bottom: 4),
-                  child: AppConstant.commonText(errorMsg ?? "",
-                      fontSize: 11,
-                      color: Theme.of(context).colorScheme.error)),
+                  child: AppConstant.commonText(
+                    errorMsg ?? "",
+                    fontSize: 11,
+                    color: errorMsg == "*Optional"
+                        ? Theme.of(context).colorScheme.onSecondaryContainer
+                        : Theme.of(context).colorScheme.error,
+                  ),
+                ),
         ],
       ),
     );
