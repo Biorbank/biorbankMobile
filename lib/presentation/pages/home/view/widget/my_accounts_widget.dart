@@ -102,17 +102,20 @@ class _MyAccountsWidgetState extends State<MyAccountsWidget> {
                   child: _buildContainer(
                     context: context,
                     child: _buildContainerData(
-                      context: context,
-                      percent: cubit.percent,
-                      title: cubit.totalAccountData.title,
-                      currentAmt:
-                          "USD ${cubit.totalAccountData.currentAmt.toStringAsFixed(2)}",
-                      differentAmt:
-                          "+${cubit.totalAccountData.differentAmt.toStringAsFixed(2)}",
-                      totalDifferentInPercentage:
-                          "+${cubit.totalAccountData.totalDifferentInPercentage.toStringAsFixed(2)}%",
-                      isProfit: true,
-                    ),
+                        context: context,
+                        percent: cubit.totalAccountData.percent,
+                        title: cubit.totalAccountData.title,
+                        currentAmt:
+                            "USD ${cubit.totalAccountData.currentAmt.toStringAsFixed(2)}",
+                        differentAmt:
+                            "+${cubit.totalAccountData.differentAmt.toStringAsFixed(2)}",
+                        totalDifferentInPercentage:
+                            "+${cubit.totalAccountData.totalDifferentInPercentage.toStringAsFixed(2)}%",
+                        isProfit: true,
+                        arrowWidget: const SizedBox(
+                          width: 25.0,
+                          height: 25.0,
+                        )),
                   ),
                 ),
                 height(26),

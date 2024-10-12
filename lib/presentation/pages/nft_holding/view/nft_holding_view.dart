@@ -4,9 +4,9 @@ import 'package:biorbank/presentation/common/common_blue_container.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/carousel_control.dart';
-import 'package:biorbank/presentation/pages/nft_holding/view/widget/choose_address_dialog.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/description_widget.dart';
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_history_chat.dart';
+import 'package:biorbank/presentation/pages/nft_holding/view/widget/sell_dialog.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -171,7 +171,11 @@ class NftHoldingScreen extends StatelessWidget {
                           offset: const Offset(0, -4))
                     ]),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 22, right: 16),
+                  padding: EdgeInsets.only(
+                    left: 22.w,
+                    right: 16.w,
+                    bottom: 22.h,
+                  ),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -194,15 +198,16 @@ class NftHoldingScreen extends StatelessWidget {
                       ),
                       width(20.w),
                       Expanded(
-                          child: CommonButton(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => const AddAddressDialog(),
-                          );
-                        },
-                        name: 'Sell',
-                      ))
+                        child: CommonButton(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const SellDialog(),
+                            );
+                          },
+                          name: 'Sell',
+                        ),
+                      )
                     ],
                   ),
                 ),

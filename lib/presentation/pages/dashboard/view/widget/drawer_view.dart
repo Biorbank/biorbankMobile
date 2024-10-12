@@ -134,6 +134,11 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                     isSelected: cubit.selectItem == 4,
                     onTap: () {
                       cubit.selectItem = 4;
+                      Global.controller.hideDrawer();
+                      Global.scaffoldKey.currentState?.closeDrawer();
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        AutoTabsRouter.of(context).setActiveIndex(12);
+                      });
                     },
                     title: AppStrings.holdings,
                   ),

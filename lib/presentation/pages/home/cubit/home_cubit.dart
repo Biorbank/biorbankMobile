@@ -4,6 +4,7 @@ import 'package:biorbank/presentation/pages/deposit/view/deposit_view.dart';
 import 'package:biorbank/presentation/pages/pay_bills/view/pay_bills_view.dart';
 import 'package:biorbank/presentation/pages/send/view/send_currency_view.dart';
 import 'package:biorbank/utils/enum/home_page_action_enum.dart';
+import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -135,7 +136,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void onTapeTradeActionOption({required ActionEnum? value}) {
-    emit(TradeOptionChnageState(value: value));
+    emit(TradeOptionChangeState(value: value));
   }
 
   Widget getActionScreen({required ActionEnum? value}) {
@@ -161,7 +162,7 @@ class HomeCubit extends Cubit<HomeState> {
   MyAccountModel totalAccountData = MyAccountModel(
     title: "All Accounts",
     isProfit: true,
-    percent: 0.2,
+    percent: 1.0,
   );
 
   void onChangeMyAccountData({required List<MyAccountModel> value}) {
@@ -178,9 +179,9 @@ class HomeCubit extends Cubit<HomeState> {
         // Calculate sum of amounts and percentages
         double totalCurrentAmt = acc.currentAmt + e.currentAmt;
         double totalDifferentAmt = acc.differentAmt + e.differentAmt;
-        double totalPercent = acc.percent + e.percent;
+        // double totalPercent = 1;
         // Calculate average percentage
-        double averagePercent = totalPercent / tempAccountModels.length;
+        double averagePercent = 1.0;
 
         return MyAccountModel(
           title: "All Accounts",
@@ -202,5 +203,13 @@ class HomeCubit extends Cubit<HomeState> {
     myActTokenData.clear();
     myActTokenData.addAll(value);
     emit(ChangeMyActTokenData(accountData: value));
+  }
+
+  //assets page
+  int selectedWallet = -1;
+
+  void onChangeSelectedWallet({required int index}) {
+    selectedWallet = index;
+    emit(ChangeSelectedWallet(index: index));
   }
 }

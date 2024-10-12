@@ -26,7 +26,8 @@ class NFTDetailsPage extends StatelessWidget {
     'https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750',
     'https://i.seadn.io/s/raw/files/c66c3e92322c8044504b79226d7ca5e9.png?auto=format&dpr=1&w=750'
   ];
-  static CarouselSliderController carouselController = CarouselSliderController();
+  static CarouselSliderController carouselController =
+      CarouselSliderController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +76,10 @@ class NFTDetailsPage extends StatelessWidget {
                             Container(
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 16),
-                              padding: const EdgeInsets.all(8),
+                              padding: const EdgeInsets.only(
+                                left: 8.0,
+                                right: 8.0,
+                              ),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: Theme.of(context)
@@ -88,6 +92,22 @@ class NFTDetailsPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: IconButton(
+                                        alignment: Alignment.centerRight,
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: Icon(
+                                          Icons.close,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSecondaryContainer,
+                                        )),
+                                  ),
+                                  height(8.0),
+
                                   /// Carousel image slider
                                   CarouselImageWidget(
                                       carouselController: carouselController,

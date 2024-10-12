@@ -20,6 +20,8 @@ class FilterBottomSheet extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           height(20),
           Row(
@@ -44,62 +46,56 @@ class FilterBottomSheet extends StatelessWidget {
             ],
           ),
           height(10),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
+          Column(
+            children: [
+              CommonDropdownWidget(
+                labelText: "All Accounts",
+                items: const [],
+                onChanged: (p0) {},
+                title: "Account",
+                fontColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                backGroundColor: Theme.of(context)
+                    .colorScheme
+                    .onSecondaryContainer
+                    .withOpacity(0.1),
+                height: 35,
+              ),
+              height(10),
+              CommonDropdownWidget(
+                labelText: "All Networks",
+                items: const [],
+                onChanged: (p0) {},
+                title: "Network",
+                fontColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                backGroundColor: Theme.of(context)
+                    .colorScheme
+                    .onSecondaryContainer
+                    .withOpacity(0.1),
+                height: 35,
+              ),
+              height(10),
+              Row(
                 children: [
-                  CommonDropdownWidget(
-                    labelText: "All Accounts",
-                    items: const [],
-                    onChanged: (p0) {},
-                    title: "Account",
-                    fontColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                    backGroundColor: Theme.of(context)
-                        .colorScheme
-                        .onSecondaryContainer
-                        .withOpacity(0.1),
-                    height: 35,
+                  Expanded(
+                    flex: 3,
+                    child: CommonTextfield(
+                      controller: cubit.minimumPerTransCtrl,
+                      title: "Minimum per transaction",
+                      height: 40.h,
+                      hintText: "\$ 0",
+                      fillColor: Theme.of(context)
+                          .colorScheme
+                          .onSecondaryContainer
+                          .withOpacity(0.1),
+                    ),
                   ),
-                  height(10),
-                  CommonDropdownWidget(
-                    labelText: "All Networks",
-                    items: const [],
-                    onChanged: (p0) {},
-                    title: "Network",
-                    fontColor:
-                        Theme.of(context).colorScheme.onSecondaryContainer,
-                    backGroundColor: Theme.of(context)
-                        .colorScheme
-                        .onSecondaryContainer
-                        .withOpacity(0.1),
-                    height: 35,
-                  ),
-                  height(10),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: CommonTextfield(
-                          controller: cubit.minimumPerTransCtrl,
-                          title: "Minimum per transaction",
-                          height: 40.h,
-                          hintText: "\$ 0",
-                          fillColor: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer
-                              .withOpacity(0.1),
-                        ),
-                      ),
-                      const Expanded(
-                        flex: 2,
-                        child: SizedBox(),
-                      ),
-                    ],
+                  const Expanded(
+                    flex: 2,
+                    child: SizedBox(),
                   ),
                 ],
               ),
-            ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),

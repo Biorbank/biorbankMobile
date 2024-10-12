@@ -9,6 +9,7 @@ import 'package:biorbank/presentation/pages/browser/defi_details_page/view/staki
 import 'package:biorbank/presentation/pages/browser/view/browser_view.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_view.dart';
+import 'package:biorbank/presentation/pages/chat/view/link_new_address_view.dart';
 import 'package:biorbank/presentation/pages/chat/view/send_money_view.dart';
 import 'package:biorbank/presentation/pages/contacts_page/view/contact_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
@@ -106,5 +107,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: TokenRoute.page),
+        AutoRoute(page: LinkNewAddressRoute.page),
       ];
 }

@@ -27,10 +27,10 @@ final class ChangeMyActTokenData extends HomeState {
   ChangeMyActTokenData({required this.accountData});
 }
 
-final class TradeOptionChnageState extends HomeState {
+final class TradeOptionChangeState extends HomeState {
   final ActionEnum? value;
 
-  TradeOptionChnageState({required this.value});
+  TradeOptionChangeState({required this.value});
 }
 
 final class MarketStatusLoadingState extends HomeState {}
@@ -55,4 +55,10 @@ final class CollectionChangeState extends HomeState {
   final List<Map<String, dynamic>> collection;
 
   CollectionChangeState({required this.collection});
+}
+
+final class ChangeSelectedWallet extends HomeState {
+  final int index;
+
+  ChangeSelectedWallet({required this.index});
 }
