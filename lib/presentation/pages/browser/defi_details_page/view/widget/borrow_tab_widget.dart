@@ -9,6 +9,7 @@ import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BorrowTabWidget extends StatelessWidget {
@@ -16,6 +17,15 @@ class BorrowTabWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<MarketCubit>();
+    final selectedCurrency =
+    cubit.currencyListBorrow.contains(cubit.selectedCurrency)
+        ? cubit.selectedCurrency
+        : cubit.currencyListBorrow.first;
+    final selectedReceiveCurrency =
+    cubit.receiveCurrencyListBorrow.contains(cubit.selectedReceiveCurrency)
+        ? cubit.selectedReceiveCurrency
+        : cubit.receiveCurrencyListBorrow[1];
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -51,46 +61,39 @@ class BorrowTabWidget extends StatelessWidget {
                         fillColor: const Color(0xFFF9FAFB),
                       ),
                     ),
-                    CommonDropdownWidget(
-                      labelText: '',
-                      //  value: cubit.selectedCurrency,
-                      borderRadius: 8,
-                      height: 40.h,
-                      items: [
-                        CurrencyModel(
-                            name: 'BTC',
-                            url:
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
-                        CurrencyModel(
-                            name: 'ETH',
-                            url:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMG-wLarm17FjreEJHhGg_xzNT6JJa2VvbSbAJ34prN5p-nQRSxSKzMhQHiAuBHZyAji0&usqp=CAU'),
-                      ]
-                          .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Row(
-                                children: [
-                                  CachedNetworkImage(
-                                    imageUrl: e.url,
-                                    height: 16.h,
-                                    width: 16.w,
-                                    placeholder: (context, url) =>
-                                        const SizedBox.shrink(),
-                                  ),
-                                  width(8.w),
-                                  AppConstant.commonText(e.name,
-                                      color:
-                                          Theme.of(context).colorScheme.shadow,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600),
-                                ],
-                              )))
-                          .toList(),
-                      backGroundColor: Theme.of(context).colorScheme.onSurface,
-                      onChanged: (value) {
-                        //cubit.onSelectCurrency(currency: value);
-                      },
-                    ),
+              CommonDropdownWidget(
+                labelText: '',
+                value: selectedCurrency,
+                borderRadius: 8,
+                height: 40.h,
+                items: cubit.currencyListBorrow
+                    .map((e) => DropdownMenuItem(
+                    value: e,
+                    child: Row(
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: e.url,
+                          height: 16.h,
+                          width: 16.w,
+                          placeholder: (context, url) =>
+                          const SizedBox.shrink(),
+                        ),
+                        width(8.w),
+                        AppConstant.commonText(e.name,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .shadow,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600),
+                      ],
+                    )))
+                    .toList(),
+                backGroundColor:
+                Theme.of(context).colorScheme.onSurface,
+                onChanged: (value) {
+                  cubit.onSelectCurrency(currency: value);
+                },
+              ),
                   ],
                 ),
               ),
@@ -153,41 +156,33 @@ class BorrowTabWidget extends StatelessWidget {
                       color: Theme.of(context).colorScheme.outline),
                   CommonDropdownWidget(
                     labelText: '',
-                    //  value: cubit.selectedReceiveCurrency,
+                    value: selectedReceiveCurrency,
                     borderRadius: 8,
                     height: 40.h,
-                    items: [
-                      CurrencyModel(
-                          name: 'BTC',
-                          url:
-                              'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
-                      CurrencyModel(
-                          name: 'ETH',
-                          url:
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMG-wLarm17FjreEJHhGg_xzNT6JJa2VvbSbAJ34prN5p-nQRSxSKzMhQHiAuBHZyAji0&usqp=CAU'),
-                    ]
+                    items: cubit.receiveCurrencyListBorrow
                         .map((e) => DropdownMenuItem(
-                            value: e,
-                            child: Row(
-                              children: [
-                                CachedNetworkImage(
-                                  imageUrl: e.url,
-                                  height: 16.h,
-                                  width: 16.w,
-                                  placeholder: (context, url) =>
-                                      const SizedBox.shrink(),
-                                ),
-                                width(8.w),
-                                AppConstant.commonText(e.name,
-                                    color: Theme.of(context).colorScheme.shadow,
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600),
-                              ],
-                            )))
+                        value: e,
+                        child: Row(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: e.url,
+                              height: 16.h,
+                              width: 16.w,
+                              placeholder: (context, url) =>
+                              const SizedBox.shrink(),
+                            ),
+                            width(8.w),
+                            AppConstant.commonText(e.name,
+                                color:
+                                Theme.of(context).colorScheme.shadow,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600),
+                          ],
+                        )))
                         .toList(),
                     backGroundColor: Theme.of(context).colorScheme.onSurface,
                     onChanged: (value) {
-                      // cubit.onSelectReceiveCurrency(currency: value);
+                      cubit.onSelectReceiveCurrency(currency: value);
                     },
                   ),
                 ],
@@ -195,7 +190,7 @@ class BorrowTabWidget extends StatelessWidget {
             ),
             height(14.h),
             CommonButton(
-              name: 'Insufficient funds',
+              name: 'confirm',
               onTap: () {
                 showDialog(
                   context: context,

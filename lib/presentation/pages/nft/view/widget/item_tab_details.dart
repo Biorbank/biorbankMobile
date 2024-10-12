@@ -14,6 +14,32 @@ class ItemTabDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, String>> hooliganCollection = [
+      {
+        "title": "Hooligan #8190",
+        "imageUrl": "https://i.seadn.io/s/raw/files/b9e7db073eb5c104232c306aa3accd91.png?auto=format&dpr=1&w=750"
+      },
+      {
+        "title": "Hooligan #2180",
+        "imageUrl": "https://i.seadn.io/s/raw/files/7778b5526e5552c5c6c1a0905ab47c2e.png?auto=format&dpr=1&w=750"
+      },
+      {
+        "title": "Hooligan #6539",
+        "imageUrl": "https://i.seadn.io/s/raw/files/c66c3e92322c8044504b79226d7ca5e9.png?auto=format&dpr=1&w=750"
+      },
+      {
+        "title": "Hooligan #4120",
+        "imageUrl": "https://i.seadn.io/s/raw/files/beac1f64192aa51674d2c224c746c739.png?auto=format&dpr=1&w=750"
+      },
+      {
+        "title": "Hooligan #5692",
+        "imageUrl": "https://i.seadn.io/s/raw/files/c2d8d3bd88df96dee357dbdfe645a1ec.png?auto=format&dpr=1&w=750"
+      },
+      {
+        "title": "Hooligan #3599",
+        "imageUrl": "https://i.seadn.io/s/raw/files/9430aa2a14a4130dd98b9599df3b33eb.png?auto=format&dpr=1&w=750"
+      },
+    ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -72,7 +98,7 @@ class ItemTabDetails extends StatelessWidget {
           GridView.builder(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
-            itemCount: 12,
+            itemCount: hooliganCollection.length,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 childAspectRatio: 0.78,
@@ -80,15 +106,16 @@ class ItemTabDetails extends StatelessWidget {
                 mainAxisSpacing: 15,
                 crossAxisSpacing: 15),
             itemBuilder: (context, index) {
+              final hooligan = hooliganCollection[index];
               return GestureDetector(
                 onTap: () {
                   context.router.push(const NFTDetailsRoute());
                 },
                 child: nftCardWidget(
                     context: context,
-                    imageUrl:
-                        'https://i.seadn.io/s/raw/files/9430aa2a14a4130dd98b9599df3b33eb.png?auto=format&dpr=1&w=750',
-                    title: 'Hooligan #3599'),
+                    imageUrl: hooligan['imageUrl']!,
+                    title: hooligan['title']!
+                ),
               );
             },
           ),

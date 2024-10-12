@@ -96,7 +96,7 @@ class NftDetailTab extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 4, right: 4, top: 14, bottom: 35),
               separatorBuilder: (context, index) => height(20.h),
-              itemCount: 10,
+              itemCount: 2,
               itemBuilder: (context, index) => InkWell(
                 onTap: (){
                   context.router.push(const NFTRoute());

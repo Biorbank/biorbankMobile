@@ -184,7 +184,7 @@ class AddAddressDialog extends StatelessWidget {
                         Navigator.pop(context);
                         showDialog(
                           context: context,
-                          builder: (context) => const FillAmountDialog(isShowPriceDetails: false,),
+                          builder: (context) => const FillAmountDialog(isTransferAccess: true,),
                         );
                       },
                     ),

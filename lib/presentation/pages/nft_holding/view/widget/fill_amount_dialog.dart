@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FillAmountDialog extends StatelessWidget {
-  const FillAmountDialog({super.key, required this.isShowPriceDetails});
-  final bool isShowPriceDetails;
+  const FillAmountDialog({super.key, required this.isTransferAccess});
+  final bool isTransferAccess;
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -30,6 +30,7 @@ class FillAmountDialog extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         const Spacer(),
+                        if(isTransferAccess)
                         AppConstant.commonText('Fill amount',
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
@@ -50,6 +51,7 @@ class FillAmountDialog extends StatelessWidget {
                       ],
                     ),
                     height(10.h),
+                    if(isTransferAccess)
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -130,9 +132,8 @@ class FillAmountDialog extends StatelessWidget {
                       ),
                     ),
                     height(20.h),
-                    Visibility(
-                      visible: isShowPriceDetails,
-                      replacement: Column(
+                    if(isTransferAccess)
+                    Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AppConstant.commonDivider(),
@@ -196,7 +197,7 @@ class FillAmountDialog extends StatelessWidget {
                           height(15.h),
                         ],
                       ),
-                      child: Column(
+                    Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
@@ -264,7 +265,6 @@ class FillAmountDialog extends StatelessWidget {
                               secondPrice: '0.003278 ETH'),
                         ],
                       ),
-                    ),
                     height(16.h),
                     commonRowWidget(
                         context: context,
@@ -291,19 +291,9 @@ class FillAmountDialog extends StatelessWidget {
                         width(8.w),
                         Expanded(
                           child: CommonButton(
-                            name: 'Next',
+                            name: isTransferAccess ? 'Transfer' : 'Sell',
                             onTap: () {
-                              if (!isShowPriceDetails) {
-                                Navigator.pop(context);
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => const FillAmountDialog(
-                                    isShowPriceDetails: true,
-                                  ),
-                                );
-                              } else {
-                                Navigator.pop(context);
-                              }
+                              Navigator.pop(context);
                             },
                           ),
                         )
