@@ -72,10 +72,10 @@ class AppRouter extends _$AppRouter {
                   page: DefiDetailRoute.page,
                   maintainState: false,
                 ),
-                AutoRoute(
-                  page: NftHoldingRoute.page,
-                  maintainState: false,
-                ),
+                // AutoRoute(
+                //   page: NftHoldingRoute.page,
+                //   maintainState: false,
+                // ),
               ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),

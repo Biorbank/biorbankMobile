@@ -72,7 +72,7 @@ class _NFTsTabWidgetState extends State<NFTsTabWidget> {
           final hooligan = hooliganCollection[index];
           return GestureDetector(
             onTap: () {
-              context.pushRoute(NftHoldingRoute(
+              context.router.push(NftHoldingRoute(
                   imageUrl: hooligan['imageUrl']!, title: hooligan['title']!));
               // Navigator.pushNamed(context, Routes.nftHoldingRoute,
               //     arguments: {
