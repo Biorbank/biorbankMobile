@@ -9,6 +9,7 @@ import 'package:biorbank/presentation/pages/browser/defi_details_page/view/staki
 import 'package:biorbank/presentation/pages/browser/view/browser_view.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_detail_screen.dart';
 import 'package:biorbank/presentation/pages/chat/view/chat_view.dart';
+import 'package:biorbank/presentation/pages/chat/view/link_new_address_view.dart';
 import 'package:biorbank/presentation/pages/chat/view/send_money_view.dart';
 import 'package:biorbank/presentation/pages/contacts_page/view/contact_view.dart';
 import 'package:biorbank/presentation/pages/create_account/view/create_account_view.dart';
@@ -55,30 +56,31 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: CreateAccountRoute.page),
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
           // AutoRoute(page: DefiRoute.page),
-          AutoRoute(page: DefiDetailRoute.page,maintainState: false),
-          AutoRoute(page: MarketRoute.page,maintainState: false),
-          AutoRoute(page: DefiNavigationRoute.page,
-          initial: true,
-          maintainState: false,
-           children: [
-            AutoRoute(
-              path: 'home',
-              page: HomeRoute.page,
+          AutoRoute(page: DefiDetailRoute.page, maintainState: false),
+          AutoRoute(page: MarketRoute.page, maintainState: false),
+          AutoRoute(
+              page: DefiNavigationRoute.page,
               initial: true,
-              maintainState: true
-            ),
-            AutoRoute(
-              page: DefiDetailRoute.page,
               maintainState: false,
-            ),
-             AutoRoute(
-              page: NftHoldingRoute.page,
-              maintainState: false,
-            ),
-
-          ]),
+              children: [
+                AutoRoute(
+                    path: 'home',
+                    page: HomeRoute.page,
+                    initial: true,
+                    maintainState: true),
+                AutoRoute(
+                  page: DefiDetailRoute.page,
+                  maintainState: false,
+                ),
+                AutoRoute(
+                  page: NftHoldingRoute.page,
+                  maintainState: false,
+                ),
+              ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),
+          AutoRoute(page: MyAccountsRoute.page),
+          AutoRoute(page: AssetRoute.page),
           AutoRoute(page: ContactRoute.page, maintainState: false),
           AutoRoute(page: FeedbackRoute.page, maintainState: false),
           AutoRoute(page: DebitCardRoute.page, maintainState: false),
@@ -105,6 +107,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: TokenRoute.page),
-
+        AutoRoute(page: LinkNewAddressRoute.page),
       ];
 }

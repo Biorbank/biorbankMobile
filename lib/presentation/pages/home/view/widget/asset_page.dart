@@ -15,6 +15,8 @@ import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repos
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:biorbank/utils/service/cmc_service.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
+import 'package:biorbank/utils/service/wallet_store_service.dart';
+import 'package:defichaindart/defichaindart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -116,23 +118,201 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
                               fontWeight: FontWeight.w600,
                               color: Theme.of(context).colorScheme.onSurface,
                             ),
-                            Row(
-                              children: [
-                                AppConstant.commonText(
-                                  "All Account",
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  color:
+                            InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                  useRootNavigator: true,
+                                  shape: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12.r),
+                                      topRight: Radius.circular(12.r),
+                                    ),
+                                  ),
+                                  backgroundColor:
                                       Theme.of(context).colorScheme.onSurface,
-                                ),
-                                width(4),
-                                _buildArrow(
                                   context: context,
-                                  icon: Assets.imagesArrowDownOutline,
-                                  height: 16.h,
-                                  width: 16.w,
-                                )
-                              ],
+                                  builder: (context) {
+                                    return StatefulBuilder(builder:
+                                        (context, StateSetter mySetState) {
+                                      return Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w,
+                                          vertical: 8.h,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                AppConstant.commonText(
+                                                  "Select Account",
+                                                  fontSize: 14.sp,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .shadow,
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: IconButton(
+                                                      alignment:
+                                                          Alignment.centerRight,
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.close,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onSecondaryContainer,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                            ListTile(
+                                              onTap: () {
+                                                mySetState(() {
+                                                  cubit.selectedWallet = -1;
+                                                });
+                                                Future.delayed(
+                                                    const Duration(
+                                                        milliseconds: 300), () {
+                                                  Navigator.pop(context);
+                                                });
+                                              },
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 24,
+                                                      vertical: 0),
+                                              dense: true,
+                                              visualDensity:
+                                                  const VisualDensity(
+                                                      vertical: -4),
+                                              title: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20),
+                                                child: AppConstant.commonText(
+                                                  "All Account",
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .shadow,
+                                                  fontSize: 20.sp,
+                                                ),
+                                              ),
+                                              trailing: Radio<int>(
+                                                value: -1,
+                                                groupValue:
+                                                    cubit.selectedWallet,
+                                                fillColor:
+                                                    WidgetStatePropertyAll(
+                                                  cubit.selectedWallet == -1
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .tertiary
+                                                          .withOpacity(0.5),
+                                                ),
+                                                onChanged: (value) {},
+                                              ),
+                                            ),
+                                            ListView.builder(
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
+                                              itemCount: AppHelper
+                                                  .walletService.wallets.length,
+                                              itemBuilder: (context, index) {
+                                                return ListTile(
+                                                  onTap: () {
+                                                    mySetState(() {
+                                                      cubit.selectedWallet =
+                                                          index;
+                                                    });
+                                                    Future.delayed(
+                                                        const Duration(
+                                                            milliseconds: 300),
+                                                        () {
+                                                      Navigator.pop(context);
+                                                    });
+                                                  },
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 24,
+                                                          vertical: 0),
+                                                  dense: true,
+                                                  visualDensity:
+                                                      const VisualDensity(
+                                                          vertical: -4),
+                                                  title: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 20),
+                                                    child:
+                                                        AppConstant.commonText(
+                                                      AppHelper.walletService
+                                                          .wallets[index].name,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .shadow,
+                                                      fontSize: 20.sp,
+                                                    ),
+                                                  ),
+                                                  trailing: Radio<int>(
+                                                    value: index,
+                                                    groupValue:
+                                                        cubit.selectedWallet,
+                                                    fillColor:
+                                                        WidgetStatePropertyAll(
+                                                      cubit.selectedWallet ==
+                                                              index
+                                                          ? Theme.of(context)
+                                                              .primaryColor
+                                                          : Theme.of(context)
+                                                              .colorScheme
+                                                              .tertiary
+                                                              .withOpacity(0.5),
+                                                    ),
+                                                    onChanged: (value) {
+                                                      if (value != null) {}
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                                  },
+                                );
+                              },
+                              child: Row(
+                                children: [
+                                  AppConstant.commonText(
+                                    "All Account",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                  width(4),
+                                  _buildArrow(
+                                    context: context,
+                                    icon: Assets.imagesArrowDownOutline,
+                                    height: 16.h,
+                                    width: 16.w,
+                                  )
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -237,6 +417,9 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
                               totalDifferentInPercentage:
                                   "+${(data.percentChangeday).toStringAsFixed(2)}%",
                               isProfit: data.isProfit,
+                              onTap: () {
+                                context.router.push(const TokenRoute());
+                              },
                             );
                           },
                         ),
@@ -275,92 +458,98 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
     required String differentAmt,
     required String totalDifferentInPercentage,
     required bool isProfit,
+    required VoidCallback onTap,
   }) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100),
-            child: Image.file(
-              File(
-                "${AppHelper.appDir}/$img",
-              ),
-              height: 44.h,
-              width: 44.w,
-              fit: BoxFit.fill,
-            ),
-          ),
-          width(10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: TextSpan(
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Theme.of(context).colorScheme.shadow,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: title,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.shadow,
-                          ),
-                        ),
-                        // width(4),
-                        TextSpan(text: " $title2"),
-                      ]),
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.file(
+                File(
+                  "${AppHelper.appDir}/$img",
                 ),
-                height(6),
-                AppConstant.commonText(amt,
-                    color: Theme.of(context).colorScheme.shadow,
-                    fontWeight: FontWeight.w600),
-              ],
+                height: 44.h,
+                width: 44.w,
+                fit: BoxFit.fill,
+              ),
             ),
-          ),
-          width(10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              AppConstant.commonText(currentAmt,
-                  color: Theme.of(context).colorScheme.shadow,
-                  fontWeight: FontWeight.w600),
-              height(6.h),
-              Row(
+            width(10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppConstant.commonText(differentAmt,
-                      color: isProfit
-                          ? Theme.of(context).colorScheme.onInverseSurface
-                          : Theme.of(context).colorScheme.error,
-                      fontSize: 11.sp),
-                  width(6.w),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
-                    decoration: BoxDecoration(
-                      color: isProfit
-                          ? const Color(0xFFE5FAEE)
-                          : const Color(0xFFFDEBEC),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: AppConstant.commonText(
-                      totalDifferentInPercentage,
-                      fontSize: 10.sp,
-                      color: isProfit
-                          ? Theme.of(context).colorScheme.onInverseSurface
-                          : Theme.of(context).colorScheme.error,
-                    ),
+                  RichText(
+                    text: TextSpan(
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).colorScheme.shadow,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: title,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).colorScheme.shadow,
+                            ),
+                          ),
+                          // width(4),
+                          TextSpan(text: " $title2"),
+                        ]),
                   ),
+                  height(6),
+                  AppConstant.commonText(amt,
+                      color: Theme.of(context).colorScheme.shadow,
+                      fontWeight: FontWeight.w600),
                 ],
               ),
-            ],
-          ),
-        ],
+            ),
+            width(10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                AppConstant.commonText(currentAmt,
+                    color: Theme.of(context).colorScheme.shadow,
+                    fontWeight: FontWeight.w600),
+                height(6.h),
+                Row(
+                  children: [
+                    AppConstant.commonText(differentAmt,
+                        color: isProfit
+                            ? Theme.of(context).colorScheme.onInverseSurface
+                            : Theme.of(context).colorScheme.error,
+                        fontSize: 11.sp),
+                    width(6.w),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 1),
+                      decoration: BoxDecoration(
+                        color: isProfit
+                            ? const Color(0xFFE5FAEE)
+                            : const Color(0xFFFDEBEC),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: AppConstant.commonText(
+                        totalDifferentInPercentage,
+                        fontSize: 10.sp,
+                        color: isProfit
+                            ? Theme.of(context).colorScheme.onInverseSurface
+                            : Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

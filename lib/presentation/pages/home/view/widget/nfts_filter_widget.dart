@@ -200,7 +200,7 @@ class _NFTsFilterWidgetState extends State<NFTsFilterWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
+            padding: EdgeInsets.only(top: 8.h, bottom: 24.h),
             child: Row(
               children: [
                 Expanded(

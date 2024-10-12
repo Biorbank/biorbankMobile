@@ -114,15 +114,15 @@ class PriceAlertListTileWidget extends StatelessWidget {
                   ),
                   width(13),
                   Image.asset(
-                    Assets.imagesEdit,
+                    Assets.imagesEdit1,
                     height: 20,
                     width: 20,
                   ),
-                  width(3),
-                  Icon(
-                    Icons.delete_outline_outlined,
-                    size: 20,
-                    color: Theme.of(context).colorScheme.error,
+                  width(5),
+                  Image.asset(
+                    Assets.imagesTrash1,
+                    height: 20,
+                    width: 20,
                   ),
                 ],
               ),

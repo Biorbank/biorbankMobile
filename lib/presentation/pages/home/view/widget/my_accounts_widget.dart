@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/pages/home/model/my_account_model.dart';
-import 'package:biorbank/presentation/pages/home/view/widget/asset_page.dart';
 import 'package:biorbank/utils/app_widgets.dart';
+import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
@@ -102,17 +102,20 @@ class _MyAccountsWidgetState extends State<MyAccountsWidget> {
                   child: _buildContainer(
                     context: context,
                     child: _buildContainerData(
-                      context: context,
-                      percent: cubit.percent,
-                      title: cubit.totalAccountData.title,
-                      currentAmt:
-                          "USD ${cubit.totalAccountData.currentAmt.toStringAsFixed(2)}",
-                      differentAmt:
-                          "+${cubit.totalAccountData.differentAmt.toStringAsFixed(2)}",
-                      totalDifferentInPercentage:
-                          "+${cubit.totalAccountData.totalDifferentInPercentage.toStringAsFixed(2)}%",
-                      isProfit: true,
-                    ),
+                        context: context,
+                        percent: cubit.totalAccountData.percent,
+                        title: cubit.totalAccountData.title,
+                        currentAmt:
+                            "USD ${cubit.totalAccountData.currentAmt.toStringAsFixed(2)}",
+                        differentAmt:
+                            "+${cubit.totalAccountData.differentAmt.toStringAsFixed(2)}",
+                        totalDifferentInPercentage:
+                            "+${cubit.totalAccountData.totalDifferentInPercentage.toStringAsFixed(2)}%",
+                        isProfit: true,
+                        arrowWidget: const SizedBox(
+                          width: 25.0,
+                          height: 25.0,
+                        )),
                   ),
                 ),
                 height(26),
@@ -131,12 +134,11 @@ class _MyAccountsWidgetState extends State<MyAccountsWidget> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AssetPage(),
-                          ),
-                        );
+                        Global.controller.hideDrawer();
+                        Global.scaffoldKey.currentState?.closeDrawer();
+                        Future.delayed(const Duration(milliseconds: 200), () {
+                          AutoTabsRouter.of(context).setActiveIndex(12);
+                        });
                       },
                       child: _buildContainerData(
                         context: context,

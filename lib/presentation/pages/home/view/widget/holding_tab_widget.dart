@@ -1,9 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/common_add_account_widget.dart';
-import 'package:biorbank/presentation/pages/home/view/widget/my_accounts_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/price_detail_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:biorbank/utils/db/db_wallet.dart';
+import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:flutter/material.dart';
@@ -41,20 +41,29 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           height(15.h),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Row(
-              children: [
-                AppConstant.commonText('My Accounts',
-                    color: Theme.of(context).colorScheme.shadow,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
-                width(15.h),
-                const Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 18,
-                )
-              ],
+          InkWell(
+            onTap: () {
+              Global.controller.hideDrawer();
+              Global.scaffoldKey.currentState?.closeDrawer();
+              Future.delayed(const Duration(milliseconds: 200), () {
+                AutoTabsRouter.of(context).setActiveIndex(11);
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Row(
+                children: [
+                  AppConstant.commonText('My Accounts',
+                      color: Theme.of(context).colorScheme.shadow,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                  width(15.h),
+                  const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    size: 18,
+                  )
+                ],
+              ),
             ),
           ),
           height(14.h),
@@ -67,16 +76,16 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
             itemBuilder: (context, index) => InkWell(
               borderRadius: BorderRadius.circular(12),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyAccountsWidget(),
-                  ),
-                );
+                Global.controller.hideDrawer();
+                Global.scaffoldKey.currentState?.closeDrawer();
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  AutoTabsRouter.of(context).setActiveIndex(11);
+                });
               },
               child: PriceDetailWidget(
                 title: wallets[index].name,
-                currentAmt: '\$${wallets[index].totalAmount}',
+                currentAmt:
+                    '\$${wallets[index].totalAmount.toStringAsFixed(2)}',
                 differentAmt: '+0',
                 isProfit: true,
                 totalDifferentInPercentage: '+0%',

@@ -39,21 +39,23 @@ class _DashboardScreenState extends State<DashboardScreen>
           cubit.selectedBottomTabIndex = state.index;
         }
         return AutoTabsRouter(
-          routes: const [
+          routes: [
             // DefiRoute(),
             DefiDetailRoute(index: 1),
             // MarketRoute(isSwap: false,index: 0),
-            MarketRoute(),
-            BrowserRoute(),
-            ChatRoute(),
-            DefiNavigationRoute(),
-            ContactRoute(),
-            FeedbackRoute(),
-            DebitCardRoute(),
+            const MarketRoute(),
+            const BrowserRoute(),
+            const ChatRoute(),
+            const DefiNavigationRoute(),
+            const ContactRoute(),
+            const FeedbackRoute(),
+            const DebitCardRoute(),
             // const PriceAlertRoute(),
-            HelpCenterRoute(),
-            P2pMarketRoute(),
-            HistoryRoute(),
+            const HelpCenterRoute(),
+            const P2pMarketRoute(),
+            const HistoryRoute(),
+            const MyAccountsRoute(),
+            const AssetRoute(),
           ],
           //  transitionBuilder:_customTransitionBuilder ,
           builder: (context, child) {

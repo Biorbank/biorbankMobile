@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/price_alert/cubit/price_alert_cubit.dart';
 import 'package:biorbank/presentation/pages/price_alert/cubit/price_alert_state.dart';
+import 'package:biorbank/presentation/pages/price_alert/view/widget/create_new_price_alert_widget.dart';
 import 'package:biorbank/presentation/pages/price_alert/view/widget/price_alert_list_tile_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
@@ -75,12 +76,23 @@ class PriceAlertScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                padding: EdgeInsets.only(
+                  left: 24.w,
+                  right: 24.w,
+                  top: 16.h,
+                  bottom: 24.h,
+                ),
                 color: Theme.of(context).colorScheme.onSurface,
                 child: CommonButton(
                   name: "Add new price alert",
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      backgroundColor: Theme.of(context).colorScheme.onSurface,
+                      context: context,
+                      builder: (context) => const CreateNewPriceAlertWidget(),
+                    );
+                  },
                 ),
               ),
             ],

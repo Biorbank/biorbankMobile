@@ -1,5 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
+import 'package:biorbank/presentation/pages/debit_card/view/widget/common_filter_widget.dart';
+import 'package:biorbank/presentation/pages/history/view/widget/filter_bottom_sheet.dart';
+import 'package:biorbank/presentation/pages/history/view/widget/time_frame_calender_view.dart';
+import 'package:biorbank/presentation/pages/history/view/widget/type_bottom_sheet.dart';
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
@@ -101,49 +106,140 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CommonDropdownWidget(
-                      labelText: "Type",
-                      borderRadius: 26,
-                      backGroundColor: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.12),
-                      items: [],
-                      textStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface),
-                      fontColor: Theme.of(context).colorScheme.onSurface,
-                      arrowColor: Theme.of(context).colorScheme.onSurface,
-                      onChanged: (p0) {},
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          context: context,
+                          builder: (context) => const TypeBottomSheet(),
+                        );
+                      },
+                      child: Container(
+                        height: 45.h,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(
+                            26.0,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            AppConstant.commonText('Type',
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400),
+                            width(15.h),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 6),
+                              child: Transform.rotate(
+                                angle: 0,
+                                child: Image.asset(
+                                  Assets.imagesChevronDown,
+                                  height: 18,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                     width(12),
-                    CommonDropdownWidget(
-                      labelText: "Timeframe",
-                      borderRadius: 26,
-                      backGroundColor: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.12),
-                      items: [],
-                      textStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface),
-                      fontColor: Theme.of(context).colorScheme.onSurface,
-                      arrowColor: Theme.of(context).colorScheme.onSurface,
-                      onChanged: (p0) {},
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          context: context,
+                          builder: (context) => const TimeFrameCalenderView(),
+                        );
+                      },
+                      child: Container(
+                        height: 45.h,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(
+                            26.0,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            AppConstant.commonText('Timeframe',
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400),
+                            width(15.h),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 6),
+                              child: Transform.rotate(
+                                angle: 0,
+                                child: Image.asset(
+                                  Assets.imagesChevronDown,
+                                  height: 18,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                     width(12),
-                    CommonDropdownWidget(
-                      labelText: "Min value",
-                      borderRadius: 26,
-                      backGroundColor: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.12),
-                      items: [],
-                      textStyle: TextStyle(
-                          color: Theme.of(context).colorScheme.onSurface),
-                      fontColor: Theme.of(context).colorScheme.onSurface,
-                      arrowColor: Theme.of(context).colorScheme.onSurface,
-                      onChanged: (p0) {},
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          context: context,
+                          builder: (context) => const FilterBottomSheet(),
+                        );
+                      },
+                      child: Container(
+                        height: 45.h,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(
+                            26.0,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            AppConstant.commonText('Filter',
+                                color: Theme.of(context).colorScheme.onSurface,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400),
+                            width(15.h),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 6),
+                              child: Transform.rotate(
+                                angle: 0,
+                                child: Image.asset(
+                                  Assets.imagesFilterLine,
+                                  height: 18,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ],
                 ),

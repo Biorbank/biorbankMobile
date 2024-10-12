@@ -6,7 +6,9 @@ import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_time_period_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/chart_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/share_detail_tab_widget.dart';
+import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
@@ -32,13 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    CryptoDBRepositoryImpl db = context.watch<CryptoDBRepositoryImpl>();
 
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = context.read<HomeCubit>();
 
-        if (state is TradeOptionChnageState) {
+        if (state is TradeOptionChangeState) {
           cubit.selectedOption = state.value;
         } else if (state is ChartTimePeriodState) {
           cubit.selectedChartTimePeriod = state.value;
@@ -70,16 +72,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             height(10.h),
                             Visibility(
                               visible: cubit.selectedOption == null,
-                              child: BlocBuilder<CryptoDBRepositoryImpl,
-                                  CryptoDBRepositoryState>(
-                                builder: (context, state) {
-                                  return CommonBalanceWidget(
-                                    amount:
-                                        '\$ ${db.state.totalPrice.toStringAsFixed(4)}',
-                                    currentRate: 'CA \$0.00 (0.00%)',
-                                    isShowBalanceWidget: false,
-                                  );
-                                },
+                              child: CommonBalanceWidget(
+                                amount:
+                                    '\$ ${db.state.totalPrice.toStringAsFixed(4)}',
+                                currentRate: 'CA \$0.00 (0.00%)',
+                                isShowBalanceWidget: false,
                               ),
                             ),
                           ],
@@ -111,6 +108,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       CommonTradeActionWidget(
                         colorSelect: true,
                         onTap: (index) {
+                          if (index == 0) {
+                            final cubit = context.read<MarketCubit>();
+                            cubit.selectedTabIndex = 2;
+                            AutoTabsRouter.of(context).setActiveIndex(1);
+                            Global.controller.hideDrawer();
+                            Global.scaffoldKey.currentState?.closeDrawer();
+                            return;
+                          }
                           cubit.onTapeTradeActionOption(
                               value: cubit.tradeOptions[index]['type']);
                         },

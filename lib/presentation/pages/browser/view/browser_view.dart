@@ -96,23 +96,19 @@ class BrowserScreen extends StatelessWidget {
                         const BrowserCardWidget(
                           data: [
                             {
-                              'image_url':
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1esj_tH6RZ7q2lXj-LLqfwutnmFVPdZsyOg&s',
+                              'image_url': 'assets/logos/Swell.png',
                               'name': 'Swell'
                             },
                             {
-                              'image_url':
-                                  'https://s2.coinmarketcap.com/static/img/coins/200x200/7278.png',
+                              'image_url': 'assets/logos/Compound.png',
+                              'name': 'Compound'
+                            },
+                            {
+                              'image_url': 'assets/logos/AAVE.png',
                               'name': 'AAVE'
                             },
                             {
-                              'image_url':
-                                  'https://s2.coinmarketcap.com/static/img/coins/200x200/7278.png',
-                              'name': 'AAVE'
-                            },
-                            {
-                              'image_url':
-                                  'https://s2.coinmarketcap.com/static/img/coins/200x200/8085.png',
+                              'image_url': 'assets/logos/Lido Stake.png',
                               'name': 'Lido Stake'
                             },
                           ],
@@ -124,23 +120,19 @@ class BrowserScreen extends StatelessWidget {
                         BrowserCardWidget(
                           data: const [
                             {
-                              'image_url':
-                                  'https://moralis.io/wp-content/uploads/web3wiki/407-defillama/637aeb61cd02c50fc4980893_s1dwgAti0YrSLrnfeP0GNuzkmCR8LOEywkq07NOhriY.jpeg',
+                              'image_url': 'assets/logos/DefiLlama.png',
                               'name': 'DefiLlama'
                             },
                             {
-                              'image_url':
-                                  'https://seeklogo.com/images/O/opensea-logo-7DE9D85D62-seeklogo.com.png',
+                              'image_url': 'assets/logos/Opensea.png',
                               'name': 'OpenSea'
                             },
                             {
-                              'image_url':
-                                  'https://s2.coinmarketcap.com/static/img/coins/200x200/7278.png',
-                              'name': 'AAVE'
+                              'image_url': 'assets/logos/Cointelegraph.png',
+                              'name': 'Cointelegraph'
                             },
                             {
-                              'image_url':
-                                  'https://pbs.twimg.com/profile_images/1798097577725841408/RapNUw2e_400x400.jpg',
+                              'image_url': 'assets/logos/MagicEden.png',
                               'name': 'MagicEden'
                             },
                           ],
