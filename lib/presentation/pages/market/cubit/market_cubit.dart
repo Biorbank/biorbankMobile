@@ -78,6 +78,27 @@ class MarketCubit extends Cubit<MarketState> {
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMG-wLarm17FjreEJHhGg_xzNT6JJa2VvbSbAJ34prN5p-nQRSxSKzMhQHiAuBHZyAji0&usqp=CAU'),
   ];
 
+  List<CurrencyModel> currencyListBorrow = [
+    CurrencyModel(
+        name: 'USDT',
+        url:
+        'https://static-00.iconduck.com/assets.00/tether-cryptocurrency-icon-2048x2048-dp13oydi.png'),
+    CurrencyModel(
+        name: 'BTC',
+        url:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
+  ];
+  List<CurrencyModel> receiveCurrencyListBorrow = [
+    CurrencyModel(
+        name: 'USDT',
+        url:
+        'https://static-00.iconduck.com/assets.00/tether-cryptocurrency-icon-2048x2048-dp13oydi.png'),
+    CurrencyModel(
+        name: 'BTC',
+        url:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
+  ];
+
   void onSelectCurrency({required CurrencyModel? currency}) {
     emit(CurrncySelectedState(currency: currency));
   }

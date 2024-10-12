@@ -24,31 +24,27 @@ class LoanConfirmationDialog extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                   height(6.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Spacer(),
-                      AppConstant.commonText('Confirm',
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.shadow),
-                      const Spacer(),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                            alignment: Alignment.centerRight,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(width: 50), // Spacer to align the text in the center
+                          AppConstant.commonText(
+                            'Confirm',
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.shadow,
+                          ),
+                          IconButton(
                             onPressed: () {
                               Navigator.pop(context);
                             },
                             icon: Icon(
                               Icons.close,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
-                            )),
-                      )
-                    ],
-                  ),
+                              color: Theme.of(context).colorScheme.onSecondaryContainer,
+                            ),
+                          ),
+                        ],
+                      ),
                   height(10.h),
                   AppConstant.commonText('Borrow',
                       fontSize: 14.sp,

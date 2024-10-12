@@ -40,57 +40,47 @@ class CurrencyConvertWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: const Color(0xFFF9FAFB)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: CommonTextfield(
-                          title: '',
-                          verticalPading: 0,
-                          inputType: TextInputType.number,
-                          focusBorderColor: AppColors.transparent,
-                          fillColor: const Color(0xFFF9FAFB),
-                        ),
-                      ),
-                      CommonDropdownWidget(
-                        labelText: '',
-                        value: selectedCurrency,
-                        borderRadius: 8,
-                        height: 40.h,
-                        items: cubit.currencyList
-                            .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Row(
-                                  children: [
-                                    CachedNetworkImage(
-                                      imageUrl: e.url,
-                                      height: 16.h,
-                                      width: 16.w,
-                                      placeholder: (context, url) =>
-                                          const SizedBox.shrink(),
-                                    ),
-                                    width(8.w),
-                                    AppConstant.commonText(e.name,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .shadow,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ],
-                                )))
-                            .toList(),
-                        backGroundColor:
-                            Theme.of(context).colorScheme.onSurface,
-                        onChanged: (value) {
-                          cubit.onSelectCurrency(currency: value);
-                        },
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppConstant.commonText('0.0641651',
+                        color: Theme.of(context).colorScheme.outline),
+                    CommonDropdownWidget(
+                      labelText: '',
+                      value: selectedCurrency,
+                      borderRadius: 8,
+                      height: 40.h,
+                      items: cubit.currencyList
+                          .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                imageUrl: e.url,
+                                height: 16.h,
+                                width: 16.w,
+                                placeholder: (context, url) =>
+                                const SizedBox.shrink(),
+                              ),
+                              width(8.w),
+                              AppConstant.commonText(e.name,
+                                  color:
+                                  Theme.of(context).colorScheme.shadow,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w600),
+                            ],
+                          )))
+                          .toList(),
+                      backGroundColor: Theme.of(context).colorScheme.onSurface,
+                      onChanged: (value) {
+                        cubit.onSelectCurrency(currency: value);
+                      },
+                    ),
+                  ],
                 ),
               ),
               height(15.h),
@@ -152,7 +142,7 @@ class CurrencyConvertWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    AppConstant.commonText('0.0541651',
+                    AppConstant.commonText('0.0641651',
                         color: Theme.of(context).colorScheme.outline),
                     CommonDropdownWidget(
                       labelText: '',
