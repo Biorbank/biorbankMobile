@@ -20,6 +20,8 @@ class _TypeBottomSheetState extends State<TypeBottomSheet> {
   Widget build(BuildContext context) {
     final cubit = context.read<HistoryCubit>();
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         height(20),
         Padding(
@@ -47,46 +49,41 @@ class _TypeBottomSheetState extends State<TypeBottomSheet> {
           ),
         ),
         height(10),
-        Expanded(
-          child: ListView.builder(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            itemCount: cubit.transactionTypes.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                dense: true,
-                visualDensity: const VisualDensity(vertical: -4),
-                title: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: AppConstant.commonText(
-                    cubit.transactionTypes[index],
-                    fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.shadow,
-                    fontSize: 14,
-                  ),
+        ListView.builder(
+          shrinkWrap: true,
+          padding: EdgeInsets.zero,
+          itemCount: cubit.transactionTypes.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+              dense: true,
+              visualDensity: const VisualDensity(vertical: -4),
+              title: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: AppConstant.commonText(
+                  cubit.transactionTypes[index],
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).colorScheme.shadow,
+                  fontSize: 14,
                 ),
-                trailing: Radio<String>(
-                  value: cubit.transactionTypes[index],
-                  groupValue: cubit.selectedValue,
-                  fillColor: WidgetStatePropertyAll(
-                    cubit.selectedValue == cubit.transactionTypes[index]
-                        ? Theme.of(context).primaryColor
-                        : Theme.of(context)
-                            .colorScheme
-                            .tertiary
-                            .withOpacity(0.5),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      cubit.selectedValue = value ?? "Send";
-                    });
-                  },
+              ),
+              trailing: Radio<String>(
+                value: cubit.transactionTypes[index],
+                groupValue: cubit.selectedValue,
+                fillColor: WidgetStatePropertyAll(
+                  cubit.selectedValue == cubit.transactionTypes[index]
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
                 ),
-              );
-            },
-          ),
+                onChanged: (value) {
+                  setState(() {
+                    cubit.selectedValue = value ?? "Send";
+                  });
+                },
+              ),
+            );
+          },
         ),
       ],
     );

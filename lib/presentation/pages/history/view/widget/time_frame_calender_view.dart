@@ -29,6 +29,8 @@ class _TimeFrameCalenderViewState extends State<TimeFrameCalenderView> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           height(15.h),
           Row(
@@ -47,125 +49,119 @@ class _TimeFrameCalenderViewState extends State<TimeFrameCalenderView> {
               ),
             ],
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TableCalendar(
-                    focusedDay: focusedDay,
-                    firstDay: DateTime(1900),
-                    lastDay: DateTime(5000),
-                    startingDayOfWeek: StartingDayOfWeek.monday,
-                    calendarStyle: CalendarStyle(
-                      cellAlignment: Alignment.center,
-                      markersAlignment: Alignment.center,
-                      rangeHighlightColor: Theme.of(context)
-                          .colorScheme
-                          .onSecondaryContainer
-                          .withOpacity(0.15),
-                    ),
-                    headerStyle: HeaderStyle(
-                      titleTextStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.shadow,
-                        fontSize: 18.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      titleCentered: true,
-                      formatButtonVisible: false,
-                      leftChevronIcon: Icon(
-                        Icons.chevron_left,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      ),
-                      rightChevronIcon: Icon(
-                        Icons.chevron_right,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      ),
-                    ),
-                    daysOfWeekStyle: DaysOfWeekStyle(
-                      weekendStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.shadow,
-                      ),
-                      weekdayStyle: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.shadow,
-                      ),
-                    ),
-                    rowHeight: 45.h,
-                    rangeStartDay: rangeStart,
-                    rangeEndDay: rangeEnd,
-                    rangeSelectionMode: rangeSelectionMode,
-                    onDaySelected: (selectedDay, focusedDay) {
-                      if (!isSameDay(this.selectedDay, selectedDay)) {
-                        setState(() {
-                          this.selectedDay = selectedDay;
-                          this.focusedDay = focusedDay;
-                          rangeStart = null;
-                          rangeEnd = null;
-                          rangeSelectionMode = RangeSelectionMode.toggledOff;
-                        });
-                      }
-                    },
-                    availableGestures: AvailableGestures.horizontalSwipe,
-                    onRangeSelected: (start, end, focusedDay) {
-                      setState(() {
-                        selectedDay = null;
-                        this.focusedDay = focusedDay;
-                        rangeStart = start;
-                        rangeEnd = end;
-                        rangeSelectionMode = RangeSelectionMode.toggledOn;
-                      });
-                    },
-                    calendarBuilders: CalendarBuilders(
-                      todayBuilder: (context, day, focusedDay) =>
-                          todayBuilder(date: "${day.day}"),
-                      defaultBuilder: (context, day, focusedDay) =>
-                          defaultBuilder(date: "${day.day}"),
-                      rangeStartBuilder: (context, day, focusedDay) =>
-                          rangeSelectBuilder(date: "${day.day}"),
-                      rangeEndBuilder: (context, day, focusedDay) =>
-                          rangeSelectBuilder(date: "${day.day}"),
-                      withinRangeBuilder: (context, day, focusedDay) =>
-                          defaultBuilder(date: "${day.day}"),
-                    ),
+          Column(
+            children: [
+              TableCalendar(
+                focusedDay: focusedDay,
+                firstDay: DateTime(1900),
+                lastDay: DateTime(5000),
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                calendarStyle: CalendarStyle(
+                  cellAlignment: Alignment.center,
+                  markersAlignment: Alignment.center,
+                  rangeHighlightColor: Theme.of(context)
+                      .colorScheme
+                      .onSecondaryContainer
+                      .withOpacity(0.15),
+                ),
+                headerStyle: HeaderStyle(
+                  titleTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.shadow,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: startEndDateView(
-                            date: DateFormat('MMM d, yyyy').format(
-                              rangeStart ?? DateTime.now(),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Container(
-                            height: 1.5.h,
-                            width: 10.w,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer
-                                .withOpacity(0.5),
-                          ),
-                        ),
-                        Expanded(
-                          child: startEndDateView(
-                            date: DateFormat('MMM d, yyyy').format(
-                              rangeEnd ?? DateTime.now(),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  titleCentered: true,
+                  formatButtonVisible: false,
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
                   ),
-                ],
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
+                ),
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekendStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.shadow,
+                  ),
+                  weekdayStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.shadow,
+                  ),
+                ),
+                rowHeight: 45.h,
+                rangeStartDay: rangeStart,
+                rangeEndDay: rangeEnd,
+                rangeSelectionMode: rangeSelectionMode,
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(this.selectedDay, selectedDay)) {
+                    setState(() {
+                      this.selectedDay = selectedDay;
+                      this.focusedDay = focusedDay;
+                      rangeStart = null;
+                      rangeEnd = null;
+                      rangeSelectionMode = RangeSelectionMode.toggledOff;
+                    });
+                  }
+                },
+                availableGestures: AvailableGestures.horizontalSwipe,
+                onRangeSelected: (start, end, focusedDay) {
+                  setState(() {
+                    selectedDay = null;
+                    this.focusedDay = focusedDay;
+                    rangeStart = start;
+                    rangeEnd = end;
+                    rangeSelectionMode = RangeSelectionMode.toggledOn;
+                  });
+                },
+                calendarBuilders: CalendarBuilders(
+                  todayBuilder: (context, day, focusedDay) =>
+                      todayBuilder(date: "${day.day}"),
+                  defaultBuilder: (context, day, focusedDay) =>
+                      defaultBuilder(date: "${day.day}"),
+                  rangeStartBuilder: (context, day, focusedDay) =>
+                      rangeSelectBuilder(date: "${day.day}"),
+                  rangeEndBuilder: (context, day, focusedDay) =>
+                      rangeSelectBuilder(date: "${day.day}"),
+                  withinRangeBuilder: (context, day, focusedDay) =>
+                      defaultBuilder(date: "${day.day}"),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: startEndDateView(
+                        date: DateFormat('MMM d, yyyy').format(
+                          rangeStart ?? DateTime.now(),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        height: 1.5.h,
+                        width: 10.w,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSecondaryContainer
+                            .withOpacity(0.5),
+                      ),
+                    ),
+                    Expanded(
+                      child: startEndDateView(
+                        date: DateFormat('MMM d, yyyy').format(
+                          rangeEnd ?? DateTime.now(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
           height(10.h),
           Padding(

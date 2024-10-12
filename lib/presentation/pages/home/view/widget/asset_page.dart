@@ -121,8 +121,6 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
                             InkWell(
                               onTap: () {
                                 showModalBottomSheet(
-                                  isScrollControlled: false,
-                                  useSafeArea: true,
                                   useRootNavigator: true,
                                   shape: OutlineInputBorder(
                                     borderSide: BorderSide.none,
@@ -137,16 +135,15 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
                                   builder: (context) {
                                     return StatefulBuilder(builder:
                                         (context, StateSetter mySetState) {
-                                      return Container(
-                                        height: AppHelper
-                                                    .walletService.walletCount *
-                                                60 +
-                                            100,
+                                      return Padding(
                                         padding: EdgeInsets.symmetric(
                                           horizontal: 16.w,
                                           vertical: 8.h,
                                         ),
                                         child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Row(
                                               mainAxisAlignment:
