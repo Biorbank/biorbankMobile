@@ -108,36 +108,6 @@ class _SwapTabWidgetState extends State<SwapTabWidget> {
                 ),
               ),
               height(14.h),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AppConstant.commonText('Pay With',
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.shadow),
-                    Text.rich(TextSpan(
-                        text: 'Balance : ',
-                        style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer),
-                        children: [
-                          TextSpan(
-                              text: '0.0174470725',
-                              style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondaryContainer))
-                        ]))
-                  ],
-                ),
-              ),
-              height(14.h),
               const CurrencyConvertWidget(),
               height(10.h),
               const RangeSliderWidget(),

@@ -48,7 +48,7 @@ class _MarketTabbarState extends State<MarketTabbar> {
                     length: 3,
                     onTap: (index) {},
                     tabController: widget.tabController,
-                    tabList: const ['Overview', 'Coins', 'Swap'],
+                    tabList: const ['Coins', 'Swap', 'Overview'],
                   ),
                 ),
                 cubit.selectedTabIndex == 1
@@ -83,9 +83,9 @@ class _MarketTabbarState extends State<MarketTabbar> {
               child: TabBarView(
                 controller: widget.tabController,
                 children: const [
-                  OverviewWidget(),
                   CoinsTabWidget(),
-                  SwapTabWidget()
+                  SwapTabWidget(),
+                  OverviewWidget(),
                 ],
               ),
             )

@@ -10,6 +10,7 @@ import 'package:biorbank/presentation/pages/nft_holding/view/widget/price_histor
 import 'package:biorbank/presentation/pages/nft_holding/view/widget/sell_dialog.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart' hide CarouselController;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,10 +53,23 @@ class NftHoldingScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  height(35.h),
+                  height(45.h),
                   CommonSearchAppbar(
+                    drawerReplace: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        Assets.imagesBackArrow,
+                        height: 22,
+                        width: 22,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
                     hintText: 'ID/USDT',
                     textController: TextEditingController(),
+                    onTapTextField: () {
+                      context.router.push(const CommonSearchRoute());
+                      //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                    },
                   ),
                 ],
               ),
@@ -74,7 +88,8 @@ class NftHoldingScreen extends StatelessWidget {
                         Stack(
                           children: [
                             Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 16),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
                               padding: const EdgeInsets.only(
                                   left: 8.0, right: 8.0, bottom: 8.0),
                               decoration: BoxDecoration(
@@ -89,21 +104,7 @@ class NftHoldingScreen extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: IconButton(
-                                        alignment: Alignment.centerRight,
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(
-                                          Icons.close,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSecondaryContainer,
-                                        )),
-                                  ),
-                                  height(8.0),
+                                  height(16.0),
 
                                   /// Carousel image slider
                                   CarouselImageWidget(
@@ -155,10 +156,12 @@ class NftHoldingScreen extends StatelessWidget {
                                   child: CarouselControl(
                                     onPressed: () =>
                                         carouselController.nextPage(),
-                                    child: Icon(Icons.arrow_forward_ios_outlined,
+                                    child: Icon(
+                                        Icons.arrow_forward_ios_outlined,
                                         size: 18,
-                                        color:
-                                            Theme.of(context).colorScheme.shadow),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .shadow),
                                   ),
                                 ),
                               ),
@@ -205,7 +208,8 @@ class NftHoldingScreen extends StatelessWidget {
                               ),
                               height(6.h),
                               AppConstant.commonText('Transfer',
-                                  color: Theme.of(context).colorScheme.onPrimary,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500)
                             ],
@@ -217,7 +221,9 @@ class NftHoldingScreen extends StatelessWidget {
                             onTap: () {
                               showDialog(
                                 context: context,
-                                builder: (context) => const FillAmountDialog(isTransferAccess: false,),
+                                builder: (context) => const FillAmountDialog(
+                                  isTransferAccess: false,
+                                ),
                               );
                             },
                             name: 'Sell',

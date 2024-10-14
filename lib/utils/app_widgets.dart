@@ -4,18 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class AppConstant{
-
-  static Widget commonText(String text,{double? fontSize, Color? color, FontWeight? fontWeight,TextAlign? textAlign,int? maxLines,TextOverflow? textOverflow}){
-    return Text(text,
-    textAlign: textAlign,
-    maxLines: maxLines,
-    overflow: textOverflow,
-    style: TextStyle(
-      color: color,
-      fontSize: fontSize  ,
-      fontWeight: fontWeight??FontWeight.w400
-    ),);
+class AppConstant {
+  static Widget commonText(String text,
+      {double? fontSize,
+      Color? color,
+      FontWeight? fontWeight,
+      TextAlign? textAlign,
+      int? maxLines,
+      TextOverflow? textOverflow}) {
+    return Text(
+      text,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: textOverflow,
+      style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: fontWeight ?? FontWeight.w400),
+    );
   }
 
   static commonDivider({Color? color}) {
@@ -23,21 +29,25 @@ class AppConstant{
       height: 1.5,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color:color?? AppColors.grey.withOpacity(0.1),
+        color: color ?? AppColors.grey.withOpacity(0.1),
       ),
     );
   }
+
   static Widget commonAppIcon({double? height, double? width}) {
-    return Image.asset(Assets.imagesAppIcon,height:height?? 80.h, width:width?? 68.w,);
+    return Image.asset(
+      Assets.imagesAppIcon,
+      height: height ?? 80.h,
+      width: width ?? 68.w,
+    );
   }
-  
-  static showToast({required String msg}){
+
+  static showToast({required String msg}) {
     Fluttertoast.showToast(
         msg: msg,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 }

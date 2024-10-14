@@ -32,8 +32,8 @@ class CommonButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(16.r),
       onTap: onTap,
       child: Container(
-        height:height?? 50.h,
-        margin:margin ,
+        height: height ?? 50.h,
+        margin: margin,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
           color: buttonColor ?? Theme.of(context).colorScheme.onPrimary,
@@ -62,8 +62,12 @@ class CommonButton extends StatelessWidget {
                     ),
                   )
                 : const SizedBox.shrink(),
-            AppConstant.commonText(name ?? "",
-                fontSize:fontSize?? 16.sp, fontWeight:fontWeight?? FontWeight.w500, color: textColor)
+            AppConstant.commonText(
+              name ?? "",
+              fontSize: fontSize ?? 16.sp,
+              fontWeight: fontWeight ?? FontWeight.w500,
+              color: textColor,
+            )
           ],
         ),
       ),

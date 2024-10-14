@@ -46,13 +46,14 @@ class _CommonSearchViewState extends State<CommonSearchScreen>
               Row(
                 children: [
                   GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Image.asset(
-                        Assets.imagesBackArrow,
-                        height: 27.h,
-                      )),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Image.asset(
+                      Assets.imagesBackArrow,
+                      height: 27.h,
+                    ),
+                  ),
                   width(16.w),
                   Expanded(
                     child: CommonTextfield(

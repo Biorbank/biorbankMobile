@@ -85,6 +85,7 @@ class _TypeBottomSheetState extends State<TypeBottomSheet> {
             );
           },
         ),
+        height(20),
       ],
     );
   }
