@@ -81,7 +81,6 @@ class SendMoneyBottomSheet extends StatelessWidget {
         tileColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.07),
         dense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-        onTap: onTap,
         leading: Image.asset(
           img ?? "",
           height: 30,
@@ -94,11 +93,14 @@ class SendMoneyBottomSheet extends StatelessWidget {
             fontWeight: FontWeight.w400,
             fontSize: 13.sp,
             color: Theme.of(context).colorScheme.onSecondaryContainer),
-        trailing: Image.asset(
-          Assets.imagesEdit,
-          height: 20.h,
-          width: 20.w,
-          color: Theme.of(context).colorScheme.shadow,
+        trailing: InkWell(
+          onTap: onTap,
+          child: Image.asset(
+            Assets.imagesEdit,
+            height: 20.h,
+            width: 20.w,
+            color: Theme.of(context).colorScheme.shadow,
+          ),
         ),
       ),
     );

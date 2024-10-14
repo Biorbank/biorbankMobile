@@ -4,7 +4,6 @@ import 'package:biorbank/presentation/pages/deposit/view/deposit_view.dart';
 import 'package:biorbank/presentation/pages/pay_bills/view/pay_bills_view.dart';
 import 'package:biorbank/presentation/pages/send/view/send_currency_view.dart';
 import 'package:biorbank/utils/enum/home_page_action_enum.dart';
-import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

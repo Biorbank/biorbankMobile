@@ -1,8 +1,8 @@
+import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/pages/debit_card/cubit/debit_card_cubit.dart';
 import 'package:biorbank/presentation/pages/debit_card/view/widget/common_filter_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +11,8 @@ class BuyCardTab extends StatelessWidget {
   const BuyCardTab(
       {super.key,
       this.onTapSortByFilter,
-      this.onTapTypeFilter,this.onTapOnlineInStoreFilter,
+      this.onTapTypeFilter,
+      this.onTapOnlineInStoreFilter,
       required this.selectedSortByFilter,
       required this.selectedTypeFilter,
       required this.selectedOnlineInStoreFilter});
@@ -86,11 +87,11 @@ class BuyCardTab extends StatelessWidget {
                     border: Border.all(
                         color: Theme.of(context).colorScheme.onSecondaryFixed)),
                 child: cardDetailWidget(
-                    context: context,
-                    imageUrl:
-                        'https://d3i4yxtzktqr9n.cloudfront.net/uber-sites/f452c7aefd72a6f52b36705c8015464e.jpg',
-                    price: 'C\$15 - C\$500',
-                    title: 'Uber'),
+                  context: context,
+                  imageUrl: Assets.imagesCardUber,
+                  price: 'C\$15 - C\$500',
+                  title: 'Uber',
+                ),
               ),
             ),
           )
@@ -136,12 +137,11 @@ class BuyCardTab extends StatelessWidget {
           height(10.h),
           ClipRRect(
             borderRadius: BorderRadius.circular(10.r),
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
+            child: Image.asset(
+              imageUrl,
               height: 89.h,
               width: double.infinity,
               fit: BoxFit.cover,
-              placeholder: (context, url) => const SizedBox.shrink(),
             ),
           ),
           height(8.h),

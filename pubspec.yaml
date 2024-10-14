@@ -164,6 +164,7 @@ flutter:
     - assets/svgs/
     - assets/img/
     - assets/logos/
+    - assets/card/
     - assets/img/cryptoicon/
 flutter_native_splash:
   color: "#FFFFFF" # Background color

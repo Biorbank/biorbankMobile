@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
 import 'package:biorbank/presentation/pages/dashboard/view/widget/drawer_view.dart';
+import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
@@ -119,6 +120,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                       tabsRouter.setActiveIndex(4);
                       final stackRouter = tabsRouter
                           .innerRouterOf<StackRouter>(DefiNavigationRoute.name);
+                      context.read<HomeCubit>().tabIndex = 0;
+                      context
+                          .read<HomeCubit>()
+                          .onTapeTradeActionOption(value: null);
                       stackRouter?.popUntilRoot();
                     },
                     child: Container(

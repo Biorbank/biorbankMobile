@@ -48,8 +48,17 @@ class NFTDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  height(35.h),
+                  height(45.h),
                   CommonSearchAppbar(
+                    drawerReplace: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Image.asset(
+                        Assets.imagesBackArrow,
+                        height: 22,
+                        width: 22,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
                     hintText: 'ID/USDT',
                     textController: TextEditingController(),
                     onTapTextField: () {
@@ -92,21 +101,7 @@ class NFTDetailsPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: IconButton(
-                                        alignment: Alignment.centerRight,
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        icon: Icon(
-                                          Icons.close,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSecondaryContainer,
-                                        )),
-                                  ),
-                                  height(8.0),
+                                  height(16.0),
 
                                   /// Carousel image slider
                                   CarouselImageWidget(

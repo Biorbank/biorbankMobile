@@ -140,4 +140,6 @@ class Assets {
   static const String svgsSetting = 'assets/svgs/setting.svg';
   static const String svgsSplashIcon = 'assets/svgs/splash_icon.svg';
   static const String imagesPlusCircle = 'assets/images/plus_circle.png';
+  //card
+  static const String imagesCardUber = 'assets/card/uber.png';
 }

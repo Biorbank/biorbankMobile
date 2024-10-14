@@ -97,32 +97,31 @@ class FilterBottomSheet extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Row(
-              children: [
-                Expanded(
-                  child: CommonOutlinedButton(
-                      height: 45,
-                      borderColor: Theme.of(context).colorScheme.primary,
-                      textColor: Theme.of(context).colorScheme.primary,
-                      onTap: () {
-                        cubit.minimumPerTransCtrl.clear();
-                      },
-                      title: "Reset"),
-                ),
-                width(8),
-                Expanded(
-                  child: CommonButton(
+          height(8),
+          Row(
+            children: [
+              Expanded(
+                child: CommonOutlinedButton(
+                    height: 45,
+                    borderColor: Theme.of(context).colorScheme.primary,
+                    textColor: Theme.of(context).colorScheme.primary,
                     onTap: () {
-                      Navigator.pop(context);
+                      cubit.minimumPerTransCtrl.clear();
                     },
-                    name: "Confirm",
-                  ),
+                    title: "Reset"),
+              ),
+              width(8),
+              Expanded(
+                child: CommonButton(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  name: "Confirm",
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+          height(20.h),
         ],
       ),
     );

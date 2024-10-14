@@ -194,7 +194,7 @@ class _TimeFrameCalenderViewState extends State<TimeFrameCalenderView> {
               ],
             ),
           ),
-          height(4.h),
+          height(20.h),
         ],
       ),
     );
