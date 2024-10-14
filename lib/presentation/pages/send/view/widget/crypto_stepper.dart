@@ -246,137 +246,163 @@ class _CryptoStepperState extends State<CryptoStepper> {
                     Step(
                       state: StepState.complete,
                       isActive: cubit.activeStepIndex >= 2,
+                      stepStyle: StepStyle(
+                        connectorColor:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                        color: cubit.activeStepIndex >= 1
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : const Color(0xFFEBEBEB),
+                      ),
                       title: AppConstant.commonText('Withdraw Amount',
                           fontWeight: FontWeight.w500,
                           fontSize: 14.sp,
                           color: Theme.of(context).colorScheme.shadow),
-                      content: const SizedBox.shrink(),
+                      content: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppConstant.commonText('Withdrawal amount',
+                                  fontSize: 12.sp,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AppConstant.commonText('limit: 3.000 USDT',
+                                      fontSize: 12.sp,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer),
+                                  width(8.w),
+                                  Image.asset(
+                                    Assets.imagesInfo,
+                                    height: 12.h,
+                                    width: 12.w,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSecondaryContainer,
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          height(12.h),
+                          CommonTextfield(
+                            title: '',
+                            hintText: 'Minimum withdrawal amount: 1',
+                            suffixWidget: Text.rich(TextSpan(
+                                text: 'ALL',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                                children: [
+                                  WidgetSpan(child: width(8.w)),
+                                  TextSpan(
+                                      text: 'USDT',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .shadow))
+                                ])),
+                            controller: cubit.withdrawAmountController,
+                          ),
+                          height(6.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text.rich(TextSpan(
+                                  text: 'Available',
+                                  style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSecondaryContainer),
+                                  children: [
+                                    WidgetSpan(child: width(8.w)),
+                                    TextSpan(
+                                        text: '3.000.000 USDT',
+                                        style: TextStyle(
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .shadow))
+                                  ])),
+                              Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(12.r),
+                                    border: Border.all(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer)),
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      Assets.imagesSwapArrow,
+                                      height: 12.h,
+                                      width: 12.w,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimary,
+                                    ),
+                                    width(6.w),
+                                    AppConstant.commonText('Transfer',
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          height(14.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppConstant.commonText('Transaction fees',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer),
+                              AppConstant.commonText('3.0638816 USDT',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.shadow),
+                            ],
+                          ),
+                          height(10.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppConstant.commonText('Actual amount received',
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer),
+                              AppConstant.commonText('-- USDT',
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).colorScheme.shadow),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppConstant.commonText('Withdrawal amount',
-                      fontSize: 12.sp,
-                      color:
-                          Theme.of(context).colorScheme.onSecondaryContainer),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      AppConstant.commonText('Withdrawal limit: 3.000.000 USDT',
-                          fontSize: 12.sp,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer),
-                      width(8.w),
-                      Image.asset(
-                        Assets.imagesInfo,
-                        height: 12.h,
-                        width: 12.w,
-                        color:
-                            Theme.of(context).colorScheme.onSecondaryContainer,
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              height(12.h),
-              CommonTextfield(
-                title: '',
-                hintText: 'Minimum withdrawal amount: 1',
-                suffixWidget: Text.rich(TextSpan(
-                    text: 'ALL',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.onPrimary),
-                    children: [
-                      WidgetSpan(child: width(8.w)),
-                      TextSpan(
-                          text: 'USDT',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.shadow))
-                    ])),
-                controller: cubit.withdrawAmountController,
-              ),
-              height(6.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text.rich(TextSpan(
-                      text: 'Available',
-                      style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer),
-                      children: [
-                        WidgetSpan(child: width(8.w)),
-                        TextSpan(
-                            text: '3.000.000 USDT',
-                            style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).colorScheme.shadow))
-                      ])),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12.r),
-                        border: Border.all(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onPrimaryContainer)),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          Assets.imagesSwapArrow,
-                          height: 12.h,
-                          width: 12.w,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                        ),
-                        width(6.w),
-                        AppConstant.commonText('Transfer',
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).colorScheme.onPrimary),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              height(14.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppConstant.commonText('Transaction fees',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color:
-                          Theme.of(context).colorScheme.onSecondaryContainer),
-                  AppConstant.commonText('3.0638816 USDT',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.shadow),
-                ],
-              ),
-              height(10.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppConstant.commonText('Actual amount received',
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                      color:
-                          Theme.of(context).colorScheme.onSecondaryContainer),
-                  AppConstant.commonText('-- USDT',
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).colorScheme.shadow),
-                ],
-              ),
               height(20.h),
               CommonButton(
                 name: 'Withdraw',
