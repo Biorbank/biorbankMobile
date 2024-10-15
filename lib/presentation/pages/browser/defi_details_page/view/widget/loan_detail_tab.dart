@@ -19,7 +19,7 @@ class _LoanDetailTabState extends State<LoanDetailTab>
   late TabController tabController;
   @override
   void initState() {
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 2, vsync: this, initialIndex: widget.selectedIndex);
     tabController.addListener(() {
       context
           .read<DefiDetailCubit>()

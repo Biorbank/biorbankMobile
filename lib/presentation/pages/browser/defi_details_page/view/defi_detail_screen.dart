@@ -28,18 +28,19 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
   @override
   void initState() {
     final cubit = context.read<DefiDetailCubit>();
+    int currentSelection = widget.index;
     tabController = TabController(
-        length: 3, vsync: this, initialIndex: cubit.selectedTabIndex);
+        length: 3, vsync: this, initialIndex: currentSelection == 2 ? currentSelection : 0);
     tabController.addListener(() {
       cubit.onChangeTabIndex(index: tabController.index);
 
       if (tabController.index == 2 && cubit.selectedLoanTabIndex == 1) {
-        cubit.onChangeLoanTabIndex(index: 0);
+        cubit.onChangeLoanTabIndex(index: currentSelection == 2 ? 1 : 0);
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((t) {
-      cubit.onChangeTabIndex(index: cubit.selectedTabIndex);
-      cubit.onChangeLoanTabIndex(index: 0);
+      cubit.onChangeTabIndex(index: currentSelection == 2 ? 1 : cubit.selectedTabIndex);
+      cubit.onChangeLoanTabIndex(index: currentSelection == 2 ? 1 : 0);
     });
     super.initState();
   }

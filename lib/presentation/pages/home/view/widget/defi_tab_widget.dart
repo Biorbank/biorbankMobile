@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:biorbank/presentation/pages/defi/view/defi_view.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/common_add_account_widget.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/price_detail_widget.dart';
 import 'package:biorbank/utils/app_widgets.dart';
@@ -75,7 +76,17 @@ class DeFiTabWidget extends StatelessWidget {
               }
               return GestureDetector(
                 onTap: () {
-                  context.router.push(DefiDetailRoute(index: index + 1));
+                  switch(index) {
+                    case 0:
+                      context.router.push(StackingRoute());
+                      break;
+                    case 1:
+                      context.router.push(DefiDetailRoute(index: index + 1));
+                      break;
+                    case 2:
+                      context.router.push(DefiRoute());
+                      break;
+                  }
                   // AutoTabsRouter.of(context).setActiveIndex(6);
                 },
                 child: PriceDetailWidget(
