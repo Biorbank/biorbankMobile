@@ -10,9 +10,9 @@ final class ChangeTabBarIndexState extends MarketState {
   ChangeTabBarIndexState({required this.index});
 }
 
-final class OnChnageFilterState extends MarketState {
+final class OnChangeFilterState extends MarketState {
   final String filter;
-  OnChnageFilterState({required this.filter});
+  OnChangeFilterState({required this.filter});
 }
 
 final class OnChangeTimeState extends MarketState {
@@ -25,16 +25,18 @@ final class ChangeCoinsTabBarIndexState extends MarketState {
   ChangeCoinsTabBarIndexState({required this.index});
 }
 
-final class CurrncySelectedState extends MarketState {
-  final CurrencyModel? currency;
-  CurrncySelectedState({required this.currency});
+final class PayWithCurrencySelectedState extends MarketState {
+  final CryptoAssetRepositoryImpl currency;
+  PayWithCurrencySelectedState({required this.currency});
 }
-final class ReceiveCurrncySelectedState extends MarketState {
-  final CurrencyModel? currency;
-  ReceiveCurrncySelectedState({required this.currency});
+
+final class ReceiveCurrencySelectedState extends MarketState {
+  final CryptoAssetRepositoryImpl currency;
+  ReceiveCurrencySelectedState({required this.currency});
 }
+
 final class RangeSliderState extends MarketState {
-  final SfRangeValues ? value;
+  final SfRangeValues? value;
   RangeSliderState({required this.value, CurrencyModel? currency});
 }
 
@@ -53,8 +55,8 @@ final class TransactionStatusState extends MarketState {
   final int id;
   TransactionStatusState({required this.id});
 }
+
 final class SwapApprovalState extends MarketState {
   final bool isApproval;
   SwapApprovalState({required this.isApproval});
 }
-
