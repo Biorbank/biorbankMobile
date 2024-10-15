@@ -79,7 +79,7 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
                 Global.controller.hideDrawer();
                 Global.scaffoldKey.currentState?.closeDrawer();
                 Future.delayed(const Duration(milliseconds: 200), () {
-                  AutoTabsRouter.of(context).setActiveIndex(11);
+                  AutoTabsRouter.of(context).setActiveIndex(12);
                 });
               },
               child: PriceDetailWidget(
