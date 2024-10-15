@@ -69,383 +69,400 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
     cubit.onChangeMyActTokenData(value: accountTokenModels);
   }
 
+  String _getWalletName() {
+    final cubit = context.read<HomeCubit>();
+
+    if (cubit.selectedWallet == -1) {
+      return "All Accounts";
+    } else if (cubit.selectedWallet >= 0 &&
+        cubit.selectedWallet < AppHelper.walletService.wallets.length) {
+      return AppHelper.walletService.wallets[cubit.selectedWallet].name;
+    } else {
+      // Handle unexpected cases, maybe return an empty string or a default message
+      return "Unknown Wallet";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cubit = context.watch<HomeCubit>();
+    final cubit = context.read<HomeCubit>();
 
     return BlocConsumer<CryptoDBRepositoryImpl, CryptoDBRepositoryState>(
       listener: (context, state) {
         updateState();
       },
       builder: (context, state) {
-        return Stack(
-          children: [
-            CommonBlueContainer(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    height(40.h),
-                    CommonSearchAppbar(
-                      hintText: 'ID/USDT',
-                      textController: TextEditingController(),
-                      onTapTextField: () {
-                        context.router.push(const CommonSearchRoute());
-                        //  Navigator.pushNamed(context, Routes.serachViewRoute);
-                      },
-                    ),
-                    height(10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildArrow(
-                            context: context, icon: Assets.imagesBackArrow),
-                        const Spacer(),
-                        Column(
-                          children: [
-                            AppConstant.commonText(
-                              "Balance",
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSecondaryContainer,
-                            ),
-                            AppConstant.commonText(
-                              "\$75,630.90",
-                              fontSize: 32,
-                              fontWeight: FontWeight.w600,
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                showModalBottomSheet(
-                                  useRootNavigator: true,
-                                  shape: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(12.r),
-                                      topRight: Radius.circular(12.r),
-                                    ),
-                                  ),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.onSurface,
-                                  context: context,
-                                  builder: (context) {
-                                    return StatefulBuilder(builder:
-                                        (context, StateSetter mySetState) {
-                                      return Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 16.w,
-                                          vertical: 8.h,
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                AppConstant.commonText(
-                                                  "Select Account",
-                                                  fontSize: 14.sp,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .shadow,
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: IconButton(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.close,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onSecondaryContainer,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                            ListTile(
-                                              onTap: () {
-                                                mySetState(() {
-                                                  cubit.selectedWallet = -1;
-                                                });
-                                                Future.delayed(
-                                                    const Duration(
-                                                        milliseconds: 300), () {
-                                                  Navigator.pop(context);
-                                                });
-                                              },
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 24,
-                                                      vertical: 0),
-                                              dense: true,
-                                              visualDensity:
-                                                  const VisualDensity(
-                                                      vertical: -4),
-                                              title: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 20),
-                                                child: AppConstant.commonText(
-                                                  "All Account",
-                                                  fontWeight: FontWeight.w500,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .shadow,
-                                                  fontSize: 20.sp,
-                                                ),
-                                              ),
-                                              trailing: Radio<int>(
-                                                value: -1,
-                                                groupValue:
-                                                    cubit.selectedWallet,
-                                                fillColor:
-                                                    WidgetStatePropertyAll(
-                                                  cubit.selectedWallet == -1
-                                                      ? Theme.of(context)
-                                                          .primaryColor
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .tertiary
-                                                          .withOpacity(0.5),
-                                                ),
-                                                onChanged: (value) {},
-                                              ),
-                                            ),
-                                            ListView.builder(
-                                              shrinkWrap: true,
-                                              padding: EdgeInsets.zero,
-                                              itemCount: AppHelper
-                                                  .walletService.wallets.length,
-                                              itemBuilder: (context, index) {
-                                                return ListTile(
-                                                  onTap: () {
-                                                    mySetState(() {
-                                                      cubit.selectedWallet =
-                                                          index;
-                                                    });
-                                                    Future.delayed(
-                                                        const Duration(
-                                                            milliseconds: 300),
-                                                        () {
-                                                      Navigator.pop(context);
-                                                    });
-                                                  },
-                                                  contentPadding:
-                                                      const EdgeInsets
-                                                          .symmetric(
-                                                          horizontal: 24,
-                                                          vertical: 0),
-                                                  dense: true,
-                                                  visualDensity:
-                                                      const VisualDensity(
-                                                          vertical: -4),
-                                                  title: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 20),
-                                                    child:
-                                                        AppConstant.commonText(
-                                                      AppHelper.walletService
-                                                          .wallets[index].name,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .shadow,
-                                                      fontSize: 20.sp,
-                                                    ),
-                                                  ),
-                                                  trailing: Radio<int>(
-                                                    value: index,
-                                                    groupValue:
-                                                        cubit.selectedWallet,
-                                                    fillColor:
-                                                        WidgetStatePropertyAll(
-                                                      cubit.selectedWallet ==
-                                                              index
-                                                          ? Theme.of(context)
-                                                              .primaryColor
-                                                          : Theme.of(context)
-                                                              .colorScheme
-                                                              .tertiary
-                                                              .withOpacity(0.5),
-                                                    ),
-                                                    onChanged: (value) {
-                                                      if (value != null) {}
-                                                    },
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                            height(20.h),
-                                          ],
-                                        ),
-                                      );
-                                    });
-                                  },
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  AppConstant.commonText(
-                                    "All Account",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                  ),
-                                  width(4),
-                                  _buildArrow(
-                                    context: context,
-                                    icon: Assets.imagesArrowDownOutline,
-                                    height: 16.h,
-                                    width: 16.w,
-                                  )
-                                ],
+        return BlocBuilder<HomeCubit, HomeState>(
+            builder: (homeContext, homeState) {
+          return Stack(
+            children: [
+              CommonBlueContainer(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      height(40.h),
+                      CommonSearchAppbar(
+                        hintText: 'ID/USDT',
+                        textController: TextEditingController(),
+                        onTapTextField: () {
+                          context.router.push(const CommonSearchRoute());
+                          //  Navigator.pushNamed(context, Routes.serachViewRoute);
+                        },
+                      ),
+                      height(10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildArrow(
+                            context: context,
+                            icon: Assets.imagesBackArrow,
+                            onTap: () {
+                              int tempValue = cubit.selectedWallet + 1;
+                              tempValue = (tempValue +
+                                          AppHelper.walletService.walletCount +
+                                          1 -
+                                          1) %
+                                      (AppHelper.walletService.walletCount +
+                                          1) -
+                                  1;
+                              cubit.onChangeSelectedWallet(index: tempValue);
+                            },
+                          ),
+                          const Spacer(),
+                          Column(
+                            children: [
+                              AppConstant.commonText(
+                                "Balance",
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSecondaryContainer,
                               ),
-                            ),
-                          ],
-                        ),
-                        const Spacer(),
-                        _buildArrow(
-                            context: context, icon: Assets.imagesArrowRight),
-                      ],
-                    ),
-                    height(28),
-                  ],
+                              AppConstant.commonText(
+                                "\$75,630.90",
+                                fontSize: 32,
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  selectAccountDialog();
+                                },
+                                child: Row(
+                                  children: [
+                                    AppConstant.commonText(
+                                      _getWalletName(),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
+                                    ),
+                                    width(4),
+                                    _buildArrow(
+                                      context: context,
+                                      icon: Assets.imagesArrowDownOutline,
+                                      height: 16.h,
+                                      width: 16.w,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          _buildArrow(
+                            context: context,
+                            icon: Assets.imagesArrowRight,
+                            onTap: () {
+                              int tempValue = cubit.selectedWallet + 1;
+                              tempValue = (tempValue +
+                                          AppHelper.walletService.walletCount +
+                                          1 +
+                                          1) %
+                                      (AppHelper.walletService.walletCount +
+                                          1) -
+                                  1;
+                              cubit.onChangeSelectedWallet(index: tempValue);
+                            },
+                          ),
+                        ],
+                      ),
+                      height(28),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            DraggableScrollableSheet(
-              initialChildSize: 0.68,
-              minChildSize: 0.6,
-              maxChildSize: 0.68,
-              builder: (context, scrollController) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(24),
-                      topRight: Radius.circular(24),
-                    ),
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-                  child: Column(
-                    children: [
-                      height(10.h),
-                      Container(
-                        height: 4.h,
-                        width: 50.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer,
-                        ),
+              DraggableScrollableSheet(
+                initialChildSize: 0.68,
+                minChildSize: 0.6,
+                maxChildSize: 0.68,
+                builder: (context, scrollController) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
                       ),
-                      height(20.h),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Row(
-                          children: [
-                            AppConstant.commonText(
-                              "Tokens",
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Theme.of(context).colorScheme.shadow,
-                            ),
-                            width(4),
-                            AppConstant.commonText(
-                              "(${cubit.myActTokenData.length})",
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                              color: Theme.of(context).colorScheme.shadow,
-                            ),
-                            const Spacer(),
-                            InkWell(
-                              onTap: () {
-                                showImportTokenDialog();
-                              },
-                              child: Icon(
-                                Icons.add_circle_outline,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                    child: Column(
+                      children: [
+                        height(10.h),
+                        Container(
+                          height: 4.h,
+                          width: 50.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                        ),
+                        height(20.h),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              AppConstant.commonText(
+                                "Tokens",
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: Theme.of(context).colorScheme.shadow,
+                              ),
+                              width(4),
+                              AppConstant.commonText(
+                                "(${cubit.myActTokenData.length})",
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                                color: Theme.of(context).colorScheme.shadow,
+                              ),
+                              const Spacer(),
+                              InkWell(
+                                onTap: () {
+                                  showImportTokenDialog();
+                                },
+                                child: Icon(
+                                  Icons.add_circle_outline,
+                                  size: 20,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                              ),
+                              width(4),
+                              Icon(
+                                Icons.copy_outlined,
                                 size: 20,
                                 color: Theme.of(context).colorScheme.onPrimary,
                               ),
-                            ),
-                            width(4),
-                            Icon(
-                              Icons.copy_outlined,
-                              size: 20,
-                              color: Theme.of(context).colorScheme.onPrimary,
-                            ),
-                            width(4),
-                            Image.asset(
-                              Assets.imagesFilter,
-                              color: Theme.of(context).colorScheme.tertiary,
-                              height: 20,
-                              width: 20,
-                            ),
-                          ],
+                              width(4),
+                              Image.asset(
+                                Assets.imagesFilter,
+                                color: Theme.of(context).colorScheme.tertiary,
+                                height: 20,
+                                width: 20,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: cubit.myActTokenData.length,
-                          controller: scrollController,
-                          itemBuilder: (context, index) {
-                            final data = cubit.myActTokenData[index];
-                            return _buildContainerData(
-                              context: context,
-                              img: data.img,
-                              title: data.title,
-                              title2: data.title2,
-                              amt:
-                                  "${data.amount.toStringAsFixed(2)} | \$${data.priceInUSD.toStringAsFixed(2)}",
-                              currentAmt:
-                                  "\$${(data.amount * data.priceInUSD).toStringAsFixed(2)}",
-                              differentAmt:
-                                  "+${(data.percentChangeday * data.priceInUSD * data.amount / 100).toStringAsFixed(2)}",
-                              totalDifferentInPercentage:
-                                  "+${(data.percentChangeday).toStringAsFixed(2)}%",
-                              isProfit: data.isProfit,
-                              onTap: () {
-                                context.router.push(const TokenRoute());
-                              },
-                            );
-                          },
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: cubit.myActTokenData.length,
+                            controller: scrollController,
+                            itemBuilder: (context, index) {
+                              final data = cubit.myActTokenData[index];
+                              return _buildContainerData(
+                                context: context,
+                                img: data.img,
+                                title: data.title,
+                                title2: data.title2,
+                                amt:
+                                    "${data.amount.toStringAsFixed(2)} | \$${data.priceInUSD.toStringAsFixed(2)}",
+                                currentAmt:
+                                    "\$${(data.amount * data.priceInUSD).toStringAsFixed(2)}",
+                                differentAmt:
+                                    "+${(data.percentChangeday * data.priceInUSD * data.amount / 100).toStringAsFixed(2)}",
+                                totalDifferentInPercentage:
+                                    "+${(data.percentChangeday).toStringAsFixed(2)}%",
+                                isProfit: data.isProfit,
+                                onTap: () {
+                                  context.router.push(const TokenRoute());
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        );
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        });
       },
     );
   }
 
-  _buildArrow(
-      {required BuildContext context,
-      required String icon,
-      double? height,
-      double? width}) {
-    return Image.asset(
-      icon,
-      height: height ?? 24.h,
-      width: width ?? 24.w,
-      color: Theme.of(context).colorScheme.onSurface,
+  selectAccountDialog() {
+    final cubit = BlocProvider.of<HomeCubit>(context);
+
+    showModalBottomSheet(
+      useRootNavigator: true,
+      shape: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12.r),
+          topRight: Radius.circular(12.r),
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(builder: (context, StateSetter mySetState) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 8.h,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    AppConstant.commonText(
+                      "Select Account",
+                      fontSize: 14.sp,
+                      color: Theme.of(context).colorScheme.shadow,
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                          alignment: Alignment.centerRight,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.close,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          )),
+                    ),
+                  ],
+                ),
+                ListTile(
+                  onTap: () {
+                    mySetState(() {
+                      cubit.selectedWallet = -1;
+                    });
+                    cubit.onChangeSelectedWallet(index: -1);
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      Navigator.pop(context);
+                    });
+                  },
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 0),
+                  dense: true,
+                  visualDensity: const VisualDensity(vertical: -4),
+                  title: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: AppConstant.commonText(
+                      "All Accounts",
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.shadow,
+                      fontSize: 20.sp,
+                    ),
+                  ),
+                  trailing: Radio<int>(
+                    value: -1,
+                    groupValue: cubit.selectedWallet,
+                    fillColor: WidgetStatePropertyAll(
+                      cubit.selectedWallet == -1
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context)
+                              .colorScheme
+                              .tertiary
+                              .withOpacity(0.5),
+                    ),
+                    onChanged: (value) {},
+                  ),
+                ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemCount: AppHelper.walletService.wallets.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        mySetState(() {
+                          cubit.selectedWallet = index;
+                        });
+                        cubit.onChangeSelectedWallet(index: index);
+                        Future.delayed(const Duration(milliseconds: 300), () {
+                          Navigator.pop(context);
+                        });
+                      },
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 0),
+                      dense: true,
+                      visualDensity: const VisualDensity(vertical: -4),
+                      title: Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: AppConstant.commonText(
+                          AppHelper.walletService.wallets[index].name,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.shadow,
+                          fontSize: 20.sp,
+                        ),
+                      ),
+                      trailing: Radio<int>(
+                        value: index,
+                        groupValue: cubit.selectedWallet,
+                        fillColor: WidgetStatePropertyAll(
+                          cubit.selectedWallet == index
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context)
+                                  .colorScheme
+                                  .tertiary
+                                  .withOpacity(0.5),
+                        ),
+                        onChanged: (value) {
+                          if (value != null) {}
+                        },
+                      ),
+                    );
+                  },
+                ),
+                height(20.h),
+              ],
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  _buildArrow({
+    required BuildContext context,
+    required String icon,
+    double? height,
+    double? width,
+    Function()? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Image.asset(
+        icon,
+        height: height ?? 24.h,
+        width: width ?? 24.w,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
     );
   }
 
