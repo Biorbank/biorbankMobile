@@ -1,39 +1,47 @@
+import 'dart:io';
+
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_select_token_bottom_sheet.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
-import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CurrencyConvertWidget extends StatelessWidget {
+class CurrencyConvertWidget extends StatefulWidget {
   const CurrencyConvertWidget({super.key});
 
   @override
+  State<CurrencyConvertWidget> createState() => _CurrencyConvertWidgetState();
+}
+
+class _CurrencyConvertWidgetState extends State<CurrencyConvertWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateState();
+  }
+
+  void updateState() async {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    MarketCubit cubit = context.read<MarketCubit>();
+    if (db.state.assetList.isNotEmpty) {
+      cubit.onSelectPayWithCurrency(currency: db.state.assetList.first);
+      cubit.onSelectReceiveCurrency(currency: db.state.assetList.first);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var cubit = context.read<MarketCubit>();
+
     return BlocBuilder<MarketCubit, MarketState>(
       builder: (context, state) {
-        var cubit = context.read<MarketCubit>();
-
-        if (state is CurrncySelectedState) {
-          cubit.selectedCurrency = state.currency;
-        } else if (state is ReceiveCurrncySelectedState) {
-          cubit.selectedReceiveCurrency = state.currency;
-        }
-
-        final selectedCurrency =
-            cubit.currencyList.contains(cubit.selectedCurrency)
-                ? cubit.selectedCurrency
-                : cubit.currencyList.first;
-        final selectedReceiveCurrency =
-            cubit.receiveCurrencyList.contains(cubit.selectedReceiveCurrency)
-                ? cubit.selectedReceiveCurrency
-                : cubit.receiveCurrencyList[1];
-
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
@@ -109,23 +117,28 @@ class CurrencyConvertWidget extends StatelessWidget {
                           backgroundColor:
                               Theme.of(context).colorScheme.onSurface,
                           builder: (context) {
-                            return const CommonSelectTokenBottomSheet();
+                            return CommonSelectTokenBottomSheet(
+                              onTap: (selectedAsset) {
+                                cubit.onSelectPayWithCurrency(
+                                    currency: selectedAsset);
+                              },
+                            );
                           },
                         );
                       },
                       child: Row(
                         children: [
-                          CachedNetworkImage(
-                            imageUrl:
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png",
+                          Image.file(
+                            File(
+                                "${AppHelper.appDir}/${cubit.selectedPayWithCurrency?.getAsset().logo}"),
                             height: 16.h,
                             width: 16.w,
-                            placeholder: (context, url) =>
-                                const SizedBox.shrink(),
+                            fit: BoxFit.cover,
                           ),
                           width(8.w),
                           AppConstant.commonText(
-                            "BTC",
+                            cubit.selectedPayWithCurrency?.getAsset().symbol ??
+                                "",
                             color: Theme.of(context).colorScheme.shadow,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
@@ -235,23 +248,28 @@ class CurrencyConvertWidget extends StatelessWidget {
                           backgroundColor:
                               Theme.of(context).colorScheme.onSurface,
                           builder: (context) {
-                            return const CommonSelectTokenBottomSheet();
+                            return CommonSelectTokenBottomSheet(
+                              onTap: (selectedAsset) {
+                                cubit.onSelectReceiveCurrency(
+                                    currency: selectedAsset);
+                              },
+                            );
                           },
                         );
                       },
                       child: Row(
                         children: [
-                          CachedNetworkImage(
-                            imageUrl:
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png",
+                          Image.file(
+                            File(
+                                "${AppHelper.appDir}/${cubit.selectedReceiveCurrency?.getAsset().logo}"),
                             height: 16.h,
                             width: 16.w,
-                            placeholder: (context, url) =>
-                                const SizedBox.shrink(),
+                            fit: BoxFit.cover,
                           ),
                           width(8.w),
                           AppConstant.commonText(
-                            "BTC",
+                            cubit.selectedReceiveCurrency?.getAsset().symbol ??
+                                "",
                             color: Theme.of(context).colorScheme.shadow,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,

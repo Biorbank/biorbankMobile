@@ -26,7 +26,7 @@ class OverviewFilters extends StatelessWidget {
               child: BlocBuilder<MarketCubit, MarketState>(
                 builder: (context, state) {
                   var cubit = context.read<MarketCubit>();
-                  if (state is OnChnageFilterState) {
+                  if (state is OnChangeFilterState) {
                     cubit.selectedFilter = state.filter;
                   } else if (state is OnChangeTimeState) {
                     cubit.selectedTime = state.time;
@@ -75,7 +75,8 @@ class OverviewFilters extends StatelessWidget {
                                     .colorScheme
                                     .onPrimaryContainer,
                                 shape: RoundedRectangleBorder(
-                                  side:  BorderSide(color: AppColors.transparent),
+                                    side: BorderSide(
+                                        color: AppColors.transparent),
                                     borderRadius: BorderRadius.circular(25)),
                                 backgroundColor: cubit.selectedFilter == e
                                     ? Theme.of(context).colorScheme.onPrimary
@@ -114,7 +115,9 @@ class OverviewFilters extends StatelessWidget {
                                 disabledColor: Theme.of(context)
                                     .colorScheme
                                     .onPrimaryContainer,
-                                shape: RoundedRectangleBorder(side:  BorderSide(color: AppColors.transparent),
+                                shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                        color: AppColors.transparent),
                                     borderRadius: BorderRadius.circular(25)),
                                 backgroundColor: cubit.selectedTime == e
                                     ? Theme.of(context).colorScheme.onPrimary
@@ -141,7 +144,7 @@ class OverviewFilters extends StatelessWidget {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(top: 20,bottom: 20),
+          padding: const EdgeInsets.only(top: 20, bottom: 20),
           decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.onSurface,
               boxShadow: [
@@ -165,16 +168,15 @@ class OverviewFilters extends StatelessWidget {
                 width(20.w),
                 Expanded(
                     child: SizedBox(
-                      child: CommonButton(
-                                        name: 'Confirm',
-                                        onTap: () {},
-                                      ),
-                    ))
+                  child: CommonButton(
+                    name: 'Confirm',
+                    onTap: () {},
+                  ),
+                ))
               ],
             ),
           ),
         ),
-        
       ]),
     );
   }
