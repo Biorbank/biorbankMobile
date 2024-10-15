@@ -1,269 +1,351 @@
+import 'dart:io';
+
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
+import 'package:biorbank/presentation/common/common_select_token_bottom_sheet.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
-import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
+import 'package:biorbank/presentation/pages/browser/defi_details_page/cubit/defi_detail_cubit.dart';
 import 'package:biorbank/presentation/pages/browser/defi_details_page/view/widget/loan_confirmation_dialog.dart';
-import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
-import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BorrowTabWidget extends StatelessWidget {
+class BorrowTabWidget extends StatefulWidget {
   const BorrowTabWidget({super.key});
 
   @override
+  State<BorrowTabWidget> createState() => _BorrowTabWidgetState();
+}
+
+class _BorrowTabWidgetState extends State<BorrowTabWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateState();
+  }
+
+  void updateState() async {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    var cubit = context.read<DefiDetailCubit>();
+    if (db.state.assetList.isNotEmpty) {
+      CryptoAssetRepositoryImpl tokenUSDT = db.state.assetList.firstWhere(
+          (e) => e.getAsset().symbol == "USDT" && e.getAsset().networkId == 1);
+      CryptoAssetRepositoryImpl tokenBTC = db.state.assetList.firstWhere(
+          (e) => e.getAsset().symbol == "BTC" && e.getAsset().networkId == 0);
+      cubit.onSelectBorrowCurrency(currency: tokenUSDT);
+      cubit.onSelectCollateralCurrency(currency: tokenBTC);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var cubit = context.read<MarketCubit>();
-    final selectedCurrency =
-    cubit.currencyListBorrow.contains(cubit.selectedCurrency)
-        ? cubit.selectedCurrency
-        : cubit.currencyListBorrow.first;
-    final selectedReceiveCurrency =
-    cubit.receiveCurrencyListBorrow.contains(cubit.selectedReceiveCurrency)
-        ? cubit.selectedReceiveCurrency
-        : cubit.receiveCurrencyListBorrow[1];
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Column(
-          children: [
-            height(15.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppConstant.commonText('How much do you want to borrow',
-                    fontSize: 12.sp,
-                    color: Theme.of(context).colorScheme.outline),
-                AppConstant.commonText('Balance : 12.756',
-                    fontSize: 12.sp,
-                    color: Theme.of(context).colorScheme.outline),
-              ],
-            ),
-            height(15.h),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xFFF9FAFB)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 5),
+    var cubit = context.read<DefiDetailCubit>();
+
+    return BlocBuilder<DefiDetailCubit, DefiDetailState>(
+        builder: (context, state) {
+      return SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Column(
+            children: [
+              height(15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppConstant.commonText('How much do you want to borrow',
+                      fontSize: 12.sp,
+                      color: Theme.of(context).colorScheme.outline),
+                  AppConstant.commonText('Balance : 12.756',
+                      fontSize: 12.sp,
+                      color: Theme.of(context).colorScheme.outline),
+                ],
+              ),
+              height(15.h),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color(0xFFF9FAFB)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CommonTextfield(
+                          isShowSpaceAfterTitle: false,
+                          borderRadius: 0.0,
+                          title: '',
+                          autoFocus: true,
+                          hintText: "Input Token Amount",
+                          focusBorderColor: Theme.of(context).colorScheme.scrim,
+                          fillColor: Theme.of(context).colorScheme.scrim,
+                          scrollPadding: const EdgeInsets.all(0.0),
+                          verticalPading: 0.0,
+                          onChanged: (value) {},
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            useRootNavigator: true,
+                            scrollControlDisabledMaxHeightRatio: 4 / 5,
+                            shape: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.transparent),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(12),
+                                topLeft: Radius.circular(12),
+                              ),
+                            ),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.onSurface,
+                            builder: (context) {
+                              return CommonSelectTokenBottomSheet(
+                                onTap: (selectedAsset) {
+                                  cubit.onSelectBorrowCurrency(
+                                      currency: selectedAsset);
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Image.file(
+                              File(
+                                  "${AppHelper.appDir}/${cubit.selectedBorrowCurrency?.getAsset().logo}"),
+                              height: 16.h,
+                              width: 16.w,
+                              fit: BoxFit.cover,
+                            ),
+                            width(8.w),
+                            AppConstant.commonText(
+                              cubit.selectedBorrowCurrency?.getAsset().symbol ??
+                                  "",
+                              color: Theme.of(context).colorScheme.shadow,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            width(8.w),
+                            Image.asset(
+                              Assets.imagesChevronDown,
+                              height: 18,
+                              color: Theme.of(context).colorScheme.shadow,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              height(15.h),
+              Center(
+                child: Container(
+                  height: 32.h,
+                  width: 32.w,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(colors: [
+                        Theme.of(context).colorScheme.primary,
+                        Theme.of(context).colorScheme.onPrimary,
+                      ])),
+                  child: Transform.rotate(
+                      angle: 1.57,
+                      child: Image.asset(
+                        Assets.imagesSwapArrow,
+                        height: 16.h,
+                        width: 16.h,
+                      )),
+                ),
+              ),
+              height(15.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  AppConstant.commonText('Collateral needed:',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                      color: Theme.of(context).colorScheme.outline),
+                  Text.rich(TextSpan(
+                      text: 'Balance : ',
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.outline),
+                      children: [
+                        TextSpan(
+                            text: '12.778',
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400,
+                                color: Theme.of(context).colorScheme.outline))
+                      ]))
+                ],
+              ),
+              height(10.h),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color(0xFFF9FAFB)),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: CommonTextfield(
+                        isShowSpaceAfterTitle: false,
+                        borderRadius: 0.0,
                         title: '',
-                        verticalPading: 0,
-                        inputType: TextInputType.number,
-                        focusBorderColor: AppColors.transparent,
-                        fillColor: const Color(0xFFF9FAFB),
+                        autoFocus: true,
+                        hintText: "Input Token Amount",
+                        focusBorderColor: Theme.of(context).colorScheme.scrim,
+                        fillColor: Theme.of(context).colorScheme.scrim,
+                        scrollPadding: const EdgeInsets.all(0.0),
+                        verticalPading: 0.0,
+                        onChanged: (value) {},
                       ),
                     ),
-              CommonDropdownWidget(
-                labelText: '',
-                value: selectedCurrency,
-                borderRadius: 8,
-                height: 40.h,
-                items: cubit.currencyListBorrow
-                    .map((e) => DropdownMenuItem(
-                    value: e,
-                    child: Row(
-                      children: [
-                        CachedNetworkImage(
-                          imageUrl: e.url,
-                          height: 16.h,
-                          width: 16.w,
-                          placeholder: (context, url) =>
-                          const SizedBox.shrink(),
-                        ),
-                        width(8.w),
-                        AppConstant.commonText(e.name,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .shadow,
+                    InkWell(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          useRootNavigator: true,
+                          scrollControlDisabledMaxHeightRatio: 4 / 5,
+                          shape: const OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.transparent),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(12),
+                              topLeft: Radius.circular(12),
+                            ),
+                          ),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          builder: (context) {
+                            return CommonSelectTokenBottomSheet(
+                              onTap: (selectedAsset) {
+                                cubit.onSelectCollateralCurrency(
+                                    currency: selectedAsset);
+                              },
+                            );
+                          },
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Image.file(
+                            File(
+                                "${AppHelper.appDir}/${cubit.selectedCollateralCurrency?.getAsset().logo}"),
+                            height: 16.h,
+                            width: 16.w,
+                            fit: BoxFit.cover,
+                          ),
+                          width(8.w),
+                          AppConstant.commonText(
+                            cubit.selectedCollateralCurrency
+                                    ?.getAsset()
+                                    .symbol ??
+                                "",
+                            color: Theme.of(context).colorScheme.shadow,
                             fontSize: 12.sp,
-                            fontWeight: FontWeight.w600),
-                      ],
-                    )))
-                    .toList(),
-                backGroundColor:
-                Theme.of(context).colorScheme.onSurface,
-                onChanged: (value) {
-                  cubit.onSelectCurrency(currency: value);
-                },
-              ),
+                            fontWeight: FontWeight.w600,
+                          ),
+                          width(8.w),
+                          Image.asset(
+                            Assets.imagesChevronDown,
+                            height: 18,
+                            color: Theme.of(context).colorScheme.shadow,
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ),
-            height(15.h),
-            Center(
-              child: Container(
-                height: 32.h,
-                width: 32.w,
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(colors: [
-                      Theme.of(context).colorScheme.primary,
-                      Theme.of(context).colorScheme.onPrimary,
-                    ])),
-                child: Transform.rotate(
-                    angle: 1.57,
-                    child: Image.asset(
-                      Assets.imagesSwapArrow,
-                      height: 16.h,
-                      width: 16.h,
-                    )),
+              height(14.h),
+              CommonButton(
+                name: 'confirm',
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const LoanConfirmationDialog(),
+                  );
+                },
               ),
-            ),
-            height(15.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                AppConstant.commonText('Collateral needed:',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                    color: Theme.of(context).colorScheme.outline),
-                Text.rich(TextSpan(
-                    text: 'Balance : ',
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.outline),
-                    children: [
-                      TextSpan(
-                          text: '12.778',
-                          style: TextStyle(
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                              color: Theme.of(context).colorScheme.outline))
-                    ]))
-              ],
-            ),
-            height(10.h),
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xFFF9FAFB)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              height(20.h),
+              Row(
                 children: [
-                  AppConstant.commonText('0',
-                      color: Theme.of(context).colorScheme.outline),
-                  CommonDropdownWidget(
-                    labelText: '',
-                    value: selectedReceiveCurrency,
-                    borderRadius: 8,
-                    height: 40.h,
-                    items: cubit.receiveCurrencyListBorrow
-                        .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Row(
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: e.url,
-                              height: 16.h,
-                              width: 16.w,
-                              placeholder: (context, url) =>
-                              const SizedBox.shrink(),
-                            ),
-                            width(8.w),
-                            AppConstant.commonText(e.name,
-                                color:
-                                Theme.of(context).colorScheme.shadow,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600),
-                          ],
-                        )))
-                        .toList(),
-                    backGroundColor: Theme.of(context).colorScheme.onSurface,
-                    onChanged: (value) {
-                      cubit.onSelectReceiveCurrency(currency: value);
-                    },
-                  ),
+                  AppConstant.commonText('Estiated price optimization',
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400,
+                      color:
+                          Theme.of(context).colorScheme.onSecondaryContainer),
+                  width(6.w),
+                  Image.asset(Assets.imagesInfo,
+                      height: 16.h,
+                      width: 16.w,
+                      color: Theme.of(context).colorScheme.onSecondaryContainer)
                 ],
               ),
-            ),
-            height(14.h),
-            CommonButton(
-              name: 'confirm',
-              onTap: () {
-                showDialog(
+              height(10.h),
+              Row(
+                children: [
+                  Expanded(
+                      child: GestureDetector(
+                    onTap: () {},
+                    child: priceOptimizationWidget(
+                        context: context,
+                        image: Assets.imagesDollarPrice,
+                        price: '2110.43 USDC',
+                        isSelected: true,
+                        imageColor: Theme.of(context).colorScheme.surfaceTint,
+                        profit: '(+\$-0.0111)',
+                        time: ''),
+                  )),
+                  width(10.w),
+                  Expanded(
+                      child: GestureDetector(
+                    onTap: () {},
+                    child: priceOptimizationWidget(
+                        context: context,
+                        image: Assets.imagesWatch,
+                        price: '2110.43 USDC',
+                        profit: '',
+                        time: '01m 48s'),
+                  )),
+                ],
+              ),
+              height(30.h),
+              rowWidget(
                   context: context,
-                  builder: (context) => const LoanConfirmationDialog(),
-                );
-              },
-            ),
-            height(20.h),
-            Row(
-              children: [
-                AppConstant.commonText('Estiated price optimization',
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer),
-                width(6.w),
-                Image.asset(Assets.imagesInfo,
-                    height: 16.h,
-                    width: 16.w,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer)
-              ],
-            ),
-            height(10.h),
-            Row(
-              children: [
-                Expanded(
-                    child: GestureDetector(
-                  onTap: () {},
-                  child: priceOptimizationWidget(
-                      context: context,
-                      image: Assets.imagesDollarPrice,
-                      price: '2110.43 USDC',
-                      isSelected: true,
-                      imageColor: Theme.of(context).colorScheme.surfaceTint,
-                      profit: '(+\$-0.0111)',
-                      time: ''),
-                )),
-                width(10.w),
-                Expanded(
-                    child: GestureDetector(
-                  onTap: () {},
-                  child: priceOptimizationWidget(
-                      context: context,
-                      image: Assets.imagesWatch,
-                      price: '2110.43 USDC',
-                      profit: '',
-                      time: '01m 48s'),
-                )),
-              ],
-            ),
-            height(30.h),
-            rowWidget(
-                context: context,
-                title: 'Expected debt',
-                price: '2139.2812',
-                isShowInfo: false),
-            height(15.h),
-            rowWidget(
-                context: context,
-                title: 'Borrow fee',
-                price: '30.25756705',
-                isShowInfo: true,
-                textColor: Theme.of(context).colorScheme.onPrimary),
-            height(15.h),
-            rowWidget(
-                context: context,
-                title: 'Minimum Loan Term',
-                price: '30 days',
-                isShowInfo: true),
-            height(50.h)
-          ],
+                  title: 'Expected debt',
+                  price: '2139.2812',
+                  isShowInfo: false),
+              height(15.h),
+              rowWidget(
+                  context: context,
+                  title: 'Borrow fee',
+                  price: '30.25756705',
+                  isShowInfo: true,
+                  textColor: Theme.of(context).colorScheme.onPrimary),
+              height(15.h),
+              rowWidget(
+                  context: context,
+                  title: 'Minimum Loan Term',
+                  price: '30 days',
+                  isShowInfo: true),
+              height(50.h)
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget rowWidget(
@@ -327,10 +409,7 @@ class BorrowTabWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(image,
-                  height: 18.h,
-                  width: 18.w,
-                  color:imageColor ),
+              Image.asset(image, height: 18.h, width: 18.w, color: imageColor),
               width(8.w),
               AppConstant.commonText('Price Optimized',
                   color: Theme.of(context).colorScheme.shadow,

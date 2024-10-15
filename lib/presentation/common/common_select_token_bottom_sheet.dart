@@ -13,7 +13,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CommonSelectTokenBottomSheet extends StatefulWidget {
-  const CommonSelectTokenBottomSheet({super.key});
+  const CommonSelectTokenBottomSheet({super.key, required this.onTap});
+  final Function(CryptoAssetRepositoryImpl selectedAsset) onTap;
 
   @override
   State<CommonSelectTokenBottomSheet> createState() =>
@@ -166,6 +167,7 @@ class _CommonSelectTokenBottomSheetState
                         assetList.elementAt(index).state.assetState,
                     onTap: () {
                       Navigator.of(context).pop();
+                      widget.onTap(assetList.elementAt(index));
                     },
                   ),
                 );

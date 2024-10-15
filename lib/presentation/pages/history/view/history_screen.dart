@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:biorbank/presentation/common/common_button.dart';
-import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
-import 'package:biorbank/presentation/pages/debit_card/view/widget/common_filter_widget.dart';
 import 'package:biorbank/presentation/pages/history/view/widget/filter_bottom_sheet.dart';
 import 'package:biorbank/presentation/pages/history/view/widget/time_frame_calender_view.dart';
 import 'package:biorbank/presentation/pages/history/view/widget/type_bottom_sheet.dart';
 import 'package:biorbank/utils/bloc/transactiontracker/transaction_history_impl.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/models/transaction_detail_model.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -281,9 +279,106 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
+  // Mock TransactionDetail
+  TransactionDetail mockTransactionDetail(
+      String from, String to, double amount) {
+    return TransactionDetail(from: from, to: to, amount: amount);
+  }
+
   _buildTransactionHistory(CryptoDBRepositoryState state) {
     CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
-    List<TransactionHistoryImpl> hTList = state.historyList.toList();
+    List<TransactionHistoryImpl> hTList = [
+      TransactionHistoryImpl(
+        type: TransactionType.send,
+        txHash: 'txHash1',
+        assetIndex: 0,
+        info: mockTransactionDetail('Address1', 'Address2', 0.5),
+        status: TransactionStatus.completed,
+        networkFee: 0.0001,
+        timeStamp: DateTime.now().subtract(const Duration(days: 1, hours: 2)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.receive,
+        txHash: 'txHash2',
+        assetIndex: 1,
+        info: mockTransactionDetail('Address3', 'Address4', 1.2),
+        status: TransactionStatus.pending,
+        networkFee: 0.0002,
+        timeStamp: DateTime.now().subtract(const Duration(days: 1, hours: 5)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.send,
+        txHash: 'txHash3',
+        assetIndex: 2,
+        info: mockTransactionDetail('Address5', 'Address6', 0.75),
+        status: TransactionStatus.failed,
+        networkFee: 0.00015,
+        timeStamp: DateTime.now().subtract(const Duration(days: 2)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.receive,
+        txHash: 'txHash4',
+        assetIndex: 0,
+        info: mockTransactionDetail('Address7', 'Address8', 0.9),
+        status: TransactionStatus.completed,
+        networkFee: 0.00012,
+        timeStamp: DateTime.now().subtract(const Duration(days: 3)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.send,
+        txHash: 'txHash5',
+        assetIndex: 1,
+        info: mockTransactionDetail('Address9', 'Address10', 1.5),
+        status: TransactionStatus.completed,
+        networkFee: 0.00018,
+        timeStamp: DateTime.now().subtract(const Duration(days: 4, hours: 4)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.receive,
+        txHash: 'txHash6',
+        assetIndex: 2,
+        info: mockTransactionDetail('Address11', 'Address12', 2.3),
+        status: TransactionStatus.pending,
+        networkFee: 0.00025,
+        timeStamp: DateTime.now().subtract(const Duration(days: 4, hours: 6)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.send,
+        txHash: 'txHash7',
+        assetIndex: 3,
+        info: mockTransactionDetail('Address13', 'Address14', 0.3),
+        status: TransactionStatus.failed,
+        networkFee: 0.0001,
+        timeStamp: DateTime.now().subtract(const Duration(days: 5)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.receive,
+        txHash: 'txHash8',
+        assetIndex: 1,
+        info: mockTransactionDetail('Address15', 'Address16', 1.8),
+        status: TransactionStatus.completed,
+        networkFee: 0.00022,
+        timeStamp: DateTime.now().subtract(const Duration(days: 6)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.send,
+        txHash: 'txHash9',
+        assetIndex: 2,
+        info: mockTransactionDetail('Address17', 'Address18', 0.65),
+        status: TransactionStatus.pending,
+        networkFee: 0.00019,
+        timeStamp: DateTime.now().subtract(const Duration(days: 7)),
+      ),
+      TransactionHistoryImpl(
+        type: TransactionType.receive,
+        txHash: 'txHash10',
+        assetIndex: 4,
+        info: mockTransactionDetail('Address19', 'Address20', 3.0),
+        status: TransactionStatus.completed,
+        networkFee: 0.0003,
+        timeStamp: DateTime.now().subtract(const Duration(days: 8)),
+      ),
+    ];
     hTList.sort((a, b) => b.timeStamp.compareTo(a.timeStamp));
 
     // Group transactions by date
@@ -308,7 +403,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         final DateFormat formatter = DateFormat('hh:mm a');
 
         widgetList.add(_buildRow(
-          imgT: transaction.type == TransactionType.send ? false : true,
+          imgT: false,
           onTap: () {
             // Handle onTap
           },
@@ -362,7 +457,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   _buildRow(
       {String? icon,
-      String? img,
+      String img =
+          "https://imgs.search.brave.com/gJJ2DXf7c2YPd4ycahYNJL8VPVNJzfps-iiLDeecNPw/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9wbmcu/cG5ndHJlZS5jb20v/cG5nLXZlY3Rvci8y/MDIzMTIwMi9vdXJt/aWQvcG5ndHJlZS1y/b3VuZGVkLXJhc3Rl/ci1pY29uLW9mLWEt/c21vb3RoLWJsdWUt/ZG9sbGFyLXN5bWJv/bC1pbi1wbmctaW1h/Z2VfMTA4NTA0MTYu/cG5n",
       required Function() onTap,
       required bool imgT,
       required String typeName,

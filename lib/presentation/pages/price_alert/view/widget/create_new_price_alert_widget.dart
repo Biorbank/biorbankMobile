@@ -25,8 +25,8 @@ class CreateNewPriceAlertWidget extends StatefulWidget {
 class _CreateNewPriceAlertWidgetState extends State<CreateNewPriceAlertWidget>
     with SingleTickerProviderStateMixin {
   List<CryptoAssetRepositoryImpl> assetList = [];
-  List<String> typeList = ["Crossing"];
-  String? selectedType;
+  List<String> typeList = ["Crossing"], priceList = ["5852.26 CAD"];
+  String? selectedType, selectedPrice;
   CryptoAssetRepositoryImpl? selectedAsset;
   int sendTabIndex = 0;
   late TabController tabController;
@@ -174,8 +174,8 @@ class _CreateNewPriceAlertWidgetState extends State<CreateNewPriceAlertWidget>
                   isExpanded: true,
                   borderRadius: 12.r,
                   labelText: '',
-                  value: selectedType,
-                  items: typeList
+                  value: selectedPrice,
+                  items: priceList
                       .map((e) => DropdownMenuItem(
                             value: e,
                             child: Row(
@@ -191,7 +191,7 @@ class _CreateNewPriceAlertWidgetState extends State<CreateNewPriceAlertWidget>
                   backGroundColor: Theme.of(context).colorScheme.errorContainer,
                   onChanged: (val) {
                     setState(() {
-                      selectedType = val;
+                      selectedPrice = val;
                     });
                   },
                 ),

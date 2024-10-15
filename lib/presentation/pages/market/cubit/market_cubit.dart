@@ -1,3 +1,4 @@
+import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -14,8 +15,6 @@ class MarketCubit extends Cubit<MarketState> {
   int selectedCryptoTabIndex = 0;
   String selectedFilter = 'All networks';
   String selectedTime = '1h';
-  CurrencyModel? selectedCurrency;
-  CurrencyModel? selectedReceiveCurrency;
 
   int transactionStatusID = 0;
   bool isSwapInfiniteApproval = true;
@@ -44,7 +43,7 @@ class MarketCubit extends Cubit<MarketState> {
   List<String> timeDataList = ['1h', '4h', '24h'];
 
   void onChangeFilter({required String value}) {
-    emit(OnChnageFilterState(filter: value));
+    emit(OnChangeFilterState(filter: value));
   }
 
   void onSelectTime({required String value}) {
@@ -57,7 +56,9 @@ class MarketCubit extends Cubit<MarketState> {
     emit(ChangeCoinsTabBarIndexState(index: index));
   }
 
-  List<CurrencyModel> currencyList = [
+  CryptoAssetRepositoryImpl? selectedPayWithCurrency, selectedReceiveCurrency;
+
+  /* List<CurrencyModel> currencyPayWithList = [
     CurrencyModel(
         name: 'BTC',
         url:
@@ -82,29 +83,31 @@ class MarketCubit extends Cubit<MarketState> {
     CurrencyModel(
         name: 'USDT',
         url:
-        'https://static-00.iconduck.com/assets.00/tether-cryptocurrency-icon-2048x2048-dp13oydi.png'),
+            'https://static-00.iconduck.com/assets.00/tether-cryptocurrency-icon-2048x2048-dp13oydi.png'),
     CurrencyModel(
         name: 'BTC',
         url:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
   ];
   List<CurrencyModel> receiveCurrencyListBorrow = [
     CurrencyModel(
         name: 'USDT',
         url:
-        'https://static-00.iconduck.com/assets.00/tether-cryptocurrency-icon-2048x2048-dp13oydi.png'),
+            'https://static-00.iconduck.com/assets.00/tether-cryptocurrency-icon-2048x2048-dp13oydi.png'),
     CurrencyModel(
         name: 'BTC',
         url:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
-  ];
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'),
+  ]; */
 
-  void onSelectCurrency({required CurrencyModel? currency}) {
-    emit(CurrncySelectedState(currency: currency));
+  void onSelectPayWithCurrency({required CryptoAssetRepositoryImpl currency}) {
+    selectedPayWithCurrency = currency;
+    emit(PayWithCurrencySelectedState(currency: currency));
   }
 
-  void onSelectReceiveCurrency({required CurrencyModel? currency}) {
-    emit(ReceiveCurrncySelectedState(currency: currency));
+  void onSelectReceiveCurrency({required CryptoAssetRepositoryImpl currency}) {
+    selectedReceiveCurrency = currency;
+    emit(ReceiveCurrencySelectedState(currency: currency));
   }
 
   void onChangeRangeSliderValue({required SfRangeValues value}) {

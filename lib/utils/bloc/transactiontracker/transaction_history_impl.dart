@@ -50,13 +50,13 @@ class TransactionHistoryImpl extends Cubit<TransactionHistoryState> {
   }
 
   Future<void> checkCompleted() async {
-    Map<String, dynamic> txStatus = await bhelper!.getTransactionStatus(txHash);
-    if (txStatus['status'] == TransactionStatus.completed) {
-      _timer.cancel();
-      emit(state.copyWith(
-          status: TransactionStatus.completed,
-          networkFee: txStatus['networkFee']));
-    }
+    // Map<String, dynamic> txStatus = await bhelper!.getTransactionStatus(txHash);
+    // if (txStatus['status'] == TransactionStatus.completed) {
+    //   _timer.cancel();
+    //   emit(state.copyWith(
+    //       status: TransactionStatus.completed,
+    //       networkFee: txStatus['networkFee']));
+    // }
   }
 
   Map<String, dynamic> toMap() {
