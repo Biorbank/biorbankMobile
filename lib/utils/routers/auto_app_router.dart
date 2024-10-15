@@ -36,6 +36,7 @@ import 'package:biorbank/presentation/pages/p2p/view/payment_process_screen.dart
 import 'package:biorbank/presentation/pages/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../presentation/pages/defi/view/staking_view.dart';
 import '../../presentation/pages/history/view/history_screen.dart';
 import '../../presentation/pages/price_alert/view/price_alert_screen.dart';
 import '../../presentation/pages/token_page/view/token_screen.dart';
@@ -55,8 +56,9 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: UnlockPinRoute.page),
         AutoRoute(page: CreateAccountRoute.page),
         AutoRoute(path: '/dashboard', page: DashboardRoute.page, children: [
-          // AutoRoute(page: DefiRoute.page),
           AutoRoute(page: DefiDetailRoute.page, maintainState: false),
+          AutoRoute(page: DefiRoute.page, maintainState: false),
+          AutoRoute(page: StackingRoute.page, maintainState: false),
           AutoRoute(page: MarketRoute.page, maintainState: false),
           AutoRoute(
               page: DefiNavigationRoute.page,
@@ -72,10 +74,14 @@ class AppRouter extends _$AppRouter {
                   page: DefiDetailRoute.page,
                   maintainState: false,
                 ),
-                // AutoRoute(
-                //   page: NftHoldingRoute.page,
-                //   maintainState: false,
-                // ),
+                AutoRoute(
+                  page: DefiRoute.page,
+                  maintainState: false,
+                ),
+                AutoRoute(
+                  page: StackingRoute.page,
+                  maintainState: false,
+                ),
               ]),
           AutoRoute(page: BrowserRoute.page),
           AutoRoute(page: ChatRoute.page),

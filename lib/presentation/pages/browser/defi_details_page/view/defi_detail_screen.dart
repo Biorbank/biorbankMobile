@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../market/cubit/market_cubit.dart';
+
 @RoutePage()
 class DefiDetailScreen extends StatefulWidget {
   const DefiDetailScreen({super.key, required this.index});
@@ -28,18 +30,29 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
   @override
   void initState() {
     final cubit = context.read<DefiDetailCubit>();
+    int currentSelection = cubit.selectedCurrentIndex == 0 ? widget.index : cubit.selectedCurrentIndex;
+    if (currentSelection == 2 && cubit.selectedCurrentIndex != 2) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        if (cubit.selectedCurrentIndex != 2) {
+          cubit.selectedCurrentIndex = 2;
+          AutoTabsRouter.of(context).setActiveIndex(0);
+        }
+      });
+    } else if (cubit.selectedCurrentIndex != 0) {
+      cubit.selectedCurrentIndex = 0;
+    }
     tabController = TabController(
-        length: 3, vsync: this, initialIndex: cubit.selectedTabIndex);
+        length: 3, vsync: this, initialIndex: currentSelection == 2 ? currentSelection : 0);
     tabController.addListener(() {
       cubit.onChangeTabIndex(index: tabController.index);
 
       if (tabController.index == 2 && cubit.selectedLoanTabIndex == 1) {
-        cubit.onChangeLoanTabIndex(index: 0);
+        cubit.onChangeLoanTabIndex(index: currentSelection == 2 ? 1 : 0);
       }
     });
     WidgetsBinding.instance.addPostFrameCallback((t) {
-      cubit.onChangeTabIndex(index: cubit.selectedTabIndex);
-      cubit.onChangeLoanTabIndex(index: 0);
+      cubit.onChangeTabIndex(index: currentSelection == 2 ? 1 : cubit.selectedTabIndex);
+      cubit.onChangeLoanTabIndex(index: currentSelection == 2 ? 1 : 0);
     });
     super.initState();
   }
@@ -126,7 +139,7 @@ class _DefiDetailScreenState extends State<DefiDetailScreen>
                 const NftDetailTab(),
                 const StakingDetailTab(),
                 LoanDetailTab(
-                  selectedIndex: cubit.selectedLoanTabIndex,
+                  selectedIndex: widget.index == 2 ? 1 : cubit.selectedLoanTabIndex,
                 ),
               ]),
             )

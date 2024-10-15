@@ -12,8 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 @RoutePage()
-class DefiScreen extends StatelessWidget {
-  const DefiScreen({super.key});
+class StackingScreen extends StatelessWidget {
+  const StackingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class DefiScreen extends StatelessWidget {
                 CommonSearchAppbar(
                   hintText: 'ID/USDT',
                   textController:
-                      context.read<DefiCubit>().searchTextController,
+                  context.read<DefiCubit>().searchTextController,
                   onTapTextField: () {
                     context.router.push(const CommonSearchRoute());
                     //Navigator.pushNamed(context, Routes.serachViewRoute);
@@ -46,14 +46,9 @@ class DefiScreen extends StatelessWidget {
             ),
           ),
         ),
-        height(20.h),
+        // height(20.h),
         Expanded(
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            separatorBuilder: (context, index) => height(10.h),
-            itemCount: 1,
-            itemBuilder: (context, index) => const DeFiDetailsWidget(),
-          ),
+            child:  StakingDetailsWidget()
         ),
       ],
     );

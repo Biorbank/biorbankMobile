@@ -10,6 +10,7 @@ class DefiDetailCubit extends Cubit<DefiDetailState> {
   int selectedTabIndex = 0;
   int selectedLoanTabIndex = 0;
   int selectedProvider = 0;
+  int selectedCurrentIndex = 0;
 
   CryptoAssetRepositoryImpl? selectedBorrowCurrency, selectedCollateralCurrency;
 
