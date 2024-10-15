@@ -78,16 +78,15 @@ class DeFiTabWidget extends StatelessWidget {
                 onTap: () {
                   switch(index) {
                     case 0:
-                      context.router.push(StackingRoute());
+                      context.router.push(const StackingRoute());
                       break;
                     case 1:
                       context.router.push(DefiDetailRoute(index: index + 1));
                       break;
                     case 2:
-                      context.router.push(DefiRoute());
+                      context.router.push(const DefiRoute());
                       break;
                   }
-                  // AutoTabsRouter.of(context).setActiveIndex(6);
                 },
                 child: PriceDetailWidget(
                   title: title,

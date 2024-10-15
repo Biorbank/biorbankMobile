@@ -46,7 +46,7 @@ class StackingScreen extends StatelessWidget {
             ),
           ),
         ),
-        height(20.h),
+        // height(20.h),
         Expanded(
             child:  StakingDetailsWidget()
         ),
