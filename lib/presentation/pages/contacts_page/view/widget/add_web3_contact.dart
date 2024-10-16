@@ -4,11 +4,15 @@ import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../common/common_tabbar.dart';
+import '../../../chat/view/widget/blockchain_picker_bottom_sheet.dart';
+import '../../../chat/view/widget/network_picker_blockchain_list.dart';
+import '../../../token_page/view/widget/alert_btn/create_alert_popup.dart';
 import '../../cubit/contact_cubit.dart';
 
 class AddWeb3ContactWidget extends StatefulWidget {
@@ -177,19 +181,54 @@ class _AddWeb3ContactWidget extends State<AddWeb3ContactWidget>
                             hintText: AppStrings.giveThemAusername,
                           ),
                           CommonTextfield(
-                            title: "Network",
-                            hintStyle: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14.sp),
-                            borderRadius: 12.r,
-                            textColor: Theme.of(context).colorScheme.onSurface,
-                            cursorColor:
-                            Theme.of(context).colorScheme.onSurface,
-                            hintText: 'Ethereum',
-                          ),
+                              title: "Network",
+                              hintStyle: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onSecondaryContainer,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14.sp),
+                              borderRadius: 12.r,
+                              textColor:
+                              Theme.of(context).colorScheme.onSurface,
+                              cursorColor:
+                              Theme.of(context).colorScheme.onSurface,
+                              hintText: 'Ethereum',
+                              prefixWidget: Image.asset(
+                                Assets.imagesEth,
+                                scale: 3,
+                              ),
+                              suffixWidget: SizedBox(
+                                width: 50,
+                                child: Row(
+                                  children: [
+                                    const Text(
+                                      "ETH",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                    width(3.w),
+                                    Image.asset(
+                                      Assets.imagesArrowDownOutline,
+                                      scale: 30,
+                                      color: Colors.grey,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTapSuffixWidget: () => showDialog(
+                                context: context,
+                                builder: (context) => Dialog(
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height * 0.7,
+                                    width: MediaQuery.of(context).size.width * 0.9,
+                                    child: const NetworkPickerBlockchainList(),
+                                  ),
+                                ),
+                              )),
                           CommonTextfield(
                             title: AppStrings.address,
                             hintStyle: TextStyle(
@@ -236,36 +275,6 @@ class _AddWeb3ContactWidget extends State<AddWeb3ContactWidget>
                               ],
                             ),
                           ),
-                          /*Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  _addWidget;
-                                },
-                                child: Container(
-                                  height: 18.h,
-                                  width: 18.w,
-                                  decoration: BoxDecoration(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                      shape: BoxShape.circle),
-                                  child: Icon(
-                                    Icons.add,
-                                    size: 15,
-                                    color:
-                                        Theme.of(context).colorScheme.onSurface,
-                                  ),
-                                ),
-                              ),
-                              width(5.w),
-                              AppConstant.commonText('Add Network',
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                  fontWeight: FontWeight.w500),
-                              width(5.w),
-                            ],
-                          ),*/
                           height(20.h),
                           CommonButton(
                             name: AppStrings.confirm,

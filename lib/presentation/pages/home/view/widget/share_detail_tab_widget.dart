@@ -41,46 +41,50 @@ class _ShareDetailsTabWidgetState extends State<ShareDetailsTabWidget>
     return Column(
       children: [
         SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
           controller: widget.scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              height(10.h),
-              Center(
-                child: Container(
-                  height: 4.h,
-                  width: 50.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.12,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                height(10.h),
+                Center(
+                  child: Container(
+                    height: 4.h,
+                    width: 50.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    ),
                   ),
                 ),
-              ),
-              height(20.h),
-              BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  var cubit = context.read<HomeCubit>();
-                  if (state is HomeTabIndexChangeState) {
-                    cubit.tabIndex = state.index;
-                  }
-                  return CommonTabbar(
-                    selectedIndex: cubit.tabIndex,
-                    length: 3,
-                    onTap: (index) {},
-                    tabController: tabController,
-                    tabList: const ['Holding', 'DeFi', 'NFTs'],
-                    labelColor: Theme.of(context).colorScheme.shadow,
-                    padding: EdgeInsets.zero,
-                    labelPadding: const EdgeInsets.symmetric(
-                      vertical: 8,
-                    ),
-                    tabAlignment: TabAlignment.center,
-                    tabBarIndicatorSize: TabBarIndicatorSize.tab,
-                    isShowBackgroundShadow: true,
-                  );
-                },
-              ),
-            ],
+                height(20.h),
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    var cubit = context.read<HomeCubit>();
+                    if (state is HomeTabIndexChangeState) {
+                      cubit.tabIndex = state.index;
+                    }
+                    return CommonTabbar(
+                      selectedIndex: cubit.tabIndex,
+                      length: 3,
+                      onTap: (index) {},
+                      tabController: tabController,
+                      tabList: const ['Holding', 'DeFi', 'NFTs'],
+                      labelColor: Theme.of(context).colorScheme.shadow,
+                      padding: EdgeInsets.zero,
+                      labelPadding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
+                      tabAlignment: TabAlignment.center,
+                      tabBarIndicatorSize: TabBarIndicatorSize.tab,
+                      isShowBackgroundShadow: true,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         Expanded(
