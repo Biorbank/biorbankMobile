@@ -22,7 +22,80 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactViewState extends State<ContactScreen>
     with SingleTickerProviderStateMixin {
+  final List<Map<String, dynamic>> positions = [
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': '0xfAA..c69e',
+      'isShowActionButton': true,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': '0xfAA..c69e',
+      'isShowActionButton': true,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': '0xfAA..c69e',
+      'isShowActionButton': true,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': '0xfAA..c69e',
+      'isShowActionButton': true,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': '0xfAA..c69e',
+      'isShowActionButton': true,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': 'Support@BiiorBank.com',
+      'isShowActionButton': false,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': 'Support@BiiorBank.com',
+      'isShowActionButton': false,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': 'Support@BiiorBank.com',
+      'isShowActionButton': false,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': 'Support@BiiorBank.com',
+      'isShowActionButton': false,
+    },
+    {
+      'name': 'Ralph Edwards',
+      'imageUrl':
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+      'address': 'Support@BiiorBank.com',
+      'isShowActionButton': false,
+    },
+  ];
   late TabController tabController;
+
   @override
   void initState() {
     tabController = TabController(length: 2, vsync: this);
@@ -70,20 +143,6 @@ class _ContactViewState extends State<ContactScreen>
               ),
             ),
             height(15.h),
-            CommonTabbar(
-                selectedIndex: cubit.tabIndex,
-                length: 2,
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                tabAlignment: TabAlignment.fill,
-                isScrollable: false,
-                labelTextBackgroundPadding:
-                    const EdgeInsets.symmetric(vertical: 10),
-                labelColor: Theme.of(context).colorScheme.shadow,
-                isShowBackgroundShadow: true,
-                onTap: (index) {},
-                tabController: tabController,
-                tabList: const ['Web3', 'Web2']),
-            height(20.h),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: GestureDetector(
@@ -92,9 +151,7 @@ class _ContactViewState extends State<ContactScreen>
                     isScrollControlled: true,
                     backgroundColor: Theme.of(context).colorScheme.onSurface,
                     context: context,
-                    builder: (context) => cubit.tabIndex == 0
-                        ? const AddWeb3ContactWidget()
-                        : const AddWeb2ContactWidget(),
+                    builder: (context) => const AddWeb3ContactWidget(),
                   );
                 },
                 child: Row(
@@ -118,10 +175,16 @@ class _ContactViewState extends State<ContactScreen>
                             color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
-                        width(15.w),
+                        width(5.w),
                         AppConstant.commonText('Add Contact',
-                            color: Theme.of(context).colorScheme.shadow,
+                            color: Theme.of(context).colorScheme.onPrimary,
                             fontWeight: FontWeight.w500),
+                        width(5.w),
+                        const Icon(
+                          Icons.filter_list_alt,
+                          size: 22,
+                          color: Colors.grey,
+                        ),
                       ],
                     ),
                   ],
@@ -130,36 +193,20 @@ class _ContactViewState extends State<ContactScreen>
             ),
             height(15.h),
             Expanded(
-              child: TabBarView(controller: tabController, children: [
-                ListView.separated(
-                  separatorBuilder: (context, index) => height(18.h),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) => const ContactCard(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
-                    name: 'Ralph Edwards',
-                    id: '0xfAA..c69e',
-                  ),
+              child: ListView.separated(
+                separatorBuilder: (context, index) => height(18.h),
+                padding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                shrinkWrap: true,
+                itemCount: positions.length,
+                itemBuilder: (context, index) => ContactCard(
+                  imageUrl: positions[index]['imageUrl'],
+                  name: positions[index]['name'],
+                  id: positions[index]['address'],
+                  isShowActionButtons: positions[index]['isShowActionButton'],
                 ),
-                ListView.separated(
-                  separatorBuilder: (context, index) => height(18.h),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-                  shrinkWrap: true,
-                  itemCount: 10,
-                  itemBuilder: (context, index) => const ContactCard(
-                    isShowActionButtons: false,
-                    imageUrl:
-                        'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg',
-                    name: 'Dianne Russell',
-                    id: 'Support@BiiorBank.com',
-                  ),
-                ),
-              ]),
-            )
+              ),
+            ),
           ],
         );
       },
