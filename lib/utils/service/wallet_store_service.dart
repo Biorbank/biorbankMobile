@@ -452,6 +452,16 @@ class WalletStoreService {
     }
   }
 
+  Future<void> removeAllWallet() async {
+    wallets.clear();
+    index.value = -1;
+    List<String> newWalletsInString =
+        wallets.map((e) => json.encode(e.toJson())).toList();
+    await _prefs.setStringList("wallets", newWalletsInString);
+    await _prefs.setInt("walletCount", wallets.length);
+    await _prefs.setInt("walletIndex", index.value);
+  }
+
   bool walletNameAlreadyExists(String name) {
     return wallets.where((element) => element.getName() == name).isEmpty;
   }

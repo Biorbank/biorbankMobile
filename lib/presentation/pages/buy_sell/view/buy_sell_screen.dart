@@ -52,7 +52,7 @@ class _BuySellScreenState extends State<BuySellScreen>
           Expanded(
               child: TabBarView(
                   controller: tabController,
-                  children: const [BuyTabWidget(), SellTabWidget()]))
+                  children: const [BuyTapWidget(), SellTabWidget()]))
         ],
       ),
     );

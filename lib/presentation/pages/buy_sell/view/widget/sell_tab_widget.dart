@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
+import 'package:biorbank/presentation/common/common_select_token_bottom_sheet.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
 import 'package:biorbank/presentation/common/custom_dropdown_widget.dart';
 import 'package:biorbank/presentation/pages/buy_sell/cubit/buysell_cubit.dart';
@@ -10,14 +12,39 @@ import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/helpers/app_helper.dart';
+import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SellTabWidget extends StatelessWidget {
+class SellTabWidget extends StatefulWidget {
   const SellTabWidget({super.key});
+
+  @override
+  State<SellTabWidget> createState() => _SellTabWidgetState();
+}
+
+class _SellTabWidgetState extends State<SellTabWidget> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    updateState();
+  }
+
+  void updateState() async {
+    CryptoDBRepositoryImpl db = context.read<CryptoDBRepositoryImpl>();
+    BuySellCubit cubit = context.read<BuySellCubit>();
+    if (cubit.regionList.isNotEmpty) {
+      cubit.selectedRegion = cubit.regionList.first;
+    }
+    if (db.state.assetList.isNotEmpty) {
+      cubit.onSelectCryptoCurrency(currency: db.state.assetList.first);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +72,7 @@ class SellTabWidget extends StatelessWidget {
                   value: cubit.selectedRegion,
                   labelText: 'Select region',
                   title: 'Your Region',
+                  offset: const Offset(0, -10),
                   items: cubit.regionList
                       .map((e) => DropdownMenuItem(
                           value: e,
@@ -59,7 +87,7 @@ class SellTabWidget extends StatelessWidget {
                                     const SizedBox.shrink(),
                               ),
                               width(8.w),
-                              AppConstant.commonText(e.name,
+                              AppConstant.commonText(e.country ?? "",
                                   color: Theme.of(context).colorScheme.shadow),
                             ],
                           )))
@@ -199,6 +227,7 @@ class SellTabWidget extends StatelessWidget {
                   // value: cubit.selectedCoin,
                   labelText: 'Select destination account',
                   title: 'Select an account',
+                  offset: const Offset(0, -10),
                   items: []
                       .map((e) => DropdownMenuItem(
                             value: e,
@@ -219,40 +248,75 @@ class SellTabWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12.r),
                       color: Theme.of(context).colorScheme.errorContainer),
+                  height: 45.h,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
                       children: [
+                        width(10.w),
+                        Image.file(
+                          File(
+                              "${AppHelper.appDir}/${cubit.selectedCryptoCurrency?.getAsset().logo}"),
+                          height: 24.h,
+                          width: 24.w,
+                          fit: BoxFit.cover,
+                        ),
+                        width(10.w),
                         Expanded(
-                          child: CommonTextfield(
-                            title: '',
-                            isShowSpaceAfterTitle: false,
-                            verticalPading: 0,
-                            inputType: TextInputType.number,
-                            focusBorderColor: AppColors.transparent,
+                          child: AppConstant.commonText(
+                            cubit.selectedCryptoCurrency?.getAsset().name ?? "",
+                            color: Theme.of(context).colorScheme.shadow,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        CommonDropdownWidget(
-                          labelText: 'BTC',
-                          borderRadius: 8,
-                          height: 40.h,
-                          isUseBackgroundColor: false,
-                          items: ['ETH', 'BTC']
-                              .map((e) => DropdownMenuItem(
-                                    value: e,
-                                    child: AppConstant.commonText(e,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .shadow,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ))
-                              .toList(),
-                          //backGroundColor: Theme.of(context).colorScheme.onSurface,
-                          onChanged: (value) {
-                            //cubit.onSelectCurrency(currency: value);
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              useRootNavigator: true,
+                              scrollControlDisabledMaxHeightRatio: 4 / 5,
+                              shape: const OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent),
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(12),
+                                  topLeft: Radius.circular(12),
+                                ),
+                              ),
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.onSurface,
+                              builder: (context) {
+                                return CommonSelectTokenBottomSheet(
+                                  onTap: (selectedAsset) {
+                                    cubit.onSelectCryptoCurrency(
+                                        currency: selectedAsset);
+                                  },
+                                );
+                              },
+                            );
                           },
+                          child: Row(
+                            children: [
+                              AppConstant.commonText(
+                                cubit.selectedCryptoCurrency
+                                        ?.getAsset()
+                                        .symbol ??
+                                    "",
+                                color: Theme.of(context).colorScheme.shadow,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              width(8.w),
+                              Image.asset(
+                                Assets.imagesChevronDown,
+                                height: 18,
+                                color: Theme.of(context).colorScheme.shadow,
+                              )
+                            ],
+                          ),
                         ),
+                        width(5.w),
                       ],
                     ),
                   ),
@@ -283,26 +347,15 @@ class SellTabWidget extends StatelessWidget {
                             focusBorderColor: AppColors.transparent,
                           ),
                         ),
-                        CommonDropdownWidget(
-                          labelText: 'ETH',
-                          borderRadius: 8,
-                          isUseBackgroundColor: false,
-                          height: 40.h,
-                          items: ['ETH', 'BTC']
-                              .map((e) => DropdownMenuItem(
-                                    value: e,
-                                    child: AppConstant.commonText(e,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .shadow,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600),
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            //cubit.onSelectCurrency(currency: value);
-                          },
+                        AppConstant.commonText(
+                          cubit.selectedRegion?.name ?? "",
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
                         ),
+                        width(10.w),
                       ],
                     ),
                   ),
