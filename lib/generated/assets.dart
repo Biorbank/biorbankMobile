@@ -33,6 +33,7 @@ class Assets {
   static const String imagesCheckCircle = 'assets/images/check_circle.png';
   static const String imagesChevronDown = 'assets/images/chevron_down.png';
   static const String imagesClock = 'assets/images/clock.png';
+  static const String imagesEth = 'assets/images/eth_icon.png';
   static const String imagesClose = 'assets/images/close.png';
   static const String imagesCloseCircle = 'assets/images/close_circle.png';
   static const String imagesConnect = 'assets/images/connect.png';

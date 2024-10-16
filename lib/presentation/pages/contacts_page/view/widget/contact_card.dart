@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ContactCard extends StatelessWidget {
   const ContactCard(
       {super.key,
-      required this.imageUrl,
-      required this.name,
-      required this.id,
-      this.isShowActionButtons = true});
+        required this.imageUrl,
+        required this.name,
+        required this.id,
+        this.isShowActionButtons = true});
   final String imageUrl;
   final String name;
   final String id;
@@ -39,8 +39,7 @@ class ContactCard extends StatelessWidget {
                       width: 50.w,
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              Theme.of(context).colorScheme.inversePrimary),
+                          color: Theme.of(context).colorScheme.inversePrimary),
                     ),
                   ),
                 ),
@@ -72,36 +71,35 @@ class ContactCard extends StatelessWidget {
           ),
         ),
         width(10.w),
-        Visibility(
-          visible: isShowActionButtons,
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color:
-                            Theme.of(context).colorScheme.inversePrimary),
-                    child: Row(
-                      children: [
-                        AppConstant.commonText('Send',
-                            color: Theme.of(context).colorScheme.onPrimary,
-                            fontWeight: FontWeight.w500),
-                        width(4.h),
-                        Image.asset(
-                          Assets.imagesArrowUp,
-                          height: 18.h,
-                          width: 18.w,
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).colorScheme.inversePrimary),
+                  child: Row(
+                    children: [
+                      AppConstant.commonText('Send',
                           color: Theme.of(context).colorScheme.onPrimary,
-                        )
-                      ],
-                    )),
-              ),
-              width(12.w),
-              GestureDetector(
+                          fontWeight: FontWeight.w500),
+                      width(4.h),
+                      Image.asset(
+                        Assets.imagesArrowUp,
+                        height: 18.h,
+                        width: 18.w,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      )
+                    ],
+                  )),
+            ),
+            width(12.w),
+            Visibility(
+              visible: isShowActionButtons,
+              child: GestureDetector(
                 onTap: () {},
                 child: Container(
                   height: 44.h,
@@ -117,10 +115,10 @@ class ContactCard extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
-              )
-            ],
-          ),
-        )
+              ),
+            )
+          ],
+        ),
       ],
     );
   }

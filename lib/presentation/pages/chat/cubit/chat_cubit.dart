@@ -28,7 +28,7 @@ class ChatCubit extends Cubit<ChatState> {
     'delete',
   ];
 
-  clearController(){
+  clearController() {
     moneyController.clear();
     moneyMsgController.clear();
   }
@@ -40,7 +40,7 @@ class ChatCubit extends Cubit<ChatState> {
 
       if (cursorPosition > 0) {
         final newText =
-            currentText.replaceRange(cursorPosition - 1, cursorPosition, '');
+        currentText.replaceRange(cursorPosition - 1, cursorPosition, '');
 
         moneyController.value = TextEditingValue(
           text: newText,
@@ -51,7 +51,7 @@ class ChatCubit extends Cubit<ChatState> {
       final currentText = moneyController.text;
       final cursorPosition = moneyController.selection.baseOffset;
       final newText =
-          currentText.replaceRange(cursorPosition, cursorPosition, key);
+      currentText.replaceRange(cursorPosition, cursorPosition, key);
 
       moneyController.value = TextEditingValue(
         text: newText,
@@ -131,6 +131,33 @@ class ChatCubit extends Cubit<ChatState> {
       "img": "assets/img/cryptoicon/3794.png",
       "name": "Cosmos",
       "address": "cosmos1xy2kgdygjrsqtzq2n...0wlh",
+    },
+  ];
+  List<Map<String, String>> blockchainListForNetwork = [
+    {
+      "img": "assets/img/cryptoicon/1.png",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+    },
+    {
+      "img": "assets/img/cryptoicon/2.png",
+      "name": "Litecoin",
+      "symbol": "LTC",
+    },
+    {
+      "img": "assets/img/cryptoicon/1027.png",
+      "name": "Ethereum",
+      "symbol": "ETH",
+    },
+    {
+      "img": "assets/img/cryptoicon/1839.png",
+      "name": "Binance",
+      "symbol": "BNB",
+    },
+    {
+      "img": "assets/img/cryptoicon/3794.png",
+      "name": "Cosmos",
+      "symbol": "ATOM",
     },
   ];
 }

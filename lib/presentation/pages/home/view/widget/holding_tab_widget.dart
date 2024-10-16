@@ -36,7 +36,6 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      controller: widget.scrollController,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
