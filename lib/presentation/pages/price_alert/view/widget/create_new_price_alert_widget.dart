@@ -53,6 +53,9 @@ class _CreateNewPriceAlertWidgetState extends State<CreateNewPriceAlertWidget>
       if (typeList.isNotEmpty) {
         selectedType = typeList.first;
       }
+      if (priceList.isNotEmpty) {
+        selectedPrice = priceList.first;
+      }
     });
   }
 

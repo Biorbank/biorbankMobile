@@ -27,6 +27,7 @@ class CommonDropdownWidget<T> extends StatefulWidget {
   final DropdownSearchData<T>? dropdownSearchData;
   final double? maxHeight;
   final Function(bool)? onMenuStateChange;
+  final Offset offset;
 
   const CommonDropdownWidget({
     super.key,
@@ -51,6 +52,7 @@ class CommonDropdownWidget<T> extends StatefulWidget {
     this.isExpanded = false,
     this.textStyle,
     this.isUseBackgroundColor = true,
+    this.offset = const Offset(0, 0),
   });
 
   @override
@@ -93,6 +95,7 @@ class _CommonDropdownWidgetState<T> extends State<CommonDropdownWidget<T>> {
                   const MenuItemStyleData(padding: EdgeInsets.only(left: 12)),
               onChanged: widget.onChanged,
               dropdownStyleData: DropdownStyleData(
+                  offset: widget.offset,
                   padding: widget.dropDownContentPadding,
                   maxHeight: widget.maxHeight,
                   decoration: BoxDecoration(

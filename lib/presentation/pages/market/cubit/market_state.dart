@@ -43,7 +43,8 @@ final class RangeSliderState extends MarketState {
 class CurrencyModel {
   final String url;
   final String name;
-  CurrencyModel({required this.name, required this.url});
+  final String? country;
+  CurrencyModel({required this.name, required this.url, this.country});
 }
 
 final class ChangeSelectedCryptoTabState extends MarketState {

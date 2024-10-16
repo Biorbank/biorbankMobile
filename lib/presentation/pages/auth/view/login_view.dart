@@ -46,6 +46,7 @@ class _LoginViewState extends State<LoginScreen> with Validation {
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<AuthCubit>();
+
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return ValueListenableBuilder<bool>(
@@ -147,7 +148,21 @@ class _LoginViewState extends State<LoginScreen> with Validation {
                           child: CommonTextButton(
                             mainAxisAlignment: MainAxisAlignment.center,
                             name: AppStrings.resetWallet,
-                            onTap: () {},
+                            onTap: () async {
+                              if (!context.mounted) return;
+
+                              setState(() {
+                                cubit.isLoadingNotifier.value = true;
+                              });
+                              try {
+                                await UserPreferences.eraseData();
+                                await AppHelper.walletService.removeAllWallet();
+                              } catch (e) {}
+                              setState(() {
+                                cubit.isLoadingNotifier.value = false;
+                              });
+                              context.router.replace(const WelcomeRoute());
+                            },
                             fontWeight: FontWeight.w500,
                             textColor: Theme.of(context).colorScheme.onPrimary,
                           ),

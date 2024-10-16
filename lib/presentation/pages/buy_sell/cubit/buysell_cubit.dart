@@ -1,4 +1,5 @@
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
+import 'package:biorbank/utils/repositories/crypto_asset_repostiory_impl.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -9,36 +10,38 @@ class BuySellCubit extends Cubit<BuysellState> {
 
   TextEditingController religionTextController = TextEditingController();
 
-  CurrencyModel? selectedRegion;
-  Map<String,dynamic>  confirmedPaymentMethod={};
-  Map<String,dynamic> paymentMethodSelected={};
+  Map<String, dynamic> confirmedPaymentMethod = {};
+  Map<String, dynamic> paymentMethodSelected = {};
   List<CurrencyModel> regionList = [
     CurrencyModel(
-        name: 'Afghanistan',
-        url: 'https://www.worldometers.info/img/flags/af-flag.gif'),
+        country: "English (UK)",
+        name: 'GBP',
+        url: 'https://www.worldometers.info/img/flags/uk-flag.gif'),
     CurrencyModel(
-        name: 'Australia',
-        url: 'https://www.worldometers.info/img/flags/as-flag.gif'),
+        country: 'France',
+        name: 'EUR',
+        url: 'https://www.worldometers.info/img/flags/fr-flag.gif'),
     CurrencyModel(
-        name: 'Argentina',
-        url: 'https://www.worldometers.info/img/flags/ar-flag.gif'),
-    CurrencyModel(
-        name: 'China',
-        url: 'https://www.worldometers.info/img/flags/ch-flag.gif'),
-    CurrencyModel(
-        name: 'Germany',
+        country: 'Germany',
+        name: 'EUR',
         url: 'https://www.worldometers.info/img/flags/gm-flag.gif'),
+    CurrencyModel(
+        country: 'Spain',
+        name: 'EUR',
+        url: 'https://www.worldometers.info/img/flags/sp-flag.gif'),
   ];
+  CurrencyModel? selectedRegion;
 
   void onSelectRegion({required CurrencyModel? region}) {
     religionTextController.clear();
     emit(RegionSelectedState(region: region));
   }
 
-  void onConfirmedPaymentMethod({required Map<String,dynamic> payment}) {
+  void onConfirmedPaymentMethod({required Map<String, dynamic> payment}) {
     emit(PaymentMethodConfirmedState(paymentMethod: payment));
   }
-  void onSelectPaymentMethods({required Map<String,dynamic> payment}) {
+
+  void onSelectPaymentMethods({required Map<String, dynamic> payment}) {
     emit(SelectedPaymentMethodState(paymentMethod: payment));
   }
 
@@ -75,4 +78,12 @@ class BuySellCubit extends Cubit<BuysellState> {
       "sub_image2": ""
     },
   ];
+
+  // you want to buy
+  CryptoAssetRepositoryImpl? selectedCryptoCurrency;
+
+  void onSelectCryptoCurrency({required CryptoAssetRepositoryImpl currency}) {
+    selectedCryptoCurrency = currency;
+    emit(CryptoCurrencySelectedState(currency: currency));
+  }
 }
