@@ -6,6 +6,10 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../utils/service/pay_with_moon_service.dart';
+
+import '../../../../../utils/service/pay_with_moon_service.dart';
+
 class DebitTabWidget extends StatelessWidget {
   const DebitTabWidget(
       {super.key,
@@ -19,6 +23,7 @@ class DebitTabWidget extends StatelessWidget {
   final VoidCallback onTapSettingButton;
   @override
   Widget build(BuildContext context) {
+    //final card = await fetchCard("1");
     return Stack(
       fit: StackFit.expand,
       children: [

@@ -20,10 +20,13 @@ class CurrencyConvertWidget extends StatefulWidget {
 }
 
 class _CurrencyConvertWidgetState extends State<CurrencyConvertWidget> {
+  FocusNode? _focusNode;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _focusNode = FocusNode();
     updateState();
   }
 
@@ -99,6 +102,7 @@ class _CurrencyConvertWidgetState extends State<CurrencyConvertWidget> {
                         scrollPadding: const EdgeInsets.all(0.0),
                         verticalPading: 0.0,
                         onChanged: (value) {},
+                        focusNode: _focusNode,
                       ),
                     ),
                     InkWell(

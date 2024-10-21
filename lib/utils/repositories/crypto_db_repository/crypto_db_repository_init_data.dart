@@ -133,3 +133,127 @@ class TotalAmountHistory {
     this.totalAmount = 0.0,
   }) : createdAt = createdAt ?? DateTime.now();
 }
+class PayWitMoonCard {
+  final String id;
+  final String token;
+  final String pan;
+  final String cvv;
+  final String expiration;
+  final String displayExpiration;
+  final double balance;
+  final double availableBalance;
+  final String supportToken;
+
+  PayWitMoonCard({
+    this.id = "",
+    this.token = "",
+    this.pan = "",
+    this.cvv = "",
+    this.expiration = "",
+    this.displayExpiration = "",
+    this.balance = 0.0,
+    this.availableBalance = 0.0,
+    this.supportToken = "",
+  });
+
+  // Factory method to create an instance from a JSON map
+  factory PayWitMoonCard.fromJson(Map<String, dynamic> json) {
+    return PayWitMoonCard(
+      id: json['id'],
+      token: json['token'],
+      pan: json['pan'],
+      cvv: json['cvv'],
+      expiration: json['expiration'],
+      displayExpiration: json['display_expiration'],
+      balance: json['balance'],
+      availableBalance: json['available_balance'],
+      supportToken: json['support_token'],
+    );
+  }
+
+  // Convert an instance to a JSON map
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'token': token,
+      'pan': pan,
+      'cvv': cvv,
+      'expiration': expiration,
+      'display_expiration': displayExpiration,
+      'balance': balance,
+      'available_balance': availableBalance,
+      'support_token': supportToken,
+    };
+  }
+}
+class PayWithMoonTransaction {
+  final String transactionId;
+  final String transactionStatus;
+  final DateTime datetime;
+  final String merchant;
+  final double amount;
+  final String ledgerCurrency;
+  final double amountFeesInLedgerCurrency;
+  final double amountInTransactionCurrency;
+  final String transactionCurrency;
+  final double amountFeesInTransactionCurrency;
+  final List<PayWithMoonFee> fees;
+
+  PayWithMoonTransaction({
+    required this.transactionId,
+    required this.transactionStatus,
+    required this.datetime,
+    required this.merchant,
+    required this.amount,
+    required this.ledgerCurrency,
+    required this.amountFeesInLedgerCurrency,
+    required this.amountInTransactionCurrency,
+    required this.transactionCurrency,
+    required this.amountFeesInTransactionCurrency,
+    required this.fees,
+  });
+
+  factory PayWithMoonTransaction.fromJson(Map<String, dynamic> json) {
+    var feeList = json['data']['fees'] as List;
+    List<PayWithMoonFee> fees = feeList.map((i) => PayWithMoonFee.fromJson(i)).toList();
+
+    return PayWithMoonTransaction(
+      transactionId: json['data']['transactionId'],
+      transactionStatus: json['data']['transactionStatus'],
+      datetime: DateTime.parse(json['data']['datetime']),
+      merchant: json['data']['merchant'],
+      amount: json['data']['amount'].toDouble(),
+      ledgerCurrency: json['data']['ledgerCurrency'],
+      amountFeesInLedgerCurrency: json['data']['amountFeesInLedgerCurrency'].toDouble(),
+      amountInTransactionCurrency: json['data']['amountInTransactionCurrency'].toDouble(),
+      transactionCurrency: json['data']['transactionCurrency'],
+      amountFeesInTransactionCurrency: json['data']['amountFeesInTransactionCurrency'].toDouble(),
+      fees: fees,
+    );
+  }
+}
+
+class PayWithMoonFee {
+  final String type;
+  final double amount;
+  final double feeAmountInTransactionCurrency;
+  final String feeDescription;
+
+  PayWithMoonFee({
+    required this.type,
+    required this.amount,
+    required this.feeAmountInTransactionCurrency,
+    required this.feeDescription,
+  });
+
+  factory PayWithMoonFee.fromJson(Map<String, dynamic> json) {
+    return PayWithMoonFee(
+      type: json['type'],
+      amount: json['amount'].toDouble(),
+      feeAmountInTransactionCurrency: json['feeAmountInTransactionCurrency'].toDouble(),
+      feeDescription: json['feeDescription'],
+    );
+  }
+}
+
+

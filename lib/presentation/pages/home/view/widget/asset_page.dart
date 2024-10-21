@@ -22,6 +22,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../utils/common_spacer.dart';
+import '../../../../../utils/service/pay_with_moon_service.dart';
 import '../../../../common/common_blue_container.dart';
 import '../../../../common/common_search_appbar.dart';
 import '../../cubit/home_cubit.dart';
@@ -46,7 +47,6 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
   void updateState() async {
     final db = context.read<CryptoDBRepositoryImpl>();
     final cubit = context.read<HomeCubit>();
-
     // Create a list of futures
     List<Future<MyAccountTokenModel>> futures =
         db.state.assetList.map((e) async {
