@@ -94,6 +94,7 @@ class AppRouter extends _$AppRouter {
           AutoRoute(page: HelpCenterRoute.page, maintainState: false),
           AutoRoute(page: P2pMarketRoute.page, maintainState: false),
           AutoRoute(page: HistoryRoute.page, maintainState: false),
+          AutoRoute(page: TokenRoute.page),
         ]),
 
         AutoRoute(page: ImportExistingAccountRoute.page),
@@ -112,7 +113,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: BuyUsdtRoute.page),
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
-        AutoRoute(page: TokenRoute.page),
         AutoRoute(page: LinkNewAddressRoute.page),
       ];
 }

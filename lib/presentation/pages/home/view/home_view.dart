@@ -28,7 +28,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    context.read<HomeCubit>().onTapeTradeActionOption(value: null);
     super.initState();
   }
 
@@ -110,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onTap: (index) {
                           if (index == 0) {
                             final cubit = context.read<MarketCubit>();
-                            cubit.selectedTabIndex = 2;
+                            cubit.selectedTabIndex = 1;
                             AutoTabsRouter.of(context).setActiveIndex(1);
                             Global.controller.hideDrawer();
                             Global.scaffoldKey.currentState?.closeDrawer();

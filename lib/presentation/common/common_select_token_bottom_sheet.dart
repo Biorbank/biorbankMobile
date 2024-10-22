@@ -68,7 +68,6 @@ class _CommonSelectTokenBottomSheetState
                   isShowSpaceAfterTitle: false,
                   borderRadius: 30,
                   title: '',
-                  autoFocus: true,
                   prefixWidget: Padding(
                     padding: const EdgeInsets.all(14.0),
                     child: Image.asset(

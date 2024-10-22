@@ -57,6 +57,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             const HistoryRoute(),
             const MyAccountsRoute(),
             const AssetRoute(),
+            const TokenRoute(),
           ],
           //  transitionBuilder:_customTransitionBuilder ,
           builder: (context, child) {

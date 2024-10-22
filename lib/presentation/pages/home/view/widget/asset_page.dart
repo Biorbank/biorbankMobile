@@ -15,8 +15,6 @@ import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repos
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:biorbank/utils/service/cmc_service.dart';
 import 'package:biorbank/utils/service/logger_service.dart';
-import 'package:biorbank/utils/service/wallet_store_service.dart';
-import 'package:defichaindart/defichaindart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -289,7 +287,7 @@ class _AssetPageState extends State<AssetPage> with TickerProviderStateMixin {
                                     "+${(data.percentChangeday).toStringAsFixed(2)}%",
                                 isProfit: data.isProfit,
                                 onTap: () {
-                                  context.router.push(const TokenRoute());
+                                  AutoTabsRouter.of(context).setActiveIndex(13);
                                 },
                               );
                             },
