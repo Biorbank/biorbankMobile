@@ -135,57 +135,64 @@ class TotalAmountHistory {
 }
 class PayWitMoonCard {
   final String id;
-  final String token;
-  final String pan;
-  final String cvv;
-  final String expiration;
-  final String displayExpiration;
   final double balance;
   final double availableBalance;
+  final String expiration;
+  final String displayExpiration;
+  final bool terminated;
+  final String cardProductId;
+  final String pan;
+  final String cvv;
   final String supportToken;
+  final bool frozen;
 
   PayWitMoonCard({
     this.id = "",
-    this.token = "",
-    this.pan = "",
-    this.cvv = "",
-    this.expiration = "",
-    this.displayExpiration = "",
     this.balance = 0.0,
     this.availableBalance = 0.0,
+    this.expiration = "",
+    this.displayExpiration = "",
+    this.terminated = false,
+    this.cardProductId = "",
+    this.pan = "",
+    this.cvv = "",
     this.supportToken = "",
+    this.frozen = false,
   });
 
-  // Factory method to create an instance from a JSON map
   factory PayWitMoonCard.fromJson(Map<String, dynamic> json) {
     return PayWitMoonCard(
-      id: json['id'],
-      token: json['token'],
-      pan: json['pan'],
-      cvv: json['cvv'],
-      expiration: json['expiration'],
-      displayExpiration: json['display_expiration'],
-      balance: json['balance'],
-      availableBalance: json['available_balance'],
-      supportToken: json['support_token'],
+      id: json['id'] ?? "",
+      pan: json['pan'] ?? "",
+      cvv: json['cvv'] ?? "",
+      cardProductId: json['card_product_id'] ?? "",
+      expiration: json['expiration'] ?? "",
+      displayExpiration: json['display_expiration'] ?? "",
+      balance: (json['balance'] ?? 0.0).toDouble(),
+      availableBalance: (json['available_balance'] ?? 0.0).toDouble(),
+      supportToken: json['support_token'] ?? "",
+      terminated: json['terminated'] ?? false,
+      frozen: json['frozen'] ?? false,
     );
   }
 
-  // Convert an instance to a JSON map
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'token': token,
       'pan': pan,
       'cvv': cvv,
+      'card_product_id': cardProductId,
       'expiration': expiration,
       'display_expiration': displayExpiration,
       'balance': balance,
       'available_balance': availableBalance,
       'support_token': supportToken,
+      'terminated': terminated,
+      'frozen': frozen,
     };
   }
 }
+
 class PayWithMoonTransaction {
   final String transactionId;
   final String transactionStatus;

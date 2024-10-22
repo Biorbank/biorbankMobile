@@ -6,6 +6,9 @@ abstract class Env {
   @EnviedField(varName: 'BANKSOCIAL_API_KEY', obfuscate: true)
   static final String banksocialApiKey = _Env.banksocialApiKey;
 
+  @EnviedField(varName: 'PAYWITHMOON_API_KEY', obfuscate: true)
+  static final String payWithMoonApiKey = _Env.polygonRpcUrl;
+
   @EnviedField(varName: 'ETHEREUM_RPC_URL', obfuscate: true)
   static final String ethereumRpcUrl = _Env.ethereumRpcUrl;
 

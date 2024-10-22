@@ -11,7 +11,7 @@ class PayWithMoonApiService {
     return _instance!;
   }
 
-  final String _baseUrl = 'https://virtserver.swaggerhub.com/Moon6/Moon-card-issuing/1.0.4';
+  final String _baseUrl = 'https://virtserver.swaggerhub.com/Moon6/Moon-card-issuing/1.1.0';
   late final Dio dio;
 
   PayWithMoonApiService._init() {
@@ -19,7 +19,7 @@ class PayWithMoonApiService {
       BaseOptions(
         baseUrl: _baseUrl,
         headers: {
-          'x-api-key': Env.banksocialApiKey,
+          'x-api-key': '299656a5cd2c10bdf524',
           'Content-Type': 'application/json',
         },
       ),
