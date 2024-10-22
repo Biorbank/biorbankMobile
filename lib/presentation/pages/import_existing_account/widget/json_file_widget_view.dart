@@ -1,7 +1,7 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_outlined_button.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/cubit/import_existing_account_cubit.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class JsonFileWidgetView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<ImportExsitingAccountCubit>();
+    var cubit = context.read<ImportExistingAccountCubit>();
 
     return SingleChildScrollView(
       child: Padding(
@@ -27,7 +27,8 @@ class JsonFileWidgetView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   color: Theme.of(context).colorScheme.inversePrimary),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
                   children: [
                     Image.asset(
@@ -37,7 +38,8 @@ class JsonFileWidgetView extends StatelessWidget {
                     ),
                     height(20.h),
                     AppConstant.commonText('Import your .Json File',
-                        color:Theme.of(context).colorScheme.onSecondaryContainer),
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer),
                     height(20.h),
                     CommonOutlinedButton(onTap: () {}, title: 'Browse'),
                   ],

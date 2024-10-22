@@ -46,14 +46,14 @@ Future<void> main() async {
   bool isFirstRun = await IsFirstRun.isFirstRun();
   if (isFirstRun) {
     // clear auth storage
-    PrefixSecureStorageManager secureStorageManager =
-        PrefixSecureStorageManager("authBox");
-    await secureStorageManager.clearAll();
+    // PrefixSecureStorageManager secureStorageManager =
+    //     PrefixSecureStorageManager("authBox");
+    // await secureStorageManager.clearAll();
 
     // clear wallet storage
-    PrefixSecureStorageManager walletStorageManager =
-        PrefixSecureStorageManager("walletBox_v2");
-    await walletStorageManager.clearAll();
+    // PrefixSecureStorageManager walletStorageManager =
+    //     PrefixSecureStorageManager("walletBox_v2");
+    // await walletStorageManager.clearAll();
   }
   await AppHelper.init();
   await copyAssets('/assets/img/cryptoicons');

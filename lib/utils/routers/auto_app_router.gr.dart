@@ -15,6 +15,18 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AddAccountRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AddAccountScreen(),
+      );
+    },
+    AddNewAccountRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AddNewAccountScreen(),
+      );
+    },
     AssetRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -139,6 +151,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ImportExistingAccountScreen(),
       );
     },
+    ImportNewAccountRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ImportNewAccountScreen(),
+      );
+    },
     LinkNewAddressRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -259,6 +277,34 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AddAccountScreen]
+class AddAccountRoute extends PageRouteInfo<void> {
+  const AddAccountRoute({List<PageRouteInfo>? children})
+      : super(
+          AddAccountRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddAccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AddNewAccountScreen]
+class AddNewAccountRoute extends PageRouteInfo<void> {
+  const AddNewAccountRoute({List<PageRouteInfo>? children})
+      : super(
+          AddNewAccountRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AddNewAccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -561,6 +607,20 @@ class ImportExistingAccountRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ImportExistingAccountRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ImportNewAccountScreen]
+class ImportNewAccountRoute extends PageRouteInfo<void> {
+  const ImportNewAccountRoute({List<PageRouteInfo>? children})
+      : super(
+          ImportNewAccountRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ImportNewAccountRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

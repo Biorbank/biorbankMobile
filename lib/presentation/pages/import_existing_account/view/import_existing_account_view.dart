@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_tabbar.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/widget/json_file_widget_view.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/widget/phrase_key_widget.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/cubit/import_existing_account_cubit.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/widget/json_file_widget_view.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/widget/phrase_key_widget.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/preferences.dart';
 import 'package:biorbank/utils/repositories/crypto_db_repository/crypto_db_repository_impl.dart';
@@ -37,7 +37,7 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(() {
       context
-          .read<ImportExsitingAccountCubit>()
+          .read<ImportExistingAccountCubit>()
           .changeTabIndex(index: tabController.index);
     });
     super.initState();
@@ -45,9 +45,9 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ImportExsitingAccountCubit, ImportExsitingAccountState>(
+    return BlocBuilder<ImportExistingAccountCubit, ImportExistingAccountState>(
       builder: (context, state) {
-        var cubit = context.read<ImportExsitingAccountCubit>();
+        var cubit = context.read<ImportExistingAccountCubit>();
         if (state is TabIndexChangeState) {
           cubit.tabIndex = state.index;
         }
@@ -65,7 +65,7 @@ class _ImportExistingAccountViewState extends State<ImportExistingAccountScreen>
                       children: [
                         height(14.h),
                         CommonAppbar(
-                          title: AppStrings.importExsitingAccount,
+                          title: AppStrings.importExistingAccount,
                         ),
                         height(20.h),
                         CommonTabbar(

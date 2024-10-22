@@ -1,6 +1,6 @@
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/cubit/import_existing_account_cubit.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
@@ -19,9 +19,9 @@ class PhraseKeyWidget extends StatefulWidget {
 class _PhraseKeyWidgetState extends State<PhraseKeyWidget> with Validation {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ImportExsitingAccountCubit, ImportExsitingAccountState>(
+    return BlocBuilder<ImportExistingAccountCubit, ImportExistingAccountState>(
       builder: (context, state) {
-        var cubit = context.read<ImportExsitingAccountCubit>();
+        var cubit = context.read<ImportExistingAccountCubit>();
         return SingleChildScrollView(
           child: Form(
             key: cubit.formKey,

@@ -72,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     height(15),
                     CommonButton(
-                      name: AppStrings.importExsitingAccount,
+                      name: AppStrings.importExistingAccount,
                       buttonColor: Theme.of(context).colorScheme.errorContainer,
                       textColor: Theme.of(context).colorScheme.shadow,
                       onTap: () {

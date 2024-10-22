@@ -3,7 +3,7 @@ import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_appbar.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/common/common_outlined_button.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/widget/finding_ledger_widget.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/widget/finding_ledger_widget.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';

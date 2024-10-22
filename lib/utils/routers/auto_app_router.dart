@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_search_view.dart';
+import 'package:biorbank/presentation/pages/add_account/view/add_account_view.dart';
+import 'package:biorbank/presentation/pages/add_account/view/import_new_account_view.dart';
+import 'package:biorbank/presentation/pages/auth/view/add_new_account_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/login_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/unlock_pin_view.dart';
 import 'package:biorbank/presentation/pages/auth/view/welcome_view.dart';
@@ -21,9 +24,9 @@ import 'package:biorbank/presentation/pages/help_center/view/help_center_screen.
 import 'package:biorbank/presentation/pages/home/view/home_view.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/asset_page.dart';
 import 'package:biorbank/presentation/pages/home/view/widget/my_accounts_widget.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/view/connect_hardware_wallet_view.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/view/import_existing_account_view.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/view/new_account_create_view.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/view/connect_hardware_wallet_view.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/view/import_existing_account_view.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/view/new_account_create_view.dart';
 import 'package:biorbank/presentation/pages/market/view/market_view.dart';
 import 'package:biorbank/presentation/pages/nft/view/nft_screen.dart';
 import 'package:biorbank/presentation/pages/nft/view/widget/nft_details.dart';
@@ -114,5 +117,9 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: PaymentProcessRoute.page),
         AutoRoute(page: BuyRoute.page),
         AutoRoute(page: LinkNewAddressRoute.page),
+        // Add New Account
+        AutoRoute(page: AddNewAccountRoute.page),
+        AutoRoute(page: AddAccountRoute.page),
+        AutoRoute(page: ImportNewAccountRoute.page),
       ];
 }

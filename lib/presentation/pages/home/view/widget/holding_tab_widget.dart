@@ -6,6 +6,7 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/global.dart';
 import 'package:biorbank/utils/helpers/app_helper.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
+import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -94,7 +95,9 @@ class _HoldingTabWidgetState extends State<HoldingTabWidget> {
           ),
           height(15.h),
           AddAccountWidget(
-            onTap: () {},
+            onTap: () {
+              context.router.push(const AddNewAccountRoute());
+            },
           )
         ],
       ),

@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/generated/assets.dart';
 import 'package:biorbank/presentation/common/common_appbar.dart';
 import 'package:biorbank/presentation/common/common_textfield.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/cubit/import_existing_account_cubit.dart';
 import 'package:biorbank/utils/Theme/app_colors.dart';
 import 'package:biorbank/utils/app_strings.dart';
 import 'package:biorbank/utils/app_widgets.dart';
@@ -10,8 +10,8 @@ import 'package:biorbank/utils/common_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-@RoutePage()
 
+@RoutePage()
 class NewAccountCreateScreen extends StatelessWidget {
   const NewAccountCreateScreen({super.key});
 
@@ -22,12 +22,12 @@ class NewAccountCreateScreen extends StatelessWidget {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child:
-            BlocBuilder<ImportExsitingAccountCubit, ImportExsitingAccountState>(
+            BlocBuilder<ImportExistingAccountCubit, ImportExistingAccountState>(
           builder: (context, state) {
-            var cubit = context.read<ImportExsitingAccountCubit>();
-           if(state is ChainChangeState){
-            cubit.selectedChainIndex=state.index;
-           }
+            var cubit = context.read<ImportExistingAccountCubit>();
+            if (state is ChainChangeState) {
+              cubit.selectedChainIndex = state.index;
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

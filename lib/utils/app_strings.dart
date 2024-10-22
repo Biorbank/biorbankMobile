@@ -13,7 +13,7 @@ class AppStrings {
   static String forgetPassword = "Forget password?";
   static String createNewAccount = "Create New Account";
   static String recoveryPhrase = "Recovery Phrase";
-  static String importExsitingAccount = "Import an Exsiting Account";
+  static String importExistingAccount = "Import an Existing Account";
   static String pharseOrKey = "Phrase / Key";
   static String jsonFile = "Json file";
   static String connectHardwareWallet = "Connect Hardware Wallet";
@@ -71,4 +71,5 @@ class AppStrings {
   static String quickAccess = 'Quick Access';
   static String menu = 'Menu';
   static String history = 'History';
+  static String selectAccountType = 'Select Account Type';
 }
