@@ -4,7 +4,6 @@ import 'package:biorbank/presentation/common/common_search_appbar.dart';
 import 'package:biorbank/presentation/common/common_balance_widget.dart';
 import 'package:biorbank/presentation/pages/defi/cubit/defi_cubit.dart';
 import 'package:biorbank/presentation/pages/defi/view/widget/defi_details_widget.dart';
-import 'package:biorbank/presentation/pages/defi/view/widget/staking_details_widget.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/routers/auto_app_router.dart';
 import 'package:flutter/material.dart';

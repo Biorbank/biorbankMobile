@@ -1,8 +1,14 @@
 import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:biorbank/presentation/pages/dashboard/cubit/dashboard_cubit.dart';
+import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
+import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/token_page/view/widget/alert_btn/create_alert_popup.dart';
 import 'package:biorbank/presentation/pages/token_page/view/widget/tab_bar.dart';
 import 'package:biorbank/utils/app_widgets.dart';
 import 'package:biorbank/utils/common_spacer.dart';
+import 'package:biorbank/utils/enum/home_page_action_enum.dart';
+import 'package:biorbank/utils/global.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +57,9 @@ class TokenScreen extends StatelessWidget {
                 children: [
                   CommonAppbar(
                     title: AppStrings.token,
+                    onTapBack: () {
+                      AutoTabsRouter.of(context).setActiveIndex(12);
+                    },
                   ),
                   Container(
                     margin: const EdgeInsets.only(
@@ -149,6 +158,48 @@ class TokenScreen extends StatelessWidget {
                       onTapOverView: (index) {
                         cubit.onTapeTradeActionOption(
                             value: cubit.tradeOptions[index]['type']);
+                        // Tap
+                        if (index == 0) {
+                          context.read<DashboardCubit>().selectItem = 7;
+                          context.read<MarketCubit>().selectedTabIndex = 1;
+                          Global.controller.hideDrawer();
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            AutoTabsRouter.of(context).setActiveIndex(1);
+                          });
+                        } else if (index == 1) {
+                          Global.controller.hideDrawer();
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            context.read<HomeCubit>().selectedOption =
+                                ActionEnum.deposit;
+                            AutoTabsRouter.of(context).setActiveIndex(4);
+                          });
+                        } else if (index == 2) {
+                          Global.controller.hideDrawer();
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            context.read<HomeCubit>().selectedOption =
+                                ActionEnum.send;
+                            AutoTabsRouter.of(context).setActiveIndex(4);
+                          });
+                        } else if (index == 3) {
+                          Global.controller.hideDrawer();
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            context.read<HomeCubit>().selectedOption =
+                                ActionEnum.buyORsell;
+                            AutoTabsRouter.of(context).setActiveIndex(4);
+                          });
+                        } else if (index == 4) {
+                          Global.controller.hideDrawer();
+                          Global.scaffoldKey.currentState?.closeDrawer();
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            context.read<HomeCubit>().selectedOption =
+                                ActionEnum.payBills;
+                            AutoTabsRouter.of(context).setActiveIndex(4);
+                          });
+                        }
                       },
                       onChangedExplores: (value) {
                         cubit.changeExploreDropDown(value: value ?? "");

@@ -96,9 +96,9 @@ class NftDetailTab extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 4, right: 4, top: 14, bottom: 35),
               separatorBuilder: (context, index) => height(20.h),
-              itemCount: 2,
+              itemCount: 10,
               itemBuilder: (context, index) => InkWell(
-                onTap: (){
+                onTap: () {
                   context.router.push(const NFTRoute());
                 },
                 child: nftDetailTile(
@@ -146,8 +146,7 @@ class NftDetailTab extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(40.r),
                 child: CachedNetworkImage(
-                  imageUrl:
-                     imageUrl,
+                  imageUrl: imageUrl,
                   height: 44.h,
                   width: 44.w,
                   placeholder: (context, url) => const SizedBox.shrink(),
@@ -174,8 +173,7 @@ class NftDetailTab extends StatelessWidget {
                                 .onSecondaryContainer),
                         width(18.w),
                         CachedNetworkImage(
-                          imageUrl:
-                              currenyImageUrl,
+                          imageUrl: currenyImageUrl,
                           height: 14.h,
                           width: 14.w,
                           placeholder: (context, url) =>
@@ -205,8 +203,7 @@ class NftDetailTab extends StatelessWidget {
             Row(
               children: [
                 CachedNetworkImage(
-                  imageUrl:
-                      currenyImageUrl,
+                  imageUrl: currenyImageUrl,
                   height: 14.h,
                   width: 14.w,
                   placeholder: (context, url) => const SizedBox.shrink(),

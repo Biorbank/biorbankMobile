@@ -117,7 +117,6 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                   Expanded(
                                     child: CommonTextfield(
                                       isFilled: true,
-                                      autoFocus: true,
                                       isReadOnly: true,
                                       showCursor: true,
                                       controller: cubit.moneyController,

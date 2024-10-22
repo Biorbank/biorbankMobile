@@ -186,7 +186,7 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       Global.controller.hideDrawer();
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
-                        context.read<MarketCubit>().selectedTabIndex = 2;
+                        context.read<MarketCubit>().selectedTabIndex = 1;
                         AutoTabsRouter.of(context).setActiveIndex(1);
                       });
                     },
@@ -202,6 +202,11 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
                       Global.scaffoldKey.currentState?.closeDrawer();
                       Future.delayed(const Duration(milliseconds: 200), () {
                         context.read<DefiDetailCubit>().selectedTabIndex = 1;
+                        context.read<DefiDetailCubit>().selectedCurrentIndex =
+                            1;
+                        context
+                            .read<DefiDetailCubit>()
+                            .onChangeTabIndex(index: 1);
                         AutoTabsRouter.of(context).setActiveIndex(0);
                       });
                     },
