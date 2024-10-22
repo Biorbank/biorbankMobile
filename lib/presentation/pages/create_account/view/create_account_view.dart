@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:biorbank/presentation/common/common_button.dart';
 import 'package:biorbank/presentation/pages/create_account/cubit/create_account_cubit.dart';
-import 'package:biorbank/presentation/pages/create_account/widget/important_view.dart';
 import 'package:biorbank/utils/common_spacer.dart';
 import 'package:biorbank/utils/models/BiorBankWallet.dart';
 import 'package:biorbank/utils/preferences.dart';
@@ -33,7 +32,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
   }
 
   buildScreenByStep(int step) {
-     if (step == 0) {
+    if (step == 0) {
       return SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,9 +72,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                           height(14.h),
                           CommonAppbar(
                             onTapBack: () {
-                              if (cubit.step == 0) {
-                                cubit.updateStep(value: 0);
-                              }
+                              context.back();
                             },
                             title: AppStrings.createNewAccount,
                           ),
@@ -89,8 +86,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                               if (cubit.formKey.currentState?.validate() ??
                                   false) {
                                 UserPreferences.setUserData(
-                                    value:
-                                    cubit.createPasswordController.text);
+                                    value: cubit.createPasswordController.text);
 
                                 Map map = {};
                                 map['seed_phrase'] = cubit.mnemonic;
@@ -99,7 +95,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
 
                                 try {
                                   BiorBankWallet newWallet =
-                                  await compute(generateNewWallet, map);
+                                      await compute(generateNewWallet, map);
                                   await context
                                       .read<CryptoDBRepositoryImpl>()
                                       .storeWallet(newWallet);
@@ -124,7 +120,7 @@ class _CreateAccountViewState extends State<CreateAccountScreen> {
                               cubit.isLoadingNotifier.value = false;
                             },
                           ),
-                          height(10.h),
+                          height(25.h),
                         ],
                       ),
                     ),

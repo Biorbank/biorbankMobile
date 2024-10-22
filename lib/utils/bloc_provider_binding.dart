@@ -12,7 +12,7 @@ import 'package:biorbank/presentation/pages/feedback/cubit/feedback_cubit_cubit.
 import 'package:biorbank/presentation/pages/help_center/cubit/help_center_cubit.dart';
 import 'package:biorbank/presentation/pages/history/cubit/history_cubit.dart';
 import 'package:biorbank/presentation/pages/home/cubit/home_cubit.dart';
-import 'package:biorbank/presentation/pages/import_exsiting_account/cubit/import_exsiting_account_cubit.dart';
+import 'package:biorbank/presentation/pages/import_existing_account/cubit/import_existing_account_cubit.dart';
 import 'package:biorbank/presentation/pages/market/cubit/market_cubit.dart';
 import 'package:biorbank/presentation/pages/nft_holding/cubit/nft_holding_cubit.dart';
 import 'package:biorbank/presentation/pages/p2p/cubit/p2p_market_cubit.dart';
@@ -42,8 +42,8 @@ class MultiBlocProviderList extends StatelessWidget {
         BlocProvider<CreateAccountCubit>(
           create: (BuildContext context) => CreateAccountCubit(),
         ),
-        BlocProvider<ImportExsitingAccountCubit>(
-          create: (BuildContext context) => ImportExsitingAccountCubit(),
+        BlocProvider<ImportExistingAccountCubit>(
+          create: (BuildContext context) => ImportExistingAccountCubit(),
         ),
         BlocProvider<DashboardCubit>(
           create: (BuildContext context) => DashboardCubit(),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-part 'import_exsiting_account_state.dart';
+part 'import_existing_account_state.dart';
 
-class ImportExsitingAccountCubit extends Cubit<ImportExsitingAccountState> {
-  ImportExsitingAccountCubit() : super(ImportExsitingAccountInitialState());
+class ImportExistingAccountCubit extends Cubit<ImportExistingAccountState> {
+  ImportExistingAccountCubit() : super(ImportExistingAccountInitialState());
 
   TextEditingController pharseKeyController = TextEditingController();
   TextEditingController walletNameController = TextEditingController();
@@ -21,13 +21,13 @@ class ImportExsitingAccountCubit extends Cubit<ImportExsitingAccountState> {
   ValueNotifier<bool> isLoadingNotifier = ValueNotifier(false);
 
   void togglePasswordVisibility() {
-    emit(ImportExsitingAccountInitialState());
+    emit(ImportExistingAccountInitialState());
     isObscurePassword = !isObscurePassword;
     emit(PasswordVisibilityToggleState());
   }
 
   void toggleConfirmPasswordVisibility() {
-    emit(ImportExsitingAccountInitialState());
+    emit(ImportExistingAccountInitialState());
     isObscureConfirmPassword = !isObscureConfirmPassword;
     emit(PasswordVisibilityToggleState());
   }

@@ -329,7 +329,7 @@ class _DrawerViewState extends State<DrawerView> with TickerProviderStateMixin {
               onTap: () {
                 // UserPreferences.eraseData();
 
-                context.router.replaceAll([const WelcomeRoute()]);
+                context.router.replaceAll([const LoginRoute()]);
                 // Navigator.pushNamedAndRemoveUntil(
                 //   context,
                 //   Routes.welcomeScreenRoute,
