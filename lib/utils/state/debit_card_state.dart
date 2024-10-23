@@ -18,3 +18,15 @@ class DebitCardError extends DebitCardState {
 
   DebitCardError(this.message);
 }
+
+class CreateCardLoaded extends DebitCardState {
+  final PayWitMoonCard card;
+
+  CreateCardLoaded(this.card);
+}
+
+class DebitCardFrozen extends DebitCardState {
+  final String message;
+
+  DebitCardFrozen(this.message);
+}

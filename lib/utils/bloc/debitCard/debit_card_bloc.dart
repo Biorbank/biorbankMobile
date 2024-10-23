@@ -1,9 +1,9 @@
 import 'package:biorbank/utils/events/debit_card/debit_card_events.dart';
 import 'package:biorbank/utils/service/pay_with_moon_service.dart';
-import 'package:biorbank/utils/state/debit_card_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../repositories/crypto_db_repository/crypto_db_repository_impl.dart';
+import '../../state/debit_card_state.dart';
 
 class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
   DebitCardBloc() : super(DebitCardInitial()) {
@@ -17,6 +17,27 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
         emit(DebitCardLoaded(card, transactions));
       } catch (e) {
         emit(DebitCardError('Failed to load card data: ${e.toString()}'));
+      }
+    });
+
+    on<FreezeCardEvent>((event, emit) async {
+      emit(DebitCardLoading());
+      try {
+        final message = await freezeCard(event.cardId, event.freeze);
+        emit(DebitCardFrozen(message));
+      } catch (e) {
+        emit(DebitCardError('Failed to freeze card: ${e.toString()}'));
+      }
+    });
+
+    // Handle create card details
+    on<CreateCardEvent>((event, emit) async {
+      emit(DebitCardLoading());
+      try {
+        final card = await createCard(event.prodId);
+        emit(CreateCardLoaded(card));
+      } catch (e) {
+        emit(DebitCardError('Failed to create card : ${e.toString()}'));
       }
     });
 

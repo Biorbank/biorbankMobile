@@ -13,3 +13,16 @@ class FetchTransactionListEvent extends DebitCardEvent {
 
   FetchTransactionListEvent(this.cardId, this.currentPage, this.perPage);
 }
+
+class CreateCardEvent extends DebitCardEvent {
+  final String prodId;
+
+  CreateCardEvent(this.prodId);
+}
+
+class FreezeCardEvent extends DebitCardEvent {
+  final String cardId;
+  final bool freeze;
+
+  FreezeCardEvent(this.cardId, this.freeze);
+}
