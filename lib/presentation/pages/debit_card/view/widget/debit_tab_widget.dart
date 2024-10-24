@@ -33,7 +33,8 @@ class DebitTabWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => DebitCardBloc()
-        ..add(FetchCardDetailsEvent('550e8400-e29b-41d4-a716-446655440000')), // Replace with actual cardId
+        ..add(FetchCardDetailsEvent(
+            '550e8400-e29b-41d4-a716-446655440000')), // Replace with actual cardId
       child: BlocBuilder<DebitCardBloc, DebitCardState>(
         builder: (context, state) {
           if (state is DebitCardLoading) {
@@ -70,7 +71,9 @@ class DebitTabWidget extends StatelessWidget {
                                       : 'Show details'),
                             ),
                             GestureDetector(
-                              onTap: onTapBlocButton,
+                              onTap: () {
+                                _showConfirmationDialog(context);
+                              },
                               child: commonCardWidget(
                                   context: context,
                                   icon: Assets.imagesCloseCircle,
@@ -130,45 +133,76 @@ class DebitTabWidget extends StatelessWidget {
     );
   }
 
-  Widget commonCardWidget({
-    required BuildContext context,
-    required String icon,
-    required String title,
-  }) {
-    return Container(
-      width: 101.w,
-      height: 100.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.r),
-        color: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      child: Column(
-        children: [
-          height(12.h),
-          Container(
-            height: 48.h,
-            width: 48.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context).colorScheme.onSurface,
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text('Confirm Freeze',
+              style: TextStyle(color: Theme.of(context).primaryColor)),
+          content: Text('Are you sure you want to freeze this card?',
+              style: TextStyle(color: Theme.of(context).primaryColor)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel', style: TextStyle(color: Colors.red)),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(14.0),
-              child: Image.asset(
-                icon,
-                height: 20.h,
-                width: 20.w,
-                color: Theme.of(context).colorScheme.shadow,
-              ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                onTapBlocButton(); // Call the original onTapBlocButton
+              },
+              child: const Text('Yes, Freeze',
+                  style: TextStyle(color: Colors.green)),
             ),
-          ),
-          height(8.h),
-          AppConstant.commonText(
-            title,
-            color: Theme.of(context).colorScheme.shadow,
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
+}
+
+Widget commonCardWidget({
+  required BuildContext context,
+  required String icon,
+  required String title,
+}) {
+  return Container(
+    width: 101.w,
+    height: 100.h,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(12.r),
+      color: Theme.of(context).colorScheme.inversePrimary,
+    ),
+    child: Column(
+      children: [
+        height(12.h),
+        Container(
+          height: 48.h,
+          width: 48.w,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Image.asset(
+              icon,
+              height: 20.h,
+              width: 20.w,
+              color: Theme.of(context).colorScheme.shadow,
+            ),
+          ),
+        ),
+        height(8.h),
+        AppConstant.commonText(
+          title,
+          color: Theme.of(context).colorScheme.shadow,
+        ),
+      ],
+    ),
+  );
 }

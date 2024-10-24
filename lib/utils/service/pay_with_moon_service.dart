@@ -2,7 +2,6 @@
 import 'package:biorbank/utils/models/CardProduct.dart';
 import 'package:biorbank/utils/models/PurchaseRequest.dart';
 import 'package:biorbank/utils/models/gift_card_product.dart';
-import 'package:biorbank/utils/models/gift_card_product_response.dart';
 import 'package:biorbank/utils/models/gift_card_request.dart';
 import 'package:biorbank/utils/models/gift_card_response.dart';
 import 'package:biorbank/utils/networks/pay_with_moon_api_service.dart';

@@ -20,16 +20,6 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
       }
     });
 
-    on<FreezeCardEvent>((event, emit) async {
-      emit(DebitCardLoading());
-      try {
-        final message = await freezeCard(event.cardId, event.freeze);
-        emit(DebitCardFrozen(message));
-      } catch (e) {
-        emit(DebitCardError('Failed to freeze card: ${e.toString()}'));
-      }
-    });
-
     // Handle create card details
     on<CreateCardEvent>((event, emit) async {
       emit(DebitCardLoading());

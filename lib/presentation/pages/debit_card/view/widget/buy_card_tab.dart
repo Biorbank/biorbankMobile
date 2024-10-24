@@ -7,15 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../../utils/web_view_widget.dart';
+
 class BuyCardTab extends StatelessWidget {
   const BuyCardTab(
       {super.key,
-      this.onTapSortByFilter,
-      this.onTapTypeFilter,
-      this.onTapOnlineInStoreFilter,
-      required this.selectedSortByFilter,
-      required this.selectedTypeFilter,
-      required this.selectedOnlineInStoreFilter});
+        this.onTapSortByFilter,
+        this.onTapTypeFilter,
+        this.onTapOnlineInStoreFilter,
+        required this.selectedSortByFilter,
+        required this.selectedTypeFilter,
+        required this.selectedOnlineInStoreFilter});
   final Function(String)? onTapSortByFilter;
   final Function(String)? onTapTypeFilter;
   final Function(String)? onTapOnlineInStoreFilter;
@@ -63,7 +65,7 @@ class BuyCardTab extends StatelessWidget {
                     commonBottomsheetShow(
                         context: context,
                         filterList:
-                            context.read<DebitCardCubit>().onlineOrStoreFilter,
+                        context.read<DebitCardCubit>().onlineOrStoreFilter,
                         selectedFilter: selectedOnlineInStoreFilter,
                         title: 'Online/in-store',
                         onTapFilter: onTapOnlineInStoreFilter);
@@ -102,10 +104,10 @@ class BuyCardTab extends StatelessWidget {
 
   Future<dynamic> commonBottomsheetShow(
       {required BuildContext context,
-      required List<String> filterList,
-      required String selectedFilter,
-      required String title,
-      required Function(String)? onTapFilter}) {
+        required List<String> filterList,
+        required String selectedFilter,
+        required String title,
+        required Function(String)? onTapFilter}) {
     return showModalBottomSheet(
       isScrollControlled: true,
       useSafeArea: true,
@@ -126,43 +128,54 @@ class BuyCardTab extends StatelessWidget {
 
   Widget cardDetailWidget(
       {required BuildContext context,
-      required String imageUrl,
-      required String title,
-      required String price}) {
+        required String imageUrl,
+        required String title,
+        required String price}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          height(10.h),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10.r),
-            child: Image.asset(
-              imageUrl,
-              height: 89.h,
-              width: double.infinity,
-              fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: () {
+          // Open WebView on card tap
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  WebViewScreen(url: 'https://www.bitrefill.com/embed'),
             ),
-          ),
-          height(8.h),
-          AppConstant.commonText(title,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.shadow),
-          height(4.h),
-          AppConstant.commonText(price,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w500,
-              color: Theme.of(context).colorScheme.onSecondaryContainer)
-        ],
+          );
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            height(10.h),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.r),
+              child: Image.asset(
+                imageUrl,
+                height: 89.h,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            height(8.h),
+            AppConstant.commonText(title,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.shadow),
+            height(4.h),
+            AppConstant.commonText(price,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSecondaryContainer)
+          ],
+        ),
       ),
     );
   }
 
   Widget filterTile(
       {required BuildContext context,
-      required String title,
-      required VoidCallback onTap}) {
+        required String title,
+        required VoidCallback onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(

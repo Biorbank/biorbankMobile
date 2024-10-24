@@ -24,9 +24,3 @@ class CreateCardLoaded extends DebitCardState {
 
   CreateCardLoaded(this.card);
 }
-
-class DebitCardFrozen extends DebitCardState {
-  final String message;
-
-  DebitCardFrozen(this.message);
-}
